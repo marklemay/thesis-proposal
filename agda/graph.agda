@@ -1,14 +1,16 @@
 module graph where
 
--- googling seems to indicate that there is no formalization of maz-flow min-cut / Ford–Fulkerson in agda
-
-open import Data.Nat using (ℕ; zero; suc; _+_; _*_; _^_; _∸_; _≤_)
+open import Data.Nat using (ℕ; zero; suc; _+_; _*_; _^_; _∸_; _≤_; _≤?_)
 open import Relation.Nullary using (¬_)
 open import Data.Nat.Properties
 open import Relation.Binary.PropositionalEquality
-open import Data.Fin hiding  (_+_; _<_; _≤_)
-open import Data.Bool hiding  (_<_; _≤_)
-open import Data.Vec
+open import Data.Fin hiding  (_+_; _<_; _≤_; _≤?_)
+open import Data.Bool hiding  (_<_; _≤_; _≤?_)
+open import Data.Vec hiding (_++_)
+open import Data.List  hiding (sum; map; allFin)
+open import Data.Maybe  hiding (map)
+open import Data.Product hiding (map)
+
 
 sumF : (n : ℕ) -> (fn : Fin n -> ℕ) -> ℕ
 sumF n fn = sum (map fn (allFin n))
@@ -29,83 +31,32 @@ outgoing-flow {n} g vert = sumF n (λ outV → edge g vert outV)
 
 e1 = incoming-flow (clique 3 1) (# 0)
 
+smallest : {A : Set} -> List (ℕ × A) -> Maybe (ℕ × A × List (ℕ × A) )
+smallest {A} [] = nothing
+smallest {A} ((n , a) ∷ x₁) = just (loop n a [] x₁)
+  where
+    loop :  ℕ -> A -> (before : List (ℕ × A)) -> (after : List (ℕ × A))  -> ℕ × A × List (ℕ × A)
+    loop n a before [] = n , a , before
+    loop n a before ((n' , a') ∷ after) with (n ≤? n')
+    loop n a before ((n' , a') ∷ after) | Relation.Nullary.yes _ = loop n a ((n' , a') ∷ before) after
+    loop n a before ((n' , a') ∷ after) | Relation.Nullary.no _ = loop n' a' ((n , a) ∷ before) after
 
-record ss {n : ℕ} : Set where
-  field
-     source : Fin n
-     sink : Fin n
-     pr : ¬ source ≡ sink
-open ss
+outgoing-edges : {n : ℕ} -> Graph {n} -> (from : Fin n) -> List (ℕ × Fin n) 
+outgoing-edges = ?
 
-record Flow {n : ℕ} (full : Graph {n}) (s : ss {n}) (vol : ℕ) : Set where
-  field
-    flow : Graph{n}
-    local-plow-ok : (node : Fin n)
-      -> ¬ source s ≡ node -> ¬ sink s ≡ node
-      -> incoming-flow flow node ≡ outgoing-flow flow node
-    bounded : (from : Fin n) -> (to : Fin n) -> edge flow from to ≤ edge full from to
-  
-noFlow : {n : ℕ} (full : Graph {n}) -> (s : ss {n}) -> Flow full s 0
-edge (Flow.flow (noFlow full s)) from to = 0
-Flow.local-plow-ok (noFlow full s) node x x₁ = {!!} -- TODO: a suprisingly hard fact to prove
-Flow.bounded (noFlow full s) from to = {!!} -- TODO: easy to prove
+-- dijkstra's algorithm
+sortest-path : {n : ℕ} -> Graph {n} -> (from : Fin n) -> (to : Fin n) -> Maybe (List (Fin n))
+sortest-path {n} g from to = loop (Data.Vec.replicate nothing) (Data.List.map (λ x → (proj₁ x) , ([] , proj₂ x)) (outgoing-edges g from))
+  where
+    loop : Vec (Maybe (ℕ × List (Fin n))) n
+      -> List (ℕ × List (Fin n) × Fin n) -- total cost and  from and  to,  pretend this is a priority queue, 
+      -> Maybe (List (Fin n))
+    loop v ls with smallest ls
+    loop v ls | nothing = nothing
+    loop v ls | just (n , (from , to) , ls') with Data.Vec.lookup v to
+    loop v ls | just (n , (from , to) , ls') | just x = loop v ls'
+    loop v ls | just (n , (from , to) , ls') | nothing = loop (Data.Vec.updateAt to (λ _ → just (n , from)) v) (Data.List.map (λ x → n + proj₁ x , to ∷ from , proj₂ x) (outgoing-edges g to) ++ ls')
 
---open import Relation.Binary.Reasoning.PartialOrder -- a little too heavy
-
-open import Data.Product -- using (Σ; _,_; ∃; Σ-syntax; ∃-syntax)
-MaxFlow : {n : ℕ} (full : Graph {n}) -> (s : ss {n}) -> Set
-MaxFlow g ss = Σ  ℕ λ n → Flow g ss n × ((n' : ℕ) -> n ≤ n' -> ¬ Flow g ss n')
-
-
-open import Data.List
-open import Data.Maybe
-
--- represent path as a flow
--- path : {n : ℕ} (full : Graph {n}) (s : ss {n}) -> 
-
-remaining-flow : {n : ℕ} (full : Graph {n}) (s : ss {n}) -> (vol : ℕ) -> Flow full s vol -> Σ ℕ λ x → Flow full s x -- actually needs more constraints
-remaining-flow = {!!}
-
--- no correctness proof
-
-{-
-get-path :  {n : ℕ} (full : Graph {n}) -> (start : Fin n) -> (end : Fin n) -> ℕ × List (Fin n)
-get-path = {!!}
-
-ford–fulkerson : {n : ℕ} (full : Graph {n}) -> (s : ss {n}) -> Graph {n}
-ford–fulkerson = {!!}
--}
--- concrete attack. def min flow/max cut, implement ford f algorithm
-
-
-{-
-
--- a naive directed multigraph
-
-data Graph {n : ℕ} : Set where
-  disconnected : Graph
-  edge : (from : Fin n) -> (to : Fin n) -> Graph {n} -> Graph -- technically allows a multigraph
-
-data Connected {n : ℕ} (g : Graph {n}) : Fin n -> Fin n -> Set where
-  by-self : {x : Fin n} -> Connected g x x
-  by-path : {x y : Fin n} -> Connected g x x
- 
-mVerts : {n m : ℕ} -> (Fin n -> Fin m) -> Graph {n} -> Graph {m}
-mVerts m disconnected = disconnected
-mVerts m (edge from to g) = edge (m from) (m to) (mVerts m g)
-
--- mVerts id = id, associative
-
-diag : (n : ℕ) -> Graph {n}
-diag 0F = disconnected
-diag (suc n) = edge ( # 0 ) (# 0) (mVerts (raise 1F) (diag n))
-
--- g-from-func : {n : ℕ} -> (Fin n -> Fin n -> )
-
----clique
-
--}
-
-  
-
-
+    mapfst : {!!}
+    mapfst = {!!}
+  --  proj₁; snd to proj₂

@@ -1,0 +1,148 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Example: Church-Rosser
+\end_layout
+
+\begin_layout Standard
+One common uses for dependently typed languages is to establish correctness
+ properties over languages and their implementations.
+ Such defelopments are possible but not eaisy.
+\end_layout
+
+\begin_layout Standard
+Take for instance the proof that untyped lambda calulus is confluent, i.e.
+ given any term, any 2 reduction sequences can be extended to converge to
+ the same term.
+ The standard pencil and paper proof is short but not trivial: a new parelle
+ reduction is constructed that is shown to have the dimond property, since
+ the parelle reduction holds iff there is a standard reduction sequence.
+ 
+\end_layout
+
+\begin_layout Standard
+There are many developments in Agda 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+several chapters in https://plfa.github.io/, https://github.com/pi8027/lambda-calcu
+lus , https://scm.iis.sinica.edu.tw/home/2011/proving-the-church-rosser-theorem/
+ 
+\end_layout
+
+\end_inset
+
+, Coq
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://github.com/pi8027/lambda-calculus/tree/master/coq
+\end_layout
+
+\end_inset
+
+ , and Issabelle
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://search-proquest-com.ezproxy.bu.edu/docview/1367571808?accountid=9676&rfr_id
+=info%3Axri%2Fsid%3Aprimo
+\end_layout
+
+\end_inset
+
+ .
+ Personal experince leads me to believe that any development of this property
+ would require at least days of effort where most time, and proof code would
+ be spent on properties related to binding and substitution.
+ This would be problematic from a software design perspective, since any
+ change to the underlieing binding and substitution code would jeprodize
+ the established proof.
+\end_layout
+
+\begin_layout Standard
+Instead of a fully verified development, a partial development is possible.
+ 
+\end_layout
+
+\end_body
+\end_document

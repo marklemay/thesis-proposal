@@ -88,10 +88,11 @@ Dependently typed languages have great potential to enforce invariants,
  high burden to the programmer.
  I propose here a dependently typed programming language where as many obligatio
 ns as possible are transparently removed from the programmer, even at the
- expense of normal considerations such as compile time correctness guarantees,
- decidable type-checking, and efficiency.
- Where such issues would normally result in poor compile-time error messages,
- instead we should give precise runtime and test time error messages.
+ expense of normal considerations such as correctness guarantees, decidable
+ type-checking, and efficiency.
+ Not meeting the normal obligations would result in poor compile-time error
+ messages or stuck computation, instead we should give precise runtime and
+ test time error messages.
  By making type checking less strict, incremental improvements can be made
  to code.
  While there may be instances where these features are usable in 
@@ -105,14 +106,13 @@ production programs
  they are not primarily intended as an end to themselves, instead as a more
  realistic way to build up to the correct, terminating and efficient code
  that all dependent type research strives for.
- 
 \end_layout
 
 \begin_layout Standard
 Dependent type systems obligate programmers inhabit proof terms of properties
  that may be tangential to the programmer's current area of work.
  This problem is pervasive and virtually every dependently typed language
- provides a mechanism to to circumvent the type system (often breaking type
+ provides a mechanism to circumvent the type system (often breaking type
  soundness and causing computation to get stuck).
  While the proof terms themselves are rarely of interest to the programmer,
  the properties they witness are often important: a concrete counter-example
@@ -152,7 +152,7 @@ Since most of the features explicitly trade compile-time restrictions for
  defects of there program.
  To achieve this I propose a partly symbolic testing strategy that is in
  some sense complete.
- In the presence of non-terminating recursion or non terminating proof search,
+ In the presence of non-terminating recursion or non-terminating proof search,
  warnings will be given for programs that take a long time to terminate
  on given inputs.
  

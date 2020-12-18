@@ -81,82 +81,92 @@ Problem Statement
 \end_layout
 
 \begin_layout Standard
-The Curry-Howard correspondence identifies functions with theorems, providing
- a promising link between well explored areas of math and software engineering.
- This connection is most pronounced in dependent typed systems that provide
- a common language to write (total functional) programs about proofs and
- (intuitionistic) proofs about programs.
- Specifically, dependent type systems allow types to depend on terms, supporting
- an extremely powerful system of specification, computation and proof evidence.
- 
-\end_layout
-
-\begin_layout Standard
-Many languages have been written or modified to take advantage of dependent
- types, exploring potential trade offs in the design space.
- The most conservative use of dependent types can be seen in languages like
- Liquid Haskell, and Scala 3: function specifications may depend on values
- of some specific types such as int or bool, and users are never expected
- to write there own proofs.
- More advanced languages like Ats and F* allow function specifications to
- depend on a wider range of types, have built in automated support to solve
- some proofs automatically, and allow users to supply their own proof when
- automation fails.
- Full-spectrum dependent type languages like Agda, Idris, Zombie and the
- underlining language of Coq place almost no restriction on what terms may
- appear in types, and use the same syntactic construct to represent functions,
- type polymorphism, logical implication, and universal quantification.
-\end_layout
-
-\begin_layout Standard
-However, dependent type systems, especially full-spectrum dependent type
- systems, can be cumbersome when used as programming languages.
- If functions are exactly theorems then termination must be proven for every
- function to guarantee logical soundness.
- If the user takes full advantage of the dependent types, they will be obligated
- to prove many tedious facts about their user defined types and functions.
- The logic in which to prove these facts is conservative: the law of the
- excluding the law of the excluded middle is unavailable since it cannot
- be given a pure computational interpretation.
- A user may be prevented from running their program until the lemmas are
- proven or unsafely postulated.
- For this reason, is commonly recommended that programmers limit their use
- of dependent types and postulate all 
+Dependently typed languages have great potential to enforce invariants,
+ making programming more productive (as with type generic programming),
+ and communicating programmer intent.
+ However, the benefits of dependent type programming can often come at a
+ high burden to the programmer.
+ I propose here a dependently typed programming language where as many obligatio
+ns as possible are transparently removed from the programmer, even at the
+ expense of normal considerations such as compile time correctness guarantees,
+ decidable type-checking, and efficiency.
+ Where such issues would normally result in poor compile-time error messages,
+ instead we should give precise runtime and test time error messages.
+ By making type checking less strict, incremental improvements can be made
+ to code.
+ While there may be instances where these features are usable in 
 \begin_inset Quotes eld
 \end_inset
 
-obvious
+production programs
 \begin_inset Quotes erd
 \end_inset
 
- properties to be proven last.
- There will be no warning that a postulate is incorrect unless complicated
- 3rd party tools are used.
-\end_layout
-
-\begin_layout Standard
-Most issues of dependent types systems can be translated into the inability
- to summon a convenient term at type checking time.
- On one hand this is reasonable: such a term may not exists, require unsupported
- reasoning like the law of the excluded middle, or take too long to construct.
- On the other hand, all of these arguments may be equally made against postulate
-s, even though they are a critical tool to develop dependently typed programs.
- Interestingly, if proof functions were to be evaluated, the postulate could
- always be replaced with a value of it's type if the postulate is correct.
- If a postulate is incorrect, a clear error can often be presented.
- In the case of postulated equality, a term will always be easy to synthesize
- or refute at runtime.
-\end_layout
-
-\begin_layout Standard
-I propose interpreting postulates as impure proof search that may be carried
- out at runtime.
- Since proof terms are rarely evaluated directly, I also propose an apparently
- novel symbolic execution of dependently typed programs that reveal issues
- with postulated facts without delaying type checking.
- Additionally, proof search can be precompute offline allowing postulates
- to be used in a pragmatically relevant way.
+ they are not primarily intended as an end to themselves, instead as a more
+ realistic way to build up to the correct, terminating and efficient code
+ that all dependent type research strives for.
  
+\end_layout
+
+\begin_layout Standard
+Dependent type systems obligate programmers inhabit proof terms of properties
+ that may be tangential to the programmer's current area of work.
+ This problem is pervasive and virtually every dependently typed language
+ provides a mechanism to to circumvent the type system (often breaking type
+ soundness and causing computation to get stuck).
+ While the proof terms themselves are rarely of interest to the programmer,
+ the properties they witness are often important: a concrete counter-example
+ can save the programmer time, and even if there is no direct proof the
+ programmer can get confidence if a large number of examples have been tried.
+ I propose giving the assertions runtime behavior, specifically that of
+ proof search.
+ I believe this is the most natural and flexible approach, since it requires
+ a minimum commitment from the programmer, but will preform reasonably on
+ user defined functions and data.
+\end_layout
+
+\begin_layout Standard
+Mainstream typed languages tend to satisfy a replacement property: any well
+ typed sub-expression may be replaced with a different term of the same
+ type without changing the type of the larger expression.
+ This property does not hold in Dependently typed languages, where even
+ contextually equivalent terms of equivalent type are not replaceable (x+0
+ cannot be replaced with 0+x in many dependently type languages).
+ Associating contextual equivalence with definitional equality is at odds
+ with the decidability of type checking.
+ However, virtually all systems provide a conservative approximation of
+ contextual equivalence that admit as many equalities as possible.
+ This causes a subtle burden to the programmer who is always obligated to
+ contort to the specific definitional syntax of the system.
+ Definitional inequality is one source of the confusing error messages that
+ dependently typed languages are known for.
+ Instead of underestimating equality, I propose that we over-approximate
+ equality and monitor any observations that could differentiate terms, if
+ an observation is observed at runtime, then a precise error message can
+ be returned.
+\end_layout
+
+\begin_layout Standard
+Since most of the features explicitly trade compile-time restrictions for
+ runtime errors, it is important for the programmer to get feedback on possible
+ defects of there program.
+ To achieve this I propose a partly symbolic testing strategy that is in
+ some sense complete.
+ In the presence of non-terminating recursion or non terminating proof search,
+ warnings will be given for programs that take a long time to terminate
+ on given inputs.
+ 
+\end_layout
+
+\begin_layout Standard
+There is some evidence that pure full-spectrum dependently typed languages
+ like Agda and Idris are easier to learn My language is generally in that
+ style (omitting nice features like nested pattern matching and implicit
+ arguments).
+ As in the Zombie language my language is call by value which allows for
+ partial correctness.
+ Additionally no restrictions are placed on recursion, though this complicates
+ the theory.
 \end_layout
 
 \end_body

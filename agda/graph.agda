@@ -18,8 +18,39 @@ record Graph {n : ℕ} : Set where
   field
     edge : (from : Fin n) -> (to : Fin n) -> ℕ
 open Graph
--- doesn't allow disconnrcted edges, only expensively connexted edges
+-- doesn't allow disconnrcted edges, only expensively connexted edges (some deffenitions bellow are very sensative to this)
 
+--Path : {n : ℕ} -> Set -- TODO: at least 1 element?
+--Path {n} = List (Fin n)
+
+data Path {n :  ℕ} : Fin n -> Fin n -> Set where
+  self : {v :  Fin n} -> Path v v
+  hop : {x y :  Fin n} -> Path x y -> (z : Fin n) -> Path x z
+
+-- ls-to-path : {n :  ℕ} : Fin n -> List (Fin n) ->
+
+cost : {n : ℕ} -> {x y : Fin n} -> Path x y -> Graph {n} -> ℕ -- alternatively build cost into the calc
+cost self g = 0
+cost (hop {_} {from} p to) g = edge g from to + cost p g
+
+CheapestPath : {n : ℕ} -> (x y : Fin n) ->  Path x y -> Graph {n} -> Set
+CheapestPath x y p g = (other : Path x y) -> cost p g ≤ cost other g
+
+selfbest :  {n : ℕ} -> (g : Graph {n}) -> {x : Fin n} -> CheapestPath x x (self {_} {x}) g 
+selfbest  g {x} other =  _≤_.z≤n
+
+
+--incbest :  {n : ℕ} -> (g : Graph {n}) -> {x : Fin n} -> CheapestPath x x (self {_} {x}) g 
+--incfbest  g {x} other =  _≤_.z≤n
+
+
+
+{-
+cost : {n : ℕ} -> Path {n} -> Graph {n} -> ℕ
+cost [] g = 0
+cost (x ∷ []) g = 0
+cost (to ∷ p@(from ∷ _)) g = edge g from to + cost p g
+-}
 
 
 
@@ -74,6 +105,18 @@ ee0 = edge  gex 3F 3F
 ee1 = edge  gex 0F 9F
 ee2 = edge  gex 0F 8F
 
+epath : Path {10} 0F 9F
+epath = hop (hop (hop self 0F) 8F) 9F
+
+-- need some bounding lemas to be workable
+
+
+
+
+
+ebest : CheapestPath 0F 9F epath gex
+ebest other = {!!}
+
 
 clique : (v : ℕ) -> (vol : ℕ) -> Graph {v}
 edge (clique v vol) from to = vol  -- allows self flow
@@ -114,7 +157,7 @@ sortest-path {n} g from to = loop (Data.Vec.replicate nothing) (Data.List.map (�
     loop v ls | just (n , (from , to) , ls') | nothing = loop (Data.Vec.updateAt to (λ _ → just (n , from)) v) (Data.List.map (λ x → n + proj₁ x , to ∷ from , proj₂ x) (outgoing-edges g to) ++ ls')
 -}
 
-loop' : {n : ℕ} -> Graph {n} -> (from : Fin n) -> (to : Fin n) -> Vec (Maybe (ℕ × List (Fin n))) n -> List (ℕ × List (Fin n) × Fin n) -> Maybe ((Vec (Maybe (ℕ × List (Fin n))) n)  × {!!} )
+loop' : {n : ℕ} -> Graph {n} -> (from : Fin n) -> (to : Fin n) -> Vec (Maybe (ℕ × List (Fin n))) n -> List (ℕ × List (Fin n) × Fin n) -> Maybe ((Vec (Maybe (ℕ × List (Fin n))) n)  × List (Σ ℕ (λ _ → Σ (List (Fin n)) (λ _ → Fin n))) )
 loop' {n} g from to v ls with smallest ls
 loop' {n} g from to v ls | nothing = nothing
 loop' {n} g _ _ v ls | just (cost , (from , to) , ls') with Data.Vec.lookup v to
@@ -148,5 +191,5 @@ pred (suc x) = x
 
 step : ℕ -> Σ (Vec (Maybe (Σ ℕ (λ _ → List (Fin 10)))) 10)
               (λ _ → List (Σ ℕ (λ _ → Σ (List (Fin 10)) (λ _ → Fin 10))))
-step 0 = isJust ( loop' gex 0F 9F (Data.Vec.updateAt 0F (λ _ → just (0 ,  []))  (Data.Vec.replicate nothing)) (Data.List.map (λ x → (proj₁ x) , ([] , proj₂ x)) (outgoing-edges gex 0F)))
+step 0 = isJust ( loop' gex 0F 9F (Data.Vec.updateAt 0F (λ _ → just (0 ,  []))  (Data.Vec.replicate nothing)) (Data.List.map (λ x → (proj₁ x) , (0F ∷ [] , proj₂ x)) (outgoing-edges gex 0F)))
 step x = let (v , ls) = (step (pred x)) in isJust (loop' gex 0F 9F v ls)

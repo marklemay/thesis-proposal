@@ -39,6 +39,32 @@ CheapestPath x y p g = (other : Path x y) -> cost p g ≤ cost other g
 selfbest :  {n : ℕ} -> (g : Graph {n}) -> {x : Fin n} -> CheapestPath x x (self {_} {x}) g 
 selfbest  g {x} other =  _≤_.z≤n
 
+{-
+record completeBound (subject : Set) (prop : subject -> Set) : {!!} where
+  field
+    contains : subject -> Set
+    complete : (s : subject) -> prop s -> contains s
+-}
+
+--first pass, crush the problem with exhuastion?
+cont : {n : ℕ} -> List (Fin n) -> (Fin n) -> Set
+cont [] v = {!!}
+cont (x ∷ ls) v = {!!}
+
+allNodesFrom : {n : ℕ} {g : Graph {n}}
+  -> {start : Fin n} (boundryCost : ℕ)
+  -> Set
+allNodesFrom {n} {g} {start} boundryCost = Σ (List (Fin n)) λ ls → (other : Fin n) -> (p : Path start other) -> cost p g ≤ boundryCost -> cont ls other 
+  --Σ  (List (Σ (Fin n) λ to → Σ (Path start to) {!!}) ?
+
+allPathsFrom : {n : ℕ} {g : Graph {n}}
+  -> {start : Fin n} (boundryCost : ℕ)
+  -> Set
+allPathsFrom {n} {g} {start} boundryCost = Σ (List (Σ (Fin n) λ to → Path start to)) λ to → {!!}
+
+lem1 : {n : ℕ} {g : Graph {n}}
+  -> {start : Fin n} (boundryCost : ℕ)  (dests : List (Σ (Fin n) λ to → Σ (Path start to) {!!} )) -> {!!}
+lem1 = {!!}
 
 --incbest :  {n : ℕ} -> (g : Graph {n}) -> {x : Fin n} -> CheapestPath x x (self {_} {x}) g 
 --incfbest  g {x} other =  _≤_.z≤n

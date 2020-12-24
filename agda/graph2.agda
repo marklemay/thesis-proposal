@@ -6,9 +6,11 @@ open import Data.Nat.Properties
 open import Relation.Binary.PropositionalEquality
 open import Data.Fin hiding  (_+_; _<_; _≤_; _≤?_; _-_; pred)
 open import Data.Bool hiding  (_<_; _≤_; _≤?_)
-open import Data.Vec hiding (_++_)
-open import Data.List  hiding (sum; map; allFin)
+--open import Data.Vec hiding (_++_)
+open import Data.List --  hiding (sum; map; allFin)
 open import Data.List.Membership.Propositional using (_∈_)
+open import Data.List.All hiding (self)
+open import Data.List.Relation.Unary.All.Properties
 open import Data.Maybe  hiding (map)
 open import Data.Product hiding (map)
 open import Data.Sum  hiding (map)
@@ -17,7 +19,19 @@ open import Relation.Nullary using (¬_)
 open import Data.Empty
 
 
-record Graph {n : ℕ} : Set₁  where
+record Selection {A : Set} (a : A) (ls' : List A) (ls : List A) : Set where
+  field
+    a∈ls :  a ∈  ls
+    ls'<ls :  {a' : A} -> (a' ∈  ls') -> a' ∈  ls
+    ls<a+ls' :  {a' : A} -> (a' ∈  ls) -> a' ∈  ls' ⊎ a' ≡ a
+
+-- in std lib somewhere?
+_∈?_ : {n : ℕ} (v : Fin n) (ls : List (Fin n)) -> Relation.Nullary.Dec (v ∈  ls)
+v ∈? ls = {!!}
+
+-- possibly better as a permutation?
+
+record Graph {n : ℕ} : Set  where
   field
  --   Edge : (from : Fin n) -> (to : Fin n) -> Set
     edge : (from : Fin n) -> (to : Fin n) -> Bool --  Relation.Nullary.Dec (Edge from to)
@@ -26,7 +40,10 @@ open Graph
 module Paths {n :  ℕ} (g : Graph {n}) where
   V = Fin n
   edg = edge g
-  
+
+  Con : (x y : V) -> Set
+  Con x y = T (edg x y)
+
   data Path : Fin n -> Fin n -> Set where
     self : (v :  Fin n) -> Path v v
     hop : {x y :  Fin n} -> Path x y -> (z : Fin n) -> T (edg y z) -> Path x z
@@ -48,36 +65,59 @@ module Paths {n :  ℕ} (g : Graph {n}) where
   directC from to x e (hop other .to x₁) = s≤s z≤n
 
   record Visited (start : V) (bound :  ℕ) : Set where
-    nodes : List V
-    nodesAreBest : (to : V) -> to ∈ nodes -> Σ (Path start to) (λ p → cost p ≤ bound × CheapestPath p)
-    otherNodesWorse : (to : V) -> ¬ to ∈ nodes -> (p : Path start to) -> bound ≤  cost p
+    constructor mkVisited
+    field
+      nodes : List V
+      nodesAreBest : (to : V) -> to ∈ nodes -> Σ (Path start to) (λ p → cost p ≤ bound × CheapestPath p)
+      otherNodesWorse : (to : V) -> ¬ to ∈ nodes -> (p : Path start to) -> bound ≤  cost p
+
 
   record Candidates (start : V) (bound :  ℕ) : Set where
-    vis : Visited start bound --or index by?
     open Visited
+    field
+      vis : Visited start bound --or index by?
     
-    candidates : List (ℕ × V × V) -- TODO: pehaps hold the full path? still pretend this is a priority queue
-    wf : (c : ℕ) (from to : V) -> (c , from , to) ∈ candidates ->
-      Σ (T (edg from to)) \ isE ->
-      Σ  (from ∈ nodes vis) \ con ->
-      c ≡ cost (hop (proj₁ (nodesAreBest vis from con)) to isE )   -- bound ≤  cost (?)
+      candidates : List (ℕ × V × V) -- TODO: pehaps hold the full path? still pretend this is a priority queue
+      wf : (c : ℕ) (from to : V) -> (c , from , to) ∈ candidates ->
+        Σ (T (edg from to)) \ isE ->
+        Σ  (from ∈ nodes vis) \ con ->
+        c ≡ cost (hop (proj₁ (nodesAreBest vis from con)) to isE )   -- better with All
       
-    complete : (c : ℕ)(from to : V) ->  from ∈ nodes vis -> T (edg from to) -> ¬ (c , from , to) ∈ candidates -> to ∈ nodes vis
+      complete : (c : ℕ)(from to : V) ->  from ∈ nodes vis -> T (edg from to) -> ¬ (c , from , to) ∈ candidates -> to ∈ nodes vis
     --   all other edges don't go anywhere intresting
 
 
   best : {start : V} {bound :  ℕ}
     -> (can : Candidates start bound)
     -> Visited start bound
-    ⊎ (Σ (ℕ × V × V)  λ pair → (pair  ∈  Candidates.candidates can) × Candidates start (proj₁ pair)) -- can't work becuase not complete!
+    ⊎ (Σ (ℕ × V × V)  λ pair → Σ (List (ℕ × V × V)) λ rest  → Selection pair rest (Candidates.candidates can) -- more consice if Selection contained the data?
+       × All (λ x → proj₁ pair  ≤ proj₁ x) rest ) 
   best = {!!}
+
+  record Edges (from : V) : Set where
+    field
+      edges : List V
+      connected : All (Con from) edges 
+      complete : (to : V) -> Con from to -> to ∈ edges 
+
+  getEdges : (from : V) -> Edges from
+  getEdges = {!!}
 
   dstep : (start : V) (bound :  ℕ)
     -> Candidates start bound
     -> Visited start bound ⊎ Σ ℕ λ bound' → Candidates start bound' -- more conditions?
   dstep start bound can with best can
   dstep start bound can | inj₁ visited = inj₁ visited
-  dstep start bound can | inj₂ (pair@(cost , from , to) , y) = {!!}
+  dstep start bound can | inj₂ (pair@(cost , from , to) , y) with to ∈? Visited.nodes (Candidates.vis can)
+  -- throw away
+  dstep start bound can | inj₂ ((cost , from , to) , rest , sel , restbound) | Relation.Nullary.yes p =
+    inj₂ (cost ,
+    record { vis = mkVisited (Visited.nodes (Candidates.vis can)) {!!} {!!} ; candidates = rest ; wf = {!!} ; complete = {!!} })
+  dstep start bound can | inj₂ ((cost , from , to) , y) | Relation.Nullary.no ¬p with getEdges to
+  dstep start bound can | inj₂ ((cost , from , to) , rest , sel , restbound) | Relation.Nullary.no ¬p | record { edges = tos ; connected = connected ; complete = complete } =
+    let bestTo = ? in
+    inj₂ (cost ,
+      record { vis = mkVisited (to ∷ Visited.nodes (Candidates.vis can)) {!!} {!!} ; candidates = Data.List.map (λ dest → 1 + cost , (to , dest)) tos ++ rest ; wf = {!!} ; complete = {!!} }) 
 {-
 
     -- don't need best explicitly if baking in a list imp

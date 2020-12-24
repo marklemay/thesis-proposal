@@ -61,16 +61,28 @@ module Paths {n :  ℕ} (g : Graph {n}) where
       Σ (T (edg from to)) \ isE ->
       Σ  (from ∈ nodes vis) \ con ->
       c ≡ cost (hop (proj₁ (nodesAreBest vis from con)) to isE )   -- bound ≤  cost (?)
+      
     complete : (c : ℕ)(from to : V) ->  from ∈ nodes vis -> T (edg from to) -> ¬ (c , from , to) ∈ candidates -> to ∈ nodes vis
     --   all other edges don't go anywhere intresting
-    best : {!!}
-    -- don't need best explicitly if baking in a list imp
-    
-  dstep : (start : V) (bound :  ℕ)
-    -> Candidates {!!} {!!}
-    -> Visited {!!} {!!} ⊎ Σ ℕ λ bound' → Candidates start bound' -- more conditions?
-  dstep = {!!}
 
+
+  best : {start : V} {bound :  ℕ}
+    -> (can : Candidates start bound)
+    -> Visited start bound
+    ⊎ (Σ (ℕ × V × V)  λ pair → (pair  ∈  Candidates.candidates can) × Candidates start (proj₁ pair)) -- can't work becuase not complete!
+  best = {!!}
+
+  dstep : (start : V) (bound :  ℕ)
+    -> Candidates start bound
+    -> Visited start bound ⊎ Σ ℕ λ bound' → Candidates start bound' -- more conditions?
+  dstep start bound can with best can
+  dstep start bound can | inj₁ visited = inj₁ visited
+  dstep start bound can | inj₂ (pair@(cost , from , to) , y) = {!!}
+{-
+
+    -- don't need best explicitly if baking in a list imp
+
+-}
 {-
 
 --cost satisfy a triange ineq

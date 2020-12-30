@@ -12,16 +12,16 @@ Graphs highlight some issues with agda style-programming:
 # Encodings
 
 ## Adjacency list
-```
+```agda
 record Graph {n : ℕ} : Set where
   field
-    edge : (from : Fin n) -> List (Fin n)
+    edge : Vec (List (Fin n)) n
 open Graph
 ```
 * does not encode order, so that graph equality is not supported
 
 ## "functional" encoding
-```
+```agda
 record Graph {n : ℕ} : Set where
   field
     edge : (from : Fin n) -> (to : Fin n) -> Bool 
@@ -30,14 +30,14 @@ open Graph
 * could, in principle, hide a more efficent encoding
 * equality issues
   * with function extentionallity, does identify reasonable equalitities
-  * But since Agda lacks function extentionality the normal equality predicates will be unprovalbe
+  * But since Agda lacks function extentionality the normal equality predicates will be unprovable
     * since the graph is indexed by the number of verticies, something like equalities should be recoverable in something like a setoid
   * There will also be definitional issues
 * some reaosnable constraints like self connections will not be enforeced
 
 
 ## Matrix encoding
-```
+```agda
 record Graph {n : ℕ} : Set  where
   field
     edge :  Vec (Vec Bool n) n
@@ -47,9 +47,9 @@ open Graph
 
 ## Other flavors
 * without a static bound on the number of verticies, termination would be hard to prove
- * adjacency would be ok
- * the function encoding would allow infinite graphs
- * the matrix encoding would be difficult to maintain
+  * adjacency would be ok
+  * the function encoding would allow infinite graphs
+  * the matrix encoding would be difficult to maintain
 
 
 # other functional graph theory work

@@ -1,0 +1,342 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Small examples
+\end_layout
+
+\begin_layout Standard
+For these examples, assume that there is a length indexed vector,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $n:\mathbb{N},A:\star\vdash Vec\,A\,n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and functions defined with the types
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $zip:(A:\star)\rightarrow(B:\star)\rightarrow(n:\mathbb{N})\rightarrow Vec\,A\,n\rightarrow Vec\,B\,n\rightarrow Vec\,(A,B)\,n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $rep:(n:\mathbb{N})\rightarrow Vec\,\mathbb{N}\,n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $head:(A:\star)\rightarrow(n:\mathbb{N})\rightarrow Vec\,A\,(suc\,n)\rightarrow A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $head':(A:\star)\rightarrow(n:\mathbb{N})\rightarrow(n>0)\rightarrow Vec\,A\,n\rightarrow A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $append:(A:\star)\rightarrow(x\,y:\mathbb{N})\rightarrow Vec\,A\,x\rightarrow Vec\,A\,y\rightarrow Vec\,A\,(x+y)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Definitions hidden in another module
+\end_layout
+
+\begin_layout Subsubsection
+Definitional Equality
+\end_layout
+
+\begin_layout Standard
+If 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $f:\mathbb{N}\rightarrow\mathbb{N}$
+\end_inset
+
+ and
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $f':\mathbb{N}\rightarrow\mathbb{N}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+have the exact same definition but are defined in different modules such
+ that their implementation is hidden, then I am aware of no dependent type
+ system that will type the application 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $g=\lambda x.zip\,\mathbb{N}\,\mathbb{N}\,(f\,x)\,(rep\,(f\,x))(rep\,(f’\,x))\,:\,(x:\mathbb{N})\rightarrow Vec\,(\mathbb{N},\mathbb{N})\,(f\,x)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the application typing relies on definitional equality, the only conventio
+nal option is to change the structure of the code.
+\end_layout
+
+\begin_layout Standard
+My proposed system would insert a check automatically: 
+\end_layout
+
+\begin_layout Itemize
+If 
+\begin_inset Formula $g$
+\end_inset
+
+ is ever called on an 
+\begin_inset Formula $\mathbb{N}$
+\end_inset
+
+ that could differentiate 
+\begin_inset Formula $f$
+\end_inset
+
+ and 
+\begin_inset Formula $f'$
+\end_inset
+
+ an error message can be given with the concrete inequality, giving the
+ programmer actionable evidence to fix the bug.
+\end_layout
+
+\begin_layout Itemize
+The check will be automatically exercised with automated tests, such that
+ if there is ever a difference it will be found.
+\end_layout
+
+\begin_layout Subsubsection
+Propositional property
+\end_layout
+
+\begin_layout Standard
+If 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $more:\mathbb{N}\rightarrow\mathbb{N}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+such that the output is always greater then one, but defined in a different
+ module such that the implementation is hidden and the module does not expose
+ a proof of the property.
+\end_layout
+
+\begin_layout Standard
+Then there is no straightforward way to define the function
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $g=\lambda x.head'\,\mathbb{N}\,\left(more\,x\right)\,?\,\left(rep\,\left(more\,x\right)\right)\,:\,\mathbb{N}\rightarrow\mathbb{N}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The conventional ways of trying to write that function will:
+\end_layout
+
+\begin_layout Itemize
+use an explicit test, and change the output type to reflect the possibility
+ of failure
+\end_layout
+
+\begin_layout Itemize
+carefully postulate the behavior is correct after a manual check has failed
+ so that the program will only get stuck when 
+\begin_inset Formula $more\,x$
+\end_inset
+
+ is not greater then 
+\begin_inset Formula $0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Current solutions
+\end_layout
+
+\begin_layout Standard
+Agda avoids this issue by not allowing modules to hide definitions.
+ I believe Idris' modules hide implementations and discourages this kind
+ of dependent use.
+\end_layout
+
+\begin_layout Section
+Vector Associativity
+\end_layout
+
+\begin_layout Standard
+This example is often used to justify Heterogeneous equality.
+ Prove:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $(A:\star)\rightarrow(x\,y\,z:\mathbb{N})\rightarrow(xx:Vec\,A\,x)\rightarrow(yy:Vec\,A\,y)\rightarrow(zz:Vec\,A\,z)\rightarrow Id\,\left(append\,xx\,\left(append\,yy\,zz\right)\right)\,\left(append\,\left(append\,xx\,yy\right)\,zz\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Unfortunately, this is not even a problem that can be posed in many type
+ systems with the most standard Id type, since 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+(x+(y+z)) is usually not definitionally equal to ((x+y)+z).
+\end_layout
+
+\begin_layout Standard
+With some effort it would it is possible to construct the proof in a different
+ flavor of equality, assuming it is possible to establish 
+\begin_inset Formula $Id\,(x+(y+z))\,((x+y)+z)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+In my system, the associativity of addition will be presumed, and runtime
+ checks will insure there is never an observable violation
+\end_layout
+
+\begin_layout Itemize
+Additionally automated tests will perform a search for a violation of the
+ implied specification of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $(x+(y+z))=((x+y)+z)$
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

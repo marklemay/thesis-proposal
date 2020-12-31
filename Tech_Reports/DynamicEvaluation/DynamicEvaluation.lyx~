@@ -1,0 +1,1118 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Dynamic Evaluation with Blame for a Programming Language with Full Spectrum
+ Dependent Types 
+\end_layout
+
+\begin_layout Part
+Motivation
+\end_layout
+
+\begin_layout Standard
+Assume the standard length index list, 
+\begin_inset Formula $x:\mathbb{N},y:\star\vdash Vec_{y}\,x$
+\end_inset
+
+, standard constructors and the helper function 
+\begin_inset Formula $rep$
+\end_inset
+
+ and 
+\begin_inset Formula $zip:\prod x:\mathbb{N}.\prod y:\star.Vec_{y}\,x\rightarrow Vec_{y}\,x\rightarrow Vec_{yy}\,x$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Standard
+Assume that there are 2 defined functions 
+\begin_inset Formula $f,f':\mathbb{N}\rightarrow\mathbb{N}$
+\end_inset
+
+ that are intended to be equal in the sense of observational equivelence.
+ However a proof of equality is unfeasable for any of the following reasons:
+\end_layout
+
+\begin_layout Itemize
+The proof of equality hinges on standard, but non constructive, mathmatical
+ arguments such as the law of the excluded middle
+\end_layout
+
+\begin_layout Itemize
+the implementation of f and f' are hidden behind modules that do no export
+ enough information 
+\end_layout
+
+\begin_layout Itemize
+Not enough time budgeted to proof engineering
+\end_layout
+
+\begin_layout Itemize
+There exists 
+\begin_inset Formula $n:\mathbb{N}$
+\end_inset
+
+ such that 
+\begin_inset Formula $f\,n\neq f'\,n$
+\end_inset
+
+, i.e.
+\begin_inset Formula $f$
+\end_inset
+
+ and 
+\begin_inset Formula $f'$
+\end_inset
+
+ are not equal
+\end_layout
+
+\begin_layout Standard
+None the less, we would like to use 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $x:\mathbb{N},y:\star,v:Vec_{y}\,\left(f\,x\right),v':Vec_{y}\,\left(f'\,x\right)\vdash zip\,\left(f\,x\right)\,y\,v\,v'$
+\end_inset
+
+ as part of a larger program.
+ While languages like Coq, Agda, and Ats will not accept this tem as is,
+ they allow the following work arounds:
+\end_layout
+
+\begin_layout Itemize
+Assert the existance of an equality, and use the proof to manually substitute
+ 
+\begin_inset Formula $f'$
+\end_inset
+
+ for 
+\begin_inset Formula $f$
+\end_inset
+
+ .
+ In
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ Coq and Agda this will block the exicution of the program.
+\end_layout
+
+\begin_layout Itemize
+Use the decidability of 
+\begin_inset Formula $\mathbb{N}$
+\end_inset
+
+ equality to manually insert a runtime check.
+ This will require manually throwing an exception, if a construct can be
+ simulated in the language, or modifying the enclosing type to use an 
+\begin_inset Quotes eld
+\end_inset
+
+error monad
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Additionally one can compile down to an simply typed or untyped language,
+ and exicute with the possibility that type soundness no longer holds.
+\end_layout
+
+\begin_layout Standard
+These situations are not ergonomic, or rely on properties of the codomain
+ that may not always hold (many types do not admit decidable equality).
+ A more convineint solution is suggested by the work of contract monitors
+ and gradual typing: optimistically assume the equality of components and
+ monitor violations of the implied specification, and modify the type soundness
+ argument so that standard type soundness holds or a witness of the violation
+ and it's location are reported.
+\end_layout
+
+\begin_layout Part
+TODO
+\end_layout
+
+\begin_layout Standard
+Confirm with implementations in
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ Coq, Agda, and Ats.
+\end_layout
+
+\begin_layout Standard
+related work, extentionality, jives with the user's perspective.
+\end_layout
+
+\begin_layout Part
+A Formal System
+\end_layout
+
+\begin_layout Section*
+Pre-syntax 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="10" columns="5">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="right" valignment="top">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Gamma$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Coloneqq$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\varPhi$
+\end_inset
+
+ | 
+\begin_inset Formula $\Gamma,x:\sigma$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+var contexts
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+es
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Coloneqq$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\sigma$
+\end_inset
+
+ | 
+\begin_inset Formula $\sigma=_{l}es$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $A,\sigma,\tau$
+\end_inset
+
+,
+\begin_inset Formula $M,N$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Coloneqq$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left[es:\right]x$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+expressions
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\star$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left[?:\right]\,\Pi x:\sigma.\tau$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+types
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left[es:\right]\,\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M$
+\end_inset
+
+ | 
+\begin_inset Formula $\left[es:\right]\,M\,N$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+terms
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+v
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Coloneqq$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+x?
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+values
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\star$
+\end_inset
+
+ | 
+\begin_inset Formula $\Pi x:\sigma.\tau$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left[?:\right]\,\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+E[]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Coloneqq$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left[es:\right]\,[]\,N$
+\end_inset
+
+ | 
+\begin_inset Formula $\left[es:\right]\,v\,[]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+eval ctx
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+TODO: evidence reductions?
+\end_layout
+
+\begin_layout Standard
+reductions
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{A\rightsquigarrow A'}{E[A]\rightsquigarrow E[A']}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\forall A\in es'.A\Downarrow\Pi x:\sigma'.\tau'\qquad}{\left[es:\right]\,\left(\left[es':\right]\,\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,\left(\left[es'':\right]N\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{A\rightsquigarrow A'}{\left[es:\right]\,M\,N}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+TODO: propogate error term via reduction
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Part
+Else
+\end_layout
+
+\begin_layout Standard
+This blame tracking is reminicent of contracts and gradual typing.
+ As in those applications, blame tracking has security implication.
+\end_layout
+
+\begin_layout Part
+Scratch
+\end_layout
+
+\begin_layout Standard
+almost every expression has a 
+\begin_inset Quotes eld
+\end_inset
+
+list
+\begin_inset Quotes erd
+\end_inset
+
+ of casts delimited with lable information.
+\end_layout
+
+\begin_layout Standard
+the list of casts represents partial evidence of equality.
+\end_layout
+
+\begin_layout Standard
+in an empty ctx, the elements of the list will resolve enough to go into
+ the next step of data.
+\end_layout
+
+\begin_layout Part
+Scratch
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Standard
+plan: 
+\end_layout
+
+\begin_layout Itemize
+scetch type checking/cast infernce
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+interpret that outermost cast as connonical
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+* [: *->*] : *->*
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+interpert the consistent collection of casts connonical
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+implemantation details don't matter as long as 
+\begin_inset Quotes eld
+\end_inset
+
+sfety is preserved
+\begin_inset Quotes erd
+\end_inset
+
+?
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+they matter when cast insertion is attempted.
+\end_layout
+
+\begin_layout Itemize
+from an equielence of all error observable syntax?
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+cast insertion
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+cast assingment follows the bidirectional pattern
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+implement it
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\forall(l,subs,path,bv)\in vs.isPi(bv)\quad map\,vs\,(l,subs,path,\prod x:\boldsymbol{A}.B).(l,subs,path@\left([vs']v\right),B\left[[vs']v\right])=es\quad consist\left([vs'],v\right)?}{\left([vs]\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\left([vs']v\right)\rightsquigarrow\left(\left([es]M\left[\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right]\right)\left[[vs']v\right]\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+What do you do with the input types?!?! whatever is needed to avoid a stuck
+ elimination.
+ Also should probly not leak the internal details of the function casts
+ into the applied type (though could claim it is irrelivent).
+\end_layout
+
+\begin_layout Standard
+Alternatively, can use a multiplicative approach
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\forall(l,subs,path,bv)\in vs.isPi(bv)\quad map\,vs\,(l,subs,path,\prod x:\boldsymbol{A}.B).(l,subs,path@\left([vs']v\right),B\left[[vs']v\right])=es\quad consist\left([vs'],v\right)?}{\left([vs]\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\left([vs']v\right)\rightsquigarrow\left([es]\left([es]M\left[\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right]\left[[vs',as]v\right]\right)\left[[vs']v\right]\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+which is more messy then needed?
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\forall(l,subs,path,bv)\in vs.isPi(bv)\quad map\,vs\,(l,subs,path,\prod x:\boldsymbol{A}.B).(l,subs,path@\left([vs']v\right),B\left[[vs']v\right])=es\quad consist\left([vs'],v\right)?}{\left([vs]\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\left([vs']v\right)\rightsquigarrow\left(\left(...,head\,es\right)\left([es]M\left[\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right]\left[[vs',as]v\right]\right)\left[[vs']v\right]\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+but then if you go that far why not
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\forall(l,subs,path,bv)\in vs.isPi(bv)\quad map\,vs\,(l,subs,path,\prod x:\boldsymbol{A}.B).(l,subs,path@\left([vs']v\right),B\left[[vs']v\right])=es\quad consist\left([vs'],v\right)?}{\left([vs]\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\left([vs']v\right)\rightsquigarrow\left(\left(...,head\,es\right)\left([es]M\left[\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right]\left[[vs',as]v\right]\right)\left[v\right]\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+then type level shenanigans like 
+\begin_inset Quotes eld
+\end_inset
+
+List True
+\begin_inset Quotes erd
+\end_inset
+
+ are possible, instead of 
+\begin_inset Quotes eld
+\end_inset
+
+List [Nat=(blame...)Bool:] True
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Standard
+and substitution is defined as 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+(l,subs,path,bv)[x:=A]=(l,\left(subs,x:=A\right),path[x:=A],bv[x:=A])
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+need to figure out how embbeded casts work
+\end_layout
+
+\begin_layout Standard
+bidirectional typing, have type annotaions exactly where there are beta
+ reductions
+\end_layout
+
+\begin_layout Standard
+\begin_inset Quotes eld
+\end_inset
+
+weak
+\begin_inset Quotes erd
+\end_inset
+
+ bidirectional typeing, have annotations that can be used to infer annotations
+ at beta red.s
+\end_layout
+
+\begin_layout Standard
+extend to casts
+\end_layout
+
+\begin_layout Standard
+(
+\backslash
+x:*.
+ (x[*->*]) *) : *->*
+\end_layout
+
+\end_body
+\end_document

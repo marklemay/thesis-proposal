@@ -1,0 +1,1100 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+A pre-annotation, super extentional TT with ML like types,
+\end_layout
+
+\begin_layout Standard
+ID type is formed from a constructor and a psudo-constructor, and eliminated
+ only with substitution
+\end_layout
+
+\begin_layout Section*
+TODO
+\end_layout
+
+\begin_layout Itemize
+Do datatypes in the style of Trellies
+\begin_inset Quotes erd
+\end_inset
+
+12
+\end_layout
+
+\begin_layout Itemize
+As always need to figure out
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+scoping
+\end_layout
+
+\begin_layout Itemize
+substitution
+\end_layout
+
+\begin_layout Itemize
+conversion
+\end_layout
+
+\end_deeper
+\begin_layout Section*
+Pre-syntax 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="12" columns="5">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="right" valignment="top">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Gamma$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Coloneqq$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\lozenge$
+\end_inset
+
+ | 
+\begin_inset Formula $\Gamma,x:\sigma$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+type context
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\lozenge$
+\end_inset
+
+ | 
+\begin_inset Formula $\Theta$
+\end_inset
+
+...
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\sigma,\tau$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Coloneqq$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Pi x:\sigma.\tau$
+\end_inset
+
+ | 
+\begin_inset Formula $\mathtt{Id}_{\sigma}\left(M,N\right)$
+\end_inset
+
+ | 
+\begin_inset Formula $\mathbb{N}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+types
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+...
+ | 
+\begin_inset Formula $\sum$
+\end_inset
+
+ | Vec 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ 
+\begin_inset Formula $\mathbb{N}$
+\end_inset
+
+ | 
+\begin_inset Formula $\mathbb{B}$
+\end_inset
+
+ | 
+\begin_inset Formula $\boldsymbol{0}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $M,N,H_{-},P$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Coloneqq$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+x
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+terms
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\lambda x.M$
+\end_inset
+
+ | 
+\begin_inset Formula $M\,N$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathtt{Refl}\left(M\right)$
+\end_inset
+
+ | 
+\begin_inset Formula $\mathtt{AssumeRefl}\left(M,N\right)$
+\end_inset
+
+ | 
+\begin_inset Formula $\mathtt{Subst}\left(...\right)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+...
+ err
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathtt{0}$
+\end_inset
+
+ | 
+\begin_inset Formula $\mathtt{S}\left(M\right)$
+\end_inset
+
+ | 
+\begin_inset Formula $\mathsf{R}_{n:\mathbb{N}.\sigma}^{\mathbb{N}}\left(H_{z},n:\mathbb{N}.x:\sigma.H_{s},M\right)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathtt{true}$
+\end_inset
+
+ | 
+\begin_inset Formula $\mathtt{false}$
+\end_inset
+
+ |
+\begin_inset Formula $\mathsf{R}_{b:\mathbb{B}.\sigma}^{\mathbb{B}}\left(H_{t},H_{f},M\right)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathsf{R}_{\sigma}^{\boldsymbol{0}}\left(M\right)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathtt{Error}_{\sigma}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Judgment Forms
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Section*
+Judgments
+\end_layout
+
+\begin_layout Standard
+enclose an assumption in runtime scope
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,x:\sigma,\Theta\vdash M:\tau}{\Gamma,\vdash\lambda x.M:\sigma\rightarrow\tau}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+not Equal Judgment
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,\Theta\vdash N!M:\sigma}{\Gamma,\Theta\vdash M!N:\sigma}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{...}{\Gamma,\Theta\vdash\mathtt{0}!\mathtt{S}\left(M\right):\mathbb{N}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,\Theta\vdash N!M:\sigma}{\Gamma,\Theta\vdash\mathtt{S}\left(N\right)!\mathtt{S}\left(M\right):\mathbb{N}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+directional conversion?perhaps something bi-directional?
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,\Theta\vdash x:=M\in\Theta}{\Gamma,\Theta\vdash x\equiv>M}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,\Theta\vdash x:=M:\sigma\in\Theta}{\Gamma,\Theta\vdash x\equiv>M:\sigma}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,\Theta\vdash x:=M:\sigma\in\Theta}{\Gamma,\Theta\vdash x\equiv>M:\sigma}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Does it make sense to (all independent)
+\end_layout
+
+\begin_layout Itemize
+is self reference possible? 
+\end_layout
+
+\begin_layout Itemize
+assume an equality not a value?
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $x,y\vdash x+y=y+x$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+not in normal form?
+\end_layout
+
+\begin_layout Standard
+To start, constrain to global equalities? wouldn't work with trellies style
+ data.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,\Theta\vdash f:=(\backslash x.f(fx)):\sigma\in\Theta}{\Gamma,\Theta\vdash x\equiv>M:\sigma}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,\Theta\vdash f:=(\backslash x.f(fx)):\sigma\in\Theta}{\Gamma,\Theta\vdash x\equiv>M:\sigma}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Subsection*
+Id
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,\Theta\vdash M:\sigma\quad\Gamma,\Theta\vdash N:\sigma}{\Gamma,\Theta\vdash\mathtt{AssumeRefl}\left(M,N\right):\mathtt{Id}_{\sigma}\left(M,N\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,\Theta\vdash M:\mathtt{Id}_{\sigma}\left(A,A'\right)\quad\Gamma,x:A,\Theta\vdash\sigma}{\Gamma,\Theta\vdash\mathtt{Subst}_{x.\sigma}\left(M,\sigma[x\coloneqq A]\right):\sigma[x\coloneqq A']}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This should at least be admissible
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,\Theta\vdash M:\sigma\quad...}{\Gamma,\Theta\vdash\mathtt{Subst}\left(\mathtt{AssumeRefl}\left(M,M\right),x.N,\tau[x\coloneqq M]\right)\equiv:\tau[x\coloneqq M}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+TODO: equations
+\end_layout
+
+\begin_layout Standard
+Examples
+\end_layout
+
+\begin_layout Standard
+Symmetry
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\lambda X.\lambda Y.\lambda xy.\mathtt{Subst}\left(xy,z.\mathtt{Id}\left(z,X\right),\mathtt{Refl}\left(x\right):\mathtt{Id}\left(X,X\right)]\right):\,...\rightarrow\mathtt{Id}\left(Y,X\right)]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+trans (non example) uniform substitution blocks the problematic proof of
+ transitivity!
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\lambda X.\lambda Y.\lambda xy.\mathtt{Subst}\left(xy,y'.\,.\lambda Z.\lambda y'z.y'z\,:\,Z\rightarrow\mathtt{Id}\left(y',Z\right)\rightarrow\mathtt{Id}\left(y',Z\right),!\right):\,...\rightarrow\mathtt{Id}\left(X,Z\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+trans 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\lambda X.\lambda Y.\lambda xy.\mathtt{Subst}( & xy,\\
+y'. & \lambda Z.\lambda y'z.\mathtt{Subst}(y'z,z'.\mathtt{Id}\left(z',Z\right),\mathtt{Refl}\left(z\right):\mathtt{Id}\left(Z,Z\right)):Z\rightarrow y'z\rightarrow?\\
+\, & ?\\
+): & X\rightarrow Y\rightarrow xy\rightarrow Z\rightarrow yz\rightarrow xz
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Recover the origional ML elimination principle!
+\end_layout
+
+\begin_layout Standard
+don't include
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,\Theta\vdash M:\sigma}{\Gamma,\Theta\vdash\mathtt{Refl}\left(M\right):\mathtt{Id}_{\sigma}\left(M,M\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+giving AssumeRefl prefforence
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\end_body
+\end_document

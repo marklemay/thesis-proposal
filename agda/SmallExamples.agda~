@@ -1,0 +1,63 @@
+module SmallExamples where
+
+open import Data.Nat using (ℕ; zero; suc; _+_; _*_; _^_; _∸_; _≤_; _≤?_)
+open import Data.Vec
+open import Relation.Binary.PropositionalEquality
+open import Relation.Nullary.Decidable
+open import Relation.Nullary hiding (Irrelevant)
+
+module F where
+  private
+    ff : ℕ -> ℕ
+    ff x = x + 0
+  f = ff
+
+module F' where
+  f' : ℕ -> ℕ
+  f' x =  x + 0
+
+-- Agda does not hide module definitions
+pr1 : F.f ≡ F'.f'
+pr1 = refl
+
+rep : (x : ℕ) → Vec ℕ x
+rep x = replicate 0 
+
+head' : (A : Set) → (n : ℕ )→ 1 ≤ n -> Vec A n → A
+head' A .(suc _) (_≤_.s≤s pr) (x ∷ v) = x
+
+module G (more : ℕ -> ℕ)  where
+  g : ℕ -> ℕ
+  g x = head' ℕ (more x) what (rep (more x))
+    where
+      postulate
+        what : 1 ≤ more x
+
+e1 = (G.g suc) 3 -- computation is blocked by the postulate
+
+assumegte1 : (y :  ℕ) -> 1 ≤ y
+assumegte1 y with 1 ≤? y
+assumegte1 y | Relation.Nullary.Dec.yes p = p
+assumegte1 y | Relation.Nullary.Dec.no ¬p = {!!}
+
+module G' (more : ℕ -> ℕ)  where
+  g : ℕ -> ℕ
+  g x = head' ℕ (more x) what (rep (more x))
+    where
+      postulate
+        what' : 1 ≤ more x
+        
+      what : 1 ≤ more x
+      what with 1 ≤? more x
+      what | yes p = p
+      what | no ¬p = what'
+      
+e1' = (G'.g suc) 3
+e1'' = (G'.g λ z → z) 0
+
+
+
+
+assoc-+ : (x y z : ℕ) -> x + (y + z) ≡ (x + y) + z
+assoc-+ zero y z = refl
+assoc-+ (suc x) y z = {!!} -- cong suc (assoc-+ x y z)

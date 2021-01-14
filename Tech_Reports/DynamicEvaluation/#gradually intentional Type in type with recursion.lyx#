@@ -77,7 +77,8 @@
 \begin_body
 
 \begin_layout Title
-Dependent Type theory with Type in Type and recursion, with blame tracking
+a Dynamic Dependent Type theory with Type in Type and recursion, with blame
+ tracking
 \end_layout
 
 \begin_layout Section*

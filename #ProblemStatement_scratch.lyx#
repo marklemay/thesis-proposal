@@ -1,0 +1,304 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Problem Statement Scratch
+\end_layout
+
+\begin_layout Standard
+The Curry-Howard correspondence identifies functions with theorems, providing
+ a promising link between well explored areas of math and software engineering.
+ This connection is most pronounced in dependent typed systems that provide
+ a common language to write (total functional) programs about proofs and
+ (intuitionistic) proofs about programs.
+ Specifically, dependent type systems allow types to depend on terms, supporting
+ an extremely powerful system of specification, computation and proof evidence.
+ 
+\end_layout
+
+\begin_layout Standard
+Many languages have been written or modified to take advantage of dependent
+ types, exploring potential trade offs in the design space.
+ The most conservative use of dependent types can be seen in languages like
+ Liquid Haskell, and Scala 3: function specifications may depend on values
+ of some specific types such as int or bool, and users are never expected
+ to write there own proofs.
+ More advanced languages like Ats and F* allow function specifications to
+ depend on a wider range of types, have built in automated support to solve
+ some proofs automatically, and allow users to supply their own proof when
+ automation fails.
+ Full-spectrum dependent type languages like Agda, Idris, Zombie and the
+ underlining language of Coq place almost no restriction on what terms may
+ appear in types, and use the same syntactic construct to represent functions,
+ type polymorphism, logical implication, and universal quantification.
+ There is some evidence that Full-spectrum languages with uniform syntax
+ like Agda and Idris are easier to learn
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+TODO: PFLA
+\end_layout
+
+\end_inset
+
+, even if expert users can prove more in Coq, ATS can produce far more efficeint
+ code, and Haskell / Scala are compatible with massive well maintained software
+ ecosystems.
+\end_layout
+
+\begin_layout Standard
+However, dependent type systems, especially full-spectrum dependent type
+ systems, can be cumbersome when used as programming languages.
+ If functions are exactly theorems then termination must be proven for every
+ function to guarantee logical soundness.
+ If the user takes full advantage of the dependent types, they will be obligated
+ to prove many tedious facts about their user defined types and functions.
+ The logic in which to prove these facts is conservative: the law of the
+ excluded middle is unavailable since it cannot be given a pure computational
+ interpretation.
+ A user may be prevented from running their program until the lemmas are
+ proven or unsafely postulated.
+ For this reason, is commonly recommended that programmers limit their use
+ of dependent types and postulate all 
+\begin_inset Quotes eld
+\end_inset
+
+obvious
+\begin_inset Quotes erd
+\end_inset
+
+ properties to be proven last.
+ There will be no warning that a postulate is incorrect unless complicated
+ 3rd party tools are used.
+\end_layout
+
+\begin_layout Standard
+Most issues of dependent types systems can be translated into the inability
+ to summon a convenient term at type checking time.
+ On one hand this is reasonable: such a term may not exists, require unsupported
+ reasoning like the law of the excluded middle, or take too long to construct.
+ On the other hand, all of these arguments may be equally made against postulate
+s, even though they are a critical tool to develop dependently typed programs.
+ Interestingly, if proof functions were to be evaluated, the postulate could
+ always be replaced with a value of it's type if the postulate is correct.
+ If a postulate is incorrect, a clear error can often be presented.
+ In the case of postulated equality, a term will always be easy to synthesize
+ or refute at runtime.
+\end_layout
+
+\begin_layout Standard
+I propose interpreting postulates as impure proof search that may be carried
+ out at runtime.
+ Since proof terms are rarely evaluated directly, I also propose an apparently
+ novel symbolic execution of dependently typed programs that reveal issues
+ with postulated facts without delaying type checking.
+ Additionally, proof search can be precompute offline allowing postulates
+ to be used in a pragmatically relevant way.
+ 
+\end_layout
+
+\begin_layout Standard
+...Vitually all programs are full of bug.
+ Many solutions have been proposed to to find or prevent bugs in programs.
+ Industry thoughly tests software with automated testing programs.
+ The programming language community has proposed dependentent type systems
+ to prove functions meet their specifications.
+ Tests are easy to use but incomplete.
+ Dependentent type systems are poweful but hard to learn and use.
+ This thesis attempts to merge the convinence of testing and the surtianty
+ of proof into a new langauge that is geard twords being correct, but is
+ more flexible then traditional dependently typed languages while keeping
+ the language as simple as possible from the user perspective.To achieve
+ this, I have built a pure, full spectrum base language that supports common
+ programming features suche as data types and general recursion.
+ I gradualize the equality relation of base language to that is the source
+ of many of the usabilities of depentent type theory.
+ 
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Standard
+However these languages are still difficult to use.
+ Why are the error messages so bad? 
+\end_layout
+
+\begin_layout Standard
+I attempt to solve what I see as the most pressinf forms of 
+\end_layout
+
+\begin_layout Standard
+Vitually all programs are full of bug.
+ One of the most promising techniques is for fighting bug is advanced Type
+ systems such those Dependent types are great.
+ But hard to use.
+ Solve with a dependent lang that leans program like
+\end_layout
+
+\begin_layout Standard
+Dependent Types.
+ can proove
+\end_layout
+
+\begin_layout Part*
+TODO
+\end_layout
+
+\begin_layout Standard
+Should the troughline be partial correctness?
+\end_layout
+
+\begin_layout Standard
+stronger condition 
+\begin_inset Formula $\vdash e:M$
+\end_inset
+
+ and 
+\begin_inset Formula $elab\left(e,M\right)=e'$
+\end_inset
+
+ and 
+\begin_inset Formula $elab\left(M,*\right)=M'$
+\end_inset
+
+ then 
+\begin_inset Formula $\vdash e':M'$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+It would still be possible to add additional static checks to warn, of nontermin
+ation, negative data, and dangourous predicativity.
+ However this is also true for mainstream functional languages and has never
+ been considered a priority.
+\end_layout
+
+\begin_layout Standard
+pure
+\end_layout
+
+\begin_layout Standard
+Why are people intrested in this part of the design space
+\end_layout
+
+\begin_layout Standard
+Target mundane mistakes, mundane properties can still have costly proofs
+\end_layout
+
+\begin_layout Standard
+..
+\end_layout
+
+\begin_layout Standard
+long understood problem with dependently typed languages in this style:
+ equality.
+ Since types need to know when they are equal, and computation can occur
+ in types there must be some account of what computations are equal.
+ 
+\end_layout
+
+\begin_layout Standard
+.
+ For this reason, the languages does not need parrellel syntax as in stratified
+ systems such as ATS.
+\end_layout
+
+\begin_layout Standard
+equalities are missing from .Another problem frequently encounted in dependent
+ type systems is that proof and program constructions must be constructed
+ or imported manually to be used correctly.
+\end_layout
+
+\begin_layout Standard
+e dificulty of exploritory programming.
+ Perogams and proofs are well supported in their final form but only some
+ support is given 
+\end_layout
+
+\begin_layout Standard
+proof The solution is testing, idealy symbolic typedirected testing.
+ 
+\end_layout
+
+\end_body
+\end_document

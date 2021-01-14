@@ -1,0 +1,7 @@
+\usepackage{todonotes}
+\usepackage{xspace}
+\def\etal{et al.\xspace}
+\def\addauthnote#1#2{%
+\expandafter\def\csname#1\endcsname##1{\todo[inline,color=#2]{#1: ##1}\xspace}
+\expandafter\def\csname#1m\endcsname##1{\todo[color=#2]{#1: ##1}\xspace}
+}

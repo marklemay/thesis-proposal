@@ -1,0 +1,195 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Vector Associativity
+\end_layout
+
+\begin_layout Standard
+This example is often used to justify Heterogeneous equality.
+ Prove:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $(A:\star)\rightarrow(x\,y\,z:\mathbb{N})\rightarrow(xx:Vec\,A\,x)\rightarrow(yy:Vec\,A\,y)\rightarrow(zz:Vec\,A\,z)\rightarrow Id\,\left(append\,xx\,\left(append\,yy\,zz\right)\right)\,\left(append\,\left(append\,xx\,yy\right)\,zz\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Unfortunately, this is not even a problem that can be posed in many type
+ systems with the most standard Id type, since 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+(x+(y+z)) is usually not definitionally equal to ((x+y)+z).
+\end_layout
+
+\begin_layout Standard
+With some effort it would it is possible to construct the proof in a different
+ flavor of equality, assuming it is possible to establish 
+\begin_inset Formula $Id\,(x+(y+z))\,((x+y)+z)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+In my system, the associativity of addition will be presumed, and runtime
+ checks will insure there is never an observable violation
+\end_layout
+
+\begin_layout Itemize
+Addtionally automated tests will This term is unlikely to be called.
+\end_layout
+
+\begin_layout Section
+Data Structure
+\end_layout
+
+\begin_layout Standard
+TODO: directed graph algorithms
+\end_layout
+
+\begin_layout Standard
+Agda does not include a graph data structure in it's standard library.
+ However the the Agda implementation in Haskell inclides a digraph implementatio
+n https://github.com/agda/agda/tree/master/src/full/Agda/Utils/Graph, and
+ a topological sort function, however this function was incorrectly implemented
+ https://github.com/agda/agda/blob/master/src/full/Agda/Utils/Graph/TopSort.hs#L27
+ but now apears fuxed.
+\end_layout
+
+\begin_layout Standard
+3rd party libraries exist https://github.com/sortalongo/agda-graph/blob/master/Da
+ta/Graph.agda
+\end_layout
+
+\begin_layout Part*
+Scratch
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $split:(A:\star)\rightarrow(n:\mathbb{N})\rightarrow Vec\,A\,(2*n)\rightarrow Vec\,(A,A)\,n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Function Composition
+\end_layout
+
+\begin_layout Section
+A simple language implementation
+\end_layout
+
+\begin_layout Section
+Prolog style solving
+\end_layout
+
+\begin_layout Standard
+Aritmetic functions like addition or multiplication can be encoded directly
+ like funcitons over data.
+\end_layout
+
+\begin_layout Subsubsection
+Similar examples
+\end_layout
+
+\begin_layout Standard
+Modules are not the only places where definitional equalities are not available,
+ and predicates must be postulated:
+\end_layout
+
+\begin_layout Itemize
+Can happen at any function use, if function extensionality does not hold
+\end_layout
+
+\end_body
+\end_document

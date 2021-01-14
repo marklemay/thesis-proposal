@@ -1,10 +1,25 @@
 module SmallExamples where
 
 open import Data.Nat using (ℕ; zero; suc; _+_; _*_; _^_; _∸_; _≤_; _≤?_)
-open import Data.Vec
+open import Data.Vec hiding (head)
+open import Data.Bool hiding (_≤_; _≤?_ )
 open import Relation.Binary.PropositionalEquality
 open import Relation.Nullary.Decidable
 open import Relation.Nullary hiding (Irrelevant)
+
+
+rep : (x : ℕ) -> Vec Bool x
+rep zero = []
+rep (suc x) = true ∷ rep x
+
+head : (x : ℕ) -> Vec Bool (1 + x) -> Bool
+head x (b ∷ y) = b
+
+exok : ℕ -> Bool
+exok x = head x (rep (1 + x))
+
+ex : ℕ -> Bool
+ex x = head x (rep (x + 1))
 
 module F where
   private
@@ -20,15 +35,15 @@ module F' where
 pr1 : F.f ≡ F'.f'
 pr1 = refl
 
-rep : (x : ℕ) → Vec ℕ x
-rep x = replicate 0 
+rep' : (x : ℕ) → Vec ℕ x
+rep' x = replicate 0 
 
 head' : (A : Set) → (n : ℕ )→ 1 ≤ n -> Vec A n → A
 head' A .(suc _) (_≤_.s≤s pr) (x ∷ v) = x
 
 module G (more : ℕ -> ℕ)  where
   g : ℕ -> ℕ
-  g x = head' ℕ (more x) what (rep (more x))
+  g x = head' ℕ (more x) what (rep' (more x))
     where
       postulate
         what : 1 ≤ more x
@@ -42,7 +57,7 @@ assumegte1 y | Relation.Nullary.Dec.no ¬p = {!!}
 
 module G' (more : ℕ -> ℕ)  where
   g : ℕ -> ℕ
-  g x = head' ℕ (more x) what (rep (more x))
+  g x = head' ℕ (more x) what (rep' (more x))
     where
       postulate
         what' : 1 ≤ more x

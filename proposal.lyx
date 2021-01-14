@@ -1,0 +1,1324 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{latex8}
+\usepackage{times}
+\usepackage{color}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{amsmath, nicefrac}
+\usepackage{amssymb, amsthm}
+\usepackage{wrapfig}
+\usepackage{algorithm, algorithmic}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{afterpage}
+\usepackage{abstract}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{footnote}
+\usepackage{threeparttable}
+\usepackage{colortbl}
+\usepackage{tweaklist}
+\usepackage{fancyhdr}
+\usepackage[retainorgcmds]{IEEEtrantools}
+\usepackage{floatflt}
+\usepackage{xspace}
+
+\usepackage{endnotes}
+\usepackage{paralist}
+\usepackage{shortcuts}
+\usepackage{tabulary}
+\usepackage{mdwlist}
+\usepackage{listings}
+\usepackage{balance}
+\usepackage{url}
+\usepackage{parskip}
+\usepackage{textcomp}
+\usepackage{subcaption}
+
+\usepackage{epstopdf}
+\usepackage{fancyvrb}
+\usepackage[T1]{fontenc}
+
+%-------------------------------------------------------------------------
+
+%double spacing for document
+
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand\floatpagefraction{0.9}
+\setcounter{totalnumber}{50} \setcounter{topnumber}{50} \setcounter{bottomnumber}{50}
+\renewcommand{\floatsep}{10pt}
+\renewcommand{\intextsep}{10pt}
+\setlength{\textfloatsep}{10pt}
+
+\renewcommand{\headrulewidth}{0pt} \renewcommand{\footrulewidth}{0pt}
+
+\newcommand{\eqnlinespace}{\\[5pt]}
+\newcommand{\eqnlinespacelarge}{\\[10pt]}
+\newcommand{\captionlinespace}{\\[0.05in]}
+
+\renewcommand{\baselinestretch}{1.6}
+
+%\renewcommand{\textwidth}{5.95in}
+\setlength{\textwidth}{6.875in}
+
+\renewcommand{\oddsidemargin}{0.5in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{vars.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------------------------
+\pagenumbering{roman}
+\end_preamble
+\options 11pt
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\series bold
+Dissertation Prospectus
+\series default
+ A Full-Spectrum Dependently typed language for testing with dynamic equality
+\end_layout
+
+\begin_layout Author
+Mark Lemay
+\end_layout
+
+\begin_layout Abstract
+Dependent type systems offer a powerful tool to eliminate bugs from programs.
+ Interest in dependent types is often driven by the inherent usability of
+ such systems: Dependent types systems can re-use that methodology and syntax
+ that functional programmers are familiar with for formal proofs.
+ This insight has lead to several Full-Spectrum languages that try and present
+ programmers with a consistent and unrestricted view of proofs and programs.
+ However these languages still have substantial usability issues: missing
+ features like general recursion, confusingly conservative equality, an
+ inability to prototype, and no strait forward way to test specifications
+ that have not yet been proven.
+\end_layout
+
+\begin_layout Abstract
+I attempt to solve these problems by building a new language that contains
+ standard functional programming features such as general recursion, with
+ a gradualized equality, runtime proof search and a testing system.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+The promise of dependent types in a practical programming language has been
+ the goal of research projects for decades.
+ There have been many formalization and prototypes that make different compromis
+es in the design space.
+ One popular direction to explore is 
+\begin_inset Quotes eld
+\end_inset
+
+Full-spectrum
+\begin_inset Quotes erd
+\end_inset
+
+ dependently types languages, these languages tend to have a minimalist
+ approach: computation can appear anywhere in a term or type.
+ Such a design purposely exposes the Curry-Howard correspondence, as opposed
+ to trying to hide it as a technical foundation: a proof has the exact same
+ syntax and behavior as a program.
+ This direct approach tries to make clear to the programmer the subtleties
+ of the proof system that are often obscured by other formal method systems.
+ Even though this style makes writing efficient programs hard, and drastically
+ complicates the ability to encode effects, it can be seen in some of the
+ most popular dependently typed languages (notably Agda and Idris).
+\end_layout
+
+\begin_layout Standard
+However there are several inconveniences with languages in this style: 
+\end_layout
+
+\begin_layout Enumerate
+A restriction on standard programming features, such as general recursion
+\end_layout
+
+\begin_layout Enumerate
+A subtle and weak notion of equality
+\end_layout
+
+\begin_layout Enumerate
+difficulties in prototyping proofs and programs
+\end_layout
+
+\begin_layout Enumerate
+Difficulties in testing programs that make use of dependent types
+\end_layout
+
+\begin_layout Standard
+While each problem will be treated as separately as possible, the nature
+ of dependent types requires that equality is modified before testing and
+ prototyping can be handled.
+ The notion of equality itself is also very sensitive to which programmatic
+ features are included.
+ My thesis will solve these problems by
+\end_layout
+
+\begin_layout Itemize
+Defining a full-spectrum dependently typed base language, with a few of
+ the most essential programming features like general recursion and user
+ defined data types
+\end_layout
+
+\begin_layout Itemize
+A cast language that supports dynamic equality checking
+\end_layout
+
+\begin_layout Itemize
+Syntax that supports runtime proof search
+\end_layout
+
+\begin_layout Itemize
+A symbolic testing system that will exercise terms with uncertain equalities
+ and runtime proof search
+\end_layout
+
+\begin_layout Section
+A Dependently Typed Base Language
+\end_layout
+
+\begin_layout Standard
+The base language contains the features:
+\end_layout
+
+\begin_layout Itemize
+Unrestricted dependent data types (no requirement of strict positivity)
+\end_layout
+
+\begin_layout Itemize
+Unrestricted recursion (no required termination checking)
+\end_layout
+
+\begin_layout Itemize
+Type-in-type (no predictive hierarchy of universes)
+\end_layout
+
+\begin_layout Standard
+Any one of these features can result in logical unsoundness
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Every type is inhabited by an infinite loop
+\end_layout
+
+\end_inset
+
+, but they are widely used in mainstream functional programming.
+ In spite of the logical unsoundness, the resulting language is still has
+ type soundness
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+no term with a reduct that applies an argument to a non-function in the
+ empty context will type
+\end_layout
+
+\end_inset
+
+.
+ Type checking is undecidable for this language, however this has not been
+ a problem in practice
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+While languages like Coq and Agda claim decidable typechecking, it is easy
+ to construct terms who's type verification would exceed the computational
+ resources of the universe
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The type theory is intutionistic, definitional equality is the 
+\begin_inset Formula $\alpha\beta$
+\end_inset
+
+ equivalence of terms.
+ The implementation is written in a bidirectional style allowing some annotation
+s to be inferred.
+\end_layout
+
+\begin_layout Standard
+Though this language is non-terminating it supports a partial correctness
+ property for first order data types when run with CBV, for instance:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\vdash M:\sum x:\mathbb{N}.\mathtt{IsEven}\,x
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathtt{fst}\,M$
+\end_inset
+
+ may not terminate, but if it does, 
+\begin_inset Formula $\mathtt{fst}\,M$
+\end_inset
+
+ will be an even 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathbb{N}$
+\end_inset
+
+.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ However, this property does not extend to functions
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\vdash M:\sum x:\mathbb{N}.\left(y:\mathbb{N}\right)\rightarrow x\leq y
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+it is possible that 
+\begin_inset Formula $\mathtt{fst}\,M\equiv7$
+\end_inset
+
+ if 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left\langle 7,\lambda y.\mathtt{loopForever}\right\rangle 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The hope would be that the type is sufficient to communicate intent, in
+ the same way unproductive non-termination is trappable in the vast majority
+ of typed languages but still considered a bug.
+\end_layout
+
+\begin_layout Subsection
+Prior work for the Base Language
+\end_layout
+
+\begin_layout Standard
+While the base language is in line with prior research, I am unaware of
+ any development with exactly these features.
+ Agda supports general recursion and Typy-in-type with compiler flags, and
+ can some non-positive data types using coinduction.
+ Idris supports similar 
+\begin_inset Quotes eld
+\end_inset
+
+unsafe
+\begin_inset Quotes erd
+\end_inset
+
+ features.
+ Meta-theoretically, this base language is similar to 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sjoberg2012irrelevance"
+literal "false"
+
+\end_inset
+
+ though data and equality are formulated differently.
+ The base language has been deeply informed by the Trellys Project
+\begin_inset CommandInset citation
+LatexCommand cite
+key "kimmell2012equational"
+literal "false"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sjoberg2012irrelevance"
+literal "false"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "casinghino2014combining,casinghino2014combiningthesis"
+literal "false"
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sjoberg2015programming"
+literal "false"
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sjoberg2015dependently"
+literal "false"
+
+\end_inset
+
+ and the Zombie Language
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://github.com/sweirich/trellys
+\end_layout
+
+\end_inset
+
+ it produced.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jia2010dependent"
+literal "false"
+
+\end_inset
+
+ claims a similar 
+\begin_inset Quotes eld
+\end_inset
+
+partial correctness
+\begin_inset Quotes erd
+\end_inset
+
+ criterion.
+\end_layout
+
+\begin_layout Section
+A Language with Dynamic Dependent Equality
+\end_layout
+
+\begin_layout Standard
+A key issue with full-spectrum dependent type theories is the characterization
+ of definitional equality.
+ Since computation can appear at the type level, and types must be checked
+ for equality, traditional dependent type theories pick a subset of equivalences
+ to support.
+ For instance, the base language follows the common choice of 
+\begin_inset Formula $\alpha\beta$
+\end_inset
+
+ equivalence of terms.
+ However this causes many obvious programs to not type-check:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\mathtt{Vec} & :\mathbb{N}\rightarrow*\rightarrow*\\
+\mathtt{rep} & :\left(x:\mathbb{N}\right)\rightarrow\mathtt{Vec}\,x\,\mathbb{B}\\
+\mathtt{head} & :\left(x:\mathbb{N}\right)\rightarrow\mathtt{Vec}\,\left(1+x\right)\,\mathbb{B}\rightarrow\mathbb{B}\\
+\cancel{\vdash} & \lambda x.\mathtt{head}\,x\,\left(\mathtt{rep}\,\left(x+1\right)\right)\,:\,\mathbb{N}\rightarrow\mathbb{B}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since 
+\begin_inset Formula $1+x$
+\end_inset
+
+ does not have the same definition as 
+\begin_inset Formula $x+1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Overly fine definitional equalities directly results in the poor error messages
+ that are common for dependently typed languages 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "eremondi2019framework"
+literal "false"
+
+\end_inset
+
+.
+ For instance, the above will give the error message 
+\begin_inset Quotes eld
+\end_inset
+
+x + 1 != suc x of type ℕ when checking that the expression rep (x + 1) has
+ type Vec Bool (1 + x)
+\begin_inset Quotes erd
+\end_inset
+
+ in Agda.
+ The error is confusing since it objects to an obvious property of addition,
+ and if addition were buggy no hints would be given to fix the problem.
+ Ideally the error messages would give a specific instance of 
+\begin_inset Formula $x$
+\end_inset
+
+ where 
+\begin_inset Formula $x+1\neq1+x$
+\end_inset
+
+ or remain silent.
+ There is some evidence that specific examples can help clarify the error
+ messages in OCaml
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1145/2951913.2951915"
+literal "false"
+
+\end_inset
+
+ and there has been an effort to make refinement type error messages more
+ concrete in Liquid Haskell
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1145/3314221.3314618"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Strengthening the equality relation dependently typed languages is used
+ to motivate many research projects (to name a few 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cockx2021taming,sjoberg2015programming,HoTTbook"
+literal "false"
+
+\end_inset
+
+).
+ However, every formulation I am aware of intends to preserve decidable
+ type checking or logical soundness, so equality will never be complete
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+I am also unaware of any suitable notion of complete equality though it
+ is considered in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sjoberg2015dependently"
+literal "false"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+.
+ Since I intend to dispense with both decidable type checking or logical
+ soundness I can propose a language with an equality that is more convenient
+ in practice.
+\end_layout
+
+\begin_layout Standard
+Building off the base language I purpose a dynamic cast language, a cast
+ type system and a partial elaboration function that satisfies the following
+ basic guarantees:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\vdash e:M$
+\end_inset
+
+ and 
+\begin_inset Formula $elab\left(e,M\right)=e'$
+\end_inset
+
+ then 
+\begin_inset Formula $\vdash e':M'$
+\end_inset
+
+ for some 
+\begin_inset Formula $\vdash M':*$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\vdash e':M'$
+\end_inset
+
+ and 
+\begin_inset Formula $e'\downarrow blame$
+\end_inset
+
+ then there is no 
+\begin_inset Formula $\vdash e:M$
+\end_inset
+
+ such that 
+\begin_inset Formula $elab\left(e,M\right)=e'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\vdash e':*$
+\end_inset
+
+ and 
+\begin_inset Formula $elab\left(e,*\right)=e'$
+\end_inset
+
+ then
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+if 
+\begin_inset Formula $e'\downarrow*$
+\end_inset
+
+ then 
+\begin_inset Formula $e\downarrow*$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+if 
+\begin_inset Formula $e'\downarrow(x:M')\rightarrow N'$
+\end_inset
+
+ then 
+\begin_inset Formula $e\downarrow(x:M)\rightarrow N$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+if 
+\begin_inset Formula $e'\downarrow TCon\triangle'$
+\end_inset
+
+ then 
+\begin_inset Formula $e\downarrow TCon\triangle$
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset Formula $\vdash e':M'$
+\end_inset
+
+ then
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset Formula $e'\downarrow v'$
+\end_inset
+
+ and 
+\begin_inset Formula $\vdash v':M'$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+or 
+\begin_inset Formula $e'\uparrow$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+or 
+\begin_inset Formula $e'\downarrow blame$
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+In the example above 
+\begin_inset Formula $\lambda x.\mathtt{head}\,x\,\left(\mathtt{rep}\,\left(x+1\right)\right)\,:\,\mathbb{N}\rightarrow\mathbb{B}$
+\end_inset
+
+ will not emit any errors at compile time or runtime (though a warning may
+ be given).
+ If the example is changed to
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\lambda x.\mathtt{head}\,x\,\left(\mathtt{rep}\,x\right)\,:\,\mathbb{N}\rightarrow\mathbb{B}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+no static error will be given, but if the function is called a runtime error
+ will be throughn.
+ The blame tracking system will blame the exact static location that uses
+ unequal types with a direct proof of inequality, allowing an error like
+ 
+\begin_inset Quotes eld
+\end_inset
+
+failed at application 
+\begin_inset Formula $\left(\mathtt{head}\,x:\mathtt{Vec}\,\underline{\left(1+x\right)}\,\mathbb{B}\rightarrow...\right)\left(rep\,x:\mathtt{Vec}\,\underline{x}\,\mathbb{B}\right)$
+\end_inset
+
+ since when 
+\begin_inset Formula $x=3$
+\end_inset
+
+, 
+\begin_inset Formula $1+x=4\neq3=x$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+, regardless of where in the program the the function was called.
+\end_layout
+
+\begin_layout Subsection
+Prior work
+\end_layout
+
+\begin_layout Standard
+It is unsurprising that dynamic quality is shares many of the same concerns
+ as the large amount of work contracts, hybrid types, gradual types, and
+ blame.
+ In fact, this work could be seen as gradualizing the Reflection Rule in
+ Extensional Type Theory.
+\end_layout
+
+\begin_layout Standard
+Blame has been strongly advocated for in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1007/978-3-642-00590-9_1,wadler:LIPIcs:2015:5033"
+literal "false"
+
+\end_inset
+
+.
+ Blame tracking can establish the reasonableness of gradual typing systems,
+ though as many authors have noticed, proving blame correctness is tedious
+ and error prone, many authors only conjecture it for their systems.
+\end_layout
+
+\begin_layout Standard
+The basic correctness conditions are inspired by the Gradual Guarantee 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "siek_et_al:LIPIcs:2015:5031"
+literal "false"
+
+\end_inset
+
+.
+ The implementation also takes inspiration from 
+\begin_inset Quotes eld
+\end_inset
+
+Abstracting gradual typing
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1145/2837614.2837670"
+literal "false"
+
+\end_inset
+
+, where static evidence annotations become runtime checks.
+ Unlike some impressive attempts to gradualize the polymorphic lambda calculus
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1145/3110283"
+literal "false"
+
+\end_inset
+
+, dynamic equality does not attempt to preserve any parametric properties
+ of the base language.
+\end_layout
+
+\begin_layout Standard
+A direct attempt has been made to gradualize a full spectrum dependently
+ typed language to an untyped lambda calculus using the AGT philosophy in
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1145/3341692"
+literal "false"
+
+\end_inset
+
+.
+ However that system retains the definitional style of equality and user
+ defined data types are not supported.
+ The paper is largely concerned with establishing decidable type checking
+ via an approximate term normalization.
+\end_layout
+
+\begin_layout Standard
+A refinement type system with higher order features is gradualized in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "c4be73a0daf74c9aa4d13483a2c4dd0e"
+literal "false"
+
+\end_inset
+
+ though it does not appear powerful enough to be characterized a a full-spectrum
+ dependent type theory.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "c4be73a0daf74c9aa4d13483a2c4dd0e"
+literal "false"
+
+\end_inset
+
+ builds on earlier refinement type system work, which described itself as
+ 
+\begin_inset Quotes eld
+\end_inset
+
+dynamic
+\begin_inset Quotes erd
+\end_inset
+
+ .
+ A notable example is 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1007/1-4020-8141-3_34"
+literal "false"
+
+\end_inset
+
+ which describes a refinement system that limit's predicates to base types.
+\end_layout
+
+\begin_layout Section
+Prototyping proofs and programs
+\end_layout
+
+\begin_layout Standard
+Just as 
+\begin_inset Quotes eld
+\end_inset
+
+obvious
+\begin_inset Quotes erd
+\end_inset
+
+ equalities are missing from the definitional relation, 
+\begin_inset Quotes eld
+\end_inset
+
+obvious
+\begin_inset Quotes erd
+\end_inset
+
+ proofs and programs are not always conveniently available to the programmer.
+ For instance, in Agda it is possible to write a sorting sorting function
+ quickly using simple types.
+ With expertise and effort is it possible to prove that sorting procedure
+ correct by rewriting it with the necessarily invariants.
+ However very little is offered in between.
+ The problem is magnified if module boundaries hide the implementation details
+ of a function, since the details are exactly what is needed to make a proof!
+ This is especially important for larger scale software where a library
+ may expect proof terms that while 
+\begin_inset Quotes eld
+\end_inset
+
+correct
+\begin_inset Quotes erd
+\end_inset
+
+ are not constructible from the exports of the other library.
+\end_layout
+
+\begin_layout Standard
+The solution proposed here is some additional syntax that will search for
+ a term of the type when resolved at runtime.
+ Given the sorting function 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathtt{sort}:\mathtt{List}\,\mathbb{N}\rightarrow\mathtt{List}\,\mathbb{N}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and given the first order predicate that 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathtt{IsSorted}:\mathtt{List}\,\mathbb{N}\rightarrow*
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+then it is possible to assert that 
+\begin_inset Formula $\mathtt{sort}$
+\end_inset
+
+ behaves as expected with
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\lambda x.?:\left(x:\mathtt{List}\,\mathbb{N}\right)\rightarrow\mathtt{IsSorted}\left(\mathtt{sort}x\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+this term will act like any other term at runtime, given a list input it
+ will verify that the 
+\begin_inset Formula $\mathtt{sort}$
+\end_inset
+
+ function correctly handles that input, give an error, or non-terminate.
+\end_layout
+
+\begin_layout Standard
+Additionally this would allow simple prototyping form first order specification.
+ For instance,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+data\,\mathtt{Mult} & :\mathbb{N}\rightarrow\mathbb{N}\rightarrow\mathbb{N}\rightarrow*\,where\\
+\mathtt{base} & :\left(x:\mathbb{N}\right)\rightarrow\mathtt{Mult}0\,x\,0\\
+\mathtt{suc} & :\left(x\,y\,z:\mathbb{N}\right)\rightarrow\mathtt{Mult}\,x\,y\,z\rightarrow\mathtt{Mult}\,\left(1+x\right)\,y\,(y+z)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+can be used to prototype
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathtt{div}=\lambda x.\lambda y.\mathtt{fst}\left(?:\sum z:\mathbb{N}.\mathtt{Mult}x\,y\,z\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The term search is made subtly easier by the the dynamic equality, otherwise
+ examples like 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+?:\sum f:\mathbb{N}\rightarrow\mathbb{N}.\mathtt{Id}\left(f,\lambda x.x+1\right)\&\mathtt{Id}\left(f,\lambda x.1+x\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+which would require resolving definitional behavior.
+ Using dynamic equality it is possible only consider the extensional behavior
+ of functions.
+\end_layout
+
+\begin_layout Standard
+Though the proof search is currently primitive, better search methods could
+ be incorporated in future work.
+\end_layout
+
+\begin_layout Subsection
+Prior work
+\end_layout
+
+\begin_layout Standard
+Proof search is often used for static term generation in dependently typed
+ languages (for instance Coq tactics).
+ A first order theorem prover is attached to Agda in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "norell2007towards"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Twelf made use of runtime proof search but the underling theory cannot be
+ considered full spectrum.
+\end_layout
+
+\begin_layout Section
+Testing dependent programs
+\end_layout
+
+\begin_layout Standard
+Both dynamic equalities and dynamic proof search vastly weaken the guarantees
+ of normal dependent type systems.
+ Programmers still would like a evidence of correctness, even while they
+ intend to provide full proofs of properties in the future.
+ However, there are few options available in full spectrum dependently typed
+ languages aside from costly and sometimes unconstructable proofs.
+\end_layout
+
+\begin_layout Standard
+The mainstream software industry has similar needs for evidence of correctness,
+ and has made use of testing done in a separate execution phase.
+ Given the rich and precise specifications that dependent types provide
+ it is possible to improve on the hand crafted tests used by most of the
+ industry.
+ Instead we can use a type directed symbolic execution, to run questionable
+ equalities over concrete values and engage and precompute the searched
+ proof terms.
+ Precomputed proof terms can be cached, so that exploration is not too inefficie
+nt in the common case of repeating tests at regular intervals of code that
+ is mostly the same.
+ Precomputed terms can be made available at runtime, covering for the inefficien
+t search procedure.
+ 
+\end_layout
+
+\begin_layout Standard
+Finally future work can add more advanced methods of testing and proof generatio
+n.
+ This architecture should make it easier to add more advanced exploration
+ and search without changing the underlining definitional behavior.
+\end_layout
+
+\begin_layout Subsection
+Prior work
+\end_layout
+
+\begin_layout Subsubsection
+Symbolic Execution
+\end_layout
+
+\begin_layout Standard
+Most research for Symbolic Execution targets popular languages (like C)
+ and uses SMT solvers to efficiently explore branches that depend on base
+ types.
+ Most work does not support higher order functions or makes simplifying
+ assumptions about the type system.
+ There are however some relevant papers:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1145/3314221.3314618"
+literal "false"
+
+\end_inset
+
+ presents a symbolic execution engine supporting Haskell's lazy execution
+ and type system.
+ Higher order functions are not handled
+\end_layout
+
+\begin_layout Itemize
+The draft work
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2006.11639"
+literal "false"
+
+\end_inset
+
+, handles higher order functions as and inputs provides a proof of completeness
+\end_layout
+
+\begin_layout Itemize
+Symbolic execution for higher order functions for a limited untyped variant
+ of PCF is described in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nguyen2017higher"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Testing dependent types
+\end_layout
+
+\begin_layout Standard
+There has been a long recognized need for testing in addition to proving
+ in dependent type systems
+\end_layout
+
+\begin_layout Itemize
+In 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dybjer2003combining"
+literal "false"
+
+\end_inset
+
+ a QuickCheck style framework was added to an earlier version of Agda
+\end_layout
+
+\begin_layout Itemize
+QuickChick
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://github.com/QuickChick/QuickChick
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "denes2014quickchick"
+literal "false"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lampropoulos2017generating,lampropoulos2017beginner,lampropoulos2018random"
+literal "false"
+
+\end_inset
+
+ is a research project to add testing to Coq.
+ However testing requires building types classes that establish the properties
+ needed by the testing framework such as decidable equality.
+ This is presumably out of reach of novice Coq users.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "C:/icfp/dtest/extended-abstract/dtest"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

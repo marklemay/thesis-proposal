@@ -5,6 +5,80 @@
 \save_transient_properties true
 \origin unavailable
 \textclass article
+\begin_preamble
+\usepackage{typesetting/latex8}
+\usepackage{times}
+\usepackage{color}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{amsmath, nicefrac}
+\usepackage{amssymb, amsthm}
+\usepackage{wrapfig}
+\usepackage{algorithm, algorithmic}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{afterpage}
+\usepackage{typesetting/abstract}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{footnote}
+\usepackage{threeparttable}
+\usepackage{colortbl}
+% \usepackage{tweaklist}
+\usepackage{fancyhdr}
+\usepackage[retainorgcmds]{IEEEtrantools}
+\usepackage{floatflt}
+\usepackage{xspace}
+
+\usepackage{endnotes}
+\usepackage{paralist}
+\usepackage{typesetting/shortcuts}
+\usepackage{tabulary}
+\usepackage{mdwlist}
+\usepackage{listings}
+\usepackage{balance}
+\usepackage{url}
+\usepackage{parskip}
+\usepackage{textcomp}
+\usepackage{subcaption}
+
+\usepackage{epstopdf}
+\usepackage{fancyvrb}
+% \usepackage[T1]{fontenc}
+
+%-------------------------------------------------------------------------
+
+%double spacing for document
+
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand\floatpagefraction{0.9}
+\setcounter{totalnumber}{50} \setcounter{topnumber}{50} \setcounter{bottomnumber}{50}
+\renewcommand{\floatsep}{10pt}
+\renewcommand{\intextsep}{10pt}
+\setlength{\textfloatsep}{10pt}
+
+\renewcommand{\headrulewidth}{0pt} \renewcommand{\footrulewidth}{0pt}
+
+\newcommand{\eqnlinespace}{\\[5pt]}
+\newcommand{\eqnlinespacelarge}{\\[10pt]}
+\newcommand{\captionlinespace}{\\[0.05in]}
+
+\renewcommand{\baselinestretch}{1.6}
+
+%\renewcommand{\textwidth}{5.95in}
+\setlength{\textwidth}{6.875in}
+
+\renewcommand{\oddsidemargin}{0.5in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end_preamble
 \options 11pt
 \use_default_options true
 \maintain_unincluded_children false
@@ -79,15 +153,48 @@
 \begin_body
 
 \begin_layout Title
+\begin_inset ERT
+status open
 
-\series bold
-Dissertation Prospectus
-\series default
+\begin_layout Plain Layout
+
+{
+\backslash
+em Dissertation Prospectus}
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\end_inset
+
  A Full-Spectrum Dependently typed language for testing with dynamic equality
 \end_layout
 
 \begin_layout Author
 Mark Lemay
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+ Department of Computer Science, Boston University 
+\backslash
+
+\backslash
+ 
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Abstract
@@ -519,8 +626,11 @@ literal "false"
 \begin_inset Quotes eld
 \end_inset
 
-x + 1 != suc x of type ℕ when checking that the expression rep (x + 1) has
- type Vec Bool (1 + x)
+x + 1 != suc x of type 
+\begin_inset Formula $\mathbb{N}$
+\end_inset
+
+ when checking that the expression rep (x + 1) has type Vec Bool (1 + x)
 \begin_inset Quotes erd
 \end_inset
 

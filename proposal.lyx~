@@ -6,6 +6,50 @@
 \origin unavailable
 \textclass article
 \begin_preamble
+\usepackage{typesetting/latex8}
+\usepackage{times}
+\usepackage{color}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{amsmath, nicefrac}
+\usepackage{amssymb, amsthm}
+\usepackage{wrapfig}
+\usepackage{algorithm, algorithmic}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{afterpage}
+\usepackage{typesetting/abstract}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{footnote}
+\usepackage{threeparttable}
+\usepackage{colortbl}
+% \usepackage{tweaklist}
+\usepackage{fancyhdr}
+\usepackage[retainorgcmds]{IEEEtrantools}
+\usepackage{floatflt}
+\usepackage{xspace}
+
+\usepackage{endnotes}
+\usepackage{paralist}
+\usepackage{typesetting/shortcuts}
+\usepackage{tabulary}
+\usepackage{mdwlist}
+\usepackage{listings}
+\usepackage{balance}
+\usepackage{url}
+\usepackage{parskip}
+\usepackage{textcomp}
+\usepackage{subcaption}
+
+\usepackage{epstopdf}
+\usepackage{fancyvrb}
+% \usepackage[T1]{fontenc}
 
 %-------------------------------------------------------------------------
 
@@ -34,13 +78,6 @@
 \renewcommand{\oddsidemargin}{0.5in}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\input{vars.tex}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%-------------------------------------------------------------------------
-\pagenumbering{roman}
 \end_preamble
 \options 11pt
 \use_default_options true
@@ -116,15 +153,48 @@
 \begin_body
 
 \begin_layout Title
+\begin_inset ERT
+status open
 
-\series bold
-Dissertation Prospectus
-\series default
+\begin_layout Plain Layout
+
+{
+\backslash
+em Dissertation Prospectus}
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\end_inset
+
  A Full-Spectrum Dependently typed language for testing with dynamic equality
 \end_layout
 
 \begin_layout Author
 Mark Lemay
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+ Department of Computer Science, Boston University 
+\backslash
+
+\backslash
+ 
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Abstract
@@ -136,7 +206,7 @@ Dependent type systems offer a powerful tool to eliminate bugs from programs.
  programmers with a consistent and unrestricted view of proofs and programs.
  However these languages still have substantial usability issues: missing
  features like general recursion, confusingly conservative equality, an
- inability to prototype, and no strait forward way to test specifications
+ inability to prototype, and no straight forward way to test specifications
  that have not yet been proven.
 \end_layout
 
@@ -258,7 +328,7 @@ Any one of these features can result in logical unsoundness
 status open
 
 \begin_layout Plain Layout
-Every type is inhabited by an infinite loop
+Every type is inhabited by an infinite loop.
 \end_layout
 
 \end_inset
@@ -270,8 +340,8 @@ Every type is inhabited by an infinite loop
 status open
 
 \begin_layout Plain Layout
-no term with a reduct that applies an argument to a non-function in the
- empty context will type
+No term with a reduct that applies an argument to a non-function in the
+ empty context will type.
 \end_layout
 
 \end_inset
@@ -285,7 +355,7 @@ status open
 \begin_layout Plain Layout
 While languages like Coq and Agda claim decidable typechecking, it is easy
  to construct terms who's type verification would exceed the computational
- resources of the universe
+ resources of the universe.
 \end_layout
 
 \end_inset
@@ -556,8 +626,11 @@ literal "false"
 \begin_inset Quotes eld
 \end_inset
 
-x + 1 != suc x of type ℕ when checking that the expression rep (x + 1) has
- type Vec Bool (1 + x)
+x + 1 != suc x of type 
+\begin_inset Formula $\mathbb{N}$
+\end_inset
+
+ when checking that the expression rep (x + 1) has type Vec Bool (1 + x)
 \begin_inset Quotes erd
 \end_inset
 
@@ -620,7 +693,7 @@ literal "false"
 
 \end_inset
 
- 
+ .
 \end_layout
 
 \end_inset

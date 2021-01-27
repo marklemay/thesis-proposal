@@ -230,11 +230,86 @@ Introduction
 \end_layout
 
 \begin_layout Standard
+The Curry-Howard correspondence identifies functions with theorems, providing
+ a mutually beneficial link between well explored areas of math and software
+ engineering.
+ This connection is most pronounced in dependent typed systems that provide
+ a common language to write programs about proofs and proofs about programs.
+ Specifically, dependent type systems allow types to depend on terms, supporting
+ an extremely powerful system of specification, computation and proof evidence.
+ 
+\end_layout
+
+\begin_layout Standard
+For instance, in a dependently typed language it is possible to prove the
+ correctness of a sorting algorithm with the type
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+sort\,:\,\left(input:List\,\mathbb{N}\right)\rightarrow\Sigma ls:List\,\mathbb{N}.IsSorted\,input\,ls
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by providing an appropriate term.
+ Unlike other systems of formal methods, the additional logical power does
+ not require the programmer understand any additional syntax or semantics.
+ Form the programmer's perspective the function arrow and the implication
+ arrow are the same.
+ The proof 
+\begin_inset Formula $IsSorted$
+\end_inset
+
+ is no different then any other datatype like 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $List$
+\end_inset
+
+ or 
+\begin_inset Formula $\mathbb{N}$
+\end_inset
+
+.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\end_layout
+
+\begin_layout Standard
 The promise of dependent types in a practical programming language has been
  the goal of research projects for decades.
  There have been many formalization and prototypes that make different compromis
 es in the design space.
- One popular direction to explore is 
+ One of the most popular styles is so called 
 \begin_inset Quotes eld
 \end_inset
 
@@ -247,60 +322,122 @@ Full-spectrum
  Such a design purposely exposes the Curry-Howard correspondence, as opposed
  to trying to hide it as a technical foundation: a proof has the exact same
  syntax and behavior as a program.
- This direct approach tries to make clear to the programmer the subtleties
- of the proof system that are often obscured by other formal method systems.
  Even though this style makes writing efficient programs hard, and drastically
  complicates the ability to encode effects, it can be seen in some of the
- most popular dependently typed languages (notably Agda and Idris).
+ most popular dependently typed languages such as Agda and Idris.
 \end_layout
 
 \begin_layout Standard
-However there are several inconveniences with languages in this style: 
-\end_layout
-
-\begin_layout Enumerate
-Restrictions on standard programming features, such as general recursion
-\end_layout
-
-\begin_layout Enumerate
-A subtle and weak notion of type equality
-\end_layout
-
-\begin_layout Enumerate
-Difficulties in prototyping proofs and programs
-\end_layout
-
-\begin_layout Enumerate
-Difficulties in testing programs that make use of dependent types
+Despite the potential, users often find these systems difficult to use.
+ The common symptom of these issues can be seen in the confusing error messages
+ these languages produce.
+ For instance in Agda this reasonable looking program 
 \end_layout
 
 \begin_layout Standard
-While each problem will be treated as separately as possible, the nature
- of dependent types requires that equality is modified before testing and
- prototyping can be handled.
- The notion of equality itself is also very sensitive to which programmatic
- features are included.
- My thesis will solve these problems by
+\begin_inset Formula 
+\begin{align*}
+\mathtt{Vec} & :*\rightarrow\mathbb{N}\rightarrow*\\
+\mathtt{rep} & :\left(x:\mathbb{N}\right)\rightarrow\mathtt{Vec\,\mathbb{B}}\,x\\
+\mathtt{head} & :\left(x:\mathbb{N}\right)\rightarrow\mathtt{Vec}\,\mathbb{B}\,\left(1+x\right)\rightarrow\mathbb{B}\\
+\cancel{\vdash} & \lambda x.\mathtt{head}\,x\,\left(\mathtt{rep}\,\left(x+1\right)\right)\,:\,\mathbb{N}\rightarrow\mathbb{B}
+\end{align*}
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-Defining a full-spectrum dependently typed base language, with a few of
- the most essential programming features like general recursion and user
- defined data types
+\begin_layout Standard
+will give the error 
+\begin_inset Quotes eld
+\end_inset
+
+x + 1 != suc x of type 
+\begin_inset Formula $\mathbb{N}$
+\end_inset
+
+ when checking that the expression rep (x + 1) has type Vec 
+\begin_inset Formula $\mathbb{B}$
+\end_inset
+
+ (1 + x)
+\begin_inset Quotes erd
+\end_inset
+
+.
+ The error is confusing since it objects to an intended property of addition,
+ and if addition were buggy no hints are given to fix the problem.
+ While an expert in Type Theory can appreciate the subtitles of definitional
+ equality, Programmers would prefer an error message that gives a specific
+ instance of 
+\begin_inset Formula $x$
+\end_inset
+
+ where 
+\begin_inset Formula $x+1\neq1+x$
+\end_inset
+
+ or remain silent.
+ 
 \end_layout
 
-\begin_layout Itemize
-A generalization of that base language that supports dynamic equality checking
- with blame tracking
+\begin_layout Standard
+There is not enough information available statically to verify every 
+\begin_inset Quotes eld
+\end_inset
+
+obvious
+\begin_inset Quotes erd
+\end_inset
+
+ equality for arbitrary user defined data types and functions.
+ Strengthening the equality relation in dependently typed languages is used
+ to motivate many research projects (to name a few 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cockx2021taming,sjoberg2015programming"
+literal "false"
+
+\end_inset
+
+).
+ It is unlikely those impressive efforts are suitable for non-exerts, since
+ programmers expect the data types and functions they define to have the
+ properties they were intended to have.
+ Nothing makes the underling equality less subtle and complicated.
+ 
 \end_layout
 
-\begin_layout Itemize
-Syntax that supports runtime proof search
+\begin_layout Standard
+Alternatively we could assume the equalities hold and discover a concrete
+ inequality as a runtime error.
+ There is some evidence that specific examples can help clarify the error
+ messages in OCaml
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1145/2951913.2951915"
+literal "false"
+
+\end_inset
+
+ and there has been an effort to make refinement type error messages more
+ concrete and other systems like Liquid Haskell
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1145/3314221.3314618"
+literal "false"
+
+\end_inset
+
+.
+ This leads too a different workflow then traditional type systems, instead
+ of verifying everything first and only then executing the program, execution
+ and type checking can inform each other.
 \end_layout
 
-\begin_layout Itemize
-A symbolic testing system that will exercise terms with uncertain equalities
- and runtime proof search
+\begin_layout Standard
+TODO roadmap
 \end_layout
 
 \begin_layout Section
@@ -308,11 +445,59 @@ A Dependently Typed Base Language
 \end_layout
 
 \begin_layout Standard
-The base language contains the features:
+To explore these ideas I wrote a conventional Dependently Typed Programming
+ language in the 
+\begin_inset Quotes eld
+\end_inset
+
+Full-Spectrum
+\begin_inset Quotes erd
+\end_inset
+
+ style.
+ This base language contains all features that we hope to explore: user
+ defined functions and datatypes.
+ The dynamic language can be elaborated from and compared to this concrete
+ implementation.
 \end_layout
 
-\begin_layout Itemize
-Full-Spectrum Dependent types
+\begin_layout Standard
+The language is pure in the sense of Haskell, supporting only non-termination
+ and unchecked errors as effects.
+ Combing other effects with Full-Spectrum dependent types is substantially
+ more difficult because effectful equality is hard to characterize for individua
+l effects or effects in combination.
+ Several attempts have been made, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "pedrot2020fire"
+literal "false"
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ahman2017handling,ahman2017fibred"
+literal "false"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "pedrot2020fire"
+literal "false"
+
+\end_inset
+
+ but there is still a lot of work to be done, so it is not considered in
+ the base language.
+\end_layout
+
+\begin_layout Standard
+Since this work emphasizes programming over theorem proving the language
+ contains these logically dubious features:
 \end_layout
 
 \begin_layout Itemize
@@ -331,7 +516,7 @@ Type-in-type (no predictive hierarchy of universes)
 \begin_layout Standard
 Any one of these features can result in logical unsoundness
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Every type is inhabited by an infinite loop.
@@ -343,7 +528,7 @@ Every type is inhabited by an infinite loop.
  In spite of the logical unsoundness, the resulting language is still has
  type soundness
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 No term with a reduct that applies an argument to a non-function in the
@@ -353,15 +538,15 @@ No term with a reduct that applies an argument to a non-function in the
 \end_inset
 
 .
- This seems ideal for a programming language since logically sound proofs
+ This seems suitable for a programming language since logically sound proofs
  can still be defined and logical unsoundness can be discovered through
  traditional testing.
  Importantly no desirable computation is prevented.
 \end_layout
 
 \begin_layout Standard
-Though this language is not logically sound it supports a partial correctness
- property for first order data types when run with CBV, for instance:
+Though this language is not logically sound, it supports a partial correctness
+ property for first order data types when run with Call-by-Value, for instance:
 \end_layout
 
 \begin_layout Standard
@@ -453,40 +638,6 @@ The hope would be that the type is sufficient to communicate intent, in
  languages but still considered a bug.
 \end_layout
 
-\begin_layout Standard
-Since arbitrary computation can appear in types, the type systems need to
- characterize what computations are equivalent.
- The base language associates all terms that are 
-\begin_inset Formula $\alpha\beta$
-\end_inset
-
- equivalent, a conventional choice for intensional type theories.
- 
-\begin_inset Formula $\alpha\beta$
-\end_inset
-
- equivalence is undecidable for general recursion so type checking for this
- language is undecidable, however this has not been a problem in practice
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-While languages like Coq and Agda claim decidable typechecking, it is easy
- to construct terms who's type verification would exceed the computational
- resources of the universe.
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The implementation additionally supports top level functions, unrestricted
- mutual recursion for functions and data and is written in a bidirectional
- style allowing some annotations to be inferred.
-\end_layout
-
 \begin_layout Subsection
 Prior work for the Base Language
 \end_layout
@@ -497,12 +648,17 @@ While many of these features have been explored in theory and implemented
 \end_layout
 
 \begin_layout Standard
-Unsound logical systems go back to at least to Church's lambda calculus
- which was originally intended to be a logical foundation.
+Unsound logical systems that are acceptable programming languages go back
+ to at least to Church's lambda calculus which was originally intended to
+ be a logical foundation for mathematics.
  Martin Lof proposed a system with Type-in-type that was shown logically
  unsound by Girard.
- The first proof of type soundness for general recursive functions that
- I am aware of came form the Trellys Project 
+ 
+\end_layout
+
+\begin_layout Standard
+The first proof of type soundness for general recursive functions that I
+ am aware of came form the Trellys Project 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sjoberg2012irrelevance"
@@ -510,9 +666,9 @@ literal "false"
 
 \end_inset
 
-, it contains many similar features, but base language uses a simpler notion
- of equality and dependent data resulting in an arguably simpler proof of
- type soundness.
+, it contains many similar features, but the base language uses a simpler
+ notion of equality and dependent data resulting in an arguably simpler
+ proof of type soundness.
  Further work in the Trellys Project
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -640,25 +796,14 @@ A key issue with full-spectrum dependent type theories is the characterization
 \end_inset
 
  equivalence of terms.
- However this causes many obvious programs to not type-check:
+ However this causes many, programs to not type-check:
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula 
-\begin{align*}
-\mathtt{Vec} & :\mathbb{N}\rightarrow*\rightarrow*\\
-\mathtt{rep} & :\left(x:\mathbb{N}\right)\rightarrow\mathtt{Vec}\,x\,\mathbb{B}\\
-\mathtt{head} & :\left(x:\mathbb{N}\right)\rightarrow\mathtt{Vec}\,\left(1+x\right)\,\mathbb{B}\rightarrow\mathbb{B}\\
-\cancel{\vdash} & \lambda x.\mathtt{head}\,x\,\left(\mathtt{rep}\,\left(x+1\right)\right)\,:\,\mathbb{N}\rightarrow\mathbb{B}
-\end{align*}
-
+\begin_inset Formula $\lambda x.\mathtt{head}\,x\,\left(\mathtt{rep}\,\left(x+1\right)\right)\,:\,\mathbb{N}\rightarrow\mathbb{B}$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-Since 
+ Since 
 \begin_inset Formula $1+x$
 \end_inset
 
@@ -670,106 +815,9 @@ Since
 \end_layout
 
 \begin_layout Standard
-Overly fine definitional equalities directly results in the poor error messages
- that are common for dependently typed languages 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "eremondi2019framework"
-literal "false"
-
-\end_inset
-
-.
- For instance, the above will give the error message 
-\begin_inset Quotes eld
-\end_inset
-
-x + 1 != suc x of type 
-\begin_inset Formula $\mathbb{N}$
-\end_inset
-
- when checking that the expression rep (x + 1) has type Vec Bool (1 + x)
-\begin_inset Quotes erd
-\end_inset
-
- in Agda.
- The error is confusing since it objects to an intended property of addition,
- and if addition were buggy no hints would be given to fix the problem.
- Ideally the error messages would give a specific instance of 
-\begin_inset Formula $x$
-\end_inset
-
- where 
-\begin_inset Formula $x+1\neq1+x$
-\end_inset
-
- or remain silent.
- There is some evidence that specific examples can help clarify the error
- messages in OCaml
-\begin_inset CommandInset citation
-LatexCommand cite
-key "10.1145/2951913.2951915"
-literal "false"
-
-\end_inset
-
- and there has been an effort to make refinement type error messages more
- concrete in Liquid Haskell
-\begin_inset CommandInset citation
-LatexCommand cite
-key "10.1145/3314221.3314618"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Strengthening the equality relation in dependently typed languages is used
- to motivate many research projects (to name a few 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cockx2021taming,sjoberg2015programming"
-literal "false"
-
-\end_inset
-
-).
- It is unlikely those impressive efforts are suitable for non exerts, since
- programmers expect the data types and functions they define to have the
- properties the expect to have.
- Asking a programmer to build a custom confluent rewrite system on top of
- their functions is unrealistic
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cockx2021taming"
-literal "false"
-
-\end_inset
-
-.
- Asking programmers to translate their datatype into SAT input, likewise
- requires too much perquisite knowledge.
- Even asking programmers to prove the equational properties that can then
- be used automatically
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sjoberg2015programming"
-literal "false"
-
-\end_inset
-
- is off putting.
- Needing to know the details of definitional equality makes choices that
- would be irreverent in Haskell, subtle and complicated.
- 
-\end_layout
-
-\begin_layout Standard
-Additionally , every attempt to extend the definitional equalities of dependent
- type theory I am aware of intends to preserve decidable type checking and/or
- logical soundness, so equality will never be complete
+This is a widely recognized issue with Dependent Type Theories, However
+ most attempts to improve the equality relation intend to preserve decidable
+ type checking and/or logical soundness, so equality will never be complete
 \begin_inset Foot
 status open
 
@@ -791,12 +839,12 @@ literal "false"
 .
  Since dependently typed languages with the practical features outlined
  in base language are already incompatible with logical soundness and decidable
- type checking, perhaps equality can also be made more convenient.
+ type checking, these concerns no longer apply.
 \end_layout
 
 \begin_layout Standard
-Building off the base language I purpose a dynamic cast language, and a
- cast type system.
+The base language can be extended to a cast language that supports the expectati
+on of the original typing.
  Many programs that do not type in the base language can be elaborated into
  the cast language.
  The cast language has a weaker notion of type soundness such that 
@@ -898,18 +946,9 @@ Just as standard type theories allow many possible characterizations of
  The minimal choice that supports type soundness is likely too permissive
  in practice.
  Alternatively, I conjecture that checking that matches the partial correctness
- criteria above would be reasonably intuitive
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-Extending checks into non dependent function types also seems reasonable,
- and would allow simple static type checking
-\end_layout
-
-\end_inset
-
-.
+ criteria above would be reasonably intuitive.
+ Extending checks into non dependent function types also seems reasonable,
+ and would allow simple types to be checked statically.
 \end_layout
 
 \begin_layout Standard
@@ -1025,11 +1064,22 @@ The first condition states that every typed term in the base language can
 \end_layout
 
 \begin_layout Subsection
+Status
+\end_layout
+
+\begin_layout Standard
+I have a prototype that has support for all the features of the base language.
+ The fragment for dependent types and type universes satisfies all the condition
+s above.
+ I believe that all conditions can be made to hold with data types as well.
+\end_layout
+
+\begin_layout Subsection
 Prior work
 \end_layout
 
 \begin_layout Standard
-It is unsurprising that dynamic quality is shares many of the same concerns
+It is unsurprising that dynamic equality is shares many of the same concerns
  as the large amount of work for contracts, hybrid types, gradual types,
  and blame.
  In fact, this work could be seen as gradualizing the Reflection Rule in
@@ -1046,10 +1096,11 @@ literal "false"
 \end_inset
 
 .
- Blame tracking can establish the reasonableness of monitoring systems systems
+ Blame tracking can help establish the reasonableness of monitoring systems
  by linking a dynamic failure directly to the broken static invariant.
- As many authors have noticed, proving blame correctness is tedious and
- error prone, it is often only conjectured.
+ blame is also the key ingredient of good error messages.
+ However, as many authors have noticed, proving blame correctness is tedious
+ and error prone, it is often only conjectured.
 \end_layout
 
 \begin_layout Standard
@@ -1152,6 +1203,14 @@ literal "false"
 \end_layout
 
 \begin_layout Section
+Future Work
+\end_layout
+
+\begin_layout Standard
+Dynamic equality appears to be a prerequisite to other interesting possibilities
+\end_layout
+
+\begin_layout Subsection
 Prototyping proofs and programs
 \end_layout
 
@@ -1311,7 +1370,7 @@ Though the proof search is currently primitive, better search methods could
  be incorporated in future work.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Prior work
 \end_layout
 
@@ -1331,10 +1390,10 @@ literal "false"
 
 \begin_layout Standard
 Twelf made use of runtime proof search but the underling theory cannot be
- considered full spectrum.
+ considered full-spectrum.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Testing dependent programs
 \end_layout
 
@@ -1343,7 +1402,7 @@ Both dynamic equalities and dynamic proof search vastly weaken the guarantees
  of normal dependent type systems.
  Programmers still would like a evidence of correctness, even while they
  intend to provide full proofs of properties in the future.
- However, there are few options available in full spectrum dependently typed
+ However, there are few options available in full-spectrum dependently typed
  languages aside from costly and sometimes unconstructable proofs.
 \end_layout
 
@@ -1378,7 +1437,7 @@ n.
  and search without changing the underlining definitional behavior.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Prior work 
 \end_layout
 
@@ -1485,144 +1544,6 @@ literal "false"
  However testing requires building types classes that establish the properties
  needed by the testing framework such as decidable equality.
  This is presumably out of reach of novice Coq users.
-\end_layout
-
-\begin_layout Section
-Reservations
-\end_layout
-
-\begin_layout Subsection
-Purity
-\end_layout
-
-\begin_layout Standard
-The base language is pure in the Haskell sense
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-the only effects are non termination and unhandled exceptions.
-\end_layout
-
-\end_inset
-
-, an thus has many of the usability issues of languages in that style.
- Handling effects in a principled convenient way in mainstream functional
- programming languages is an ongoing research effort.
- Notable areas of research include Algebraic Effects and Handlers, and Linear
- Type systems.
-\end_layout
-
-\begin_layout Standard
-Effects have been combined with dependent types in a limited fashion with
- Hoare Type Theory (HTT)
-\begin_inset CommandInset citation
-LatexCommand cite
-key "nanevski2005dependent"
-literal "false"
-
-\end_inset
-
- and ATS.
-\end_layout
-
-\begin_layout Standard
-Combing effects with Full-Spectrum dependent types is substantially more
- difficult because effectful equality is hard to characterize for individual
- effects or effects in combination.
- Several attempts have been made, 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "pedrot2020fire"
-literal "false"
-
-\end_inset
-
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "ahman2017handling,ahman2017fibred"
-literal "false"
-
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "pedrot2020fire"
-literal "false"
-
-\end_inset
-
- but there is still a lot of work to be done.
-\end_layout
-
-\begin_layout Subsection
-Implicit arguments
-\end_layout
-
-\begin_layout Standard
-The base language currently has no mechanism for marking arguments implicit.
- Implicit arguments drastically improve the usability of dependent type
- systems, often taking the place of type inference in ML style languages.
- They have been left out of the base language so that alternatives can be
- explored.
-\end_layout
-
-\begin_layout Subsection
-Dependent data
-\end_layout
-
-\begin_layout Standard
-The current presentation of data in the base language is powerful but there
- are inconveniences:
-\end_layout
-
-\begin_layout Itemize
-The base language is based on eliminators with an explicit motive.
- Nested pattern matching is not supported which is surprisingly subtle 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "norell2007towards"
-literal "false"
-
-\end_inset
-
- with dependent types.
-\end_layout
-
-\begin_layout Itemize
-Data types in the base language support dependent indices, but not 
-\begin_inset Quotes eld
-\end_inset
-
-Parameters
-\begin_inset Quotes erd
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-There is no reduction in expressiveness, but these features should be added
- to make the language more convenient.
-\end_layout
-
-\begin_layout Section
-Status
-\end_layout
-
-\begin_layout Itemize
-I have a prototype of the cast language supporting all features.
- However the casting of data types will need to be reworked.
- I believe I can prove all the properties on the sublanguage without data.
- I expect it is possible to prove the properties on the language with data
- as well, though I need to work through those details.
-\end_layout
-
-\begin_layout Itemize
-Substantial work was completed on the proof-search for the extended abstract,
- though it will need to be revisited.
 \end_layout
 
 \begin_layout Standard

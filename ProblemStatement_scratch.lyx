@@ -1746,6 +1746,28 @@ Substantial work was completed on the proof-search for the extended abstract,
 \end_layout
 
 \begin_layout Standard
+TODO
+\end_layout
+
+\begin_layout Abstract
+Interest in dependent types is often driven by the inherent usability of
+ such systems: Dependent types systems can re-use that methodology and syntax
+ that functional programmers are familiar with for formal proofs.
+ This insight has lead to several Full-Spectrum languages that try and present
+ programmers with a consistent and unrestricted view of proofs and programs.
+ However these languages still have substantial usability issues: missing
+ features like general recursion, confusingly conservative equality, an
+ inability to prototype, and no straight forward way to test specifications
+ that have not yet been proven.
+\end_layout
+
+\begin_layout Abstract
+I attempt to solve these problems by building a new language that contains
+ standard functional programming features such as general recursion, with
+ a gradualized equality, runtime proof search and a testing system.
+\end_layout
+
+\begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 btprint "btPrintCited"

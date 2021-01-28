@@ -316,7 +316,57 @@ Error messages like this reflect foundations of how dependently typed languages
 \end_layout
 
 \begin_layout Standard
+...Dependent Equality
+\end_layout
+
+\begin_layout Standard
+In a dependent type system computation can appear in types, so the type
+ system needs to characterize what computations are equivalent.
+\end_layout
+
+\begin_layout Standard
 ...
+\end_layout
+
+\begin_layout Standard
+There are many possibilities 
+\end_layout
+
+\begin_layout Standard
+The base language associates all terms that are 
+\begin_inset Formula $\alpha\beta$
+\end_inset
+
+ equivalent, a conventional choice for intensional type theories.
+ 
+\begin_inset Formula $\alpha\beta$
+\end_inset
+
+ equivalence is undecidable for general recursion so type checking for this
+ language is undecidable, however this has not been a problem in practice
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+While languages like Coq and Agda claim decidable typechecking, it is easy
+ to construct terms who's type verification would exceed the computational
+ resources of the universe.
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The implementation additionally supports top level functions, unrestricted
+ mutual recursion for functions and data and is written in a bidirectional
+ style allowing some annotations to be inferred.
+\end_layout
+
+\begin_layout Standard
+Equalty is a core issue of Dependent Type Theory.
+ Many approaches have been proposed in general, 
 \end_layout
 
 \begin_layout Part*
@@ -837,7 +887,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-Additionally , every attempt to extend the definitional equalities of dependent
+Additionally, every attempt to extend the definitional equalities of dependent
  type theory I am aware of intends to preserve decidable type checking and/or
  logical soundness, so equality will never be complete
 \begin_inset Foot

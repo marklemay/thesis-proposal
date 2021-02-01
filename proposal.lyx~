@@ -1108,7 +1108,8 @@ Status
 \end_layout
 
 \begin_layout Standard
-I have a prototype that has support for all the features of the base language.
+I am rewriting prototype that has support for all the features of the base
+ language.
  The fragment for dependent function types and type universes satisfies
  all the conditions above.
  I believe that all conditions can be made to hold with data types as well.
@@ -1273,7 +1274,7 @@ obvious
 \end_inset
 
  proofs and programs are not always conveniently available to the programmer.
- For instance, in Agda it is possible to write a sorting  function quickly
+ For instance, in Agda it is possible to write a sorting function quickly
  using simple types.
  With effort is it possible to prove that sorting procedure correct by rewriting
  it with the necessarily invariants.
@@ -1344,8 +1345,8 @@ then it is possible to assert that
 \end_layout
 
 \begin_layout Standard
-this term will act like any other term at runtime, given a list input it
- will verify that the 
+this term will act like any other function at runtime, given a list input
+ it will verify that the 
 \begin_inset Formula $\mathtt{sort}$
 \end_inset
 
@@ -1487,9 +1488,9 @@ Symbolic Execution
 \end_layout
 
 \begin_layout Standard
-Most research for Symbolic Execution targets popular languages (like C)
- and uses SMT solvers to efficiently explore conditional branches that depend
- on base types.
+Most research for Symbolic Execution targets popular imparative languages
+ (like C) and uses SMT solvers to efficiently explore conditional branches
+ that depend on base types.
  Most work does not support higher order functions or makes simplifying
  assumptions about the type system.
  There are however some relevant papers:

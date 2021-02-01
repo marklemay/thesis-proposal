@@ -213,7 +213,7 @@ Dependent type systems are a powerful tool to eliminate bugs from programs.
 These issues are not superficial, but are tied to some of the conventional
  assumptions of dependent type theory.
  Logical soundness is essential when dependent types are considered as a
- logic, but type soundness is sufficient when used as a programming language.
+ logic, but may be unnecisary a programming language.
  The philosophical commitment of equality is easy to hand-wave away informally,
  but it makes many programs unrunnable.
  Users often experience these assumptions as inexplicable static errors.
@@ -818,8 +818,8 @@ A Language with Dynamic Type Equality
 A key issue with full-spectrum dependent type theories is the characterization
  of definitional equality.
  Since computation can appear at the type level, and types must be checked
- for equality, traditional dependent type theoriesmust define what they
- mean by.
+ for equality, dependent type theories must define what computational equalities
+ they intend to support.
  For instance, the base language follows the common choice of 
 \begin_inset Formula $\alpha\beta$
 \end_inset
@@ -943,9 +943,9 @@ If the example is changed to
 \end_layout
 
 \begin_layout Standard
-at runtime the blame tracking system will blame the exact static location
- that uses unequal types with a direct proof of inequality, allowing an
- error like 
+and the function is called at runtime, the blame tracking system will blame
+ the exact static location that uses unequal types with a direct proof of
+ inequality, allowing an error like 
 \begin_inset Quotes eld
 \end_inset
 
@@ -965,17 +965,31 @@ failed at application
 \begin_inset Quotes erd
 \end_inset
 
-, regardless of where in the program the discrepancy was discovered.
+, regardless of where function was called in the program the discrepancy
+ was discovered.
+ This improves on the naive solution of completely ignoring type annotations
+ for execution, since without type soundness, the returned error may appear
+ unrelated to the problematic type assumption (
+\begin_inset Quotes eld
+\end_inset
+
+3 applied to 7 but 7 is not a functions
+\begin_inset Quotes erd
+\end_inset
+
+).
+ 
 \end_layout
 
 \begin_layout Standard
 Just as standard type theories allow many possible characterizations of
  equality that support logical soundness, there are many choices of runtime
- checking.
- The minimal choice that supports type soundness is likely too permissive
- in practice.
- Alternatively, I conjecture that checking that matches the partial correctness
- criteria above would be reasonably intuitive.
+ checking that support this notion of type soundness.
+ The minimal choice that is likely too permissive in practice.
+ In the example above, it would only flag an error when the function is
+ applied to 0.
+ Alternatively, I conjecture that runtime-checking that matches the partial
+ correctness criteria above would be reasonably intuitive.
  Extending checks into non dependent function types also seems reasonable,
  and would allow simple types to be checked statically.
 \end_layout
@@ -1127,7 +1141,7 @@ literal "false"
 .
  Blame tracking can help establish the reasonableness of monitoring systems
  by linking a dynamic failure directly to the broken static invariant.
- blame is also the key ingredient of good error messages.
+ blame is also a key ingredient of good error messages.
  However, as many authors have noticed, proving blame correctness is tedious
  and error prone, it is often only conjectured.
 \end_layout
@@ -1170,7 +1184,8 @@ literal "false"
 
 , dynamic equality does not attempt to preserve any parametric properties
  of the base language.
- It is unclear how useful such a restriction would be in practice.
+ It is unclear how useful such a restriction to parametric properties would
+ be in practice.
 \end_layout
 
 \begin_layout Standard
@@ -1185,7 +1200,7 @@ literal "false"
 \end_inset
 
 .
- However that system retains the definitional style of equality and user
+ However that system retains the intentional style of equality and user
  defined data types are not supported.
  The paper is largely concerned with establishing decidable type checking
  via an approximate term normalization.

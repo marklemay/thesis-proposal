@@ -1378,7 +1378,7 @@ can be used to prototype
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\mathtt{div}=\lambda x.\lambda y.\mathtt{fst}\left(?:\sum z:\mathbb{N}.\mathtt{Mult}x\,y\,z\right)
+\mathtt{div}=\lambda x.\lambda z.\mathtt{fst}\left(?:\sum y:\mathbb{N}.\mathtt{Mult}x\,y\,z\right)
 \]
 
 \end_inset

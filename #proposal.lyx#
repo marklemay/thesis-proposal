@@ -213,10 +213,10 @@ Dependent type systems are a powerful tool to eliminate bugs from programs.
 These issues are not superficial, but are tied to some of the conventional
  assumptions of dependent type theory.
  Logical soundness is essential when dependent types are considered as a
- logic, but may be unnecisary a programming language.
- The philosophical commitment of equality is easy to hand-wave away informally,
- but it makes many programs unrunnable.
- Users often experience these assumptions as inexplicable static errors.
+ logic, but may be too restrictive in a programming language.
+ Conservative equality is easy to hand-wave away informally, but it makes
+ many programs unrunnable.
+ Users often experience these characteristics as inexplicable static errors.
  In practice these foundational assumptions, make exploratory programming
  difficult.
 \end_layout
@@ -324,7 +324,7 @@ The promise of dependent types in a practical programming language has been
  the goal of research projects for decades.
  There have been many formalization and prototypes that make different compromis
 es in the design space.
- One of the most popular styles is so called 
+ One of the most popular styles is 
 \begin_inset Quotes eld
 \end_inset
 
@@ -332,8 +332,8 @@ Full-spectrum
 \begin_inset Quotes erd
 \end_inset
 
- dependently types languages, these languages tend to have a minimalist
- approach: computation can appear anywhere in a term or type.
+ dependent types, these languages tend to have a minimalist approach: computatio
+n can appear anywhere in a term or type.
  Such a design purposely exposes the Curry-Howard correspondence, as opposed
  to trying to hide it as a technical foundation: a proof has the exact same
  syntax and behavior as a program.
@@ -393,7 +393,7 @@ x + 1 != suc x of type
 \begin_inset Formula $x+1\neq1+x$
 \end_inset
 
- or remain silent.
+ or be allowed to run their program.
  
 \end_layout
 
@@ -412,7 +412,7 @@ literal "false"
  since programmers expect the data types and functions they define to have
  the properties they were intended to have.
  None of these projects makes the underling equality less subtle and complicated.
- There is not enough information available statically to verify every 
+ No system will be able to verify every 
 \begin_inset Quotes eld
 \end_inset
 
@@ -420,7 +420,8 @@ obvious
 \begin_inset Quotes erd
 \end_inset
 
- equality for arbitrary user defined data types and functions.
+ equality for arbitrary user defined data types and functions statically,
+ since program equivalence is famously undecidable.
 \end_layout
 
 \begin_layout Standard
@@ -447,16 +448,12 @@ literal "false"
 .
  This leads too a different workflow then traditional type systems, instead
  of verifying everything first and only then executing the program, execution
- and type checking can inform each other.
+ and type checking can both inform the programmer.
 \end_layout
 
 \begin_layout Standard
-To make this new workflow possible
-\begin_inset Quotes erd
-\end_inset
-
- section 2 will describe a more traditional base language with some programmatic
- features.
+To make this new workflow possible section 2 will describe a more traditional
+ base language with some programmatic features.
  Section 3 describes dynamic dependent equality and the conditions that
  would make an implementation reasonable.
  Section 4 covers some of the other features a language in this style could
@@ -766,7 +763,7 @@ https://github.com/sweirich/trellys
 \end_layout
 
 \begin_layout Standard
-Many implementations support this combination of features without proofs
+Several implementations support this combination of features without proofs
  of type soundness.
  Cayenne 
 \begin_inset CommandInset citation
@@ -799,7 +796,7 @@ literal "false"
 
 \end_inset
 
- claims a similar 
+ introduces a similar 
 \begin_inset Quotes eld
 \end_inset
 
@@ -825,7 +822,7 @@ A key issue with full-spectrum dependent type theories is the characterization
 \end_inset
 
  equivalence of terms.
- However this causes many, programs to not type-check:
+ However this causes many programs to not type-check:
 \end_layout
 
 \begin_layout Standard
@@ -844,9 +841,10 @@ A key issue with full-spectrum dependent type theories is the characterization
 \end_layout
 
 \begin_layout Standard
-This is a widely recognized issue with Dependent Type Theories, However
- most attempts to improve the equality relation intend to preserve decidable
- type checking and/or logical soundness, so equality will never be complete
+This is a widely recognized issue with Dependent Type Theories.
+ However most attempts to improve the equality relation intend to preserve
+ decidable type checking and/or logical soundness, so equality will never
+ be complete
 \begin_inset Foot
 status open
 
@@ -965,15 +963,15 @@ failed at application
 \begin_inset Quotes erd
 \end_inset
 
-, regardless of where function was called in the program the discrepancy
- was discovered.
+, regardless of where function was called in the program and where the discrepan
+cy was discovered.
  This improves on the naive solution of completely ignoring type annotations
  for execution, since without type soundness, the returned error may appear
  unrelated to the problematic type assumption (
 \begin_inset Quotes eld
 \end_inset
 
-3 applied to 7 but 7 is not a functions
+3 applied to 7 but 7 is not a function
 \begin_inset Quotes erd
 \end_inset
 
@@ -985,13 +983,12 @@ failed at application
 Just as standard type theories allow many possible characterizations of
  equality that support logical soundness, there are many choices of runtime
  checking that support this notion of type soundness.
- The minimal choice that is likely too permissive in practice.
- In the example above, it would only flag an error when the function is
- applied to 0.
+ The minimal choice is likely too permissive in practice: in the example
+ above, it would only flag an error when the function is applied to 0.
  Alternatively, I conjecture that runtime-checking that matches the partial
  correctness criteria above would be reasonably intuitive.
  Extending checks into non dependent function types also seems reasonable,
- and would allow simple types to be checked statically.
+ and would allow simple types to be completely checked.
 \end_layout
 
 \begin_layout Standard
@@ -1111,9 +1108,10 @@ Status
 \end_layout
 
 \begin_layout Standard
-I have a prototype that has support for all the features of the base language.
- The fragment for dependent types and type universes satisfies all the condition
-s above.
+I am rewriting a prototype that has support for all the features of the
+ base language.
+ The fragment for dependent function types and type universes satisfies
+ all the conditions above.
  I believe that all conditions can be made to hold with data types as well.
 \end_layout
 
@@ -1276,8 +1274,8 @@ obvious
 \end_inset
 
  proofs and programs are not always conveniently available to the programmer.
- For instance, in Agda it is possible to write a sorting sorting function
- quickly using simple types.
+ For instance, in Agda it is possible to write a sorting function quickly
+ using simple types.
  With effort is it possible to prove that sorting procedure correct by rewriting
  it with the necessarily invariants.
  However very little is offered in between.
@@ -1347,8 +1345,8 @@ then it is possible to assert that
 \end_layout
 
 \begin_layout Standard
-this term will act like any other term at runtime, given a list input it
- will verify that the 
+this term will act like any other function at runtime, given a list input
+ it will verify that the 
 \begin_inset Formula $\mathtt{sort}$
 \end_inset
 
@@ -1380,7 +1378,7 @@ can be used to prototype
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\mathtt{div}=\lambda x.\lambda y.\mathtt{fst}\left(?:\sum z:\mathbb{N}.\mathtt{Mult}x\,y\,z\right)
+\mathtt{div}=\lambda x.\lambda z.\mathtt{fst}\left(?:\sum y:\mathbb{N}.\mathtt{Mult}x\,y\,z\right)
 \]
 
 \end_inset
@@ -1490,9 +1488,9 @@ Symbolic Execution
 \end_layout
 
 \begin_layout Standard
-Most research for Symbolic Execution targets popular languages (like C)
- and uses SMT solvers to efficiently explore conditional branches that depend
- on base types.
+Most research for Symbolic Execution targets popular imparative languages
+ (like C) and uses SMT solvers to efficiently explore conditional branches
+ that depend on base types.
  Most work does not support higher order functions or makes simplifying
  assumptions about the type system.
  There are however some relevant papers:

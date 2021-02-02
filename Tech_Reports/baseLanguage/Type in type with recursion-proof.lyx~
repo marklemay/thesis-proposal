@@ -234,6 +234,10 @@ These properties are admissable
 \end_layout
 
 \begin_layout Standard
+TODO obv
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \[
 \frac{\Gamma\vdash M\equiv N:\sigma}{\Gamma\vdash N\equiv M:\sigma}\,\textrm{Tm-Eq-S}
@@ -245,7 +249,7 @@ These properties are admissable
 \end_layout
 
 \begin_layout Standard
-TODO
+TODO obv
 \end_layout
 
 \begin_layout Standard
@@ -257,6 +261,10 @@ TODO
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+TODO! this will be annoying!
 \end_layout
 
 \begin_layout Subsection*
@@ -1938,7 +1946,33 @@ Explicitly:
 \uwave off
 \noun off
 \color none
- typed by the conversion rule, then by induction, 
+ typed by the conversion rule, then by 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+induction
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+, 
 \begin_inset Formula $M$
 \end_inset
 
@@ -2202,6 +2236,32 @@ typed by
 \uwave off
 \noun off
 \color none
+ by 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+inversion
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
  there exist some 
 \family default
 \series default
@@ -2258,7 +2318,33 @@ typed by
 \end_inset
 
 .
- By the inductive hypothesis (on the 
+ By 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+induction
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ (on the 
 \begin_inset Formula $N$
 \end_inset
 
@@ -2296,7 +2382,33 @@ if
 \begin_inset Formula $P$
 \end_inset
 
- is a value then by the canonical forms lemma, 
+ is a value then by 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+canonical forms
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+, 
 \begin_inset Formula $P$
 \end_inset
 

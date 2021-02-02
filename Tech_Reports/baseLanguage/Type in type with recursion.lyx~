@@ -768,28 +768,6 @@ Definitional Equality
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash M\equiv N:\sigma}{\Gamma\vdash N\equiv M:\sigma}\,\textrm{Tm-Eq-S}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash M\equiv N:\sigma\qquad\Gamma\vdash N\equiv P:\sigma}{\Gamma\vdash M\equiv P:\sigma}\,\textrm{Tm-Eq-T}
-\]
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection*
 Context Rules
 \end_layout
@@ -823,7 +801,7 @@ Conversion
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash M:\sigma\qquad\Gamma\vdash\sigma\equiv\tau:\star}{\Gamma\vdash M:\tau}\,\textrm{Tm-Conv}
+\frac{\Gamma\vdash M:\sigma\qquad\Gamma\vdash\sigma\equiv\tau:\star}{\Gamma\vdash M:\tau}\,\textrm{Conv}
 \]
 
 \end_inset

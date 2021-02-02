@@ -801,7 +801,7 @@ Conversion
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash M:\sigma\qquad\Gamma\vdash\sigma\equiv\tau:\star}{\Gamma\vdash M:\tau}\,\textrm{Tm-Conv}
+\frac{\Gamma\vdash M:\sigma\qquad\Gamma\vdash\sigma\equiv\tau:\star}{\Gamma\vdash M:\tau}\,\textrm{Conv}
 \]
 
 \end_inset
@@ -965,6 +965,21 @@ Standard Definitional Equality rules,
 \begin_inset Formula 
 \[
 \frac{\Gamma\vdash M\Rrightarrow\,M':\,\Pi x:\sigma.\tau\qquad\Gamma\vdash N\Rrightarrow\,N':\sigma}{\Gamma\vdash M\,N\,\Rrightarrow\,M'\,N':\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{\textrm{-E}-Eq}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+or should it be
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash M\Rrightarrow\,M':\,\Pi x:\sigma.\tau\qquad\Gamma\vdash N\Rrightarrow\,N':\sigma}{\Gamma\vdash M\,N\,\Rrightarrow\,M'\,N':\,\tau\left[x\coloneqq N'\right]}\,\Pi\textrm{\textrm{-E}-Eq}
 \]
 
 \end_inset

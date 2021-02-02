@@ -1367,7 +1367,7 @@ and possibly
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\triangle\vdash^{h}M_{c}:\sigma^{h}$
+\begin_inset Formula $\triangle\vdash^{h}M^{h}:\sigma_{c}$
 \end_inset
 
 
@@ -1642,7 +1642,7 @@ possibly
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\triangle\vdash M_{c}:\sigma_{c}\qquad\triangle\vdash\sigma_{c}\Rrightarrow\tau_{c}:\star\qquad\triangle\vdash\sigma'_{c}\Rrightarrow\tau_{c}:\star}{\triangle\vdash M_{c}:\sigma'_{c}}\,\textrm{Tm-Conv}
+\frac{\triangle\vdash_{c}M_{c}:\sigma_{c}\qquad\triangle\vdash_{c}\sigma_{c}\Rrightarrow\tau_{c}:\star\qquad\triangle\vdash_{c}\sigma'_{c}\Rrightarrow\tau_{c}:\star}{\triangle\vdash_{c}M_{c}:\sigma'_{c}}\,\textrm{Tm-Conv}
 \]
 
 \end_inset

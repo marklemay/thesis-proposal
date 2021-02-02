@@ -1108,8 +1108,8 @@ Status
 \end_layout
 
 \begin_layout Standard
-I am rewriting prototype that has support for all the features of the base
- language.
+I am rewriting a prototype that has support for all the features of the
+ base language.
  The fragment for dependent function types and type universes satisfies
  all the conditions above.
  I believe that all conditions can be made to hold with data types as well.

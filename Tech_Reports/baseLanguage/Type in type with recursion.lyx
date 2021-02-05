@@ -77,7 +77,7 @@
 \begin_body
 
 \begin_layout Title
-a Intensional Dependent Type theory with Type in Type and recursion
+an Intensional Dependent Type Theory with Type-in-Type and Recursion
 \end_layout
 
 \begin_layout Section*
@@ -528,7 +528,7 @@ Judgment Forms
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="5" columns="2">
+<lyxtabular version="3" rows="6" columns="2">
 <features tabularvalignment="middle">
 <column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
@@ -670,11 +670,67 @@ Definitional Equality on terms
 \begin_inset Formula $M$
 \end_inset
 
- parrelel reduces to 
+ parrelel-reduces to 
 \begin_inset Formula $N$
 \end_inset
 
 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Gamma\vdash M\Rrightarrow_{\ast}N:\sigma$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $M$
+\end_inset
+
+ parrelel-reduces to 
+\begin_inset Formula $N$
+\end_inset
+
+ after 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+0 or more steps
 \end_layout
 
 \end_inset
@@ -739,13 +795,24 @@ The following judgments are mutually inductively defined.
 \end_layout
 
 \begin_layout Subsection*
-Parellel Reduction
+transitice reflexive closure
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash M\Rrightarrow M:\sigma}\,\Rrightarrow\textrm{-R}
+\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash M\Rrightarrow_{\ast}M':\sigma}\,\textrm{\Rrightarrow\ast-refl}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma\quad\Gamma\vdash M'\Rrightarrow M'':\sigma}{\Gamma\vdash M\Rrightarrow_{\ast}\,M';:\sigma}\,\textrm{\Rrightarrow\ast-step}
 \]
 
 \end_inset
@@ -760,7 +827,7 @@ Definitional Equality
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash M\Rrightarrow N:\sigma\quad\Gamma\vdash M'\Rrightarrow N:\sigma}{\Gamma\vdash M\equiv M':\sigma}\,\textrm{Eq-Def}
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,N:\sigma\quad\Gamma\vdash M'\Rrightarrow_{\ast}\,N:\sigma}{\Gamma\vdash M\equiv M':\sigma}\,\equiv\textrm{-Def}
 \]
 
 \end_inset
@@ -824,6 +891,17 @@ Variables
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash x:\sigma}{\Gamma\vdash x\Rrightarrow x\,:\sigma}\,\textrm{Var}\textrm{-\Rrightarrow}
+\]
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection*
 Type-in-Type
 \end_layout
@@ -831,7 +909,18 @@ Type-in-Type
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash}{\Gamma\vdash\star:\star}
+\frac{\Gamma\vdash}{\Gamma\vdash\star:\star}\,\star\textrm{-F}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash}{\Gamma\vdash\star\Rrightarrow\star\,:\star}\,\star\textrm{-\Rrightarrow}
 \]
 
 \end_inset
@@ -879,7 +968,7 @@ Dependent Recursive Functions
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:\sigma\vdash\tau:\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M:\tau\qquad\Gamma\vdash N:\sigma}{\Gamma\vdash\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,N\,\Rrightarrow\,M\left[x\coloneqq N,f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\right]\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-C}
+\frac{\Gamma,x:\sigma\vdash\tau:\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M\Rrightarrow M':\tau\qquad\Gamma\vdash N\Rrightarrow N':\sigma}{\Gamma\vdash\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,N\,\Rrightarrow\,M\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'\right)\right]\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-\Rrightarrow}
 \]
 
 \end_inset
@@ -888,24 +977,13 @@ Dependent Recursive Functions
 \end_layout
 
 \begin_layout Standard
-TODO depricate
+structuaral rules, 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:\sigma\vdash\tau:\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M:\tau\qquad\Gamma\vdash N:\sigma}{\Gamma\vdash\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,N\,\equiv\,M\left[x\coloneqq N,f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\right]\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-C}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\,}{\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,v\,\rightsquigarrow\,M\left[x\coloneqq v,f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\right]}\,\Pi\textrm{\textrm{-C-Step}}
+\frac{\Gamma\vdash\sigma\Rrightarrow\sigma'\,:\star\qquad\Gamma,x:\sigma\vdash\tau\Rrightarrow\tau'\,:\star}{\Gamma\vdash\Pi x:\sigma.\tau\,\Rrightarrow\,\Pi x:\sigma'.\tau'\,:\star}\,\Pi\textrm{-F-\Rrightarrow}
 \]
 
 \end_inset
@@ -916,7 +994,7 @@ TODO depricate
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{M\,\rightsquigarrow\,M'}{M\,N\,\rightsquigarrow\,M'\,N}\,\Pi\textrm{-E-Step-1}
+\frac{\Gamma\vdash M\Rrightarrow M'\,:\,\Pi x:\sigma.\tau\qquad\Gamma\vdash N\Rrightarrow N'\,:\sigma}{\Gamma\vdash M\,N\,\Rrightarrow\,M'\,N'\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-E-\Rrightarrow}
 \]
 
 \end_inset
@@ -927,7 +1005,7 @@ TODO depricate
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{N\,\rightsquigarrow\,N'}{v\,N\,\rightsquigarrow\,v\,N'}\,\Pi\textrm{-E-Step-2}
+\frac{\Gamma,x:\sigma\vdash\tau:\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M\Rrightarrow M':\tau}{\Gamma\vdash\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\,\Rrightarrow\,\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'\,:\,\varPi x:\sigma.\tau}\,\Pi\textrm{-I-\Rrightarrow}
 \]
 
 \end_inset
@@ -936,24 +1014,13 @@ TODO depricate
 \end_layout
 
 \begin_layout Standard
-Standard Definitional Equality rules, 
+CBV
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash\sigma\Rrightarrow\sigma'\,:\star\qquad\Gamma,x:\sigma\vdash\tau\Rrightarrow\tau'\,:\star}{\Gamma\vdash\Pi x:\sigma.\tau\,\Rrightarrow\,\Pi x:\sigma'.\tau'\,:\star}\,\Pi\textrm{-Eq}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash\sigma\Rrightarrow\sigma'\,:\star\qquad\Gamma,x:\sigma\vdash\tau\Rrightarrow\tau'\,:\star\qquad\Gamma,x:\sigma\vdash M\Rrightarrow M':\tau}{\Gamma\vdash\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,\Rrightarrow\,\left(\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\right):\,\varPi x:\sigma.\tau}\,\Pi\textrm{\textrm{-I}-Eq}
+\frac{\,}{\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,v\,\rightsquigarrow\,M\left[x\coloneqq v,f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\right]}\,\Pi\textrm{-}\rightsquigarrow
 \]
 
 \end_inset
@@ -964,37 +1031,7 @@ Standard Definitional Equality rules,
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash M\Rrightarrow\,M':\,\Pi x:\sigma.\tau\qquad\Gamma\vdash N\Rrightarrow\,N':\sigma}{\Gamma\vdash M\,N\,\Rrightarrow\,M'\,N':\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{\textrm{-E}-Eq}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-or should it be
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash M\Rrightarrow\,M':\,\Pi x:\sigma.\tau\qquad\Gamma\vdash N\Rrightarrow\,N':\sigma}{\Gamma\vdash M\,N\,\Rrightarrow\,M'\,N':\,\tau\left[x\coloneqq N'\right]}\,\Pi\textrm{\textrm{-E}-Eq}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Standard Definitional Equality rules, TODO depricate
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash\sigma\equiv\sigma'\,:\star\qquad\Gamma,x:\sigma\vdash\tau\equiv\tau'\,:\star}{\Gamma\vdash\Pi x:\sigma.\tau\,\equiv\,\Pi x:\sigma'.\tau'\,:\star}\,\Pi\textrm{-Eq}
+\frac{M\,\rightsquigarrow\,M'}{M\,N\,\rightsquigarrow\,M'\,N}\,\Pi\textrm{-E-\rightsquigarrow-1}
 \]
 
 \end_inset
@@ -1005,18 +1042,7 @@ Standard Definitional Equality rules, TODO depricate
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash\sigma\equiv\sigma'\,:\star\qquad\Gamma,x:\sigma\vdash\tau\equiv\tau'\,:\star\qquad\Gamma,x:\sigma\vdash M\equiv M':\tau}{\Gamma\vdash\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,\equiv\,\left(\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\right):\,\varPi x:\sigma.\tau}\,\Pi\textrm{\textrm{-I}-Eq}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash M\equiv\,M':\,\Pi x:\sigma.\tau\qquad\Gamma\vdash N\equiv\,N':\sigma}{\Gamma\vdash M\,N\,\equiv\,M'\,N':\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{\textrm{-E}-Eq}
+\frac{N\,\rightsquigarrow\,N'}{v\,N\,\rightsquigarrow\,v\,N'}\,\Pi\textrm{-E-\rightsquigarrow-2}
 \]
 
 \end_inset

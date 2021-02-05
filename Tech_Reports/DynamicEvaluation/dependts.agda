@@ -18,8 +18,6 @@ data PreSyntax {n} where
     -> (bod : PreSyntax {suc (suc n)}) -> PreSyntax
   pApp :  PreSyntax {n} -> PreSyntax {n} -> PreSyntax
 
---Type : {n : ℕ} (Γ : Ctx n) -> PreSyntax {n}  -> Set
---Type Γ x = Γ |- x :: pTyU
 
 postulate
   Ctx  : ℕ -> Set
@@ -225,7 +223,7 @@ data _|-_::_ {n} Γ  where
     -> Γ |-  a  :: m'
 
 postulate
-  wf-ty : {n : ℕ} {Γ : Ctx n} {a ty : _} -- TODO: proper name
+  wf-ty : {n : ℕ} {Γ : Ctx n} {a ty : _} -- TODO: rename regularity
     -> Γ |- a :: ty
     -> Γ |- ty :: pTyU
 
@@ -252,10 +250,10 @@ canonical-form-pi : {m pi aTy : _} -> {bodTy : _}
   -> Emp |- m :: pi -> m val
   -> Emp |- pi == pPi aTy bodTy :: pTyU
   ->  Σ _ \ aTy'  -> Σ _ \ bodTy'  ->  Σ _ \ bod  -> m ≡ pFun aTy' bodTy' bod
-canonical-form-pi TyU vTyU eq = ⊥-elim (tyu=/=pi eq) --!
 canonical-form-pi (Conv der x) vTyU eq = canonical-form-pi der vTyU (trans-==  x eq)
-canonical-form-pi (Pi der der₁) vPi eq = ⊥-elim (tyu=/=pi eq) --!
 canonical-form-pi (Conv der x) vPi eq = canonical-form-pi  der vPi (trans-==  x eq)
+canonical-form-pi TyU vTyU eq = ⊥-elim (tyu=/=pi eq) --!
+canonical-form-pi (Pi der der₁) vPi eq = ⊥-elim (tyu=/=pi eq) --!
 canonical-form-pi der (pFun {aTy} {bodTy} {bod}) eq = aTy , bodTy , bod , refl -- ok
 
 

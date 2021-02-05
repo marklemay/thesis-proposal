@@ -77,10 +77,11 @@
 \begin_body
 
 \begin_layout Title
-Type Soundness in an Intensional theory with Type in Type and recursion
+Type Soundness in an Intensional Dependent Type Theory with Type-in-Type
+ and Recursion
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Examples
 \end_layout
 
@@ -114,7 +115,7 @@ some constructs
 
 \begin_layout Standard
 while logically unsound the language is extremely expressive.
- The following CC constructs are expressible,
+ The following calculus of Constructions constructs are expressible,
 \end_layout
 
 \begin_layout Standard
@@ -214,60 +215,27 @@ thus
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Standard
+There are more examples in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cardelli1986polymorphic"
+literal "false"
+
+\end_inset
+
+ where Cardelli has studied a similar system.
+\end_layout
+
+\begin_layout Section
 Properties
 \end_layout
 
-\begin_layout Subsection*
-These properties are admissable
+\begin_layout Subsection
+Contexts
 \end_layout
 
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash M\equiv M:\sigma}\,\textrm{Tm-Eq-S}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-TODO obv
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash M\equiv N:\sigma}{\Gamma\vdash N\equiv M:\sigma}\,\textrm{Tm-Eq-S}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-TODO obv
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash M\equiv N:\sigma\qquad\Gamma\vdash N\equiv P:\sigma}{\Gamma\vdash M\equiv P:\sigma}\,\textrm{Tm-Eq-T}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-TODO! this will be annoying!
-\end_layout
-
-\begin_layout Subsection*
+\begin_layout Subsubsection
 Sub-Contexts are well formed
 \end_layout
 
@@ -300,6 +268,28 @@ The following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
+\frac{\Gamma,\Gamma'\vdash M\Rrightarrow M':\sigma}{\Gamma\vdash}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,\Gamma'\vdash M\Rrightarrow_{\ast}M':\sigma}{\Gamma\vdash}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
 \frac{\Gamma,\Gamma'\vdash M\equiv M':\sigma}{\Gamma\vdash}
 \]
 
@@ -312,8 +302,8 @@ The following rules are admissible:
 by mutual induction on the derivations.
 \end_layout
 
-\begin_layout Subsection*
-Weakening
+\begin_layout Subsubsection
+Context weakening
 \end_layout
 
 \begin_layout Standard
@@ -375,6 +365,28 @@ For any derivation of
 \begin_layout Standard
 \begin_inset Formula 
 \[
+\frac{\Gamma,\Gamma'\vdash M\Rrightarrow M':\sigma}{\Gamma,x:\sigma,\Gamma'\vdash M\Rrightarrow M':\sigma}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,\Gamma'\vdash M\Rrightarrow_{\ast}M':\sigma}{\Gamma,x:\sigma,\Gamma'\vdash M\Rrightarrow_{\ast}M':\sigma}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
 \frac{\Gamma,\Gamma'\vdash M\equiv M':\tau}{\Gamma,x:\sigma,\Gamma'\vdash M\equiv M':\tau}
 \]
 
@@ -387,8 +399,34 @@ For any derivation of
 by mutual induction on the derivations.
 \end_layout
 
-\begin_layout Subsection*
-Substitution 
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ is reflexive
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash M\Rrightarrow\,M:\sigma}\,\textrm{\Rrightarrow-refl}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction
+\end_layout
+
+\begin_layout Subsubsection
+Context substitution
 \end_layout
 
 \begin_layout Standard
@@ -409,7 +447,7 @@ For any derivation of
 \begin_inset Formula $\Gamma\vdash N:\tau$
 \end_inset
 
-,
+ 
 \family default
 \series default
 \shape default
@@ -422,7 +460,7 @@ For any derivation of
 \uwave default
 \noun default
 \color inherit
- the following rules are admissible:
+the following rules are admissible:
 \end_layout
 
 \begin_layout Standard
@@ -450,6 +488,28 @@ For any derivation of
 \begin_layout Standard
 \begin_inset Formula 
 \[
+\frac{\Gamma,x:\tau,\Gamma'\vdash M\Rrightarrow M':\sigma}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\Rrightarrow M'\left[x\coloneqq N\right]:\sigma\left[x\coloneqq N\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,x:\tau,\Gamma'\vdash M\Rrightarrow_{\ast}M':\sigma}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\Rrightarrow_{\ast}M'\left[x\coloneqq N\right]:\sigma}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
 \frac{\Gamma,x:\tau,\Gamma'\vdash M\equiv M':\sigma}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\,\equiv\,M'\left[x\coloneqq N\right]:\sigma\left[x\coloneqq N\right]}
 \]
 
@@ -459,7 +519,7 @@ For any derivation of
 \end_layout
 
 \begin_layout Standard
-by induction on the derivations.
+by mutual induction on the derivations.
  Specifically, at every usage of 
 \begin_inset Formula $x$
 \end_inset
@@ -512,11 +572,213 @@ by induction on the derivations.
 \begin_inset Formula $\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash N:\tau$
 \end_inset
 
-.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, and apply 
+\begin_inset Formula $\textrm{\Rrightarrow-refl}$
+\end_inset
+
+ , or
+\begin_inset Formula $\textrm{\Rrightarrow_{\ast}-refl}$
+\end_inset
+
+when needed.
 \end_layout
 
-\begin_layout Subsection*
-Type Preservation for Definitional Equalities
+\begin_layout Subsection
+Computation
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ preserves type in source
+\end_layout
+
+\begin_layout Standard
+The following rules are admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash N\Rrightarrow N':\tau}{\Gamma\vdash N:\tau}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ substitution 
+\end_layout
+
+\begin_layout Standard
+For any derivations of
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $\Gamma,x:\sigma,\Gamma'\vdash M\Rrightarrow M':\tau$
+\end_inset
+
+, and 
+\begin_inset Formula $\Gamma\vdash N\Rrightarrow N':\sigma$
+\end_inset
+
+,
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ then following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,x:\sigma,\Gamma'\vdash M\Rrightarrow M':\tau\quad\Gamma\vdash N\Rrightarrow N':\sigma}{\Gamma,x:\sigma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\Rrightarrow M'\left[x\coloneqq N'\right]:\tau\left[x\coloneqq N\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction on the 
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ derivations
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ is confluent
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+if 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\Gamma\vdash M\Rrightarrow\,N:\sigma$
+\end_inset
+
+ and 
+\begin_inset Formula $\Gamma\vdash M\Rrightarrow\,N':\sigma$
+\end_inset
+
+ then there exists 
+\begin_inset Formula $P$
+\end_inset
+
+ such that
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\Gamma\vdash N\Rrightarrow\,P:\sigma$
+\end_inset
+
+ and 
+\begin_inset Formula $\Gamma\vdash N'\Rrightarrow\,P:\sigma$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by standard techniques
+\end_layout
+
+\begin_layout Subsection
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+ is transitive
 \end_layout
 
 \begin_layout Standard
@@ -526,7 +788,7 @@ The following rule is admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash M\equiv M':\sigma}{\Gamma\vdash M:\sigma\qquad\Gamma\vdash M':\sigma}
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma\quad\Gamma\vdash M'\Rrightarrow_{\ast}M'':\sigma}{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma}\,\textrm{\Rrightarrow\ast-trans}
 \]
 
 \end_inset
@@ -535,12 +797,33 @@ The following rule is admissible:
 \end_layout
 
 \begin_layout Standard
-By induction on the Definitional Equality derivation with the help of the
- substitution lemma.
+by induction
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ preserves type in source
 \end_layout
 
 \begin_layout Standard
-Explicitly:
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash N\Rrightarrow N':\tau}{\Gamma\vdash N':\tau}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By induction on the 
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ derivation with the help of the substitution lemma.
 \end_layout
 
 \begin_layout Itemize
@@ -557,7 +840,7 @@ Explicitly:
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\Pi\textrm{-C}$
+\begin_inset Formula $\Pi\textrm{-\Rrightarrow}$
 \end_inset
 
 
@@ -578,17 +861,66 @@ Explicitly:
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,N:\,\tau\left[x\coloneqq N\right]$
+\begin_inset Formula $M'\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'\right)\right]\,:\,\tau\left[x\coloneqq N\right]$
 \end_inset
 
- by 
-\begin_inset Formula $\Pi\textrm{-E}$
-\end_inset
-
-and the inductive hypotheses 
+ by the substitution lemma used on the inductive hypotheses
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
+all other cases are trivial
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+ preserves type
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma}{\Gamma\vdash M:\sigma}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma}{\Gamma\vdash M':\sigma}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+ is confluent
+\end_layout
+
+\begin_layout Standard
 
 \family roman
 \series medium
@@ -602,14 +934,664 @@ and the inductive hypotheses
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $M\left[x\coloneqq N\right]:\,\tau\left[x\coloneqq N\right]$
+if 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\Gamma\vdash M\Rrightarrow_{\ast}\,N:\sigma$
 \end_inset
 
- by the substitution lemma used on the inductive hypotheses 
+ and 
+\begin_inset Formula $\Gamma\vdash M\Rrightarrow_{\ast}\,N':\sigma$
+\end_inset
+
+ then there exists 
+\begin_inset Formula $P$
+\end_inset
+
+ such that
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
 \end_layout
 
-\end_deeper
-\begin_layout Subsection*
+\begin_layout Standard
+\begin_inset Formula $\Gamma\vdash N\Rrightarrow_{\ast}\,P:\sigma$
+\end_inset
+
+ and 
+\begin_inset Formula $\Gamma\vdash N'\Rrightarrow_{\ast}\,P:\sigma$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Follows from 
+\begin_inset Formula $\textrm{\Rrightarrow\ast-trans}$
+\end_inset
+
+ and the confluence of 
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ using standard techniques
+\end_layout
+
+\begin_layout Subsection
+\begin_inset Formula $\equiv$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\equiv$
+\end_inset
+
+ is reflexive
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash M\equiv M:\sigma}\,\textrm{\ensuremath{\equiv}-refl}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by 
+\begin_inset Formula $\,\textrm{\Rrightarrow\ast-refl}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\equiv$
+\end_inset
+
+ is symmetric
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash M\equiv N:\sigma}{\Gamma\vdash N\equiv M:\sigma}\,\textrm{\ensuremath{\equiv}-sym}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+trivial
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\equiv$
+\end_inset
+
+ is transitive
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash M\equiv N:\sigma\qquad\Gamma\vdash N\equiv P:\sigma}{\Gamma\vdash M\equiv P:\sigma}\,\textrm{\ensuremath{\equiv}-trans}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by the confluence of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\equiv$
+\end_inset
+
+ preserves type
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash M\equiv\,M':\sigma}{\Gamma\vdash M:\sigma}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by the def of 
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset Formula $\rightsquigarrow$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\rightsquigarrow$
+\end_inset
+
+ implies 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\end_layout
+
+\begin_layout Standard
+For any derivations of
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $\Gamma\vdash M:\sigma$
+\end_inset
+
+, 
+\begin_inset Formula $M\rightsquigarrow M'$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Gamma\vdash M\Rrightarrow M':\sigma
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+by induction on 
+\begin_inset Formula $\rightsquigarrow$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\rightsquigarrow$
+\end_inset
+
+ implies 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\end_layout
+
+\begin_layout Standard
+For any derivations of
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $\Gamma\vdash M:\sigma$
+\end_inset
+
+, 
+\begin_inset Formula $M\rightsquigarrow M'$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Gamma\vdash M\Rrightarrow_{\ast}M':\sigma
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+since 
+\begin_inset Formula $\rightsquigarrow$
+\end_inset
+
+ implies 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\rightsquigarrow$
+\end_inset
+
+ implies 
+\begin_inset Formula $\equiv$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+For any derivations of
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $\Gamma\vdash M:\sigma$
+\end_inset
+
+, 
+\begin_inset Formula $M\rightsquigarrow M'$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Gamma\vdash M\equiv M':\sigma
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+since 
+\begin_inset Formula $\rightsquigarrow$
+\end_inset
+
+ implies 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\rightsquigarrow$
+\end_inset
+
+ preserves type
+\end_layout
+
+\begin_layout Standard
+For any derivations of
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $\Gamma\vdash M:\sigma$
+\end_inset
+
+, 
+\begin_inset Formula $M\rightsquigarrow M'$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Gamma\vdash M':\sigma
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+since 
+\begin_inset Formula $\rightsquigarrow$
+\end_inset
+
+ implies 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\equiv$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\equiv$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ preserves types
+\end_layout
+
+\begin_layout Subsection
+Regularity
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash\sigma:\star}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction with 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\equiv$
+\end_inset
+
+-
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+preservation for the Conv case
+\end_layout
+
+\begin_layout Subsection
 Inversion
 \end_layout
 
@@ -1075,146 +2057,16 @@ Each case follows from inspection on the typing rules.
  In any sequence of conversion rules the Definitional Equality is preserved.
 \end_layout
 
-\begin_layout Subsection*
-Small Steps are definitionally equal
-\end_layout
-
-\begin_layout Standard
-For any derivation of
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\begin_inset Formula $\lozenge\vdash M:\sigma$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- , the following rules are admissible:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{M\rightsquigarrow M'}{\lozenge\vdash M\equiv M':\sigma}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-by induction on the small step rules.
-\end_layout
-
-\begin_layout Standard
-Explicitly:
+\begin_layout Subsection
+Type constructors are stable
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $\Pi\textrm{\textrm{-C-Step}}$
-\end_inset
-
- since typing is unique up to Definitional Equality, 
-\begin_inset Formula $\Pi\textrm{-C}$
-\end_inset
-
- matches at the correct type
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $\textrm{Id-C-Step}$
-\end_inset
-
- since typing is unique up to Definitional Equality 
-\begin_inset Formula $P\equiv M\equiv N$
-\end_inset
-
-, 
-\begin_inset Formula $\textrm{Id-C}$
-\end_inset
-
- matches at the correct type
-\end_layout
-
-\begin_layout Itemize
-all other computation steps follow like 
-\begin_inset Formula $\Pi\textrm{\textrm{-C-Step}}$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Itemize
-other step rules follow from induction and and the standard Definitional
- Equalities rules
-\end_layout
-
-\begin_layout Subsection*
-Type Preservation for small steps
-\end_layout
-
-\begin_layout Standard
-Type preservation at Definitional Equalities and that small steps match
- definition equalities establish the preservation of types over small steps.
-\end_layout
-
-\begin_layout Subsection*
-Definitional equality Distinguishes Type Constructors (informally)
-\end_layout
-
-\begin_layout Standard
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-for all 
-\begin_inset Formula $\sigma$
-\end_inset
-
-, 
-\begin_inset Formula $\tau$
+if 
+\begin_inset Formula $\Gamma\vdash\ast\Rrightarrow M:\sigma$
 \end_inset
 
  then 
-\begin_inset Formula $\lozenge\cancel{\vdash}\star\equiv\Pi x:\sigma.\tau\,:\,\star$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Informally: assume there exists 
 \family roman
 \series medium
 \shape up
@@ -1228,104 +2080,22 @@ Informally: assume there exists
 \noun off
 \color none
 
-\begin_inset Formula $\Rrightarrow$
+\begin_inset Formula $M$
 \end_inset
 
- such that
-\end_layout
-
-\begin_layout Standard
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $\Gamma\vdash A_{1}\equiv A_{2}\,:\,\sigma$
+ is 
+\begin_inset Formula $\ast$
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-holds iff
-\end_layout
-
-\begin_layout Standard
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $\Gamma\vdash A:\,\sigma$
-\end_inset
-
-, 
-\begin_inset Formula $A_{1}\Rrightarrow A$
-\end_inset
-
- and 
-\begin_inset Formula $A_{2}\Rrightarrow A$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-We need to presume that the relation 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\Rrightarrow$
-\end_inset
-
- is confluent, s.t.
- 
-\begin_inset Formula $B\Rrightarrow A_{1}$
-\end_inset
-
- and 
-\begin_inset Formula $B\Rrightarrow A_{2}$
+\begin_layout Itemize
+if 
+\begin_inset Formula $\Gamma\vdash\ast\Rrightarrow_{\ast}M:\sigma$
 \end_inset
 
  then 
-\begin_inset Formula $A_{1}\Rrightarrow C$
-\end_inset
-
- and 
-\begin_inset Formula $A_{2}\Rrightarrow C$
-\end_inset
-
-, so that refl, sym, trans holds (?)
-\end_layout
-
-\begin_layout Standard
-
 \family roman
 \series medium
 \shape up
@@ -1338,38 +2108,23 @@ We need to presume that the relation
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\Rrightarrow$
+
+\begin_inset Formula $M$
 \end_inset
 
- preserves the outermost type former
-\end_layout
-
-\begin_layout Itemize
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $\varPi x:\sigma.\tau\Rrightarrow M$
-\end_inset
-
-, M is 
-\begin_inset Formula $\varPi x:\sigma'.\tau'$
+ is 
+\begin_inset Formula $\ast$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Itemize
+if 
+\begin_inset Formula $\Gamma\vdash\Pi x:\sigma.\tau\Rrightarrow M:\sigma$
+\end_inset
 
+ then 
 \family roman
 \series medium
 \shape up
@@ -1382,47 +2137,84 @@ We need to presume that the relation
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\star\Rrightarrow M$
+
+\begin_inset Formula $M$
 \end_inset
 
-, M is 
-\begin_inset Formula $\star$
+ is 
+\begin_inset Formula $\Pi x:\sigma'.\tau'$
+\end_inset
+
+ for some 
+\begin_inset Formula $\sigma',\tau'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\Gamma\vdash\Pi x:\sigma.\tau\Rrightarrow_{\ast}M:\sigma$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $M$
+\end_inset
+
+ is 
+\begin_inset Formula $\Pi x:\sigma'.\tau'$
+\end_inset
+
+ for some 
+\begin_inset Formula $\sigma',\tau'$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-thus 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
+by induction on the respective relations
+\end_layout
 
-\begin_inset Formula $\varPi x:\sigma.\tau$
+\begin_layout Subsection
+Type constructors definitionaly unique
+\end_layout
+
+\begin_layout Standard
+There is no derivation of 
+\begin_inset Formula $\Gamma\vdash\ast\equiv\Pi x:\sigma.\tau$
 \end_inset
 
- and 
-\begin_inset Formula $\star$
-\end_inset
-
- don't share a reduct and 
-\begin_inset Formula $\lozenge\cancel{\vdash}\star\equiv\Pi x:\sigma.\tau\,:\,\star$
+ for any 
+\begin_inset Formula $\Gamma,\sigma,\tau$
 \end_inset
 
 
 \end_layout
 
-\begin_layout Subsection*
-Canonical forms lemma 
+\begin_layout Standard
+from 
+\begin_inset Formula $\equiv\textrm{-Def}$
+\end_inset
+
+ and constructor stability
+\end_layout
+
+\begin_layout Subsection
+Canonical forms
 \end_layout
 
 \begin_layout Standard
@@ -1618,6 +2410,106 @@ if
 By induction on the typing derivation
 \end_layout
 
+\begin_layout Itemize
+Conv,
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+if 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is 
+\begin_inset Formula $\star$
+\end_inset
+
+ then eventually, it was typed with type-in-type,
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ or 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\Pi\textrm{-F}$
+\end_inset
+
+.
+ it could not have been typed by 
+\begin_inset Formula $\Pi\textrm{-I}$
+\end_inset
+
+ since constructors are definitionaly unique
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is 
+\begin_inset Formula $\Pi x:\sigma'.\tau$
+\end_inset
+
+ then eventually, it was typed with 
+\begin_inset Formula $\Pi\textrm{-I}$
+\end_inset
+
+.
+ it could not have been typed by type-in-type,
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ or 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\Pi\textrm{-F}$
+\end_inset
+
+ since constructors are definitionaly unique
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 type-in-type,
 \family roman
@@ -1817,74 +2709,10 @@ type-in-type,
 \end_layout
 
 \begin_layout Itemize
-conv,
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-if 
-\begin_inset Formula $\sigma$
-\end_inset
-
- is 
-\begin_inset Formula $\star$
-\end_inset
-
- then eventually, it was typed with type-in-type,
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- or 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-
-\begin_inset Formula $\Pi\textrm{-F}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-if 
-\begin_inset Formula $\sigma$
-\end_inset
-
- is 
-\begin_inset Formula $\Pi x:\sigma'.\tau$
-\end_inset
-
- then eventually, it was typed with 
-\begin_inset Formula $\Pi\textrm{-I}$
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
 no other typing rules are applicable
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 Progress
 \end_layout
 
@@ -2301,7 +3129,33 @@ inversion
 \end_inset
 
 .
- By the inductive hypothesis (on the 
+ By 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+induction
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ (on the 
 \begin_inset Formula $P$
 \end_inset
 
@@ -2544,7 +3398,7 @@ otherwise
 \end_layout
 
 \end_deeper
-\begin_layout Subsection*
+\begin_layout Subsection
 Type Soundness
 \end_layout
 
@@ -2563,30 +3417,11 @@ get stuck
  This follows by iterating the progress and preservation lemmas.
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Conjectured Properties
 \end_layout
 
-\begin_layout Itemize
-regularity, 
-\begin_inset Formula $\Gamma\vdash M:\sigma$
-\end_inset
-
- implies 
-\begin_inset Formula $\Gamma\vdash\sigma:\star$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $\frac{\Gamma,x:\sigma,\Delta\vdash}{\Gamma\vdash\sigma:\star}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section*
+\begin_layout Section
 Non-Properties
 \end_layout
 
@@ -2747,6 +3582,43 @@ counter example
 
 \begin_layout Standard
 this implies the additional work in the Canonical forms lemma
+\end_layout
+
+\begin_layout Section
+differences from implementation
+\end_layout
+
+\begin_layout Standard
+differences from Agda development
+\end_layout
+
+\begin_layout Itemize
+only proved the function part of the canonical forms lemma (all that is
+ needed for the proof)
+\end_layout
+
+\begin_layout Itemize
+no need for a direct inversion lemma
+\end_layout
+
+\begin_layout Standard
+differences from prototype
+\end_layout
+
+\begin_layout Itemize
+type annotations are not relevant for definitional equality
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "C:/icfp/dtest/extended-abstract/dtest"
+options "plain"
+
+\end_inset
+
+
 \end_layout
 
 \end_body

@@ -77,8 +77,8 @@
 \begin_body
 
 \begin_layout Title
-Type Soundness in an Intensional Dependent Type Theory with Type-in-Type
- and Recursion
+Type Soundness in an Intensional Dependent Type Theory with Type-in-Type,
+ Recursion and Data
 \end_layout
 
 \begin_layout Section
@@ -115,32 +115,144 @@ some constructs
 
 \begin_layout Standard
 while logically unsound the language is extremely expressive.
- The following calculus of Constructions constructs are expressible,
+ Conventional data is representable:
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $a_{1}=_{A}a_{2}\coloneqq\lambda A:\star.\lambda a_{1}:A.\lambda a_{2}:A.\varPi C:\left(A\rightarrow\star\right).C\,a_{1}\rightarrow C\,a_{2}$
+\begin_inset Formula $\mathsf{data}\,Unit.\,\mathsf{where}\,\left\{ tt.\rightarrow Unit\right\} $
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $Unit\coloneqq\varPi A:\star.A\rightarrow A$
+\begin_inset space ~
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $tt\coloneqq\lambda A:\star.\lambda a:A.a$
+\begin_inset Formula $\mathsf{data}\,\mathbb{B}.\,\mathsf{where}\,\left\{ true.\rightarrow\mathbb{B}\,|\,false.\rightarrow\mathbb{B}\right\} $
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\perp\coloneqq\varPi x:\star.x$
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathsf{data}\,\mathbb{N}.\,\mathsf{where}\,\left\{ z.\rightarrow\mathbb{N}\,|\,suc\,x:\mathbb{N}.\rightarrow\mathbb{N}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+data abstraction allows some self-reference
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $0\coloneqq z$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $1\coloneqq suc\,z$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathsf{data}\,Vec\,A:\star,n:\mathbb{N}.\,\mathsf{where}\left\{ \begin{array}{cc}
+nil\,A:\star. & \rightarrow Vec\,A\,0\\
+cons\,A:\star,n:\mathbb{N},-:A,-:Vec\,A\,n. & \rightarrow Vec\,A\,\left(suc\,n\right)
+\end{array}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $rep_{\mathbb{B}}\coloneqq\mathsf{fun}\,f:\left(n.Vec\,\mathbb{B}\,n\right).\,n:\mathbb{N}.\mathsf{Case}_{n':\mathbb{N}\rightarrow Vec\,\mathbb{B}\,n'}\,n\,\mathsf{of}\left\{ z\rightarrow nil\,\mathbb{B}\,|\,suc\,x\rightarrow cons\,\mathbb{B}\,x\,true\,\left(f\,x\right)\right\} \qquad:\varPi n:\mathbb{N}.Vec\,\mathbb{B}\,n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathsf{data}\,Id\,A:\star,a_{1}:A,a_{2}:A.\,\mathsf{where}\,\left\{ refl\,A:\star,a:A.\rightarrow Id\,A\,a\,a\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $a_{1}=_{A}a_{2}\coloneqq Id\,A,a_{1},a_{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $subst\coloneqq\lambda A.\lambda a_{1}.\lambda a_{2}.\lambda pr.\mathsf{Case}_{-:Id\,A,a_{1},a_{2}.\rightarrow\varPi C:\left(A\rightarrow\star\right).C\,a_{1}\rightarrow C\,a_{2}}\,pr\,\mathsf{of}\left\{ refl\,A:\star,a:A.\rightarrow\lambda C.\lambda x:C\,a.\,x\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $subst:\varPi A:\star.\varPi a_{1}:A.\varPi a_{2}:A.a_{1}=_{A}a_{2}\rightarrow\varPi C:\left(A\rightarrow\star\right).C\,a_{1}\rightarrow C\,a_{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathsf{data}\,\perp\,.\,\mathsf{where}\,\left\{ \,\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
 \end_inset
 
 
@@ -154,77 +266,35 @@ while logically unsound the language is extremely expressive.
 \end_layout
 
 \begin_layout Standard
-church nats:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $\mathbb{N}_{c}\coloneqq\varPi A:\star.(A\rightarrow A)\rightarrow A\rightarrow A$
+\begin_inset space ~
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $0_{c}\coloneqq\lambda A:\star.\lambda s:(A\rightarrow A).\lambda z:A.z$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $1_{c}\coloneqq\lambda A:\star.\lambda s:(A\rightarrow A).\lambda z:A.s\,z$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $2_{c}\coloneqq\lambda A:\star.\lambda s:(A\rightarrow A).\lambda z:A.s\,\left(s\,z\right)$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-...
-\end_layout
-
-\begin_layout Standard
-since there is type in type, a kind of large elimination is possible
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $\lambda n:\mathbb{N}_{c}.n\,\star\,(\lambda-.U)\,\perp$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-thus 
-\begin_inset Formula $\lnot1_{c}=_{\mathbb{N}_{c}}0_{c}$
+\begin_inset Formula $\lnot1=_{\mathbb{N}}0$
 \end_inset
 
  is provable (in a non trivial way):
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\lambda pr:\left(\varPi C:\left(\mathbb{N}_{c}\rightarrow\star\right).C\,1_{c}\rightarrow C\,0_{c}\right).pr\,\left(\lambda n:\mathbb{N}_{c}.n\,\star\,(\lambda-.U)\,\perp\right)\,tt\qquad:\lnot1_{c}=_{\mathbb{N}_{c}}0_{c}$
+\begin_inset Formula $dec\coloneqq\lambda n.\mathsf{Case}_{-:\mathbb{N}.\rightarrow\star}\,pr\,\mathsf{of}\mathsf{of}\left\{ z\rightarrow\perp\,|\,suc\,-\rightarrow Unit\right\} \qquad:\mathbb{N}\rightarrow\star$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-There are more examples in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cardelli1986polymorphic"
-literal "false"
-
+\begin_inset Formula $\lambda pr.subst\,\mathbb{N}\,1\,0\,pr\,dec\,tt\qquad:\lnot1=_{\mathbb{N}}0$
 \end_inset
 
- where Cardelli has studied a similar system.
+
+\end_layout
+
+\begin_layout Standard
+Several larger examples are workable in prototype implementation
 \end_layout
 
 \begin_layout Section
@@ -1178,6 +1248,27 @@ by induction with
 \noun default
 \color inherit
 preservation for the Conv case
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+TODO regularity for 
+\begin_inset Formula $\lozenge\vdash\overline{M}:\Delta$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -2706,6 +2797,16 @@ type-in-type,
 no other typing rules are applicable
 \end_layout
 
+\begin_layout Part*
+TODO
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+canonical forms
+\end_layout
+
 \begin_layout Subsection
 Progress
 \end_layout
@@ -2739,12 +2840,27 @@ Progress
 \begin_inset Formula $M\rightsquigarrow N$
 \end_inset
 
-.
+ and 
+\begin_inset Formula $\lozenge\vdash\overline{M}:\Delta$
+\end_inset
+
+ implies that 
+\begin_inset Formula $\overline{M}$
+\end_inset
+
+ is a list of values or there exists 
+\begin_inset Formula $\overline{N}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\overline{M}\rightsquigarrow\overline{N}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-By direct induction on the typing derivation with the help of the canonical
- forms lemma
+By mutual induction on the typing derivation and list typing derivation
 \end_layout
 
 \begin_layout Standard
@@ -3392,6 +3508,662 @@ otherwise
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+\begin_inset Formula $M$
+\end_inset
+
+ is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by 
+\begin_inset Formula $D\textrm{-F'}$
+\end_inset
+
+.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $M$
+\end_inset
+
+ is
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $D\,\overline{N}$
+\end_inset
+
+, a value
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $M$
+\end_inset
+
+ is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by 
+\begin_inset Formula $D\textrm{-F}$
+\end_inset
+
+.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $M$
+\end_inset
+
+ is
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $D\,\overline{N}$
+\end_inset
+
+, a value
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $M$
+\end_inset
+
+ is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by 
+\begin_inset Formula $D\textrm{-I}$
+\end_inset
+
+.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+By 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+induction
+\series default
+ on lists
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $M$
+\end_inset
+
+ is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by 
+\begin_inset Formula $D\textrm{-E}$
+\end_inset
+
+.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $M$
+\end_inset
+
+ is 
+\begin_inset Formula $\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,N\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} $
+\end_inset
+
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+By 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+induction
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ (on the 
+\begin_inset Formula $N$
+\end_inset
+
+ branch of the derivation) 
+\begin_inset Formula $N$
+\end_inset
+
+ is a value or there exists 
+\begin_inset Formula $N'$
+\end_inset
+
+ such that 
+\begin_inset Formula $N\rightsquigarrow N'$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+if 
+\begin_inset Formula $N$
+\end_inset
+
+ is a value, by 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+canonical forms
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $N$
+\end_inset
+
+ is 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $d\,\overline{v}$
+\end_inset
+
+.
+ from the typing derivation we know that there is a 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+d clause in the case expression
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+.
+ The 1 step reduction is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(D\,\overline{v}\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \rightsquigarrow O\left[\overline{x}\coloneqq\overline{v}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+otherwise
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+, the one step reduction is 
+\begin_inset Formula $\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,N\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \rightsquigarrow\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,N'\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} $
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\overline{M}$
+\end_inset
+
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by 
+\begin_inset Formula $\Delta\textrm{-Trm-Emp}$
+\end_inset
+
+.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\overline{M}$
+\end_inset
+
+ is 
+\begin_inset Formula $\lozenge$
+\end_inset
+
+ a degenerate value
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\overline{M}$
+\end_inset
+
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by 
+\begin_inset Formula $\Delta\textrm{-Trm-+}$
+\end_inset
+
+.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\overline{M}$
+\end_inset
+
+ is a list of values
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\overline{M}$
+\end_inset
+
+ is 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\overline{v},N,\overline{N'}$
+\end_inset
+
+.
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+By 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+induction
+\end_layout
+
+\end_deeper
 \begin_layout Subsection
 Type Soundness
 \end_layout
@@ -3412,7 +4184,19 @@ get stuck
 \end_layout
 
 \begin_layout Section
-differences from implementation
+Non-Properties
+\end_layout
+
+\begin_layout Itemize
+decidable type checking
+\end_layout
+
+\begin_layout Itemize
+normalization/logical soundness
+\end_layout
+
+\begin_layout Section
+Differences from implementation
 \end_layout
 
 \begin_layout Standard
@@ -3456,170 +4240,19 @@ type annotations are not relevant for definitional equality
 \end_layout
 
 \begin_layout Section
-Conjectured Properties
-\end_layout
-
-\begin_layout Section
-Non-Properties
+Proof improvements
 \end_layout
 
 \begin_layout Itemize
-decidable type checking
+meta syntax to quantify over contextual judgments
 \end_layout
 
 \begin_layout Itemize
-normalization/logical soundness
-\end_layout
-
-\begin_layout Subsection*
-Definitional Equality does not preserve type constructors on the nose
-\end_layout
-
-\begin_layout Standard
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-If 
-\begin_inset Formula $\Gamma\vdash\sigma\equiv\sigma':\star$
+meta syntax to quantify over 
+\begin_inset Formula $\Rrightarrow$
 \end_inset
 
 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-then 
-\end_layout
-
-\begin_layout Standard
-if 
-\begin_inset Formula $\sigma$
-\end_inset
-
- is 
-\begin_inset Formula $\Pi x:\sigma''.\tau$
-\end_inset
-
- for some 
-\begin_inset Formula $\sigma''$
-\end_inset
-
-, 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\tau$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- then 
-\begin_inset Formula $\sigma'$
-\end_inset
-
- is 
-\begin_inset Formula $\Pi x:\sigma'''.\tau'$
-\end_inset
-
- for some 
-\begin_inset Formula $\sigma'''$
-\end_inset
-
-, 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\tau'$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- 
-\end_layout
-
-\begin_layout Standard
-counter example 
-\begin_inset Formula $\vdash\Pi x:\star.\star\equiv(\lambda x:\star.x)(\Pi x:\star.\star):\star$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-this implies the additional work in the Canonical forms lemma
 \end_layout
 
 \begin_layout Standard

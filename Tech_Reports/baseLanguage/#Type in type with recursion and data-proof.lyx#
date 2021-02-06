@@ -77,8 +77,8 @@
 \begin_body
 
 \begin_layout Title
-Type Soundness in an Intensional Dependent Type Theory with Type-in-Type
- and Recursion
+Type Soundness in an Intensional Dependent Type Theory with Type-in-Type,
+ Recursion and Data
 \end_layout
 
 \begin_layout Section
@@ -115,32 +115,144 @@ some constructs
 
 \begin_layout Standard
 while logically unsound the language is extremely expressive.
- The following calculus of Constructions constructs are expressible,
+ Conventional data is representable:
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $a_{1}=_{A}a_{2}\coloneqq\lambda A:\star.\lambda a_{1}:A.\lambda a_{2}:A.\varPi C:\left(A\rightarrow\star\right).C\,a_{1}\rightarrow C\,a_{2}$
+\begin_inset Formula $\mathsf{data}\,Unit.\,\mathsf{where}\,\left\{ tt.\rightarrow Unit\right\} $
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $Unit\coloneqq\varPi A:\star.A\rightarrow A$
+\begin_inset space ~
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $tt\coloneqq\lambda A:\star.\lambda a:A.a$
+\begin_inset Formula $\mathsf{data}\,\mathbb{B}.\,\mathsf{where}\,\left\{ true.\rightarrow\mathbb{B}\,|\,false.\rightarrow\mathbb{B}\right\} $
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\perp\coloneqq\varPi x:\star.x$
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathsf{data}\,\mathbb{N}.\,\mathsf{where}\,\left\{ z.\rightarrow\mathbb{N}\,|\,suc\,x:\mathbb{N}.\rightarrow\mathbb{N}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+data abstraction allows some self-reference
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $0\coloneqq z$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $1\coloneqq suc\,z$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathsf{data}\,Vec\,A:\star,n:\mathbb{N}.\,\mathsf{where}\left\{ \begin{array}{cc}
+nil\,A:\star. & \rightarrow Vec\,A\,0\\
+cons\,A:\star,n:\mathbb{N},-:A,-:Vec\,A\,n. & \rightarrow Vec\,A\,\left(suc\,n\right)
+\end{array}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $rep_{\mathbb{B}}\coloneqq\mathsf{fun}\,f:\left(n.Vec\,\mathbb{B}\,n\right).\,n:\mathbb{N}.\mathsf{Case}_{n':\mathbb{N}\rightarrow Vec\,\mathbb{B}\,n'}\,n\,\mathsf{of}\left\{ z\rightarrow nil\,\mathbb{B}\,|\,suc\,x\rightarrow cons\,\mathbb{B}\,x\,true\,\left(f\,x\right)\right\} \qquad:\varPi n:\mathbb{N}.Vec\,\mathbb{B}\,n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathsf{data}\,Id\,A:\star,a_{1}:A,a_{2}:A.\,\mathsf{where}\,\left\{ refl\,A:\star,a:A.\rightarrow Id\,A\,a\,a\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $a_{1}=_{A}a_{2}\coloneqq Id\,A,a_{1},a_{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $subst\coloneqq\lambda A.\lambda a_{1}.\lambda a_{2}.\lambda pr.\mathsf{Case}_{-:Id\,A,a_{1},a_{2}.\rightarrow\varPi C:\left(A\rightarrow\star\right).C\,a_{1}\rightarrow C\,a_{2}}\,pr\,\mathsf{of}\left\{ refl\,A:\star,a:A.\rightarrow\lambda C.\lambda x:C\,a.\,x\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $subst:\varPi A:\star.\varPi a_{1}:A.\varPi a_{2}:A.a_{1}=_{A}a_{2}\rightarrow\varPi C:\left(A\rightarrow\star\right).C\,a_{1}\rightarrow C\,a_{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathsf{data}\,\perp\,.\,\mathsf{where}\,\left\{ \,\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
 \end_inset
 
 
@@ -154,81 +266,43 @@ while logically unsound the language is extremely expressive.
 \end_layout
 
 \begin_layout Standard
-church nats:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $\mathbb{N}_{c}\coloneqq\varPi A:\star.(A\rightarrow A)\rightarrow A\rightarrow A$
+\begin_inset space ~
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $0_{c}\coloneqq\lambda A:\star.\lambda s:(A\rightarrow A).\lambda z:A.z$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $1_{c}\coloneqq\lambda A:\star.\lambda s:(A\rightarrow A).\lambda z:A.s\,z$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $2_{c}\coloneqq\lambda A:\star.\lambda s:(A\rightarrow A).\lambda z:A.s\,\left(s\,z\right)$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-...
-\end_layout
-
-\begin_layout Standard
-since there is type in type, a kind of large elimination is possible
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $\lambda n:\mathbb{N}_{c}.n\,\star\,(\lambda-.U)\,\perp$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-thus 
-\begin_inset Formula $\lnot1_{c}=_{\mathbb{N}_{c}}0_{c}$
+\begin_inset Formula $\lnot1=_{\mathbb{N}}0$
 \end_inset
 
  is provable (in a non trivial way):
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\lambda pr:\left(\varPi C:\left(\mathbb{N}_{c}\rightarrow\star\right).C\,1_{c}\rightarrow C\,0_{c}\right).pr\,\left(\lambda n:\mathbb{N}_{c}.n\,\star\,(\lambda-.U)\,\perp\right)\,tt\qquad:\lnot1_{c}=_{\mathbb{N}_{c}}0_{c}$
+\begin_inset Formula $dec\coloneqq\lambda n.\mathsf{Case}_{-:\mathbb{N}.\rightarrow\star}\,pr\,\mathsf{of}\mathsf{of}\left\{ z\rightarrow\perp\,|\,suc\,-\rightarrow Unit\right\} \qquad:\mathbb{N}\rightarrow\star$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-There are more examples in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cardelli1986polymorphic"
-literal "false"
-
+\begin_inset Formula $\lambda pr.subst\,\mathbb{N}\,1\,0\,pr\,dec\,tt\qquad:\lnot1=_{\mathbb{N}}0$
 \end_inset
 
- where Cardelli has studied a similar system.
+
+\end_layout
+
+\begin_layout Standard
+Several larger examples are workable in prototype implementation
 \end_layout
 
 \begin_layout Section
 Properties
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Subsection

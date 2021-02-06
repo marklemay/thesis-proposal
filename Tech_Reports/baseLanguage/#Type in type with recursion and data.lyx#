@@ -85,17 +85,13 @@ Owes much of it's presentation to http://www.cs.yale.edu/homes/vilhelm/papers/ms
 2prog.pdf
 \end_layout
 
-\begin_layout Standard
-Todo: generalize list notation?
-\end_layout
-
 \begin_layout Section*
 Pre-syntax 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="14" columns="5">
+<lyxtabular version="3" rows="15" columns="5">
 <features tabularvalignment="middle">
 <column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
@@ -107,7 +103,7 @@ Pre-syntax
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\Delta$
+\begin_inset Formula $\Delta,\varTheta$
 \end_inset
 
 
@@ -224,8 +220,11 @@ telescope
 \begin_inset Text
 
 \begin_layout Plain Layout
-| 
-\begin_inset Formula $\Xi,\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d:\Delta\rightarrow\overline{M}\,|}\right\} $
+\begin_inset Formula $\lozenge$
+\end_inset
+
+ | 
+\begin_inset Formula $\Xi,\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d:\varTheta\rightarrow D\overline{M}\,|}\right\} $
 \end_inset
 
 
@@ -281,11 +280,7 @@ data contexts
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\Xi;$
-\end_inset
-
- | 
-\begin_inset Formula $\Gamma,x:\sigma$
+\begin_inset Formula $\Xi;\Delta$
 \end_inset
 
 
@@ -600,7 +595,7 @@ data type constructor
 \end_inset
 
  | 
-\begin_inset Formula $\mathsf{Case}_{\left(x\right):D\,\overline{x}.\tau}\,N\,\mathsf{of}\left\{ \overline{d\overline{x}\Rightarrow M\,|}\right\} $
+\begin_inset Formula $\mathsf{Case}_{x:D\,\overline{x}.\sigma}\,N\,\mathsf{of}\left\{ \overline{d\overline{x}\Rightarrow M\,|}\right\} $
 \end_inset
 
 
@@ -872,6 +867,66 @@ values
 \end_inset
 </cell>
 </row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\overline{\boxempty}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Coloneqq$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\lozenge$
+\end_inset
+
+ | 
+\begin_inset Formula $\boxempty,\overline{\boxempty}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+list of syntax
+\end_layout
+
+\end_inset
+</cell>
+</row>
 </lyxtabular>
 
 \end_inset
@@ -884,37 +939,15 @@ Judgment Forms
 \end_layout
 
 \begin_layout Standard
+core judgments:
+\end_layout
+
+\begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="7" columns="2">
+<lyxtabular version="3" rows="6" columns="2">
 <features tabularvalignment="middle">
 <column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
-<row>
-<cell alignment="left" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\Xi\vdash$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\Xi$
-\end_inset
-
- context is well formed
-\end_layout
-
-\end_inset
-</cell>
-</row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
@@ -1169,6 +1202,243 @@ Definitional Equality on terms
 
 \end_layout
 
+\begin_layout Standard
+generalized judgments:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Gamma\vdash\Delta:\overline{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+telescope only has types 
+\begin_inset Formula $\Delta$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Gamma\vdash\overline{M}:\Delta$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+the list of terms matches the types of 
+\begin_inset Formula $\Delta$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Gamma\vdash\overline{M}\Rrightarrow\overline{M'}:\Delta$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+the list of terms parallel reduces to
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\overline{M}\rightsquigarrow\overline{N}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\overline{M}$
+\end_inset
+
+ CBV-reduces to 
+\begin_inset Formula $\overline{N}$
+\end_inset
+
+ in 1 step 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section*
 Judgments
 \end_layout
@@ -1178,7 +1448,7 @@ The following judgments are mutually inductively defined.
 \end_layout
 
 \begin_layout Subsection*
-transitice reflexive closure
+transitive reflexive closure
 \end_layout
 
 \begin_layout Standard
@@ -1219,17 +1489,21 @@ Definitional Equality
 \end_layout
 
 \begin_layout Subsection*
-TODO: data well formed!!!!!!!!!!!!!
-\end_layout
-
-\begin_layout Subsection*
 Context Rules
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Xi\vdash}{\Xi;\vdash}\,\textrm{C-Emp}
+\frac{\,}{\lozenge\vdash}\,\textrm{C-Emp}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\Xi\vdash\Delta:\overline{*}\qquad\forall d.\left\{ \Xi,\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \,\right\} \vdash\varTheta:\overline{*}\qquad\Xi,\varTheta,\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \,\right\} \vdash\overline{M}:\varTheta\right\} }{\Xi,\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d:\varTheta\rightarrow D\overline{M}\,|}\right\} \vdash}\,\textrm{C-def}
 \]
 
 \end_inset
@@ -1364,7 +1638,7 @@ Dependent Recursive Functions
 \end_layout
 
 \begin_layout Standard
-structuaral rules, 
+structural rules, 
 \end_layout
 
 \begin_layout Standard
@@ -1438,13 +1712,16 @@ CBV
 \end_layout
 
 \begin_layout Subsection*
-Data
+Dependent Data
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{???}{\Gamma\vdash D\,\overline{M}\,:\star}\,D\textrm{-F}
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d_{i}:\varTheta_{i}\rightarrow D\overline{M}_{i}\,|}\right\} \in\Gamma\\
+\Gamma\vdash\overline{M}:\Delta
+\end{array}}{\Gamma\vdash D\,\overline{M}\,:\star}\,D\textrm{-F}
 \]
 
 \end_inset
@@ -1455,7 +1732,56 @@ Data
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{???}{\Gamma\vdash d\,\overline{M}\,:\,D\,\overline{N}}\,D\textrm{-I}
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ C\right\} \in\Gamma\\
+d:\varTheta\rightarrow D\overline{M}'\in C\\
+\Gamma\vdash\overline{N}:\varTheta
+\end{array}}{\Gamma\vdash d\,\overline{N}\,:\,D\,\overline{M}'\left[\varTheta\coloneqq\overline{N}\right]}\,D\textrm{-I}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+with some abuse of notation: 
+\begin_inset Formula $\overline{M}_{i}$
+\end_inset
+
+ parameterized over
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $\varTheta_{i}$
+\end_inset
+
+ instead of 
+\begin_inset Formula $\overline{x}_{i}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d_{i}:\varTheta_{i}\rightarrow D\overline{M}_{i}\,|}\right\} \in\Gamma\\
+\Gamma,\overline{y}:\Delta,x:D\overline{y}\vdash\sigma:\star\\
+\Gamma\vdash N:D\,\overline{P}\\
+\forall i.\,\Gamma,\overline{x}_{i}:\varTheta_{i}\vdash O_{i}:\sigma\left[x\coloneqq d\overline{x}_{i},\overline{y}\coloneqq\overline{M}_{i}\right]
+\end{array}}{\Gamma\vdash\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,N\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \,:\,\sigma\left[x\coloneqq N,\overline{y}\coloneqq\overline{P}\right]}\,D\textrm{-E}
 \]
 
 \end_inset
@@ -1466,7 +1792,39 @@ Data
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{???}{\Gamma\vdash\mathsf{Case}_{\left(x\right):D\,\overline{x}.\tau}\,N\,\mathsf{of}\left\{ \overline{d\overline{x}\Rightarrow M\,|}\right\} \,:\,D\,\overline{M}}\,D\textrm{-E}
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d_{i}:\varTheta_{i}\rightarrow D\overline{M}_{i}}\right\} \in\Gamma\\
+\Gamma,\overline{y}:\Delta,x:D\overline{y}\vdash\sigma:\star\\
+\forall i.\,\Gamma,\overline{x}_{i}:\varTheta_{i}\vdash O_{i}:\sigma\left[x\coloneqq d\overline{x}_{i},\overline{y}\coloneqq\overline{M}_{i}\right]\\
+\,\\
+d:\varTheta\rightarrow D\overline{M}'\,\in\,\overline{d_{i}:\varTheta_{i}\rightarrow D\overline{M}_{i}}\\
+\,\\
+d\overline{x}\Rightarrow O\,\in\,\overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\\
+\Gamma\vdash\overline{N}\Rrightarrow\overline{N'}:\varTheta\\
+\,\\
+\Gamma\vdash O\Rrightarrow O':\sigma\left[x\coloneqq d\overline{x}_{i},\overline{y}\coloneqq\overline{N}\right]
+\end{array}}{\begin{array}{c}
+\Gamma\vdash\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(d\,\overline{N}\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \\
+\Rrightarrow O'\left[\overline{x}\coloneqq\overline{N'}\right]:\sigma\left[x\coloneqq d\overline{x}_{i},\overline{y}\coloneqq\overline{N}\right]
+\end{array}}\,D\textrm{-\Rrightarrow}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+structural rules, 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d_{i}:\varTheta_{i}\rightarrow D\overline{M}_{i}}\right\} \in\Gamma\\
+\Gamma\vdash\overline{M}\Rrightarrow\overline{M'}:\Delta
+\end{array}}{\Gamma\vdash D\overline{M}\,\Rrightarrow D\overline{M'}:\star}\,D\textrm{-F\textrm{-\Rrightarrow}}
 \]
 
 \end_inset
@@ -1477,7 +1835,11 @@ Data
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{???}{\Gamma\vdash\mathsf{Case}_{x:D\,\overline{x}.\tau}\left(d\,\overline{N}\right)\,\mathsf{of}\left\{ \overline{d\overline{x}\Rightarrow M\,|}\right\} \,\Rrightarrow M'_{i}\left[\overline{x}\coloneqq\overline{N'}\right]:\,\tau\left[x\coloneqq d\,\overline{N},\overline{x}\coloneqq\overline{N}\right]}\,D\textrm{-\Rrightarrow}
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ C\right\} \in\Gamma\\
+d:\varTheta\rightarrow D\overline{M}'\in C\\
+\Gamma\vdash\overline{N}\Rrightarrow\overline{N'}:\varTheta
+\end{array}}{\Gamma\vdash d\,\overline{N}\,\Rrightarrow d\,\overline{N'}:\,D\,\overline{M}'\left[\varTheta\coloneqq\overline{N}\right]}\,D\textrm{-I}
 \]
 
 \end_inset
@@ -1486,7 +1848,145 @@ Data
 \end_layout
 
 \begin_layout Standard
-...
+\begin_inset Formula 
+\[
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d_{i}:\varTheta_{i}\rightarrow D\overline{M}_{i}}\right\} \in\Gamma\\
+\Gamma,\overline{y}:\Delta,x:D\overline{y}\vdash\sigma:\star\\
+\Gamma\vdash N\Rrightarrow N':D\,\overline{P}\\
+\forall i.\,\Gamma,\overline{x}_{i}:\varTheta_{i}\vdash O_{i}\Rrightarrow O'_{i}:\sigma\left[x\coloneqq d\overline{x}_{i},\overline{y}\coloneqq\overline{M}_{i}\right]
+\end{array}}{\Gamma\vdash\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,N\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \,\Rrightarrow\,\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,N'\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O'_{i}\,|}\right\} \,:\,\sigma\left[x\coloneqq N,\overline{y}\coloneqq\overline{P}\right]}\,D\textrm{-E\textrm{-\Rrightarrow}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+CBV
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{d\overline{x}\Rightarrow O\,\in\,\overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}}{\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(d\,\overline{v}\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \rightsquigarrow O\left[\overline{x}\coloneqq\overline{v}\right]}\,D\textrm{-\rightsquigarrow}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{M\rightsquigarrow M'}{\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(M\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \rightsquigarrow\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(M'\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} }\,D\textrm{-\rightsquigarrow}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\overline{M}\rightsquigarrow\overline{M'}}{d\overline{M}\rightsquigarrow d\overline{M'}}\,D\textrm{-\rightsquigarrow}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Telescopes
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\,}{\Gamma\vdash.:\overline{\star}}\,\textrm{C-Emp}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma,x:\sigma\vdash\Delta:\overline{\star}\qquad\Gamma\vdash\sigma:\star}{\Gamma\vdash x:\sigma,\Delta\::\overline{\star}}\,\Delta\textrm{-Ty-+}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\,}{\Gamma\vdash\,:.}\,\Delta\textrm{-Trm-Emp}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash\overline{M}:\Delta\left[x\coloneqq N\right]\qquad\Gamma\vdash N:\sigma}{\Gamma\vdash N,\overline{M}\,:\,x:\sigma,\Delta}\,\Delta\textrm{-Trm-+}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+parallel reductions
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\,}{\Gamma\vdash\,\Rrightarrow\,:.}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash\overline{M}\Rrightarrow\overline{M'}:\Delta\left[x\coloneqq N\right]\qquad\Gamma\vdash\overline{N}\Rrightarrow\overline{N'}:\sigma}{\Gamma\vdash N,\overline{M}\,\Rrightarrow N',\overline{M'}\,:\,x:\sigma,\Delta}\,\Delta\textrm{-Trm-+}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{N\rightsquigarrow N'}{\overline{v},N,\overline{M}\rightsquigarrow\overline{v},N',\overline{M}}\,D\textrm{-\rightsquigarrow}
+\]
+
+\end_inset
+
+
 \end_layout
 
 \end_body

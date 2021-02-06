@@ -426,6 +426,36 @@ by induction
 \end_layout
 
 \begin_layout Subsubsection
+\begin_inset Formula $\equiv$
+\end_inset
+
+ is reflexive
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash M\equiv M:\sigma}\,\textrm{\ensuremath{\equiv}-refl}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by 
+\begin_inset Formula $\,\textrm{\Rrightarrow\ast-refl}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
 Context substitution
 \end_layout
 
@@ -589,11 +619,15 @@ by mutual induction on the derivations.
 \begin_inset Formula $\textrm{\Rrightarrow-refl}$
 \end_inset
 
- , or
+ , 
 \begin_inset Formula $\textrm{\Rrightarrow_{\ast}-refl}$
 \end_inset
 
-when needed.
+ or 
+\begin_inset Formula $\textrm{\ensuremath{\equiv}-refl}$
+\end_inset
+
+ when needed.
 \end_layout
 
 \begin_layout Subsection
@@ -604,7 +638,7 @@ Computation
 \begin_inset Formula $\Rrightarrow$
 \end_inset
 
- preserves type in source
+ preserves type of source
 \end_layout
 
 \begin_layout Standard
@@ -674,7 +708,7 @@ For any derivations of
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:\sigma,\Gamma'\vdash M\Rrightarrow M':\tau\quad\Gamma\vdash N\Rrightarrow N':\sigma}{\Gamma,x:\sigma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\Rrightarrow M'\left[x\coloneqq N'\right]:\tau\left[x\coloneqq N\right]}
+\frac{\Gamma,x:\sigma,\Gamma'\vdash M\Rrightarrow M':\tau\quad\Gamma\vdash N\Rrightarrow N':\sigma}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\Rrightarrow M'\left[x\coloneqq N'\right]:\tau\left[x\coloneqq N\right]}
 \]
 
 \end_inset
@@ -998,43 +1032,6 @@ Follows from
  using standard techniques
 \end_layout
 
-\begin_layout Subsection
-\begin_inset Formula $\equiv$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Subsubsection
-\begin_inset Formula $\equiv$
-\end_inset
-
- is reflexive
-\end_layout
-
-\begin_layout Standard
-The following rule is admissible:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash M\equiv M:\sigma}\,\textrm{\ensuremath{\equiv}-refl}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-by 
-\begin_inset Formula $\,\textrm{\Rrightarrow\ast-refl}$
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 \begin_inset Formula $\equiv$
 \end_inset
@@ -1130,11 +1127,57 @@ by the def of
 
 \end_layout
 
-\begin_layout Subsection
-\begin_inset Formula $\rightsquigarrow$
+\begin_layout Subsubsection
+Regularity
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash\sigma:\star}
+\]
+
 \end_inset
 
- 
+
+\end_layout
+
+\begin_layout Standard
+by induction with 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\equiv$
+\end_inset
+
+-
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+preservation for the Conv case
 \end_layout
 
 \begin_layout Subsubsection
@@ -1196,7 +1239,7 @@ For any derivations of
 \begin_inset Formula $M\rightsquigarrow M'$
 \end_inset
 
-,
+
 \end_layout
 
 \begin_layout Standard
@@ -1536,59 +1579,6 @@ since
 \noun default
 \color inherit
  preserves types
-\end_layout
-
-\begin_layout Subsection
-Regularity
-\end_layout
-
-\begin_layout Standard
-The following rule is admissible:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash\sigma:\star}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-by induction with 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\equiv$
-\end_inset
-
--
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-preservation for the Conv case
 \end_layout
 
 \begin_layout Subsection
@@ -2058,6 +2048,10 @@ Each case follows from inspection on the typing rules.
 \end_layout
 
 \begin_layout Subsection
+Type constructors
+\end_layout
+
+\begin_layout Subsubsection
 Type constructors are stable
 \end_layout
 
@@ -2189,7 +2183,7 @@ if
 by induction on the respective relations
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Type constructors definitionaly unique
 \end_layout
 
@@ -3418,6 +3412,50 @@ get stuck
 \end_layout
 
 \begin_layout Section
+differences from implementation
+\end_layout
+
+\begin_layout Standard
+differences from Agda development
+\end_layout
+
+\begin_layout Itemize
+in both presentations standard properties of varaibles binding and substitution
+ are assumed
+\end_layout
+
+\begin_layout Itemize
+In Agda the parallel reduction relation does not track the original typing
+ judgment.
+ This should not matter for the proof of confluence.
+\end_layout
+
+\begin_layout Itemize
+no need for a direct inversion lemma
+\end_layout
+
+\begin_layout Itemize
+only proved the function part of the canonical forms lemma (all that is
+ needed for the proof)
+\end_layout
+
+\begin_layout Standard
+differences from prototype
+\end_layout
+
+\begin_layout Itemize
+bidirectional, type annotations are not always needed on functions
+\end_layout
+
+\begin_layout Itemize
+toplevel recursion in addition to function recursion
+\end_layout
+
+\begin_layout Itemize
+type annotations are not relevant for definitional equality
+\end_layout
+
+\begin_layout Section
 Conjectured Properties
 \end_layout
 
@@ -3582,31 +3620,6 @@ counter example
 
 \begin_layout Standard
 this implies the additional work in the Canonical forms lemma
-\end_layout
-
-\begin_layout Section
-differences from implementation
-\end_layout
-
-\begin_layout Standard
-differences from Agda development
-\end_layout
-
-\begin_layout Itemize
-only proved the function part of the canonical forms lemma (all that is
- needed for the proof)
-\end_layout
-
-\begin_layout Itemize
-no need for a direct inversion lemma
-\end_layout
-
-\begin_layout Standard
-differences from prototype
-\end_layout
-
-\begin_layout Itemize
-type annotations are not relevant for definitional equality
 \end_layout
 
 \begin_layout Standard

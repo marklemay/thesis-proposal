@@ -169,7 +169,7 @@ em Dissertation Prospectus}
 
 \end_inset
 
- A Full-Spectrum Dependently typed language for testing with dynamic equality
+ A Full-Spectrum Dependently Typed Language for Testing with Dynamic Equality
 \end_layout
 
 \begin_layout Author
@@ -202,23 +202,25 @@ Dependent type systems are a powerful tool to eliminate bugs from programs.
  Unlike other systems of formal methods, dependent types systems can re-use
  the methodology and syntax that functional programmers are already familiar
  with for the construction of formal proofs.
- This insight has lead to several Full-Spectrum languages that try and present
+ This insight has lead to several full-spectrum languages that try and present
  programmers with a consistent view of proofs and programs.
  However these languages still have substantial usability issues: missing
  features like general recursion, confusingly conservative equality, and
- no straight forward way to test specifications that have not yet been proven.
+ no straightforward way to test and use properties that have not yet been
+ proven.
 \end_layout
 
 \begin_layout Abstract
 These issues are not superficial, but are tied to some of the conventional
  assumptions of dependent type theory.
  Logical soundness is essential when dependent types are considered as a
- logic, but may be too restrictive in a programming language.
+ mathematical foundation, but may be too restrictive in a programming language.
  Conservative equality is easy to hand-wave away informally, but it makes
- many programs unrunnable.
- Users often experience these characteristics as inexplicable static errors.
- In practice these foundational assumptions, make exploratory programming
- difficult.
+ many programs difficult to type check.
+ Users often experience these language properties as inexplicable static
+ errors, and cannot debug their programs using conventional dynamic debugging
+ .
+ In practice exploratory programming difficult in these systems.
 \end_layout
 
 \begin_layout Abstract
@@ -226,9 +228,10 @@ A possible solution is to design a dependently typed language with programmatic
  features that supports type sound, but logically unsound execution.
  Programmers can trade poor static errors, for precise counter examples
  that are made available at runtime.
- Progress towards that solution has been by developing a base language with
- programming oriented features, characterizing some correctness criteria,
- and implementing a subset of that language that matches those criteria.
+ Progress towards that solution has been made by developing languages with
+ dependent types programming oriented features, characterizing some correctness
+ criteria for blame tracking, and implementing a subset of that language
+ that matches those criteria.
 \end_layout
 
 \begin_layout Standard
@@ -335,8 +338,8 @@ Full-spectrum
  dependent types, these languages tend to have a minimalist approach: computatio
 n can appear anywhere in a term or type.
  Such a design purposely exposes the Curry-Howard correspondence, as opposed
- to trying to hide it as a technical foundation: a proof has the exact same
- syntax and behavior as a program.
+ to merely using it as a convenient logical foundation: a proof has the
+ exact same syntax and behavior as a program.
  Even though this style makes writing efficient programs hard, and drastically
  complicates the ability to encode effects, it can be seen in some of the
  most popular dependently typed languages such as Agda and Idris.
@@ -452,8 +455,10 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-To make this new workflow possible section 2 will describe a more traditional
- base language with some programmatic features.
+To make this new workflow possible, progress has been separated into several
+ independent results.
+ Section 2 will describe a conventional dependently typed base language
+ with some programmatic features.
  Section 3 describes dynamic dependent equality and the conditions that
  would make an implementation reasonable.
  Section 4 covers some of the other features a language in this style could
@@ -465,15 +470,15 @@ A Dependently Typed Base Language
 \end_layout
 
 \begin_layout Standard
-Dynamic dependent equality is hard to study without a more conventional
- dependently typed language to serve as a reference.
+The dynamic dependent equality of the next section is hard to study without
+ a more conventional dependently typed language to serve as a reference.
  This base language contains the key features that should be supported:
  user defined dependent functions and dependent datatypes.
  The base language uses a 
 \begin_inset Quotes eld
 \end_inset
 
-Full-Spectrum
+full-spectrum
 \begin_inset Quotes erd
 \end_inset
 
@@ -485,9 +490,9 @@ Full-Spectrum
 \begin_layout Standard
 The language is pure in the sense of Haskell, supporting only non-termination
  and unchecked errors as effects.
- Combing other effects with Full-Spectrum dependent types is substantially
+ Combining other effects with full-spectrum dependent types is substantially
  more difficult because effectful equality is hard to characterize for individua
-l effects or effects in combination.
+l effects and especially hard for effects in combination.
  Several attempts have been made to combine dependent types with more effects,
  
 \begin_inset CommandInset citation
@@ -513,8 +518,8 @@ literal "false"
 
 \end_inset
 
- but there is still a lot of work to be done, so it is not considered in
- the base language.
+ but there is still a lot of work to be done, so effects, though undoubtedly
+ useful are not considered in the base language.
 \end_layout
 
 \begin_layout Standard
@@ -523,12 +528,12 @@ Since this work emphasizes programming over theorem proving the language
 \end_layout
 
 \begin_layout Itemize
-Unrestricted user defined dependent data types (no requirement of strict
- positivity)
+Unrestricted recursion (no required termination checking)
 \end_layout
 
 \begin_layout Itemize
-Unrestricted recursion (no required termination checking)
+Unrestricted user defined dependent data types (no requirement of strict
+ positivity)
 \end_layout
 
 \begin_layout Itemize
@@ -546,8 +551,8 @@ Every type is inhabited by an infinite loop.
 
 \end_inset
 
-, but they facilitate mainstream functional programming.
- In spite of the logical unsoundness, the resulting language still has type
+, but they seem helpful for mainstream functional programming.
+ In spite of logical unsoundness, the resulting language still has type
  soundness
 \begin_inset Foot
 status open
@@ -561,14 +566,31 @@ No term with a reduct that applies an argument to a non-function in the
 
 .
  This seems suitable for a programming language since logically sound proofs
- can still be defined and logical unsoundness can be discovered through
+ can still be encoded and logical unsoundness can be discovered through
  traditional testing, or warned about in a non-blocking way.
  Importantly no desirable computation is prevented.
 \end_layout
 
 \begin_layout Standard
-Though this language is not logically sound, it supports a partial correctness
- property for first order data types when run with Call-by-Value, for instance:
+Logical soundness seems not to matter in programming practice.
+ For instance, in ML the type 
+\begin_inset Formula $\mathtt{f:Int->Int}$
+\end_inset
+
+ does not imply the termination of 
+\begin_inset Formula $\mathtt{f\,2}$
+\end_inset
+
+.
+ While unproductive non-termination is always a bug, it seems an easy bug
+ to detect and fix in practice.
+ In mainstream ML like languages, types help to communicate intent, beyond
+ what is strictly guaranteed by the type system.
+\end_layout
+
+\begin_layout Standard
+The base language still supports a partial correctness property for first
+ order data types when run with Call-by-Value, for instance:
 \end_layout
 
 \begin_layout Standard
@@ -654,14 +676,8 @@ M\equiv\left\langle 7,\lambda y.\mathtt{loopForever}\right\rangle
 
 \end_layout
 
-\begin_layout Standard
-The hope would be that the type is sufficient to communicate intent, in
- the same way unproductive non-termination is typeable in mainstream programming
- languages but still considered a bug.
-\end_layout
-
 \begin_layout Subsection
-Prior work for the Base Language
+Prior work
 \end_layout
 
 \begin_layout Standard
@@ -673,8 +689,8 @@ While many of these features have been explored in theory and implemented
 Unsound logical systems that are acceptable programming languages go back
  to at least to Church's lambda calculus which was originally intended to
  be a logical foundation for mathematics.
- Martin Lof proposed a system with Type-in-type that was shown logically
- unsound by Girard (as described in the introduction in 
+ In the 1970s Martin Lof proposed a system with Type-in-type that was shown
+ logically unsound by Girard (as described in the introduction in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Martin-Lof-1972"
@@ -683,12 +699,22 @@ literal "false"
 \end_inset
 
 ).
- 
+ In the 1980s Cardelli explored the domain semantic of a system with general
+ recursive dependent functions and type-in type
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cardelli1986polymorphic"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-The first proof of type soundness for general recursive functions that I
- am aware of came form the Trellys Project 
+The first proof of type soundness for a language with general recursive
+ dependent functions, type-in type, and dependent data that I am aware of
+ came form the Trellys Project 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sjoberg2012irrelevance"
@@ -696,10 +722,12 @@ literal "false"
 
 \end_inset
 
-, it contains many similar features, but the base language uses a simpler
- notion of equality and dependent data resulting in an arguably simpler
- proof of type soundness.
- Further work in the Trellys Project
+.
+ At the time their language had several additional features, not included
+ in the base language.
+ Additionally the base language uses a simpler notion of equality and dependent
+ data resulting in an arguably simpler proof of type soundness.
+ Later work in the Trellys Project
 \begin_inset CommandInset citation
 LatexCommand cite
 key "casinghino2014combining,casinghino2014combiningthesis"
@@ -773,8 +801,8 @@ literal "false"
 
 \end_inset
 
- was an early Haskell like language combined dependent types with and non-termin
-ation.
+ was an early Haskell like language combined dependent types with and data
+ and non-termination.
  Agda supports general recursion and Type-in-type with compiler flags, and
  can simulate some non-positive data types using coinduction.
  Idris supports similar 
@@ -812,8 +840,8 @@ A Language with Dynamic Type Equality
 \end_layout
 
 \begin_layout Standard
-A key issue with full-spectrum dependent type theories is the characterization
- of definitional equality.
+A key issue with dependent type theories is the characterization of definitional
+ equality.
  Since computation can appear at the type level, and types must be checked
  for equality, dependent type theories must define what computational equalities
  they intend to support.
@@ -841,7 +869,7 @@ A key issue with full-spectrum dependent type theories is the characterization
 \end_layout
 
 \begin_layout Standard
-This is a widely recognized issue with Dependent Type Theories.
+This is a widely recognized issue with dependent type theories.
  However most attempts to improve the equality relation intend to preserve
  decidable type checking and/or logical soundness, so equality will never
  be complete
@@ -948,6 +976,9 @@ and the function is called at runtime, the blame tracking system will blame
 \end_inset
 
 failed at application 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula $\left(\mathtt{head}\,x:\mathtt{Vec}\,\underline{\left(1+x\right)}\,\mathbb{B}\rightarrow...\right)\left(rep\,x:\mathtt{Vec}\,\underline{x}\,\mathbb{B}\right)$
 \end_inset
 
@@ -963,8 +994,8 @@ failed at application
 \begin_inset Quotes erd
 \end_inset
 
-, regardless of where function was called in the program and where the discrepan
-cy was discovered.
+, regardless of where the function was called in the program and where the
+ discrepancy was discovered.
  This improves on the naive solution of completely ignoring type annotations
  for execution, since without type soundness, the returned error may appear
  unrelated to the problematic type assumption (
@@ -982,7 +1013,7 @@ cy was discovered.
 \begin_layout Standard
 Just as standard type theories allow many possible characterizations of
  equality that support logical soundness, there are many choices of runtime
- checking that support this notion of type soundness.
+ checking that support this weaker notion of type soundness.
  The minimal choice is likely too permissive in practice: in the example
  above, it would only flag an error when the function is applied to 0.
  Alternatively, I conjecture that runtime-checking that matches the partial
@@ -1000,8 +1031,8 @@ gradual guarantee
 \begin_inset Quotes erd
 \end_inset
 
- of gradual typing, there are several basic properties in addition to type
- soundness that this cast language hopes to fulfill:
+ of gradual typing, there are several basic properties in addition to weakened
+ type soundness that this cast language hopes to fulfill:
 \end_layout
 
 \begin_layout Enumerate
@@ -1084,11 +1115,11 @@ if
 
 \begin_layout Enumerate
 if 
-\begin_inset Formula $e'\downarrow TCon\triangle'$
+\begin_inset Formula $e'\downarrow TCon\,\overline{M'}$
 \end_inset
 
  then 
-\begin_inset Formula $e\downarrow TCon\triangle$
+\begin_inset Formula $e\downarrow TCon\,\overline{M}$
 \end_inset
 
  
@@ -1100,19 +1131,7 @@ The first condition states that every typed term in the base language can
  be embedded in the cast language.
  The second condition shows that errors are not spurious.
  The third condition shows that except for error, observations are consistent
- (with large eliminations, term constructors can also be observed).
-\end_layout
-
-\begin_layout Subsection
-Status
-\end_layout
-
-\begin_layout Standard
-I am rewriting a prototype that has support for all the features of the
- base language.
- The fragment for dependent function types and type universes satisfies
- all the conditions above.
- I believe that all conditions can be made to hold with data types as well.
+ (with large eliminations, term constructor observations are also consistent).
 \end_layout
 
 \begin_layout Subsection
@@ -1139,7 +1158,7 @@ literal "false"
 .
  Blame tracking can help establish the reasonableness of monitoring systems
  by linking a dynamic failure directly to the broken static invariant.
- blame is also a key ingredient of good error messages.
+ Blame is also a key ingredient of good error messages.
  However, as many authors have noticed, proving blame correctness is tedious
  and error prone, it is often only conjectured.
 \end_layout
@@ -1245,7 +1264,7 @@ literal "false"
 \end_layout
 
 \begin_layout Section
-Future Work
+Further Features
 \end_layout
 
 \begin_layout Standard
@@ -1345,7 +1364,7 @@ then it is possible to assert that
 \end_layout
 
 \begin_layout Standard
-this term will act like any other function at runtime, given a list input
+This term will act like any other function at runtime, given a list input
  it will verify that the 
 \begin_inset Formula $\mathtt{sort}$
 \end_inset
@@ -1378,7 +1397,7 @@ can be used to prototype
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\mathtt{div}=\lambda x.\lambda z.\mathtt{fst}\left(?:\sum y:\mathbb{N}.\mathtt{Mult}x\,y\,z\right)
+\mathtt{div}=\lambda z.\lambda x.\mathtt{fst}\left(?:\sum y:\mathbb{N}.\mathtt{Mult}x\,y\,z\right)
 \]
 
 \end_inset
@@ -1443,7 +1462,7 @@ Testing dependent programs
 Both dynamic equalities and dynamic proof search vastly weaken the guarantees
  of normal dependent type systems.
  Programmers still would like a evidence of correctness, even while they
- intend to provide full proofs of properties in the future.
+ intend to provide full proofs in the future.
  However, there are few options available in full-spectrum dependently typed
  languages aside from costly and sometimes unconstructable proofs.
 \end_layout
@@ -1586,6 +1605,55 @@ literal "false"
  However testing requires building types classes that establish the properties
  needed by the testing framework such as decidable equality.
  This is presumably out of reach of novice Coq users.
+\end_layout
+
+\begin_layout Section
+Status and Plan
+\end_layout
+
+\begin_layout Subsection
+Status
+\end_layout
+
+\begin_layout Standard
+I am rewriting a prototype for dynamic equality to support for all the features
+ of the base language.
+ The fragment for dependent function types and type universes satisfies
+ all the conditions above.
+ I believe that all conditions can be made to hold with data types as well.
+\end_layout
+
+\begin_layout Standard
+The proof search prototype written for the extended abstract, will need
+ to be corrected to account for dynamic equality.
+\end_layout
+
+\begin_layout Subsection
+Plan
+\end_layout
+
+\begin_layout Itemize
+February: finish re-writing the proptotype for dynamic equality
+\end_layout
+
+\begin_layout Itemize
+March: write up proofs for dynamic equality
+\end_layout
+
+\begin_layout Itemize
+April: rewrite the prof search and testing
+\end_layout
+
+\begin_layout Itemize
+May: submit to ICFP 2021 
+\end_layout
+
+\begin_layout Itemize
+June: draft thesis
+\end_layout
+
+\begin_layout Itemize
+July: defend
 \end_layout
 
 \begin_layout Standard

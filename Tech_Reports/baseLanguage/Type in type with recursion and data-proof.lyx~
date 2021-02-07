@@ -280,7 +280,7 @@ cons\,A:\star,n:\mathbb{N},-:A,-:Vec\,A\,n. & \rightarrow Vec\,A\,\left(suc\,n\r
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $dec\coloneqq\lambda n.\mathsf{Case}_{-:\mathbb{N}.\rightarrow\star}\,pr\,\mathsf{of}\mathsf{of}\left\{ z\rightarrow\perp\,|\,suc\,-\rightarrow Unit\right\} \qquad:\mathbb{N}\rightarrow\star$
+\begin_inset Formula $dec\coloneqq\lambda n.\mathsf{Case}_{-:\mathbb{N}.\rightarrow\star}\,pr\,\mathsf{of}\mathsf{of}\left\{ z\Rightarrow\perp\,|\,suc\,-\Rightarrow Unit\right\} \qquad:\mathbb{N}\rightarrow\star$
 \end_inset
 
 
@@ -4700,15 +4700,34 @@ differences from prototype
 \end_layout
 
 \begin_layout Itemize
-bidirectional, type annotations are not always needed on functions
+bidirectional, type annotations are not always needed on functions or data
 \end_layout
 
 \begin_layout Itemize
-toplevel recursion in addition to function recursion
+top-level definitions of functions and data
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+top-level recursion function recursion is supported
 \end_layout
 
 \begin_layout Itemize
-type annotations are not relevant for definitional equality
+top-level data references are supported
+\end_layout
+
+\begin_layout Itemize
+mutual recursion is allowed much more than in this presentation
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+data is syntactically
+\end_layout
+
+\begin_layout Itemize
+aside from establishing that a term has a type, type annotations are not
+ relevant for definitional equality in the prototype
 \end_layout
 
 \begin_layout Section

@@ -4700,15 +4700,35 @@ differences from prototype
 \end_layout
 
 \begin_layout Itemize
-bidirectional, type annotations are not always needed on functions
+bidirectional, type annotations are not always needed on functions or data
 \end_layout
 
 \begin_layout Itemize
-toplevel recursion in addition to function recursion
+top-level definitions of functions and data
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+top-level recursion function recursion is supported
 \end_layout
 
 \begin_layout Itemize
-type annotations are not relevant for definitional equality
+top-level data references are supported
+\end_layout
+
+\begin_layout Itemize
+mutual recursion is allowed much more than in this presentation
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+data constructors use re-use function application parameters rather then
+ having a list of subterms 
+\end_layout
+
+\begin_layout Itemize
+aside from establishing that a term has a type, type annotations are not
+ relevant for definitional equality in the prototype
 \end_layout
 
 \begin_layout Section

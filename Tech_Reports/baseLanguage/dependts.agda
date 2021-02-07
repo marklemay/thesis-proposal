@@ -39,6 +39,7 @@ renamePreSyntax ρ (pApp f a) = pApp (renamePreSyntax ρ f) (renamePreSyntax ρ 
 o : {n : ℕ} -> PreSyntax {n} -> PreSyntax {suc n}
 o = renamePreSyntax (raise 1)
 
+{-
 extsPreSyntax : ∀ {i j}
   → (σ : (Fin i → PreSyntax {j} ))
   → (PreSyntax {i}  → PreSyntax {suc j})
@@ -52,6 +53,12 @@ substPreSyntax σ pTyU = pTyU
 substPreSyntax σ (pPi  aTy bodTy) = pPi {!!} {!!}
 substPreSyntax σ (pFun aTy bodTy bod) = pFun {!!} {!!} {!!}
 substPreSyntax σ (pApp f a) = pApp {!!} {!!}
+-}
+postulate
+  substPreSyntax : ∀ {i j}
+    → (σ : (Fin i → PreSyntax {j} ))
+    → (PreSyntax {i}  → PreSyntax {j})
+
 
 _[_] :{n : ℕ} -> PreSyntax {suc n} -> PreSyntax {n} -> PreSyntax {n}
 _[_] {n} inthis withThis = substPreSyntax {suc n} {n} σ inthis
@@ -59,7 +66,6 @@ _[_] {n} inthis withThis = substPreSyntax {suc n} {n} σ inthis
     σ : Fin (suc n) → PreSyntax {n}
     σ 0F = withThis
     σ (suc x) = pVar x
-
 
 
 data PreCtx : ℕ -> Set where

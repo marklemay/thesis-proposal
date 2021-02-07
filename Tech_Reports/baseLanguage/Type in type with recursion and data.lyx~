@@ -1715,7 +1715,7 @@ Dependent Data
 \frac{\begin{array}{c}
 \mathsf{data}\,D\,\Delta\in\Gamma\\
 \Gamma\vdash\overline{M}:\Delta
-\end{array}}{\Gamma\vdash D\,\overline{M}\,:\star}\,D\textrm{-F'\textrm{-\Rrightarrow}}
+\end{array}}{\Gamma\vdash D\,\overline{M}\,:\star}\,D\textrm{-F'}
 \]
 
 \end_inset

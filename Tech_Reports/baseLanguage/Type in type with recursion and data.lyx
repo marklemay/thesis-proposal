@@ -1988,7 +1988,7 @@ parallel reductions
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash\overline{M}\Rrightarrow\overline{M'}:\Delta\left[x\coloneqq N\right]\qquad\Gamma\vdash\overline{N}\Rrightarrow\overline{N'}:\sigma}{\Gamma\vdash N,\overline{M}\,\Rrightarrow N',\overline{M'}\,:\,x:\sigma,\Delta}\,\Delta\textrm{-Trm-+}
+\frac{\Gamma\vdash\overline{M}\Rrightarrow\overline{M'}:\Delta\left[x\coloneqq N\right]\qquad\Gamma\vdash N\Rrightarrow N':\sigma}{\Gamma\vdash N,\overline{M}\,\Rrightarrow N',\overline{M'}\,:\,x:\sigma,\Delta}\,\Delta\textrm{-Trm-+}
 \]
 
 \end_inset

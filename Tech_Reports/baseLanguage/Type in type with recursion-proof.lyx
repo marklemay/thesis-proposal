@@ -668,41 +668,7 @@ by induction
 \end_layout
 
 \begin_layout Standard
-For any derivations of
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\begin_inset Formula $\Gamma,x:\sigma,\Gamma'\vdash M\Rrightarrow M':\tau$
-\end_inset
-
-, and 
-\begin_inset Formula $\Gamma\vdash N\Rrightarrow N':\sigma$
-\end_inset
-
-,
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- then following rule is admissible:
+The following rule is admissible:
 \end_layout
 
 \begin_layout Standard
@@ -759,11 +725,11 @@ if
 \noun default
 \color inherit
 
-\begin_inset Formula $\Gamma\vdash M\Rrightarrow\,N:\sigma$
+\begin_inset Formula $\Gamma\vdash M\Rrightarrow N:\sigma$
 \end_inset
 
  and 
-\begin_inset Formula $\Gamma\vdash M\Rrightarrow\,N':\sigma$
+\begin_inset Formula $\Gamma\vdash M\Rrightarrow N':\sigma$
 \end_inset
 
  then there exists 
@@ -787,11 +753,11 @@ if
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\Gamma\vdash N\Rrightarrow\,P:\sigma$
+\begin_inset Formula $\Gamma\vdash N\Rrightarrow P:\sigma$
 \end_inset
 
  and 
-\begin_inset Formula $\Gamma\vdash N'\Rrightarrow\,P:\sigma$
+\begin_inset Formula $\Gamma\vdash N'\Rrightarrow P:\sigma$
 \end_inset
 
 
@@ -1105,13 +1071,24 @@ by the confluence of
 \end_layout
 
 \begin_layout Standard
-The following rule is admissible:
+The following rules are admissible:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
 \frac{\Gamma\vdash M\equiv\,M':\sigma}{\Gamma\vdash M:\sigma}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash M\equiv\,M':\sigma}{\Gamma\vdash M':\sigma}
 \]
 
 \end_inset
@@ -1278,202 +1255,6 @@ by induction on
 \begin_inset Formula $\rightsquigarrow$
 \end_inset
 
- implies 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\Rrightarrow_{\ast}$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- 
-\end_layout
-
-\begin_layout Standard
-For any derivations of
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\begin_inset Formula $\Gamma\vdash M:\sigma$
-\end_inset
-
-, 
-\begin_inset Formula $M\rightsquigarrow M'$
-\end_inset
-
-,
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\Gamma\vdash M\Rrightarrow_{\ast}M':\sigma
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-since 
-\begin_inset Formula $\rightsquigarrow$
-\end_inset
-
- implies 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\Rrightarrow$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- 
-\end_layout
-
-\begin_layout Subsubsection
-\begin_inset Formula $\rightsquigarrow$
-\end_inset
-
- implies 
-\begin_inset Formula $\equiv$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-For any derivations of
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\begin_inset Formula $\Gamma\vdash M:\sigma$
-\end_inset
-
-, 
-\begin_inset Formula $M\rightsquigarrow M'$
-\end_inset
-
-,
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\Gamma\vdash M\equiv M':\sigma
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-since 
-\begin_inset Formula $\rightsquigarrow$
-\end_inset
-
- implies 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\Rrightarrow_{\ast}$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- 
-\end_layout
-
-\begin_layout Subsubsection
-\begin_inset Formula $\rightsquigarrow$
-\end_inset
-
  preserves type
 \end_layout
 
@@ -1532,7 +1313,7 @@ since
 \noun off
 \color none
 
-\begin_inset Formula $\equiv$
+\begin_inset Formula $\Rrightarrow$
 \end_inset
 
 
@@ -1562,7 +1343,7 @@ since
 \noun off
 \color none
 
-\begin_inset Formula $\equiv$
+\begin_inset Formula $\Rrightarrow$
 \end_inset
 
 
@@ -1579,472 +1360,6 @@ since
 \noun default
 \color inherit
  preserves types
-\end_layout
-
-\begin_layout Subsection
-Inversion
-\end_layout
-
-\begin_layout Standard
-If 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\Gamma\vdash M:\sigma$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="7">
-<features tabularvalignment="middle">
-<column alignment="left" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="left" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-if 
-\begin_inset Formula $M$
-\end_inset
-
- is
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\star$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-then 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $\Gamma\vdash$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-and
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\star$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\equiv\sigma$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-if 
-\begin_inset Formula $M$
-\end_inset
-
- is
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\Pi x:\sigma'.\tau$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-then there exists
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $\Gamma\vdash\sigma':\star\qquad\Gamma,x:\sigma'\vdash\tau:\star$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-and
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\star$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\equiv\sigma$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-if 
-\begin_inset Formula $M$
-\end_inset
-
- is
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $M'\,N$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-then there exists
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $\Gamma\vdash M':\,\Pi x:\sigma'.\tau\qquad\Gamma\vdash N:\sigma'$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-such that
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $\tau\left[x\coloneqq N\right]$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\equiv\sigma$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-if 
-\begin_inset Formula $M$
-\end_inset
-
- is
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\left(\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\right)$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-then there exists
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $\Gamma,x:\sigma'\vdash\tau':\star\qquad\Gamma,x:\sigma',f:\Pi x:\sigma'.\tau\vdash M':\tau$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-such that
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $\varPi x:\sigma'.\tau'$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\equiv\sigma$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Each case follows from inspection on the typing rules.
- There are only 2 possibilities, the original typing rule and the conversion
- rule.
- The conversion rule must eventually refer to the original typing rule.
- In any sequence of conversion rules the Definitional Equality is preserved.
 \end_layout
 
 \begin_layout Subsection
@@ -2189,11 +1504,11 @@ Type constructors definitionaly unique
 
 \begin_layout Standard
 There is no derivation of 
-\begin_inset Formula $\Gamma\vdash\ast\equiv\Pi x:\sigma.\tau$
+\begin_inset Formula $\Gamma\vdash\ast\equiv\Pi x:\sigma.\tau\,:\sigma'$
 \end_inset
 
  for any 
-\begin_inset Formula $\Gamma,\sigma,\tau$
+\begin_inset Formula $\Gamma,\sigma,\tau,\sigma'$
 \end_inset
 
 
@@ -3058,33 +2373,7 @@ typed by
 \uwave off
 \noun off
 \color none
- by 
-\family default
-\series bold
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-inversion
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- there exist some 
+ exist some 
 \family default
 \series default
 \shape default
@@ -3412,54 +2701,6 @@ get stuck
 \end_layout
 
 \begin_layout Section
-differences from implementation
-\end_layout
-
-\begin_layout Standard
-differences from Agda development
-\end_layout
-
-\begin_layout Itemize
-in both presentations standard properties of variables binding and substitution
- are assumed
-\end_layout
-
-\begin_layout Itemize
-In Agda the parallel reduction relation does not track the original typing
- judgment.
- This should not matter for the proof of confluence.
-\end_layout
-
-\begin_layout Itemize
-no need for a direct inversion lemma
-\end_layout
-
-\begin_layout Itemize
-only proved the function part of the canonical forms lemma (all that is
- needed for the proof)
-\end_layout
-
-\begin_layout Standard
-differences from prototype
-\end_layout
-
-\begin_layout Itemize
-bidirectional, type annotations are not always needed on functions
-\end_layout
-
-\begin_layout Itemize
-toplevel recursion in addition to function recursion
-\end_layout
-
-\begin_layout Itemize
-type annotations are not relevant for definitional equality
-\end_layout
-
-\begin_layout Section
-Conjectured Properties
-\end_layout
-
-\begin_layout Section
 Non-Properties
 \end_layout
 
@@ -3620,6 +2861,46 @@ counter example
 
 \begin_layout Standard
 this implies the additional work in the Canonical forms lemma
+\end_layout
+
+\begin_layout Section
+differences from implementation
+\end_layout
+
+\begin_layout Standard
+differences from Agda development
+\end_layout
+
+\begin_layout Itemize
+in both presentations standard properties of variables binding and substitution
+ are assumed
+\end_layout
+
+\begin_layout Itemize
+In Agda the parallel reduction relation does not track the original typing
+ judgment.
+ This should not matter for the proof of confluence.
+\end_layout
+
+\begin_layout Itemize
+only proved the function part of the canonical forms lemma (all that is
+ needed for the proof)
+\end_layout
+
+\begin_layout Standard
+differences from prototype
+\end_layout
+
+\begin_layout Itemize
+bidirectional, type annotations are not always needed on functions
+\end_layout
+
+\begin_layout Itemize
+toplevel recursion in addition to function recursion
+\end_layout
+
+\begin_layout Itemize
+type annotations are not relevant for definitional equality
 \end_layout
 
 \begin_layout Standard

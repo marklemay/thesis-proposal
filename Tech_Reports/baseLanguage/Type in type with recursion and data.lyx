@@ -1462,7 +1462,7 @@ transitive reflexive closure
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma\quad\Gamma\vdash M'\Rrightarrow M'':\sigma}{\Gamma\vdash M\Rrightarrow_{\ast}\,M';:\sigma}\,\textrm{\Rrightarrow\ast-step}
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma\quad\Gamma\vdash M'\Rrightarrow M'':\sigma}{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma}\,\textrm{\Rrightarrow\ast-step}
 \]
 
 \end_inset
@@ -1810,7 +1810,7 @@ d\,\varTheta\rightarrow D\overline{M}'\,\in\,\overline{d_{i}\,\varTheta_{i}\righ
 d\overline{x}\Rightarrow O\,\in\,\overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\\
 \Gamma\vdash\overline{N}\Rrightarrow\overline{N'}:\varTheta\\
 \,\\
-\Gamma\vdash O\Rrightarrow O':\sigma\left[x\coloneqq d\overline{x}_{i},\overline{y}\coloneqq\overline{N}\right]
+\Gamma\vdash O\Rrightarrow O':\sigma\left[x\coloneqq d_{i}\overline{x}_{i},\overline{y}\coloneqq\overline{N}\right]
 \end{array}}{\begin{array}{c}
 \Gamma\vdash\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(d\,\overline{N}\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \\
 \Rrightarrow O'\left[\overline{x}\coloneqq\overline{N'}\right]:\sigma\left[x\coloneqq d\overline{x}_{i},\overline{y}\coloneqq\overline{N}\right]

@@ -1,0 +1,720 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+an Intensional Dependent Type Theory with Type-in-Type and Recursion
+\end_layout
+
+\begin_layout Section
+Examples
+\end_layout
+
+\begin_layout Subsection
+pretending 
+\begin_inset Formula $\star=_{\star}\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+spoofing an equality
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\lambda pr:\left(\star=_{\star}\perp\right).pr\,\left(\lambda x.x\right)\,\perp\qquad:\lnot\star=_{\star}\perp\right)refl_{\star:\star}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+elaborates to
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\lambda pr:\left(\star=_{\star}\perp\right).pr\,\left(\lambda x.x\right)\,\perp\qquad:\lnot\star=_{\star}\perp\right)\left(refl_{\star:\star}::\left(\star=_{\star}\star\right)=_{l}\left(\star=_{\star}\perp\right)\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $refl_{\star:\star}::\left(\star=_{\star}\star\right)=_{l}\left(\star=_{\star}\perp\right)\,\left(\lambda x.x\right)\,\perp\qquad:\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\lambda C:\left(\star\rightarrow\star\right).\lambda x:C\,\star.x::\left(\varPi C:\left(\star\rightarrow\star\right).C\,\star\rightarrow C\,\star\right)=_{l}\left(\varPi C:\left(\star\rightarrow\star\right).C\,\star\rightarrow C\,\perp\right)\right)\,\left(\lambda x.x\right)\,\perp\qquad:\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\lambda x:\star.x::\left(\star\rightarrow\star\right)=_{l,bod}\left(\star\rightarrow\perp\right)\right)\,\perp\qquad:\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\perp::\star=_{l,bod.bod}\perp\right)\qquad:\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+note that the program has not yet 
+\begin_inset Quotes eld
+\end_inset
+
+gotten stuck
+\begin_inset Quotes erd
+\end_inset
+
+.
+ to exercise this error, 
+\begin_inset Formula $\perp$
+\end_inset
+
+ must be eliminated, this can be done by tying to summon another type by
+ applying it to 
+\begin_inset Formula $\perp$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\left(\perp::\star=_{l,bod.bod}\perp\right)\qquad:\perp\right)\,\star$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\left(\varPi x:\star.x\right)::\star=_{l,bod.bod}\left(\varPi x:\star.x\right)\right)\,\star$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+the computation is stuck, and the original application can be blamed on
+ account that the 
+\begin_inset Quotes eld
+\end_inset
+
+proof
+\begin_inset Quotes erd
+\end_inset
+
+ has a discoverable type error at the point of application 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\lambda\varPi C:\left(\star\rightarrow\star\right).C\,\star\rightarrow\underline{C\,\star}\neq\lambda\varPi C:\left(\star\rightarrow\star\right).C\,\star\rightarrow\underline{C\,\perp}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+when 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $C\coloneqq\lambda x.x$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $C\,\perp=\perp\neq\star=C\,\star$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+pretending 
+\begin_inset Formula $true_{c}=_{\mathbb{B}_{c}}false_{c}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+spoofing an equality, evaluating 
+\begin_inset Formula $\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}$
+\end_inset
+
+ with an incorrect proof.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\lambda pr:\left(\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right).pr\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,\star\,\perp\right)\,\perp\qquad:\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}\right)refl_{true_{c}:\mathbb{B}_{c}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+is elaborated to
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\lambda pr:\left(\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right).pr\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,\star\,\perp\right)\,\perp\qquad:\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}\right)\left(refl_{true_{c}:\mathbb{B}_{c}}::true_{c}=_{\mathbb{B}_{c}}true_{c}=_{l}true_{c}=_{\mathbb{B}_{c}}false_{c}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(refl_{true_{c}:\mathbb{B}_{c}}::true_{c}=_{\mathbb{B}_{c}}true_{c}=_{l}true_{c}=_{\mathbb{B}_{c}}false_{c}\right)\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,\star\,\perp\right)\,\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\left(\lambda C:\left(\mathbb{B}_{c}\rightarrow\star\right).\lambda x:C\,true_{c}.x\right)::\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,true_{c}=_{l}\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right)\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,\star\,\perp\right)\,\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\left(.\lambda x:\star.x\right)::\star\rightarrow\star=_{l,bod}\star\rightarrow\perp\right)\,\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\perp::\star=_{l,bod.bod}\perp\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As in the above the example has not yet 
+\begin_inset Quotes eld
+\end_inset
+
+gotten stuck
+\begin_inset Quotes erd
+\end_inset
+
+.
+ As above, applying 
+\begin_inset Formula $\star$
+\end_inset
+
+ will discover the error, which would result in an error like 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\lambda\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow\underline{C\,true_{c}}\neq\lambda\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,false_{c}\rightarrow\underline{C\,false_{c}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+when 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $C\coloneqq\lambda x.x$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $C\,true_{c}=\perp\neq\star=C\,false_{c}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+TODO
+\end_layout
+
+\begin_layout Itemize
+syntax and rules
+\end_layout
+
+\begin_layout Itemize
+Example of why function types alone are underwhelming 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+pair,singleton
+\end_layout
+
+\begin_layout Itemize
+walk through of varous examples
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+theorem statements
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+substitution!
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+proofs
+\end_layout
+
+\begin_layout Itemize
+exposition
+\end_layout
+
+\begin_layout Itemize
+archive
+\end_layout
+
+\begin_layout Itemize
+paper target
+\end_layout
+
+\begin_layout Section
+Scratch
+\end_layout
+
+\begin_layout Subsection
+pretending 
+\begin_inset Formula $\lambda x.x=_{\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}}\lambda x.true_{c}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+a difference can be observed via
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\lambda pr:\left(\varPi C:\left(\left(\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}\right)\rightarrow\star\right).C\,\left(\lambda x.x\right)\rightarrow C\,\left(\lambda x.true_{c}\right)\right).pr\,\left(\lambda f:\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}.f\,\star\,\star\,\perp\right)\,\perp\qquad:\lnot\lambda x.x=_{\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}}\lambda x.true_{c}\right)refl_{\lambda x.x:\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $S_{a:A}\coloneqq a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $S_{a:A}\coloneqq\varPi P:A\rightarrow\star.P\,a\rightarrow\star$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+..
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\lnot\star=_{\star}\left(\star\rightarrow\star\right)$
+\end_inset
+
+ is provable?
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\lambda pr:\left(\varPi C:\left(\star\rightarrow\star\right).C\,Unit\rightarrow C\,\perp\right).pr\,\left(\lambda x.x\right)\,\perp\qquad:\lnot\star=_{\star}\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+evaluating 
+\begin_inset Formula $\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}$
+\end_inset
+
+ with an incorrect proof.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\lambda pr:\left(\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right).pr\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,Unit\,\perp\right)\,tt\qquad:\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}\right)refl_{true_{c}:\mathbb{B}_{c}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+is elaborated to
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\lambda pr:\left(\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right).pr\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,Unit\,\perp\right)\,tt\qquad:\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}\right)\left(refl_{true_{c}:\mathbb{B}_{c}}::true_{c}=_{\mathbb{B}_{c}}true_{c}=_{l}true_{c}=_{\mathbb{B}_{c}}false_{c}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\rightsquigarrow\left(\left(refl_{true_{c}:\mathbb{B}_{c}}::true_{c}=_{\mathbb{B}_{c}}true_{c}=_{l}true_{c}=_{\mathbb{B}_{c}}false_{c}\right)\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,Unit\,\perp\right)\,tt\qquad:\perp\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+de-sugars to
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\left(\left(\lambda C:\left(\mathbb{B}_{c}\rightarrow\star\right).\lambda x:C\,true_{c}.x\right)::\left(\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,true_{c}\right)=_{l}\left(\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right)\right)\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,Unit\,\perp\right)\,tt\qquad:\perp\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\rightsquigarrow\left(\left(\left(\lambda x:\left(true_{c}\,\star\,Unit\,\perp\right).x\right)::\left(true_{c}\,\star\,Unit\,\perp\rightarrow true_{c}\,\star\,Unit\,\perp\right)=_{l,bod}\left(\left(true_{c}\,\star\,Unit\,\perp\right)\rightarrow false_{c}\,\star\,Unit\,\perp\right)\right)\,tt\qquad:\perp\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+def eq to
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\left(\left(\lambda x:Unit.x\right)::\left(Unit\rightarrow Unit\right)=_{l,bod}\left(Unit\rightarrow\perp\right)\right)\,tt\qquad:\perp\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\rightsquigarrow\left(tt::Unit=_{l,bod.bod}\perp\qquad:\perp\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+note that the program has not yet 
+\begin_inset Quotes eld
+\end_inset
+
+gotten stuck
+\begin_inset Quotes erd
+\end_inset
+
+.
+ to exercise this error, 
+\begin_inset Formula $\perp$
+\end_inset
+
+ must be eliminated, this can be done by tying to summon another type by
+ applying it to 
+\begin_inset Formula $\perp$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(tt::Unit=_{l,bod.bod}\perp\qquad:\perp\right)\perp\qquad:\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+bad attempt
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(tt::Unit=_{l,bod.bod}\perp\qquad:\perp\right)\perp\qquad:\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+de-sugars to
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\left(\lambda A:\star.\lambda a:A.a\right)::\varPi A:\star.A\rightarrow A=_{l,bod.bod}\varPi x:\star.x\qquad:\perp\right)\perp\qquad:\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\rightsquigarrow\left(.\lambda a.a\right)::\perp\rightarrow\perp=_{l,bod.bod.bod}\perp\qquad:\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+but still
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\left(.\lambda a.a\right)::\perp\rightarrow\perp=_{l,bod.bod.bod}\perp\qquad:\perp\right)\star$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\left(.\lambda a.a\right)::\perp\rightarrow\perp=_{l,bod.bod.bod}\varPi x:\star.x\qquad:\perp\right)\star$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\star::\star=_{l,bod.bod.bod.aty}\perp=_{l,bod.bod.bod.bod}\star\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+bad attempt
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(tt::Unit=_{l,bod.bod}\perp\qquad:\perp\right)\star\rightarrow\star\qquad:\star\rightarrow\star$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+de-sugars to
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\left(\lambda A:\star.\lambda a:A.a\right)::\varPi A:\star.A\rightarrow A=_{l,bod.bod}\varPi x:\star.x\qquad:\perp\right)\star\rightarrow\star\qquad:\star\rightarrow\star$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\rightsquigarrow\left(.\lambda a.a\right)::\left(\star\rightarrow\star\right)\rightarrow\left(\star\rightarrow\star\right)=_{l,bod.bod.bod}\star\rightarrow\star\qquad:\star\rightarrow\star$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+not yet 
+\begin_inset Quotes eld
+\end_inset
+
+gotten stuck
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\rightsquigarrow\left(.\lambda a.a\right)::\left(\star\rightarrow\star\right)\rightarrow\left(\star\rightarrow\star\right)=_{l,bod.bod.bod}\star\rightarrow\star\qquad:\star\rightarrow\star$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+bad attempt
+\end_layout
+
+\begin_layout Standard
+de-sugars to
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\left(\lambda A:\star.\lambda a:A.a\right)::\varPi A:\star.A\rightarrow A=_{l,bod.bod}\varPi x:\star.x\qquad:\perp\right)\mathbb{B}_{c}\qquad:\mathbb{B}_{c}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\rightsquigarrow\left(.\lambda a:\mathbb{B}_{c}.a\right)::\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}=_{l,bod.bod.bod}\mathbb{B}_{c}\qquad:\mathbb{B}_{c}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+attempt
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(tt::Unit=_{l,bod.bod}\perp\qquad:\perp\right)\mathbb{B}_{c}\qquad:\mathbb{B}_{c}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+de-sugars to
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left(\left(\lambda A:\star.\lambda a:A.a\right)::\varPi A:\star.A\rightarrow A=_{l,bod.bod}\varPi x:\star.x\qquad:\perp\right)\mathbb{B}_{c}\qquad:\mathbb{B}_{c}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\rightsquigarrow\left(.\lambda a:\mathbb{B}_{c}.a\right)::\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}=_{l,bod.bod.bod}\mathbb{B}_{c}\qquad:\mathbb{B}_{c}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\end_body
+\end_document

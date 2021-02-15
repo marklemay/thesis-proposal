@@ -15,9 +15,19 @@ data PreSyntax {n} where
   pVar : (i : Fin n) -> PreSyntax
   pTyU : PreSyntax
   pPi : PreSyntax {n} -> PreSyntax {suc n} -> PreSyntax
-  pFun : PreSyntax {n} -> PreSyntax {suc n} -- annotation TODO remove?
+  pFun : PreSyntax {n} -> PreSyntax {suc n} -- annotations
     -> (bod : PreSyntax {suc (suc n)}) -> PreSyntax
   pApp :  PreSyntax {n} -> PreSyntax {n} -> PreSyntax
+
+
+
+
+
+
+
+
+
+
 
 -- degenerate context extention
 extPreSyntax : {i j : ℕ}
@@ -93,6 +103,16 @@ postulate
   
   -- TODO and wll typed variants
 
+
+
+
+
+
+
+
+
+
+
 data _val {n : ℕ} : PreSyntax {n} -> Set where
   vTyU : pTyU val
   vPi : { aTy : PreSyntax } -> {bodTy : PreSyntax }
@@ -138,14 +158,13 @@ data _~>p_ {n : ℕ} : PreSyntax {n}  -> PreSyntax {n} -> Set  where
     -> aTy ~>p aTy' 
     -> bodTy ~>p bodTy'
     -> (pPi aTy bodTy) ~>p pPi aTy' bodTy'
+    
   par-Fun :
     {aTy : _} -> {bodTy : _} ->
-    -- {aTy aTy' : _} -> {bodTy bodTy' : _} ->
     {bod bod' : _}
-    -- -> aTy ~>p aTy'
-    -- -> bodTy ~>p bodTy'
     -> bod ~>p bod'
     -> (pFun aTy bodTy bod) ~>p pFun aTy bodTy bod'
+    
   par-App : {f f' a a' : _}
     -> f ~>p f'
     -> a ~>p a'
@@ -208,9 +227,8 @@ confulent-~> {_} {pTyU} par-TyU par-TyU = pTyU , par-TyU , par-TyU
 
 -- typed transitive reflective closer
 data _|-_~>*p_::_ {n} Γ  where
-  -- TODO this could be admissable
-  par-refl : {m n : _} -> Γ |- m :: n
-    -> Γ |- m ~>*p m :: n
+  par-refl : {m n : _} -> Γ |- m :: n  
+    -> Γ |- m ~>*p m :: n                        -- TODO this could be admissable
     
   par-step : {a b c n : _}
     -> Γ |- a ~>*p b :: n

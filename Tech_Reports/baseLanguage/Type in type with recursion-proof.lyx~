@@ -126,6 +126,13 @@ while logically unsound the language is extremely expressive.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Formula $refl_{a:A}\coloneqq\lambda C:\left(A\rightarrow\star\right).\lambda x:C\,a.x\qquad:a=_{A}a$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula $Unit\coloneqq\varPi A:\star.A\rightarrow A$
 \end_inset
 
@@ -148,6 +155,31 @@ while logically unsound the language is extremely expressive.
 
 \begin_layout Standard
 \begin_inset Formula $\lnot A\coloneqq\varPi A:\star..A\rightarrow\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+church bools:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathbb{B}_{c}\coloneqq\varPi A:\star.A\rightarrow A\rightarrow A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $true_{c}\coloneqq\lambda A:\star.\lambda then:A.\lambda else:A.then$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $false_{c}\coloneqq\lambda A:\star.\lambda then:A.\lambda else:A.else$
 \end_inset
 
 
@@ -190,11 +222,18 @@ church nats:
 \end_layout
 
 \begin_layout Standard
-since there is type in type, a kind of large elimination is possible
+since there is type-in-type, a kind of large elimination is possible
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\lambda n:\mathbb{N}_{c}.n\,\star\,(\lambda-.U)\,\perp$
+\begin_inset Formula $\lambda b:\mathbb{B}_{c}.b\,\star\,Unit\,\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\lambda n:\mathbb{N}_{c}.n\,\star\,(\lambda-.Unit)\,\perp$
 \end_inset
 
 
@@ -209,7 +248,35 @@ thus
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\lambda pr:\left(\varPi C:\left(\mathbb{N}_{c}\rightarrow\star\right).C\,1_{c}\rightarrow C\,0_{c}\right).pr\,\left(\lambda n:\mathbb{N}_{c}.n\,\star\,(\lambda-.U)\,\perp\right)\,tt\qquad:\lnot1_{c}=_{\mathbb{N}_{c}}0_{c}$
+\begin_inset Formula $\lambda pr:\left(\varPi C:\left(\mathbb{N}_{c}\rightarrow\star\right).C\,1_{c}\rightarrow C\,0_{c}\right).pr\,\left(\lambda n:\mathbb{N}_{c}.n\,\star\,(\lambda-.Unit)\,\perp\right)\,tt\qquad:\lnot1_{c}=_{\mathbb{N}_{c}}0_{c}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}$
+\end_inset
+
+ is provable:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\lambda pr:\left(\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right).pr\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,Unit\,\perp\right)\,tt\qquad:\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\lnot\star=_{\star}\star\rightarrow\star$
+\end_inset
+
+ is provable:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\lambda pr:\left(\varPi C:\left(\star\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right).pr\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,Unit\,\perp\right)\,tt\qquad:\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}$
 \end_inset
 
 
@@ -1255,202 +1322,6 @@ by induction on
 \begin_inset Formula $\rightsquigarrow$
 \end_inset
 
- implies 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\Rrightarrow_{\ast}$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- 
-\end_layout
-
-\begin_layout Standard
-For any derivations of
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\begin_inset Formula $\Gamma\vdash M:\sigma$
-\end_inset
-
-, 
-\begin_inset Formula $M\rightsquigarrow M'$
-\end_inset
-
-,
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\Gamma\vdash M\Rrightarrow_{\ast}M':\sigma
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-since 
-\begin_inset Formula $\rightsquigarrow$
-\end_inset
-
- implies 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\Rrightarrow$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- 
-\end_layout
-
-\begin_layout Subsubsection
-\begin_inset Formula $\rightsquigarrow$
-\end_inset
-
- implies 
-\begin_inset Formula $\equiv$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-For any derivations of
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\begin_inset Formula $\Gamma\vdash M:\sigma$
-\end_inset
-
-, 
-\begin_inset Formula $M\rightsquigarrow M'$
-\end_inset
-
-,
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\Gamma\vdash M\equiv M':\sigma
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-since 
-\begin_inset Formula $\rightsquigarrow$
-\end_inset
-
- implies 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\Rrightarrow_{\ast}$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- 
-\end_layout
-
-\begin_layout Subsubsection
-\begin_inset Formula $\rightsquigarrow$
-\end_inset
-
  preserves type
 \end_layout
 
@@ -1509,7 +1380,7 @@ since
 \noun off
 \color none
 
-\begin_inset Formula $\equiv$
+\begin_inset Formula $\Rrightarrow$
 \end_inset
 
 
@@ -1539,7 +1410,7 @@ since
 \noun off
 \color none
 
-\begin_inset Formula $\equiv$
+\begin_inset Formula $\Rrightarrow$
 \end_inset
 
 
@@ -3097,6 +2968,26 @@ toplevel recursion in addition to function recursion
 
 \begin_layout Itemize
 type annotations are not relevant for definitional equality
+\end_layout
+
+\begin_layout Section
+Proof improvements
+\end_layout
+
+\begin_layout Itemize
+Clarify what unsoundness means 
+\end_layout
+
+\begin_layout Itemize
+proof outline at the top of document
+\end_layout
+
+\begin_layout Itemize
+correct spelling
+\end_layout
+
+\begin_layout Itemize
+better function notation
 \end_layout
 
 \begin_layout Standard

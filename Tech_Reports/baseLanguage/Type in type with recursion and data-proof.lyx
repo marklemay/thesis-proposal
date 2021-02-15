@@ -2625,10 +2625,31 @@ if
 \noun default
 \color inherit
  is 
-\begin_inset Formula $d\,\overline{v}$
+\begin_inset Formula $d_{k}\,\overline{v}$
 \end_inset
 
+ for some
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
  
+\begin_inset Formula $\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d_{i}\,\varTheta_{i}\rightarrow D\overline{M}_{i}\,|}\right\} \in\Xi$
+\end_inset
+
+ and 
+\begin_inset Formula $d_{k}\,\varTheta_{k}\rightarrow D\overline{M}_{k}\in\overline{d_{i}\,\varTheta_{i}\rightarrow D\overline{M}_{i}\,|}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4312,7 +4333,7 @@ canonical forms
 \noun default
 \color inherit
 
-\begin_inset Formula $d\,\overline{v}$
+\begin_inset Formula $d_{k}\,\overline{v}$
 \end_inset
 
 .
@@ -4329,7 +4350,11 @@ canonical forms
 \uwave off
 \noun off
 \color none
-d clause in the case expression
+
+\begin_inset Formula $d_{k}$
+\end_inset
+
+ clause in the case expression
 \family default
 \series default
 \shape default
@@ -4357,7 +4382,7 @@ d clause in the case expression
 \noun off
 \color none
 
-\begin_inset Formula $\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(D\,\overline{v}\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \rightsquigarrow O\left[\overline{x}\coloneqq\overline{v}\right]$
+\begin_inset Formula $\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(d_{k}\,\overline{v}\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \rightsquigarrow O_{k}\left[\overline{x}\coloneqq\overline{v}\right]$
 \end_inset
 
 
@@ -4723,7 +4748,7 @@ mutual recursion is allowed much more than in this presentation
 \end_deeper
 \begin_layout Itemize
 data constructors use re-use function application parameters rather then
- having a list of subterms 
+ having a list of sub-terms 
 \end_layout
 
 \begin_layout Itemize
@@ -4733,6 +4758,26 @@ aside from establishing that a term has a type, type annotations are not
 
 \begin_layout Section
 Proof improvements
+\end_layout
+
+\begin_layout Itemize
+abstract types subtly break the canonical forms lemma
+\end_layout
+
+\begin_layout Itemize
+Clarify what unsoundness means 
+\end_layout
+
+\begin_layout Itemize
+proof outline at the top of document
+\end_layout
+
+\begin_layout Itemize
+correct spelling
+\end_layout
+
+\begin_layout Itemize
+better function notation
 \end_layout
 
 \begin_layout Itemize
@@ -4768,6 +4813,10 @@ make at terms represented by Latin characters, reserving the geek letters
 
 \begin_layout Itemize
 enumerate the syntactic abbreviations
+\end_layout
+
+\begin_layout Itemize
+Single (or double args) instead of the messy arg list notation 
 \end_layout
 
 \end_body

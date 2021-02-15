@@ -1,0 +1,891 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+an Intensional Dependent Type Theory with Type-in-Type and Recursion
+\end_layout
+
+\begin_layout Section
+type soundness or blame
+\end_layout
+
+\begin_layout Subsection
+well formed
+\end_layout
+
+\begin_layout Subsection
+weakening
+\end_layout
+
+\begin_layout Subsection
+substitution
+\end_layout
+
+\begin_layout Subsection
+preservation
+\end_layout
+
+\begin_layout Subsection
+Canonical forms
+\end_layout
+
+\begin_layout Subsection
+Progress
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\lozenge\vdash a:A$
+\end_inset
+
+ implies that 
+\begin_inset Formula $a$
+\end_inset
+
+ is a value, there exists 
+\begin_inset Formula $a'$
+\end_inset
+
+ such that 
+\begin_inset Formula $a\rightsquigarrow a'$
+\end_inset
+
+, or a static location can be blamed.
+\end_layout
+
+\begin_layout Standard
+By mutual induction on the typing derivations with the help of the canonical
+ forms lemma
+\end_layout
+
+\begin_layout Standard
+Explicitly:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $M$
+\end_inset
+
+ is
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ typed by the conversion rule, then by 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+induction
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+, 
+\begin_inset Formula $M$
+\end_inset
+
+ is a value or there exists 
+\begin_inset Formula $N$
+\end_inset
+
+ such that 
+\begin_inset Formula $M\rightsquigarrow N$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $M$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ cannot be typed by the variable rule in the empty context
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $M$
+\end_inset
+
+ is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by type-in-type.
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $M$
+\end_inset
+
+ is 
+\begin_inset Formula $\star$
+\end_inset
+
+, a value
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $M$
+\end_inset
+
+ is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by 
+\begin_inset Formula $\Pi\textrm{-F}$
+\end_inset
+
+.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $M$
+\end_inset
+
+ is 
+\begin_inset Formula $\Pi x:\sigma.\tau$
+\end_inset
+
+, a value
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $M$
+\end_inset
+
+ is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by 
+\begin_inset Formula $\Pi\textrm{-I}$
+\end_inset
+
+.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $M$
+\end_inset
+
+ is
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'$
+\end_inset
+
+, a value
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $M$
+\end_inset
+
+ is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by 
+\begin_inset Formula $\Pi\textrm{-E}$
+\end_inset
+
+.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $M$
+\end_inset
+
+ is
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $P\,N$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ then
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ exist some 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\sigma,\tau$
+\end_inset
+
+ for
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $\lozenge\vdash P:\Pi x:\sigma.\tau$
+\end_inset
+
+ and 
+\begin_inset Formula $\lozenge\vdash N:\sigma$
+\end_inset
+
+.
+ By 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+induction
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ (on the 
+\begin_inset Formula $P$
+\end_inset
+
+ branch of the derivation) 
+\begin_inset Formula $P$
+\end_inset
+
+ is a value or there exists 
+\begin_inset Formula $P'$
+\end_inset
+
+ such that 
+\begin_inset Formula $P\rightsquigarrow P'$
+\end_inset
+
+.
+ By 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+induction
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ (on the 
+\begin_inset Formula $N$
+\end_inset
+
+ branch of the derivation) 
+\begin_inset Formula $N$
+\end_inset
+
+ is a value or there exists 
+\begin_inset Formula $N'$
+\end_inset
+
+ such that 
+\begin_inset Formula $N\rightsquigarrow N'$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+if 
+\begin_inset Formula $P$
+\end_inset
+
+ is a value then by 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+canonical forms
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+, 
+\begin_inset Formula $P$
+\end_inset
+
+ is
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'$
+\end_inset
+
+ and 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+if
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $N$
+\end_inset
+
+ is a value then 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+the one step reduction is
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'\right)\,N\,\rightsquigarrow\,P'\left[x\coloneqq N,f\coloneqq\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right]$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+otherwise
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ there exists 
+\begin_inset Formula $N'$
+\end_inset
+
+ such that 
+\begin_inset Formula $N\rightsquigarrow N'$
+\end_inset
+
+, and the one step reduction is 
+\begin_inset Formula $\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'\right)\,N\,\rightsquigarrow\,\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'\right)\,N'$
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+otherwise
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+, there exists 
+\begin_inset Formula $P'$
+\end_inset
+
+ such that 
+\begin_inset Formula $P\rightsquigarrow P'$
+\end_inset
+
+ and the one step reduction is 
+\begin_inset Formula $P\,N\rightsquigarrow P'\,N$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Type Soundness
+\end_layout
+
+\begin_layout Standard
+For any well typed term in an empty context, no sequence of small step reduction
+s will cause result in a computation to 
+\begin_inset Quotes eld
+\end_inset
+
+get stuck
+\begin_inset Quotes erd
+\end_inset
+
+ without blame.
+ Either a final value will be reached, further reductions can be taken,
+ or blame is omitted.
+ This follows by iterating the progress and preservation lemmas.
+\end_layout
+
+\begin_layout Section
+elaboration embeds typing
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\vdash e:M$
+\end_inset
+
+, 
+\begin_inset Formula $elab\left(M,*\right)=M'$
+\end_inset
+
+, and 
+\begin_inset Formula $elab\left(e,M'\right)=e'$
+\end_inset
+
+ then 
+\begin_inset Formula $\vdash_{c}e':M'$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+computation resulting in blame cannot be typed in the surface lang
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\vdash_{c}e':M'$
+\end_inset
+
+ and 
+\begin_inset Formula $e'\downarrow blame$
+\end_inset
+
+ then there is no 
+\begin_inset Formula $\vdash e:M$
+\end_inset
+
+ such that 
+\begin_inset Formula $elab\left(M,*\right)=M'$
+\end_inset
+
+, 
+\begin_inset Formula $elab\left(e,M'\right)=e'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+computation in the cast lang respects computation in the surface lang
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\vdash_{c}e':*$
+\end_inset
+
+ and 
+\begin_inset Formula $elab\left(e,*\right)=e'$
+\end_inset
+
+ then
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+if 
+\begin_inset Formula $e'\downarrow*$
+\end_inset
+
+ then 
+\begin_inset Formula $e\downarrow*$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+if 
+\begin_inset Formula $e'\downarrow(x:M')\rightarrow N'$
+\end_inset
+
+ then 
+\begin_inset Formula $e\downarrow(x:M)\rightarrow N$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+if 
+\begin_inset Formula $e'\downarrow TCon\,\overline{M'}$
+\end_inset
+
+ then 
+\begin_inset Formula $e\downarrow TCon\,\overline{M}$
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\end_body
+\end_document

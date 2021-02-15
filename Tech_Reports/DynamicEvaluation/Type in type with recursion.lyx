@@ -1033,7 +1033,11 @@ type equality chain
 \begin_inset Formula $\star$
 \end_inset
 
+ | 
+\begin_inset Formula $\Pi x:A.B$
+\end_inset
 
+ 
 \end_layout
 
 \end_inset
@@ -1553,12 +1557,193 @@ Substitution
 \end_layout
 
 \begin_layout Section*
-Judgments
+lookup
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
 <lyxtabular version="3" rows="4" columns="2">
+<features tabularvalignment="middle">
+<column alignment="right" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $A\uparrow$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $e=_{l,o}A\uparrow$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $A\downarrow$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $e=_{l,o}A\downarrow$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=e\downarrow$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+casts
+\end_layout
+
+\begin_layout Standard
+TODO
+\end_layout
+
+\begin_layout Section*
+Judgments
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
 <features tabularvalignment="middle">
 <column alignment="right" valignment="top">
 <column alignment="left" valignment="top">
@@ -1706,6 +1891,114 @@ head type
 \end_inset
 </cell>
 </row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash a_{h}\Rrightarrow a:A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash e\Rrightarrow e':\overline{\star}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash a\Rrightarrow a:A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
 </lyxtabular>
 
 \end_inset
@@ -1817,33 +2110,18 @@ check
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Typing
 \end_layout
 
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\forall C\in B=_{l,o}e=_{l',o'}A,\,H\vdash C:\star\quad H\vdash a_{h}:B}{H\vdash a_{h}::B=_{l,o}e=_{l',o'}A\,:A}apparent
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-doesn't properly handle when fewer then 3 casts
-\end_layout
-
-\begin_layout Standard
-for head forms
+\begin_layout Subsection
+Cast Typing
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{x:A\in H}{H\vdash x:A}
+\frac{H\vdash A:\star}{H\vdash A:\overline{\star}}eq-ty-1
 \]
 
 \end_inset
@@ -1854,7 +2132,22 @@ for head forms
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{...}{H\vdash\star:\star}
+\frac{H\vdash e:\overline{\star}\quad H\vdash A:\star}{H\vdash e=_{l,o}A:\overline{\star}}eq-ty-2
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Head Typing
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{...}{H\vdash\star:\star}\star-ty
 \]
 
 \end_inset
@@ -1865,7 +2158,18 @@ for head forms
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash A:\star\quad H,x:A\vdash B:\star}{H\vdash\Pi x:A.B\,:\star}
+\frac{x:A\in H}{H\vdash x:A}var-ty
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash A:\star\quad H,x:A\vdash B:\star}{H\vdash\Pi x:A.B\,:\star}\Pi-ty
 \]
 
 \end_inset
@@ -1880,7 +2184,7 @@ allow typing to uncast heads
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H,f:\left(\Pi x:A.B\right)::\star,x:A\vdash b:B}{H\vdash\mathsf{fun}\,f.\,x.b\,:\,\left(\Pi x:A.B\right)::\star}
+\frac{H,f:\Pi x:A.B,x:A\vdash b:B}{H\vdash\mathsf{fun}\,f.\,x.b\,:\,\Pi x:A.B}\Pi-\mathsf{fun}-ty
 \]
 
 \end_inset
@@ -1891,7 +2195,33 @@ allow typing to uncast heads
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash b:\Pi x:A.B\quad H\vdash a:A}{H\vdash b\,a\,:\,B\left[x\coloneqq a\right]}
+\frac{H\vdash b:\Pi x:A.B\quad H\vdash a:A}{H\vdash b\,a\,:\,B\left[x\coloneqq a\right]}\Pi-app-ty
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Cast Term Typing
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{...}{H\vdash\star:\star}\star-ty
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash A:\star\quad H,x:A\vdash B:\star}{H\vdash\Pi x:A.B\,:\star}\Pi-ty
 \]
 
 \end_inset
@@ -1910,8 +2240,23 @@ allow typing to uncast heads
 
 \end_layout
 
-\begin_layout Section*
-Eq
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash e:\overline{\star}\quad H\vdash a_{h}:B\downarrow}{H\vdash a_{h}::e\quad:\quad e\uparrow}apparent
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(TODO: may regret these as functions instead of relations)
+\end_layout
+
+\begin_layout Section
+Definitional Equality
 \end_layout
 
 \begin_layout Standard
@@ -1925,7 +2270,7 @@ Eq
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Par reductions
 \end_layout
 
@@ -1951,14 +2296,18 @@ Par reductions
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Par reduction
 \end_layout
 
+\begin_layout Subsection
+Cast Par reduction
+\end_layout
+
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{?}{H\vdash\star\Rrightarrow\star:A}
+\frac{H\vdash A\Rrightarrow A'\,:\,\star}{H\vdash A\Rrightarrow A'\,:\,\overline{\star}}
 \]
 
 \end_inset
@@ -1969,7 +2318,22 @@ Par reduction
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash e\Rrightarrow e'\quad H\vdash B\Rrightarrow B'}{H\vdash\left(B::e\right)\Rrightarrow\left(B'::e'\right):A}
+\frac{H\vdash e\Rrightarrow e':\overline{\star}\quad H\vdash A\Rrightarrow A'\,:\,\star}{H\vdash e=_{l,o}A\Rrightarrow e'=_{l,o}A'\,:\,\overline{\star}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Head Par reduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,f:\Pi x:A.B,x:A\vdash b\Rrightarrow b':B\quad H\vdash a\Rrightarrow a':A\quad e\,Elim_{\Pi}\,x,-,-,e_{B}\quad H\vdash e_{B}\Rrightarrow e':\overline{\star}}{H\vdash\left(\mathsf{fun}\,f.\,x.b\right)::e\,a\Rrightarrow\left(b'::e'\right)\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b'\right),x\coloneqq a'\right]\,:\,B\left[x\coloneqq a\right]}
 \]
 
 \end_inset
@@ -1978,39 +2342,18 @@ Par reduction
 \end_layout
 
 \begin_layout Standard
-or should this be 
-\begin_inset Formula $H\vdash e\equiv e'$
-\end_inset
+TODO: fix this
+\end_layout
 
-?
+\begin_layout Standard
+TODO: justify the shorthand in the remaining rules, by prompting a typing
+ judgment to an innocuous cast
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{?}{H\vdash x\Rrightarrow x:?}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H,f:\Pi x:A.B,x:A\vdash b\Rrightarrow b':B\quad H\vdash a\Rrightarrow a':A}{H\vdash\left(\mathsf{fun}\,f.\,x.b\right)::e\,a\Rrightarrow b'\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b'\right)::e,x\coloneqq a'\right]}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H,f:\Pi x:A.B,x:A\vdash b\Rrightarrow b':B}{H\vdash\left(\mathsf{fun}\,f.\,x.b\right)\Rrightarrow\left(\mathsf{fun}\,f.\,x.b'\right)}
+\frac{x:A\in H}{H\vdash x\Rrightarrow x:A}
 \]
 
 \end_inset
@@ -2021,7 +2364,77 @@ or should this be
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash b\Rrightarrow b':\Pi x:A.B\quad H\vdash a\Rrightarrow a':A}{H\vdash b\,a\Rrightarrow b'\,a':B\left[x\coloneqq a\right]}
+\frac{H\vdash}{H\vdash\star\Rrightarrow\star:\star}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash A\Rrightarrow A':\star\quad H,x:A\vdash B\Rrightarrow B':\star}{H\vdash\Pi x:A.B\Rrightarrow\Pi x:A'.B'\,:\,\star}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,f:\Pi x:A.B,x:A\vdash b\Rrightarrow b'\,:B}{H\vdash\mathsf{fun}\,f.\,x.b\Rrightarrow\mathsf{fun}\,f.\,x.b'\,:\,\Pi x:A.B}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash b\Rrightarrow b':\Pi x:A.B\quad H\vdash a\Rrightarrow b':A}{H\vdash b\,a\Rrightarrow b'\,a'\,:\,B\left[x\coloneqq a\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Cast Term Par reduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash}{H\vdash\star\Rrightarrow\star:\star}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash A\Rrightarrow A':\star\quad H,x:A\vdash B\Rrightarrow B':\star}{H\vdash\Pi x:A.B\Rrightarrow\Pi x:A'.B'\,:\,\star}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash e\Rrightarrow e':\star\quad H\vdash a\Rrightarrow a':e\downarrow}{H\vdash a::e\Rrightarrow a'::e'\,:\,e\uparrow}
 \]
 
 \end_inset
@@ -2447,7 +2860,7 @@ Cbv Small Step
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{v_{eq}Elim_{\Pi}\,x,-,v_{eq}_{A},e_{B}\quad v_{eq}{}_{A}\,Elim_{\star}}{\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b::e_{B}\right)\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq},x\coloneqq v\right]::v_{eq}'}
+\frac{v_{eq}\,Elim_{\Pi}\,x,-,-,e_{B}}{\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b::e_{B}\right)\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq},x\coloneqq v\right]::v_{eq}'}
 \]
 
 \end_inset
@@ -2456,7 +2869,8 @@ Cbv Small Step
 \end_layout
 
 \begin_layout Standard
-apparent ty of bod should be * !!!!
+apparent ty of bod should be *, think that might follow from the typing
+ judgment
 \end_layout
 
 \begin_layout Standard
@@ -2528,7 +2942,18 @@ Dynamic Check
 \end_layout
 
 \begin_layout Section*
-Alt rules
+Alt rules/ notation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\forall C\in B=_{l,o}e=_{l',o'}A,\,H\vdash C:\star\quad H\vdash a_{h}:B}{H\vdash a_{h}::B=_{l,o}e=_{l',o'}A\,:A}apparent
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2551,6 +2976,123 @@ Alt rules
 \[
 \frac{v_{eq}Elim_{\Pi}\,v_{eq}_{A},e_{B}\quad v_{eq}{}_{A}\,Elim_{\star}\quad v_{eq}{}_{A}\,Elim_{\star}}{\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\rightsquigarrow b\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right),x\coloneqq v\right]}
 \]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{v_{eq}\,Elim_{\Pi}\,x,-,v_{eq}_{A},e_{B}\quad v_{eq}{}_{A}\,Elim_{\star}}{\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b::e_{B}\right)\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq},x\coloneqq v\right]::v_{eq}'}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,f:\Pi x:A.B,x:A\vdash b\Rrightarrow b'\,:B}{H\vdash\left(\left(\mathsf{fun}\,f.\,x.b\right)::e\right)\,a\Rrightarrow\left(\left(\mathsf{fun}\,f.\,x.b\right)::e\right)\,a\,:\,B\left[x\coloneqq a\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="2">
+<features tabularvalignment="middle">
+<column alignment="right" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\underrightarrow{A}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\underrightarrow{e=_{l,o}A}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
 
 \end_inset
 

@@ -122,7 +122,7 @@ Progress
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\lozenge\vdash a:A$
+\begin_inset Formula $\lozenge\vdash c:A$
 \end_inset
 
  implies that 
@@ -130,18 +130,35 @@ Progress
 \end_inset
 
  is a value, there exists 
-\begin_inset Formula $a'$
+\begin_inset Formula $c'$
 \end_inset
 
  such that 
-\begin_inset Formula $a\rightsquigarrow a'$
+\begin_inset Formula $c\rightsquigarrow c'$
 \end_inset
 
 , or a static location can be blamed.
+ and 
+\begin_inset Formula $\lozenge\vdash e:\overline{\star}$
+\end_inset
+
+ implies that 
+\begin_inset Formula $e$
+\end_inset
+
+ is a value, there exists 
+\begin_inset Formula $e'$
+\end_inset
+
+ such that 
+\begin_inset Formula $e\rightsquigarrow e'$
+\end_inset
+
+, or a static location can be blamed
 \end_layout
 
 \begin_layout Standard
-By direct induction on the typing derivation with the help of the canonical
+By mutual induction on the typing derivations with the help of the canonical
  forms lemma
 \end_layout
 
@@ -150,68 +167,39 @@ Explicitly:
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $M$
+cast typing
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $eq-ty-1$
 \end_inset
 
- is
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- typed by the conversion rule, then by 
-\family default
+ by 
 \series bold
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
 induction
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-, 
-\begin_inset Formula $M$
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $eq-ty-2$
 \end_inset
 
- is a value or there exists 
-\begin_inset Formula $N$
-\end_inset
+ by 
+\series bold
+induction
+\end_layout
 
- such that 
-\begin_inset Formula $M\rightsquigarrow N$
+\end_deeper
+\begin_layout Itemize
+head typing
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $c$
 \end_inset
 
  
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $M$
-\end_inset
-
-
 \family roman
 \series medium
 \shape up
@@ -224,11 +212,11 @@ induction
 \uwave off
 \noun off
 \color none
- cannot be typed by the variable rule in the empty context
+cannot be typed by the variable rule in the empty context
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $M$
+\begin_inset Formula $c$
 \end_inset
 
  is 
@@ -259,7 +247,7 @@ typed by type-in-type.
 \noun default
 \color inherit
 
-\begin_inset Formula $M$
+\begin_inset Formula $a$
 \end_inset
 
  is 
@@ -270,7 +258,7 @@ typed by type-in-type.
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $M$
+\begin_inset Formula $c$
 \end_inset
 
  is 
@@ -287,11 +275,11 @@ typed by type-in-type.
 \noun off
 \color none
 typed by 
-\begin_inset Formula $\Pi\textrm{-F}$
+\begin_inset Formula $\Pi-ty$
 \end_inset
 
 .
-
+ 
 \family default
 \series default
 \shape default
@@ -304,19 +292,423 @@ typed by
 \uwave default
 \noun default
 \color inherit
- 
-\begin_inset Formula $M$
+
+\begin_inset Formula $a$
+\end_inset
+
+ is a value
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $c$
 \end_inset
 
  is 
-\begin_inset Formula $\Pi x:\sigma.\tau$
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by 
+\begin_inset Formula $\Pi-\mathsf{fun}-ty$
+\end_inset
+
+.
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $a$
+\end_inset
+
+ is a value
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $c$
+\end_inset
+
+ is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by 
+\begin_inset Formula $\Pi-app-ty$
+\end_inset
+
+.
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+Then 
+\begin_inset Formula $c$
+\end_inset
+
+ is 
+\begin_inset Formula $b\,a$
+\end_inset
+
+, and there are derivations of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\lozenge\vdash b:\Pi x:A.B$
+\end_inset
+
+, and 
+\begin_inset Formula $\lozenge\vdash a:A$
+\end_inset
+
+ for some 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+.
+ By 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+induction
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $a$
+\end_inset
+
+ is a value, there exists 
+\begin_inset Formula $a'$
+\end_inset
+
+ such that 
+\begin_inset Formula $a\rightsquigarrow a'$
+\end_inset
+
+, or blame and 
+\begin_inset Formula $b$
+\end_inset
+
+ is a value or there exists 
+\begin_inset Formula $b'$
+\end_inset
+
+ such that 
+\begin_inset Formula $b\rightsquigarrow b'$
+\end_inset
+
+ or blame.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+if 
+\begin_inset Formula $b$
+\end_inset
+
+ is a value and 
+\begin_inset Formula $a$
+\end_inset
+
+ is a value, then 
+\begin_inset Formula $b$
+\end_inset
+
+ is 
+\begin_inset Formula $b_{h}::v_{eq}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+If all
+\begin_inset Formula $A\in v_{eq}$
+\end_inset
+
+ are in the form 
+\begin_inset Formula $\Pi x:A.B$
+\end_inset
+
+ then 
+\begin_inset Formula $v_{eq}\,Elim_{\Pi}$
+\end_inset
+
+ and 
+\begin_inset Formula $v_{eq}\downarrow$
+\end_inset
+
+ is 
+\begin_inset Formula $\Pi x:A.B$
+\end_inset
+
+ so 
+\begin_inset Formula $b_{h}$
+\end_inset
+
+ is 
+\begin_inset Formula $\left(\mathsf{fun}\,f.\,x.b'\right)$
+\end_inset
+
+ and the step is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b::e_{B}\right)\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq},x\coloneqq v\right]::v_{eq}'$
+\end_inset
+
+ (TODO jumping from one syntactic form to another)
+\end_layout
+
+\begin_layout Itemize
+otherwise, 
+\begin_inset Formula $v_{eq}\uparrow$
+\end_inset
+
+ is 
+\begin_inset Formula $\Pi x:A.B$
+\end_inset
+
+ but there is some 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left[\star=_{l,o}\Pi x:A.B\right]\in v$
+\end_inset
+
+ and 
+\begin_inset Formula $l,o$
+\end_inset
+
+ can be blamed
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+if 
+\begin_inset Formula $b$
+\end_inset
+
+ or
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $a$
+\end_inset
+
+ can construct blame then 
+\begin_inset Formula $b\,a$
+\end_inset
+
+ can be used to construct blame
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $b$
+\end_inset
+
+ is a value and
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $a\rightsquigarrow a'$
+\end_inset
+
+ then 
+
+\begin_inset Formula $b\,a\rightsquigarrow b\,a'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $b\rightsquigarrow b'$
+\end_inset
+
+ then 
+
+\begin_inset Formula $b\,a\rightsquigarrow b'\,a$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+cast term typing
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $a$
+\end_inset
+
+ is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by type-in-type.
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $a$
+\end_inset
+
+ is 
+\begin_inset Formula $\star$
 \end_inset
 
 , a value
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $M$
+\begin_inset Formula $a$
 \end_inset
 
  is 
@@ -333,11 +725,11 @@ typed by
 \noun off
 \color none
 typed by 
-\begin_inset Formula $\Pi\textrm{-I}$
+\begin_inset Formula $\Pi-ty$
 \end_inset
 
 .
-
+ 
 \family default
 \series default
 \shape default
@@ -350,8 +742,15 @@ typed by
 \uwave default
 \noun default
 \color inherit
- 
-\begin_inset Formula $M$
+
+\begin_inset Formula $a$
+\end_inset
+
+ is a value
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $a$
 \end_inset
 
  is
@@ -367,13 +766,60 @@ typed by
 \uwave off
 \noun off
 \color none
- 
-\begin_inset Formula $\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'$
-\end_inset
-
-, a value
+ typed by the conversion rule, then by 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+induction
 \end_layout
 
+\begin_layout Itemize
+\begin_inset Formula $a$
+\end_inset
+
+ is
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ typed by the 
+\begin_inset Formula $apparent$
+\end_inset
+
+ rule, then by 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+induction
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 \begin_inset Formula $M$
 \end_inset

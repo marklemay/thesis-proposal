@@ -109,12 +109,12 @@ logical unsoundness:
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 some constructs
 \end_layout
 
 \begin_layout Standard
-while logically unsound the language is extremely expressive.
+While logically unsound, the language is extremely expressive.
  The following calculus of Constructions constructs are expressible,
 \end_layout
 
@@ -160,8 +160,8 @@ while logically unsound the language is extremely expressive.
 
 \end_layout
 
-\begin_layout Standard
-church bools:
+\begin_layout Subsubsection
+Church Booleans
 \end_layout
 
 \begin_layout Standard
@@ -185,8 +185,12 @@ church bools:
 
 \end_layout
 
-\begin_layout Standard
-church nats:
+\begin_layout Subsubsection
+Church 
+\begin_inset Formula $\mathbb{N}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -221,8 +225,12 @@ church nats:
 ...
 \end_layout
 
+\begin_layout Subsubsection
+Large Elimination
+\end_layout
+
 \begin_layout Standard
-since there is type-in-type, a kind of large elimination is possible
+Since there is type-in-type, a kind of large elimination is possible
 \end_layout
 
 \begin_layout Standard
@@ -269,14 +277,28 @@ thus
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\lnot\star=_{\star}\star\rightarrow\star$
+\begin_inset Formula $\lnot Unit=_{\star}\perp$
 \end_inset
 
  is provable:
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\lambda pr:\left(\varPi C:\left(\star\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right).pr\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,Unit\,\perp\right)\,tt\qquad:\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}$
+\begin_inset Formula $\lambda pr:\left(\varPi C:\left(\star\rightarrow\star\right).C\,Unit\rightarrow C\,\perp\right).pr\,\left(\lambda x.x\right)tt\qquad:\lnot Unit=_{\star}\perp$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\lnot\star=_{\star}\perp$
+\end_inset
+
+ is provable:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\lambda pr:\left(\varPi C:\left(\star\rightarrow\star\right).C\,\star\rightarrow C\,\perp\right).pr\,\left(\lambda x.x\right)\,\perp\qquad:\lnot\star=_{\star}\perp$
 \end_inset
 
 
@@ -731,7 +753,7 @@ by induction
 \begin_inset Formula $\Rrightarrow$
 \end_inset
 
- substitution 
+-substitution 
 \end_layout
 
 \begin_layout Standard
@@ -871,7 +893,7 @@ by induction
 \begin_inset Formula $\Rrightarrow$
 \end_inset
 
- preserves type in source
+ preserves type in destination
 \end_layout
 
 \begin_layout Standard
@@ -928,10 +950,286 @@ By induction on the
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $M'\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'\right)\right]\,:\,\tau\left[x\coloneqq N\right]$
+\begin_inset Formula $M'\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\right)\right]\,:\,\tau'\left[x\coloneqq N'\right]$
 \end_inset
 
  by the substitution lemma used on the inductive hypotheses
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\tau\left[x\coloneqq N\right]\Rrightarrow\tau'\left[x\coloneqq N'\right]$
+\end_inset
+
+ by 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+-substitution 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+, so 
+\begin_inset Formula $\tau\left[x\coloneqq N\right]\equiv\tau'\left[x\coloneqq N'\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+by the conversion rule 
+
+\begin_inset Formula $M'\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\right)\right]\,:\,\tau\left[x\coloneqq N\right]$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\Pi\textrm{-E-\Rrightarrow}$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $M'\,N'\,:\,\tau\left[x\coloneqq N'\right]$
+\end_inset
+
+, by 
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+-substitution and reflexivity, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\tau\left[x\coloneqq N\right]\Rrightarrow\tau\left[x\coloneqq N'\right]$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+, so 
+\begin_inset Formula $\tau\left[x\coloneqq N\right]\equiv\tau\left[x\coloneqq N'\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+by the conversion rule 
+
+\begin_inset Formula $M'\,N'\,:\,\tau\left[x\coloneqq N\right]$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\Pi\textrm{-I-\Rrightarrow}$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\,:\,\varPi x:\sigma'.\tau'$
+\end_inset
+
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\varPi x:\sigma.\tau\Rrightarrow\varPi x:\sigma'.\tau'$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+, so 
+\begin_inset Formula $\varPi x:\sigma.\tau\equiv\varPi x:\sigma'.\tau'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+by the conversion rule 
+
+\begin_inset Formula $\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\,:\,\varPi x:\sigma.\tau$
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -2983,11 +3281,11 @@ proof outline at the top of document
 \end_layout
 
 \begin_layout Itemize
-correct spelling
+better function notation
 \end_layout
 
 \begin_layout Itemize
-better function notation
+transition away from greek letters
 \end_layout
 
 \begin_layout Standard

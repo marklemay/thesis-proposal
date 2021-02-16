@@ -4748,7 +4748,7 @@ mutual recursion is allowed much more than in this presentation
 \end_deeper
 \begin_layout Itemize
 data constructors use re-use function application parameters rather then
- having a list of subterms 
+ having a list of sub-terms 
 \end_layout
 
 \begin_layout Itemize
@@ -4761,7 +4761,7 @@ Proof improvements
 \end_layout
 
 \begin_layout Itemize
-abstract types subtly break the connonical forms lemma
+abstract types subtly break the canonical forms lemma
 \end_layout
 
 \begin_layout Itemize

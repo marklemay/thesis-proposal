@@ -14,18 +14,10 @@ data PreSyntax {n : ℕ} : Set
 data PreSyntax {n} where
   pVar : (i : Fin n) -> PreSyntax
   pTyU : PreSyntax
-  pPi : PreSyntax {n} -> PreSyntax {suc n} -> PreSyntax
-  pFun : PreSyntax {n} -> PreSyntax {suc n} -- annotations
+  pPi :  (aTy : PreSyntax {n}) -> (bodTy :  PreSyntax {suc n}) -> PreSyntax
+  pFun : (aTy : PreSyntax {n}) -> (bodTy :  PreSyntax {suc n}) -- annotations
     -> (bod : PreSyntax {suc (suc n)}) -> PreSyntax
-  pApp :  PreSyntax {n} -> PreSyntax {n} -> PreSyntax
-
-
-
-
-
-
-
-
+  pApp :  (f : PreSyntax {n}) -> (a : PreSyntax {n}) -> PreSyntax
 
 
 
@@ -106,13 +98,6 @@ postulate
 
 
 
-
-
-
-
-
-
-
 data _val {n : ℕ} : PreSyntax {n} -> Set where
   vTyU : pTyU val
   vPi : { aTy : PreSyntax } -> {bodTy : PreSyntax }
@@ -142,10 +127,12 @@ data  _|-_==_::_ {n : ℕ} (Γ : Ctx n) : PreSyntax {n} -> PreSyntax {n} -> PreS
     
 
 data _~>p_ {n : ℕ} : PreSyntax {n}  -> PreSyntax {n} -> Set  where
-  par-red : {a a' aTy : _} -> {bodTy : _} -> {bod bod' : _ }
-    -> a ~>p a'
-    -> bod ~>p bod'
-    -> (pApp (pFun aTy  bodTy bod)  a) ~>p ( bod' [ o (pFun aTy  bodTy bod') ] [ a' ]  )
+  par-red : {a a' aTy aTy' : _} -> {bodTy bodTy' : _} -> {bod bod' : _ }
+    -> (a-a' : a ~>p a')
+    -> (bod-bod' : bod ~>p bod')
+    -> (aTy-aTy' : aTy ~>p aTy')
+    -> (bodTy-bodty' : bodTy ~>p bodTy')
+    -> (pApp (pFun aTy  bodTy bod)  a) ~>p ( bod' [ o (pFun aTy'  bodTy' bod') ] [ a' ]  )
 
   -- structural
 
@@ -160,16 +147,29 @@ data _~>p_ {n : ℕ} : PreSyntax {n}  -> PreSyntax {n} -> Set  where
     -> (pPi aTy bodTy) ~>p pPi aTy' bodTy'
     
   par-Fun :
-    {aTy : _} -> {bodTy : _} ->
+    {aTy aTy' : _} -> {bodTy bodTy' : _} ->
     {bod bod' : _}
     -> bod ~>p bod'
-    -> (pFun aTy bodTy bod) ~>p pFun aTy bodTy bod'
+    -> aTy ~>p aTy'
+    -> bodTy ~>p bodTy'
+    -> (pFun aTy bodTy bod) ~>p pFun aTy' bodTy' bod'
     
   par-App : {f f' a a' : _}
     -> f ~>p f'
     -> a ~>p a'
     -> (pApp f a) ~>p (pApp f' a')
 
+
+
+-- very influenced by https://plfa.github.io/Confluence/#parallel-reduction-satisfies-the-diamond-property
+-- the way this is presented, par-max may not be par, but instead withinexactly 2 par reductions away
+par-max : {n : ℕ} -> PreSyntax {n} -> PreSyntax {n} 
+par-max (pApp (pFun aTy bodTy bod) a) = (par-max bod) [ o (pFun (par-max aTy) (par-max bodTy) (par-max bod)) ] [ par-max a ]
+par-max (pVar i) = pVar i
+par-max pTyU = pTyU
+par-max (pPi aTy bodTy) = pPi (par-max aTy) (par-max bodTy)
+par-max (pFun aTy bodTy bod) = pFun (par-max aTy) (par-max bodTy) (par-max bod)
+par-max (pApp f a) = pApp (par-max f) (par-max a)
 
 postulate
   sub-par : {n : ℕ} {a a' : PreSyntax {suc n}} {b b' : PreSyntax {n}}
@@ -181,11 +181,33 @@ postulate
       -> a ~>p  a'
       -> o a ~>p  o a'
 
+-- annoying name
+par-triangle :  {n : ℕ} {a b : PreSyntax {n}}
+   -> a ~>p b
+   -> b ~>p (par-max a)
+par-triangle (par-red par-arg par-bod par-aTy par-bodTy)
+  = sub-par (sub-par (par-triangle par-bod) (o-par (par-triangle (par-Fun par-bod par-aTy par-bodTy)))) (par-triangle par-arg)
+par-triangle (par-App  (par-Fun par-f par-f₁ par-f₂) par-a)
+  = par-red (par-triangle par-a) (par-triangle par-f) (par-triangle par-f₁) (par-triangle par-f₂)
+par-triangle par-Var = par-Var
+par-triangle par-TyU = par-TyU
+par-triangle (par-Pi par-aTy par-bodTy) = par-Pi (par-triangle par-aTy) (par-triangle par-bodTy)
+par-triangle (par-Fun par-bod par-aTy par-bodT)
+  = par-Fun (par-triangle par-bod) (par-triangle par-aTy) (par-triangle par-bodT)
+ -- applications spelled out
+par-triangle (par-App (par-red par-f par-f₁ par-f₂ par-f₃) par-a) = par-App (par-triangle (par-red par-f par-f₁ par-f₂ par-f₃)) (par-triangle par-a)
+par-triangle (par-App par-Var par-a) = par-App par-Var (par-triangle par-a)
+par-triangle (par-App par-TyU par-a) = par-App par-TyU (par-triangle par-a)
+par-triangle (par-App (par-Pi par-f par-f₁) par-a) = par-App (par-Pi (par-triangle par-f) (par-triangle par-f₁)) (par-triangle par-a)
+par-triangle (par-App  (par-App par-f par-f₁) par-a) = par-App (par-triangle (par-App par-f par-f₁)) (par-triangle par-a)
+
+
+
 par-refll : {n : ℕ}  (a : PreSyntax {n}) -> a ~>p a
 par-refll (pVar i) = par-Var
 par-refll pTyU = par-TyU
 par-refll (pPi a a₁) = par-Pi (par-refll a) (par-refll a₁)
-par-refll (pFun a a₁ a₂) = par-Fun (par-refll a₂)
+par-refll (pFun a a₁ a₂) = par-Fun (par-refll a₂) (par-refll a) (par-refll a₁)
 par-refll (pApp a a₁) = par-App (par-refll a) (par-refll a₁)
 
 
@@ -193,37 +215,8 @@ confulent-~> : {n : ℕ} {a b b' : PreSyntax {n}}
    -> a ~>p b
    -> a ~>p b'
    -> Σ _ \ v  -> b ~>p v  × b' ~>p v
-confulent-~> {_} {pApp (pFun aTy bodTy bod) arg} (par-red arg-a bod-bod') (par-App (par-Fun bod-bod'') arg-a'')
-  with confulent-~> bod-bod' bod-bod'' | confulent-~> arg-a'' arg-a
-... | vbod , bod'-vbod , bod''-vbod | va , a''-va , a'-va
-    = (vbod [ o (pFun aTy bodTy vbod) ] [ va ]) , (sub-par (sub-par bod'-vbod (o-par (par-Fun bod'-vbod))) a'-va) , par-red a''-va bod''-vbod
---by sym
-confulent-~> {_} {pApp (pFun aTy bodTy bod) arg} (par-App (par-Fun bod-bod'') arg-a'') (par-red arg-a bod-bod')
-  with confulent-~> bod-bod' bod-bod'' | confulent-~> arg-a'' arg-a
-... | vbod , bod'-vbod , bod''-vbod | va , a''-va , a'-va
-    = (vbod [ o (pFun aTy bodTy vbod) ] [ va ]) , par-red a''-va bod''-vbod , sub-par (sub-par bod'-vbod (o-par (par-Fun bod'-vbod))) a'-va
+confulent-~>  {_} {a} ab ab' = par-max a , par-triangle ab , par-triangle ab'
 
-confulent-~> {_} {pApp f a} (par-App f-f' a-a') (par-App f-f'' a-a'')
-  with confulent-~> f-f' f-f'' | confulent-~> a-a' a-a''
-... | vf , f'-vf , f''-vf | va , a'-va , a''-va
-    =  pApp vf va , (par-App f'-vf a'-va , par-App f''-vf a''-va) 
-
-confulent-~> {_} {pApp (pFun aTy bodTy bod) arg} (par-red arg-a' bod-bod') (par-red arg-a bod-bod'')
-  with confulent-~> bod-bod' bod-bod'' | confulent-~> arg-a' arg-a
-... | vbod , bod'-vbod , bod''-vbod | va , a'-va , a-va
-    = (vbod [ o (pFun aTy bodTy vbod) ] [ va ]) , (sub-par (sub-par bod'-vbod (o-par (par-Fun bod'-vbod))) a'-va) , sub-par (sub-par bod''-vbod (o-par (par-Fun bod''-vbod))) a-va
-
-confulent-~> {_} {pFun aTy bodTy bod} (par-Fun bod-bod') (par-Fun bod-bod'')
-  with confulent-~> bod-bod' bod-bod''
-... | vbod , bod'-vbod , bod''-vbod = pFun aTy bodTy vbod , par-Fun bod'-vbod , par-Fun bod''-vbod
-
-confulent-~> {_} {pPi aTy bodTy} (par-Pi aTy-aTy' bodTy-bodTy') (par-Pi aTy-aTy'' bodTy-bodTy'')
-  with confulent-~> aTy-aTy' aTy-aTy'' | confulent-~> bodTy-bodTy' bodTy-bodTy''
-... |  vaTy ,  aTy'-vaTy ,  aTy''-vaTy | vbodTy , bodTy'-vbodTy , bodTy''-vbodTy
-  = pPi vaTy vbodTy , par-Pi aTy'-vaTy bodTy'-vbodTy , par-Pi aTy''-vaTy bodTy''-vbodTy
-  
-confulent-~> {_} {pVar i} par-Var par-Var = pVar i , par-Var , par-Var
-confulent-~> {_} {pTyU} par-TyU par-TyU = pTyU , par-TyU , par-TyU
 
 -- typed transitive reflective closer
 data _|-_~>*p_::_ {n} Γ  where

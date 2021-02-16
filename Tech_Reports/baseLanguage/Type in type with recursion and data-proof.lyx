@@ -81,6 +81,12 @@ Type Soundness in an Intensional Dependent Type Theory with Type-in-Type,
  Recursion and Data
 \end_layout
 
+\begin_layout Standard
+
+\series bold
+There is an error in the parallel reduction that has not yet been corrected
+\end_layout
+
 \begin_layout Section
 Examples
 \end_layout
@@ -4770,10 +4776,6 @@ Clarify what unsoundness means
 
 \begin_layout Itemize
 proof outline at the top of document
-\end_layout
-
-\begin_layout Itemize
-correct spelling
 \end_layout
 
 \begin_layout Itemize

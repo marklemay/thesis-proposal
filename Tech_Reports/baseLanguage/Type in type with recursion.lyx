@@ -971,7 +971,7 @@ Dependent Recursive Functions
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:\sigma\vdash\tau:\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M\Rrightarrow M':\tau\qquad\Gamma\vdash N\Rrightarrow N':\sigma}{\Gamma\vdash\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,N\,\Rrightarrow\,M\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'\right)\right]\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-\Rrightarrow}
+\frac{\Gamma\vdash\sigma\Rrightarrow\sigma':\star\qquad\Gamma,x:\sigma\vdash\tau\Rrightarrow\tau':\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M\Rrightarrow M':\tau\qquad\Gamma\vdash N\Rrightarrow N':\sigma}{\Gamma\vdash\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,N\,\Rrightarrow\,M'\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\right)\right]\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-\Rrightarrow}
 \]
 
 \end_inset
@@ -1008,7 +1008,7 @@ structural rules,
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:\sigma\vdash\tau:\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M\Rrightarrow M':\tau}{\Gamma\vdash\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\,\Rrightarrow\,\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'\,:\,\varPi x:\sigma.\tau}\,\Pi\textrm{-I-\Rrightarrow}
+\frac{\Gamma\vdash\sigma\Rrightarrow\sigma':\star\qquad\Gamma,x:\sigma\vdash\tau\Rrightarrow\tau':\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M\Rrightarrow M':\tau}{\Gamma\vdash\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\,\Rrightarrow\,\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\,:\,\varPi x:\sigma.\tau}\,\Pi\textrm{-I-\Rrightarrow}
 \]
 
 \end_inset

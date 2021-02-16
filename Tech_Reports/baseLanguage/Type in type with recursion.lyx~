@@ -131,7 +131,10 @@ Pre-syntax
 \begin_inset Text
 
 \begin_layout Plain Layout
-| 
+\begin_inset Formula $\lozenge$
+\end_inset
+
+ | 
 \begin_inset Formula $\Gamma,x:\sigma$
 \end_inset
 

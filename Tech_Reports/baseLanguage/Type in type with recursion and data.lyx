@@ -81,6 +81,12 @@ an Intensional Dependent Type Theory with Type-in-Type, Recursion and Data
 \end_layout
 
 \begin_layout Standard
+
+\series bold
+There is an error in the parallel reduction that has not yet been corrected
+\end_layout
+
+\begin_layout Standard
 Owes much of it's presentation to http://www.cs.yale.edu/homes/vilhelm/papers/msfp1
 2prog.pdf
 \end_layout

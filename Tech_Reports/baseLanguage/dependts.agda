@@ -176,7 +176,7 @@ postulate
     -> a ~>p  a'
     -> b ~>p b'
     -> (a [ b ] ) ~>p  (a' [ b' ])
-    
+
   o-par : {n : ℕ} {a a' : PreSyntax { n}} 
       -> a ~>p  a'
       -> o a ~>p  o a'

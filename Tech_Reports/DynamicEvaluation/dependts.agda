@@ -127,7 +127,7 @@ postulate
    -> b ~>peq (eqs-par-max a)
 
   allPi? :  {n : ℕ} -> (eqs : List (PreSyntax {n}))
-    -> (Σ (List (PreSyntax {suc n})) (λ out → ({b : _ } -> allPi eqs b ->   b ~>peq out ) × allPi eqs out)) -- maximal and correct
+    -> (Σ (List (PreSyntax {suc n})) (λ out → ({b : _ } -> allPi eqs b -> b ~>peq out ) × allPi eqs out)) -- maximal and correct
       ⊎  ((out :  List (PreSyntax {suc n}) ) -> ¬ allPi eqs out)
     
   allPi?-max : {n : ℕ} -> List (PreSyntax {n})  -> Maybe (List (PreSyntax {suc n})) -- ⊎  List (PreSyntax {n})

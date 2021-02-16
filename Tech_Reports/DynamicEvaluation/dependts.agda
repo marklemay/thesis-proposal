@@ -2,6 +2,7 @@ module dependts where
 
 open import Data.Nat
 open import Data.Fin
+open import Data.Maybe 
 open import Data.List hiding (lookup ; [_])
 -- open import Data.Vec hiding (lookup ; [_])
 open import Data.Sum  hiding (map)
@@ -52,8 +53,6 @@ postulate
   
   _~>peq_ : {n : ℕ} -> List (PreSyntax {n})  -> List (PreSyntax {n}) -> Set
   allPi : {n : ℕ} -> List (PreSyntax {n}) -> List (PreSyntax {suc n}) -> Set
-  allPi? :  {n : ℕ} -> (eqs : List (PreSyntax {n}))
-    -> (Σ (List (PreSyntax {suc n})) (λ out → allPi eqs out)) ⊎  ((out :  List (PreSyntax {suc n}) ) -> ¬ allPi eqs out)
   
   _~:~_ : {n : ℕ} -> PreSyntax {n} -> List (PreSyntax {n}) -> PreSyntax {n}
   
@@ -127,8 +126,17 @@ postulate
    -> a ~>peq b
    -> b ~>peq (eqs-par-max a)
 
-  allPi?-max : {n : ℕ} -> List (PreSyntax {n})  -> List (PreSyntax {suc n}) ⊎  List (PreSyntax {n})
+  allPi? :  {n : ℕ} -> (eqs : List (PreSyntax {n}))
+    -> (Σ (List (PreSyntax {suc n})) (λ out → ({b : _ } -> allPi eqs b ->   b ~>peq out ) × allPi eqs out)) -- maximal and correct
+      ⊎  ((out :  List (PreSyntax {suc n}) ) -> ¬ allPi eqs out)
+    
+  allPi?-max : {n : ℕ} -> List (PreSyntax {n})  -> Maybe (List (PreSyntax {suc n})) -- ⊎  List (PreSyntax {n})
 
+{-
+  allPi?-triangle  :  {n : ℕ} {a b : List (PreSyntax {n}) }
+   -> a ~>peq b
+   -> b ~>peq (eqs-par-max a)
+-}
 
 par-refll : {n : ℕ}  (a : PreSyntax {n}) -> a ~>p a
 par-refll (pCast (pVar i) eqs) = par-Var eqs-par-refl 
@@ -140,10 +148,9 @@ par-refll pTyU2 = par-TyU2
 par-refll (pPi2 a a₁) = par-Pi2 (par-refll a) (par-refll a₁)
 
 par-max : {n : ℕ} -> PreSyntax {n} -> PreSyntax {n} 
-par-max (pCast (pApp (pCast (pFun bod) feqs) a) eqs) with allPi? feqs
-par-max (pCast (pApp f@(pCast (pFun bod) feqs) a) eqs) | inj₁ (bodeqs , _)
-  = (((par-max bod [ o (par-max f) ]) ~:~ eqs-par-max bodeqs)  [ par-max a ]) ~:~ eqs-par-max eqs
-par-max (pCast (pApp f a) eqs) | inj₂ _ = pCast (pApp (par-max f) (par-max a)) (eqs-par-max eqs)
+par-max (pCast (pApp (pCast (pFun bod) feqs) a) eqs) with allPi?-max feqs
+par-max (pCast (pApp f@(pCast (pFun bod) feqs) a) eqs) | just bodeqs =   (((par-max bod [ o (par-max f) ]) ~:~ eqs-par-max bodeqs)  [ par-max a ]) ~:~ eqs-par-max eqs
+par-max (pCast (pApp f@(pCast (pFun bod) feqs) a) eqs) | nothing = pCast (pApp (par-max f) (par-max a)) (eqs-par-max eqs) 
 par-max (pCast (pApp f a) eqs) = pCast (pApp (par-max f) (par-max a)) (eqs-par-max eqs)
 par-max (pCast (pVar i) eqs) = pCast (pVar i) (eqs-par-max eqs)
 par-max pTyU2 = pTyU2
@@ -158,6 +165,12 @@ par-max (pCast (pFun bod) eqs) = pCast (pFun (par-max bod)) (eqs-par-max eqs)
 par-triangle :  {n : ℕ} {a b : PreSyntax {n}}
    -> a ~>p b
    -> b ~>p (par-max a)
+par-triangle (par-red par-casts par-arg par-bod fcasts bodcasts all-pi) with allPi?-max fcasts
+par-triangle (par-red par-casts par-arg par-bod fcasts bodcasts all-pi) | just x
+  = ~:~-par (sub-par (~:~-par (sub-par ( par-triangle par-bod) (o-par (par-triangle (par-Fun eqs-par-refl par-bod)))) {!!}) (par-triangle par-arg)) (eqs-par-triangle par-casts)
+par-triangle (par-red par-casts par-arg par-bod fcasts bodcasts all-pi) | nothing = {!par-red!}
+par-triangle = {!!}
+   {-
 par-triangle (par-red par-casts par-arg par-bod fcasts bodcasts all-pi) with allPi? fcasts
 par-triangle (par-red par-casts par-arg par-bod fcasts bodcasts all-pi) | inj₁ (bodsubs , snd)
   =  ~:~-par (sub-par (~:~-par (sub-par ( par-triangle par-bod) (o-par (par-triangle (par-Fun eqs-par-refl par-bod)))) {!!}) (par-triangle par-arg)) (eqs-par-triangle par-casts) -- intresting,  all-pi maximally pre reduces 
@@ -180,7 +193,7 @@ par-triangle par-TyU2 = {!!}
 par-triangle (par-Pi2 x x₁) = {!!}
 par-triangle (par-Pi x x₁ x₂) = {!!}
 par-triangle (par-Fun x x₁) = {!!}
-
+-}
 
 
 confulent-~> : {n : ℕ} {a b b' : PreSyntax {n}}

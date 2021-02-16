@@ -1220,7 +1220,7 @@ Substitution
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="10" columns="2">
+<lyxtabular version="3" rows="12" columns="2">
 <features tabularvalignment="middle">
 <column alignment="right" valignment="top">
 <column alignment="left" valignment="top">
@@ -1242,7 +1242,85 @@ Substitution
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\left(x::e\right)\left[x=a_{h}::e'=_{l,o}A\right]$
+\begin_inset Formula $\star\left[x\coloneqq a\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $=\star$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left(\Pi x:A.B\right)\left[x\coloneqq a\right]$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=\Pi x:A\left[x\coloneqq a\right].B\left[x\coloneqq a\right]$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\left(x::e\right)\left[x\coloneqq a_{h}::e'=_{l,o}A\right]$
 \end_inset
 
 
@@ -1281,7 +1359,7 @@ Substitution
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\left(y::e\right)\left[x=a\right]$
+\begin_inset Formula $\left(a_{h}::e\right)\left[x\coloneqq a\right]$
 \end_inset
 
 
@@ -1293,124 +1371,7 @@ Substitution
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $=\star::e\left[x=a'\right]$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $\left(\star::e\right)\left[x=a\right]$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=\star::e\left[x=a'\right]$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\left(\Pi x:A.B\right)\left[x=a\right]$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=\Pi x:A\left[x=a\right].B\left[x=a\right]$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\left(\mathsf{fun}\,f.\,x.b\right)\left[x=a\right]$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=\mathsf{fun}\,f.\,x.b\left[x=a\right]$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\left(b\,c\right)\left[x=a\right]$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=b\left[x=a\right]\,c\left[x=a\right]$
+\begin_inset Formula $=a_{h}\left[x\coloneqq a\right]::e\left[x\coloneqq a\right]$
 \end_inset
 
 
@@ -1437,7 +1398,124 @@ Substitution
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\left(e=_{l,o}A\right)\left[x=a\right]$
+\begin_inset Formula $\star\left[x\coloneqq a\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=\star$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left(\Pi x:A.B\right)\left[x\coloneqq a\right]$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=\Pi x:A\left[x\coloneqq a\right].B\left[x\coloneqq a\right]$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left(\mathsf{fun}\,f.\,y.b\right)\left[x\coloneqq a\right]$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=\mathsf{fun}\,f.\,y.b\left[x\coloneqq a\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left(b\,c\right)\left[x\coloneqq a\right]$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=b\left[x\coloneqq a\right]\,c\left[x\coloneqq a\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\left(e=_{l,o}A\right)\left[x\coloneqq a\right]$
 \end_inset
 
 
@@ -1462,7 +1540,7 @@ Substitution
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $e\left[x=a\right]=_{l,o\left[x=a\right]}A\left[x=a\right]$
+\begin_inset Formula $e\left[x\coloneqq a\right]=_{l,o\left[x\coloneqq a\right]}A\left[x\coloneqq a\right]$
 \end_inset
 
 
@@ -1476,7 +1554,7 @@ Substitution
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $.\left[x=a\right]$
+\begin_inset Formula $.\left[x\coloneqq a\right]$
 \end_inset
 
 
@@ -1502,7 +1580,7 @@ Substitution
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\left(o.arg\right)\left[x=a\right]$
+\begin_inset Formula $\left(o.arg\right)\left[x\coloneqq a\right]$
 \end_inset
 
 
@@ -1514,7 +1592,7 @@ Substitution
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $o\left[x=a\right].arg$
+\begin_inset Formula $o\left[x\coloneqq a\right].arg$
 \end_inset
 
 
@@ -1528,7 +1606,7 @@ Substitution
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\left(o.bod[y\coloneqq b]\right)\left[x=a\right]$
+\begin_inset Formula $\left(o.bod[y\coloneqq b]\right)\left[x\coloneqq a\right]$
 \end_inset
 
 
@@ -1540,7 +1618,7 @@ Substitution
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $o\left[x=a\right].bod[y\coloneqq b\left[x=a\right]]$
+\begin_inset Formula $o\left[x\coloneqq a\right].bod[y\coloneqq b\left[x\coloneqq a\right]]$
 \end_inset
 
 
@@ -2353,17 +2431,6 @@ TODO: justify the shorthand in the remaining rules, by prompting a typing
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H,f:\Pi x:A.B,x:A\vdash b\Rrightarrow b'\,:B}{H\vdash\left(\left(\mathsf{fun}\,f.\,x.b\right)::e\right)\,a\Rrightarrow\left(\left(\mathsf{fun}\,f.\,x.b\right)::e\right)\,a\,:\,B\left[x\coloneqq a\right]}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
 \frac{x:A\in H}{H\vdash x\Rrightarrow x:A}
 \]
 
@@ -2953,7 +3020,7 @@ Dynamic Check
 \end_layout
 
 \begin_layout Section*
-Alt rules
+Alt rules/ notation
 \end_layout
 
 \begin_layout Standard
@@ -2970,7 +3037,7 @@ Alt rules
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{v_{eq}Elim_{\Pi}\,v_{eq}_{A},e_{B}\quad v_{eq}{}_{A}\,Elim_{\star}\quad v_{eq}{}_{A}\,Elim_{\star}}{\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v}
+\frac{v_{eq}Elim_{\Pi}\,v_{eq}{}_{A},e_{B}\quad v_{eq}{}_{A}\,Elim_{\star}\quad v_{eq}{}_{A}\,Elim_{\star}}{\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v}
 \]
 
 \end_inset
@@ -2985,7 +3052,7 @@ Alt rules
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{v_{eq}Elim_{\Pi}\,v_{eq}_{A},e_{B}\quad v_{eq}{}_{A}\,Elim_{\star}\quad v_{eq}{}_{A}\,Elim_{\star}}{\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\rightsquigarrow b\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right),x\coloneqq v\right]}
+\frac{v_{eq}Elim_{\Pi}\,v_{eq}{}_{A},e_{B}\quad v_{eq}{}_{A}\,Elim_{\star}\quad v_{eq}{}_{A}\,Elim_{\star}}{\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\rightsquigarrow b\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right),x\coloneqq v\right]}
 \]
 
 \end_inset
@@ -3000,7 +3067,18 @@ Alt rules
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{v_{eq}\,Elim_{\Pi}\,x,-,v_{eq}_{A},e_{B}\quad v_{eq}{}_{A}\,Elim_{\star}}{\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b::e_{B}\right)\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq},x\coloneqq v\right]::v_{eq}'}
+\frac{v_{eq}\,Elim_{\Pi}\,x,-,v_{eq}{}_{A},e_{B}\quad v_{eq}{}_{A}\,Elim_{\star}}{\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b::e_{B}\right)\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq},x\coloneqq v\right]::v_{eq}'}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,f:\Pi x:A.B,x:A\vdash b\Rrightarrow b'\,:B}{H\vdash\left(\left(\mathsf{fun}\,f.\,x.b\right)::e\right)\,a\Rrightarrow\left(\left(\mathsf{fun}\,f.\,x.b\right)::e\right)\,a\,:\,B\left[x\coloneqq a\right]}
 \]
 
 \end_inset

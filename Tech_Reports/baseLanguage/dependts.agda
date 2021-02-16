@@ -35,7 +35,8 @@ renamePreSyntax : {i j : ℕ}
 renamePreSyntax ρ (pVar i) = pVar (ρ i)
 renamePreSyntax ρ pTyU = pTyU
 renamePreSyntax ρ (pPi aTy bodTy) = pPi (renamePreSyntax ρ aTy) (renamePreSyntax (extPreSyntax ρ) bodTy)
-renamePreSyntax ρ (pFun aTy bodTy bod) = pFun (renamePreSyntax ρ aTy) (renamePreSyntax (extPreSyntax ρ) bodTy) ((renamePreSyntax (extPreSyntax (extPreSyntax ρ)) bod))
+renamePreSyntax ρ (pFun aTy bodTy bod)
+  = pFun (renamePreSyntax ρ aTy) (renamePreSyntax (extPreSyntax ρ) bodTy) ((renamePreSyntax (extPreSyntax (extPreSyntax ρ)) bod))
 renamePreSyntax ρ (pApp f a) = pApp (renamePreSyntax ρ f) (renamePreSyntax ρ a)
 
 o : {n : ℕ} -> PreSyntax {n} -> PreSyntax {suc n}
@@ -162,9 +163,10 @@ data _~>p_ {n : ℕ} : PreSyntax {n}  -> PreSyntax {n} -> Set  where
 
 
 -- very influenced by https://plfa.github.io/Confluence/#parallel-reduction-satisfies-the-diamond-property
+-- misleading name
 -- the way this is presented, par-max may not be par, but instead withinexactly 2 par reductions away
 par-max : {n : ℕ} -> PreSyntax {n} -> PreSyntax {n} 
-par-max (pApp (pFun aTy bodTy bod) a) = (par-max bod) [ o (pFun (par-max aTy) (par-max bodTy) (par-max bod)) ] [ par-max a ]
+par-max (pApp f@(pFun aTy bodTy bod) a) = (par-max bod) [ o (par-max f) ] [ par-max a ]
 par-max (pVar i) = pVar i
 par-max pTyU = pTyU
 par-max (pPi aTy bodTy) = pPi (par-max aTy) (par-max bodTy)
@@ -194,12 +196,19 @@ par-triangle par-TyU = par-TyU
 par-triangle (par-Pi par-aTy par-bodTy) = par-Pi (par-triangle par-aTy) (par-triangle par-bodTy)
 par-triangle (par-Fun par-bod par-aTy par-bodT)
   = par-Fun (par-triangle par-bod) (par-triangle par-aTy) (par-triangle par-bodT)
- -- applications spelled out
-par-triangle (par-App (par-red par-f par-f₁ par-f₂ par-f₃) par-a) = par-App (par-triangle (par-red par-f par-f₁ par-f₂ par-f₃)) (par-triangle par-a)
-par-triangle (par-App par-Var par-a) = par-App par-Var (par-triangle par-a)
-par-triangle (par-App par-TyU par-a) = par-App par-TyU (par-triangle par-a)
-par-triangle (par-App (par-Pi par-f par-f₁) par-a) = par-App (par-Pi (par-triangle par-f) (par-triangle par-f₁)) (par-triangle par-a)
-par-triangle (par-App  (par-App par-f par-f₁) par-a) = par-App (par-triangle (par-App par-f par-f₁)) (par-triangle par-a)
+-- applications spelled out, someday replace with 
+-- par-triangle (par-App par-f par-a) = par-App (par-triangle par-f) (par-triangle par-a)
+par-triangle (par-App par-f@(par-red _ _ _ _) par-a)
+  = par-App (par-triangle par-f) (par-triangle par-a)
+par-triangle (par-App par-f@par-Var par-a)
+  = par-App (par-triangle par-f) (par-triangle par-a)
+par-triangle (par-App par-f@par-TyU par-a)
+  = par-App (par-triangle par-f) (par-triangle par-a)
+par-triangle (par-App par-f@(par-Pi _ _) par-a)
+  = par-App (par-triangle par-f) (par-triangle par-a)
+par-triangle (par-App  par-f@(par-App _ _) par-a)
+  = par-App (par-triangle par-f) (par-triangle par-a)
+
 
 
 

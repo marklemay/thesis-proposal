@@ -335,7 +335,7 @@ canonical-form-pi (Conv der x) vTyU eq = canonical-form-pi der vTyU (trans-==  x
 canonical-form-pi (Conv der x) vPi eq = canonical-form-pi  der vPi (trans-==  x eq)
 canonical-form-pi TyU vTyU eq = ⊥-elim (tyu=/=pi eq) --!
 canonical-form-pi (Pi der der₁) vPi eq = ⊥-elim (tyu=/=pi eq) --!
-canonical-form-pi der (pFun {aTy} {bodTy} {bod}) eq = aTy , bodTy , bod , refl -- ok
+canonical-form-pi der (pFun {aTy} {bodTy} {bod}) eq = aTy , bodTy , (bod , refl)  -- ok
 
 
 

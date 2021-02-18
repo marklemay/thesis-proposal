@@ -1,0 +1,224 @@
+%% LyX 2.3.0 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{babel}
+\begin{document}
+
+\title{an Intensional Dependent Type Theory with Type-in-Type and Recursion}
+\maketitle
+
+\section{Examples}
+
+\subsection{pretending $\star=_{\star}\perp$}
+
+spoofing an equality
+
+$\left(\lambda pr:\left(\star=_{\star}\perp\right).pr\,\left(\lambda x.x\right)\,\perp\qquad:\lnot\star=_{\star}\perp\right)refl_{\star:\star}$
+
+elaborates to
+
+$\left(\lambda pr:\left(\star=_{\star}\perp\right).pr\,\left(\lambda x.x\right)\,\perp\qquad:\lnot\star=_{\star}\perp\right)\left(refl_{\star:\star}::\left(\star=_{\star}\star\right)=_{l}\left(\star=_{\star}\perp\right)\right)$
+
+$refl_{\star:\star}::\left(\star=_{\star}\star\right)=_{l}\left(\star=_{\star}\perp\right)\,\left(\lambda x.x\right)\,\perp\qquad:\perp$
+
+$\left(\lambda C:\left(\star\rightarrow\star\right).\lambda x:C\,\star.x::\left(\varPi C:\left(\star\rightarrow\star\right).C\,\star\rightarrow C\,\star\right)=_{l}\left(\varPi C:\left(\star\rightarrow\star\right).C\,\star\rightarrow C\,\perp\right)\right)\,\left(\lambda x.x\right)\,\perp\qquad:\perp$
+
+$\left(\lambda x:\star.x::\left(\star\rightarrow\star\right)=_{l,bod}\left(\star\rightarrow\perp\right)\right)\,\perp\qquad:\perp$
+
+$\left(\perp::\star=_{l,bod.bod}\perp\right)\qquad:\perp$
+
+note that the program has not yet ``gotten stuck''. to exercise
+this error, $\perp$ must be eliminated, this can be done by tying
+to summon another type by applying it to $\perp$ 
+
+$\left(\left(\perp::\star=_{l,bod.bod}\perp\right)\qquad:\perp\right)\,\star$
+
+$\left(\left(\varPi x:\star.x\right)::\star=_{l,bod.bod}\left(\varPi x:\star.x\right)\right)\,\star$
+
+the computation is stuck, and the original application can be blamed
+on account that the ``proof'' has a discoverable type error at the
+point of application $l$
+
+$\lambda\varPi C:\left(\star\rightarrow\star\right).C\,\star\rightarrow\underline{C\,\star}\neq\lambda\varPi C:\left(\star\rightarrow\star\right).C\,\star\rightarrow\underline{C\,\perp}$
+
+when 
+
+$C\coloneqq\lambda x.x$
+
+$C\,\perp=\perp\neq\star=C\,\star$
+
+\subsection{pretending $true_{c}=_{\mathbb{B}_{c}}false_{c}$}
+
+spoofing an equality, evaluating $\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}$
+with an incorrect proof.
+
+$\left(\lambda pr:\left(\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right).pr\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,\star\,\perp\right)\,\perp\qquad:\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}\right)refl_{true_{c}:\mathbb{B}_{c}}$
+
+is elaborated to
+
+$\left(\lambda pr:\left(\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right).pr\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,\star\,\perp\right)\,\perp\qquad:\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}\right)\left(refl_{true_{c}:\mathbb{B}_{c}}::true_{c}=_{\mathbb{B}_{c}}true_{c}=_{l}true_{c}=_{\mathbb{B}_{c}}false_{c}\right)$
+
+$\left(refl_{true_{c}:\mathbb{B}_{c}}::true_{c}=_{\mathbb{B}_{c}}true_{c}=_{l}true_{c}=_{\mathbb{B}_{c}}false_{c}\right)\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,\star\,\perp\right)\,\perp$
+
+$\left(\left(\lambda C:\left(\mathbb{B}_{c}\rightarrow\star\right).\lambda x:C\,true_{c}.x\right)::\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,true_{c}=_{l}\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right)\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,\star\,\perp\right)\,\perp$
+
+$\left(\left(.\lambda x:\star.x\right)::\star\rightarrow\star=_{l,bod}\star\rightarrow\perp\right)\,\perp$
+
+$\left(\perp::\star=_{l,bod.bod}\perp\right)$
+
+As in the above the example has not yet ``gotten stuck''. As above,
+applying $\star$ will discover the error, which would result in an
+error like 
+
+$\lambda\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow\underline{C\,true_{c}}\neq\lambda\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,false_{c}\rightarrow\underline{C\,false_{c}}$
+
+when 
+
+$C\coloneqq\lambda x.x$
+
+$C\,true_{c}=\perp\neq\star=C\,false_{c}$
+
+\section{Proof summery}
+
+elaboration produces a well typed term
+
+type soundness goes through as before but, all head constructors match
+or blame is availiblein an empty ctx
+
+
+\section{TODO}
+\begin{itemize}
+\item syntax and rules
+\item Example of why function types alone are underwhelming 
+\begin{itemize}
+\item pair,singleton
+\item walk through of varous examples
+\end{itemize}
+\item theorem statements
+\begin{itemize}
+\item substitution!
+\end{itemize}
+\item proofs
+\item exposition
+\item archive
+\item paper target
+\end{itemize}
+
+\section{Scratch}
+
+\subsection{pretending $\lambda x.x=_{\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}}\lambda x.true_{c}$}
+
+a difference can be observed via
+
+$\left(\lambda pr:\left(\varPi C:\left(\left(\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}\right)\rightarrow\star\right).C\,\left(\lambda x.x\right)\rightarrow C\,\left(\lambda x.true_{c}\right)\right).pr\,\left(\lambda f:\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}.f\,\star\,\star\,\perp\right)\,\perp\qquad:\lnot\lambda x.x=_{\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}}\lambda x.true_{c}\right)refl_{\lambda x.x:\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}}$
+
+...
+
+$S_{a:A}\coloneqq a$
+
+$S_{a:A}\coloneqq\varPi P:A\rightarrow\star.P\,a\rightarrow\star$
+
+..
+
+$\lnot\star=_{\star}\left(\star\rightarrow\star\right)$ is provable?
+
+$\lambda pr:\left(\varPi C:\left(\star\rightarrow\star\right).C\,Unit\rightarrow C\,\perp\right).pr\,\left(\lambda x.x\right)\,\perp\qquad:\lnot\star=_{\star}\perp$
+
+.
+
+evaluating $\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}$ with an incorrect
+proof.
+
+$\left(\lambda pr:\left(\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right).pr\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,Unit\,\perp\right)\,tt\qquad:\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}\right)refl_{true_{c}:\mathbb{B}_{c}}$
+
+is elaborated to
+
+$\left(\lambda pr:\left(\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right).pr\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,Unit\,\perp\right)\,tt\qquad:\lnot true_{c}=_{\mathbb{B}_{c}}false_{c}\right)\left(refl_{true_{c}:\mathbb{B}_{c}}::true_{c}=_{\mathbb{B}_{c}}true_{c}=_{l}true_{c}=_{\mathbb{B}_{c}}false_{c}\right)$
+
+$\rightsquigarrow\left(\left(refl_{true_{c}:\mathbb{B}_{c}}::true_{c}=_{\mathbb{B}_{c}}true_{c}=_{l}true_{c}=_{\mathbb{B}_{c}}false_{c}\right)\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,Unit\,\perp\right)\,tt\qquad:\perp\right)$
+
+de-sugars to
+
+$\left(\left(\left(\lambda C:\left(\mathbb{B}_{c}\rightarrow\star\right).\lambda x:C\,true_{c}.x\right)::\left(\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,true_{c}\right)=_{l}\left(\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow C\,false_{c}\right)\right)\,\left(\lambda b:\mathbb{B}_{c}.b\,\star\,Unit\,\perp\right)\,tt\qquad:\perp\right)$
+
+$\rightsquigarrow\left(\left(\left(\lambda x:\left(true_{c}\,\star\,Unit\,\perp\right).x\right)::\left(true_{c}\,\star\,Unit\,\perp\rightarrow true_{c}\,\star\,Unit\,\perp\right)=_{l,bod}\left(\left(true_{c}\,\star\,Unit\,\perp\right)\rightarrow false_{c}\,\star\,Unit\,\perp\right)\right)\,tt\qquad:\perp\right)$
+
+def eq to
+
+$\left(\left(\left(\lambda x:Unit.x\right)::\left(Unit\rightarrow Unit\right)=_{l,bod}\left(Unit\rightarrow\perp\right)\right)\,tt\qquad:\perp\right)$
+
+$\rightsquigarrow\left(tt::Unit=_{l,bod.bod}\perp\qquad:\perp\right)$
+
+note that the program has not yet ``gotten stuck''. to exercise
+this error, $\perp$ must be eliminated, this can be done by tying
+to summon another type by applying it to $\perp$ 
+
+$\left(tt::Unit=_{l,bod.bod}\perp\qquad:\perp\right)\perp\qquad:\perp$
+
+\textbf{bad attempt}
+
+$\left(tt::Unit=_{l,bod.bod}\perp\qquad:\perp\right)\perp\qquad:\perp$
+
+de-sugars to
+
+$\left(\left(\lambda A:\star.\lambda a:A.a\right)::\varPi A:\star.A\rightarrow A=_{l,bod.bod}\varPi x:\star.x\qquad:\perp\right)\perp\qquad:\perp$
+
+$\rightsquigarrow\left(.\lambda a.a\right)::\perp\rightarrow\perp=_{l,bod.bod.bod}\perp\qquad:\perp$
+
+but still
+
+$\left(\left(.\lambda a.a\right)::\perp\rightarrow\perp=_{l,bod.bod.bod}\perp\qquad:\perp\right)\star$
+
+$\left(\left(.\lambda a.a\right)::\perp\rightarrow\perp=_{l,bod.bod.bod}\varPi x:\star.x\qquad:\perp\right)\star$
+
+$\left(\star::\star=_{l,bod.bod.bod.aty}\perp=_{l,bod.bod.bod.bod}\star\right)$
+
+\textbf{bad attempt}
+
+$\left(tt::Unit=_{l,bod.bod}\perp\qquad:\perp\right)\star\rightarrow\star\qquad:\star\rightarrow\star$
+
+de-sugars to
+
+$\left(\left(\lambda A:\star.\lambda a:A.a\right)::\varPi A:\star.A\rightarrow A=_{l,bod.bod}\varPi x:\star.x\qquad:\perp\right)\star\rightarrow\star\qquad:\star\rightarrow\star$
+
+$\rightsquigarrow\left(.\lambda a.a\right)::\left(\star\rightarrow\star\right)\rightarrow\left(\star\rightarrow\star\right)=_{l,bod.bod.bod}\star\rightarrow\star\qquad:\star\rightarrow\star$
+
+not yet ``gotten stuck''
+
+$\rightsquigarrow\left(.\lambda a.a\right)::\left(\star\rightarrow\star\right)\rightarrow\left(\star\rightarrow\star\right)=_{l,bod.bod.bod}\star\rightarrow\star\qquad:\star\rightarrow\star$
+
+\textbf{bad attempt}
+
+de-sugars to
+
+$\left(\left(\lambda A:\star.\lambda a:A.a\right)::\varPi A:\star.A\rightarrow A=_{l,bod.bod}\varPi x:\star.x\qquad:\perp\right)\mathbb{B}_{c}\qquad:\mathbb{B}_{c}$
+
+$\rightsquigarrow\left(.\lambda a:\mathbb{B}_{c}.a\right)::\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}=_{l,bod.bod.bod}\mathbb{B}_{c}\qquad:\mathbb{B}_{c}$
+
+attempt
+
+$\left(tt::Unit=_{l,bod.bod}\perp\qquad:\perp\right)\mathbb{B}_{c}\qquad:\mathbb{B}_{c}$
+
+de-sugars to
+
+$\left(\left(\lambda A:\star.\lambda a:A.a\right)::\varPi A:\star.A\rightarrow A=_{l,bod.bod}\varPi x:\star.x\qquad:\perp\right)\mathbb{B}_{c}\qquad:\mathbb{B}_{c}$
+
+$\rightsquigarrow\left(.\lambda a:\mathbb{B}_{c}.a\right)::\mathbb{B}_{c}\rightarrow\mathbb{B}_{c}=_{l,bod.bod.bod}\mathbb{B}_{c}\qquad:\mathbb{B}_{c}$
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+\end{document}

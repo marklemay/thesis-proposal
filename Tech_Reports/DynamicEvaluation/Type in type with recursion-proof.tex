@@ -1,0 +1,129 @@
+%% LyX 2.3.0 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{mathtools}
+\usepackage{amstext}
+\usepackage{amssymb}
+\usepackage{babel}
+\begin{document}
+
+\title{an Intensional Dependent Type Theory with Type-in-Type and Recursion}
+\maketitle
+
+\section{type soundness or blame}
+
+\subsection{well formed}
+
+\subsection{weakening}
+
+\subsection{substitution}
+
+\subsection{preservation}
+
+\subsection{Canonical forms}
+
+\subsection{Progress}
+
+$\lozenge\vdash c:A$ implies that $a$ is a value, there exists $c'$
+such that $c\rightsquigarrow c'$, or a static location can be blamed.
+and $\lozenge\vdash e:\overline{\star}$ implies that $e$ is a value,
+there exists $e'$ such that $e\rightsquigarrow e'$, or a static
+location can be blamed
+
+By mutual induction on the typing derivations with the help of the
+canonical forms lemma
+
+Explicitly:
+\begin{itemize}
+\item cast typing
+\begin{itemize}
+\item $eq-ty-1$ by \textbf{induction}
+\item $eq-ty-2$ by \textbf{induction}
+\end{itemize}
+\item head typing
+\begin{itemize}
+\item $c$ cannot be typed by the variable rule in the empty context
+\item $c$ is typed by type-in-type. $a$ is $\star$, a value
+\item $c$ is typed by $\Pi-ty$. $a$ is a value
+\item $c$ is typed by $\Pi-\mathsf{fun}-ty$. $a$ is a value
+\item $c$ is typed by $\Pi-app-ty$. Then $c$ is $b\,a$, and there are
+derivations of $\lozenge\vdash b:\Pi x:A.B$, and $\lozenge\vdash a:A$
+for some $A$ and $B$. By \textbf{induction} $a$ is a value, there
+exists $a'$ such that $a\rightsquigarrow a'$, or blame and $b$
+is a value or there exists $b'$ such that $b\rightsquigarrow b'$
+or blame. (TODO jumping from one syntactic form to another)
+\begin{itemize}
+\item if $b$ is a value and $a$ is a value, then $b$ is $b_{h}::v_{eq}$. 
+\begin{itemize}
+\item If all$A\in v_{eq}$ are in the form $\Pi x:A.B$ then $v_{eq}\,Elim_{\Pi}$
+and $v_{eq}\downarrow$ is $\Pi x:A.B$ so $b_{h}$ is $\left(\mathsf{fun}\,f.\,x.b'\right)$
+and the step is $\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b::e_{B}\right)\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq},x\coloneqq v\right]::v_{eq}'$
+\item otherwise, $v_{eq}\uparrow$ is $\Pi x:A.B$ but there is some $\left[\star=_{l,o}\Pi x:A.B\right]\in v$
+and $l,o$ can be blamed
+\end{itemize}
+\item if $b$ or $a$ can construct blame then $b\,a$ can be used to construct
+blame
+\item if $b$ is a value and $a\rightsquigarrow a'$ then $b\,a\rightsquigarrow b\,a'$
+\item if $b\rightsquigarrow b'$ then $b\,a\rightsquigarrow b'\,a$
+\end{itemize}
+\end{itemize}
+\item cast term typing
+\begin{itemize}
+\item $a$ is typed by type-in-type. $a$ is $\star$, a value
+\item $a$ is typed by $\Pi-ty$. $a$ is a value
+\item $a$ is typed by the conversion rule, then by \textbf{induction}
+\item $a$ is typed by the $apparent$ rule, then by \textbf{induction}
+\end{itemize}
+\item $M$ is typed by $\Pi\textrm{-E}$. $M$ is $P\,N$ then exist some
+$\sigma,\tau$ for $\lozenge\vdash P:\Pi x:\sigma.\tau$ and $\lozenge\vdash N:\sigma$.
+By \textbf{induction} (on the $P$ branch of the derivation) $P$
+is a value or there exists $P'$ such that $P\rightsquigarrow P'$.
+By \textbf{induction} (on the $N$ branch of the derivation) $N$
+is a value or there exists $N'$ such that $N\rightsquigarrow N'$
+\begin{itemize}
+\item if $P$ is a value then by \textbf{canonical forms}, $P$ is$\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'$
+and 
+\begin{itemize}
+\item if $N$ is a value then the one step reduction is $\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'\right)\,N\,\rightsquigarrow\,P'\left[x\coloneqq N,f\coloneqq\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right]$ 
+\item otherwise there exists $N'$ such that $N\rightsquigarrow N'$, and
+the one step reduction is $\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'\right)\,N\,\rightsquigarrow\,\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'\right)\,N'$ 
+\end{itemize}
+\item otherwise, there exists $P'$ such that $P\rightsquigarrow P'$ and
+the one step reduction is $P\,N\rightsquigarrow P'\,N$
+\end{itemize}
+\end{itemize}
+
+\subsection{Type Soundness}
+
+For any well typed term in an empty context, no sequence of small
+step reductions will cause result in a computation to ``get stuck''
+without blame. Either a final value will be reached, further reductions
+can be taken, or blame is omitted. This follows by iterating the progress
+and preservation lemmas.
+
+\section{elaboration embeds typing}
+\begin{enumerate}
+\item $\vdash e:M$, $elab\left(M,*\right)=M'$, and $elab\left(e,M'\right)=e'$
+then $\vdash_{c}e':M'$.
+\end{enumerate}
+
+\section{computation resulting in blame cannot be typed in the surface lang}
+\begin{enumerate}
+\item $\vdash_{c}e':M'$ and $e'\downarrow blame$ then there is no $\vdash e:M$
+such that $elab\left(M,*\right)=M'$, $elab\left(e,M'\right)=e'$
+\end{enumerate}
+
+\section{computation in the cast lang respects computation in the surface
+lang}
+\begin{enumerate}
+\item $\vdash_{c}e':*$ and $elab\left(e,*\right)=e'$ then
+\begin{enumerate}
+\item if $e'\downarrow*$ then $e\downarrow*$
+\item if $e'\downarrow(x:M')\rightarrow N'$ then $e\downarrow(x:M)\rightarrow N$ 
+\item if $e'\downarrow TCon\,\overline{M'}$ then $e\downarrow TCon\,\overline{M}$ 
+\end{enumerate}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,156 @@
+%% LyX 2.3.0 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+
+\title{an Intensional Dependent Type Theory with Type-in-Type and Recursion}
+\maketitle
+
+\section*{Pre-syntax }
+
+\begin{tabular}{lcrll}
+$\Gamma$ & $\Coloneqq$ &  & $\lozenge$ | $\Gamma,x:\sigma$ & var contexts\tabularnewline
+$\sigma,\tau$,$M,N,H_{-},P$ & $\Coloneqq$ &  & x & expressions: var\tabularnewline
+ &  & | & $\star$ & type universe\tabularnewline
+ &  & | & $\Pi x:\sigma.\tau$  & types\tabularnewline
+ &  & | & $\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M$ | $M\,N$ & terms\tabularnewline
+v & $\Coloneqq$ &  & x & values\tabularnewline
+ &  & | & $\star$ | $\Pi x:\sigma.\tau$  & \tabularnewline
+ &  & | & $\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M$  & \tabularnewline
+\end{tabular}
+
+\section*{Judgment Forms}
+
+\begin{tabular}{lc}
+$\Gamma\vdash$ & $\Gamma$ context is well formed\tabularnewline
+$\Gamma\vdash M:\sigma$ & $M$ is a term of type $\sigma$\tabularnewline
+$\Gamma\vdash M\equiv N:\sigma$ & Definitional Equality on terms\tabularnewline
+$\Gamma\vdash M\Rrightarrow N:\sigma$ & $M$ parallel reduces to $N$\tabularnewline
+$\Gamma\vdash M\Rrightarrow_{\ast}N:\sigma$ & $M$ parallel reduces to $N$ after 0 or more steps\tabularnewline
+$M\rightsquigarrow N$ & $M$ CBV-reduces to $N$ in 1 step \tabularnewline
+\end{tabular}
+
+\section*{Judgments}
+
+The following judgments are mutually inductively defined.
+
+\subsection*{Transitive reflexive closure}
+
+\[
+\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash M\Rrightarrow_{\ast}M':\sigma}\,\textrm{\ensuremath{\Rrightarrow\ast}-refl}
+\]
+
+\[
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma\quad\Gamma\vdash M'\Rrightarrow M'':\sigma}{\Gamma\vdash M\Rrightarrow_{\ast}\,M';:\sigma}\,\textrm{\ensuremath{\Rrightarrow\ast}-step}
+\]
+
+
+\subsection*{Definitional Equality}
+
+\[
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,N:\sigma\quad\Gamma\vdash M'\Rrightarrow_{\ast}\,N:\sigma}{\Gamma\vdash M\equiv M':\sigma}\,\equiv\textrm{-Def}
+\]
+
+
+\subsection*{Context Rules}
+
+\[
+\frac{\,}{\lozenge\vdash}\,\textrm{C-Emp}
+\]
+
+\[
+\frac{\Gamma\vdash\sigma:\star}{\Gamma,x:\sigma\vdash}\,\textrm{C-Ext}
+\]
+
+
+\subsection*{Conversion}
+
+\[
+\frac{\Gamma\vdash M:\sigma\qquad\Gamma\vdash\sigma\equiv\tau:\star}{\Gamma\vdash M:\tau}\,\textrm{Conv}
+\]
+
+
+\subsection*{Variables}
+
+\[
+\frac{\Gamma,x:\sigma,\Gamma'\vdash}{\Gamma,x:\sigma,\Gamma'\vdash x:\sigma}\,\textrm{Var}
+\]
+
+\[
+\frac{\Gamma\vdash x:\sigma}{\Gamma\vdash x\Rrightarrow x\,:\sigma}\,\textrm{Var}\textrm{-\ensuremath{\Rrightarrow}}
+\]
+
+
+\subsection*{Type-in-Type}
+
+\[
+\frac{\Gamma\vdash}{\Gamma\vdash\star:\star}\,\star\textrm{-F}
+\]
+
+\[
+\frac{\Gamma\vdash}{\Gamma\vdash\star\Rrightarrow\star\,:\star}\,\star\textrm{-\ensuremath{\Rrightarrow}}
+\]
+
+
+\subsection*{Dependent Recursive Functions}
+
+\[
+\frac{\Gamma\vdash\sigma:\star\qquad\Gamma,x:\sigma\vdash\tau:\star}{\Gamma\vdash\Pi x:\sigma.\tau\,:\star}\,\Pi\textrm{-F}
+\]
+
+\[
+\frac{\Gamma,x:\sigma\vdash\tau:\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M:\tau}{\Gamma\vdash\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\,:\,\varPi x:\sigma.\tau}\,\Pi\textrm{-I}
+\]
+
+\[
+\frac{\Gamma\vdash M:\,\Pi x:\sigma.\tau\qquad\Gamma\vdash N:\sigma}{\Gamma\vdash M\,N\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-E}
+\]
+
+\[
+\frac{\Gamma\vdash\sigma\Rrightarrow\sigma':\star\qquad\Gamma,x:\sigma\vdash\tau\Rrightarrow\tau':\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M\Rrightarrow M':\tau\qquad\Gamma\vdash N\Rrightarrow N':\sigma}{\Gamma\vdash\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,N\,\Rrightarrow\,M'\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\right)\right]\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-\ensuremath{\Rrightarrow}}
+\]
+
+structural rules, 
+
+\[
+\frac{\Gamma\vdash\sigma\Rrightarrow\sigma'\,:\star\qquad\Gamma,x:\sigma\vdash\tau\Rrightarrow\tau'\,:\star}{\Gamma\vdash\Pi x:\sigma.\tau\,\Rrightarrow\,\Pi x:\sigma'.\tau'\,:\star}\,\Pi\textrm{-F-\ensuremath{\Rrightarrow}}
+\]
+
+\[
+\frac{\Gamma\vdash M\Rrightarrow M'\,:\,\Pi x:\sigma.\tau\qquad\Gamma\vdash N\Rrightarrow N'\,:\sigma}{\Gamma\vdash M\,N\,\Rrightarrow\,M'\,N'\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-E-\ensuremath{\Rrightarrow}}
+\]
+
+\[
+\frac{\Gamma\vdash\sigma\Rrightarrow\sigma':\star\qquad\Gamma,x:\sigma\vdash\tau\Rrightarrow\tau':\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M\Rrightarrow M':\tau}{\Gamma\vdash\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\,\Rrightarrow\,\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\,:\,\varPi x:\sigma.\tau}\,\Pi\textrm{-I-\ensuremath{\Rrightarrow}}
+\]
+
+CBV,
+
+\[
+\frac{\,}{\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,v\,\rightsquigarrow\,M\left[x\coloneqq v,f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\right]}\,\Pi\textrm{-}\rightsquigarrow
+\]
+
+\[
+\frac{M\,\rightsquigarrow\,M'}{M\,N\,\rightsquigarrow\,M'\,N}\,\Pi\textrm{-E-\ensuremath{\rightsquigarrow}-1}
+\]
+
+\[
+\frac{N\,\rightsquigarrow\,N'}{v\,N\,\rightsquigarrow\,v\,N'}\,\Pi\textrm{-E-\ensuremath{\rightsquigarrow}-2}
+\]
+
+\end{document}

@@ -1,0 +1,637 @@
+%% LyX 2.3.0 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{babel}
+\begin{document}
+
+\title{Type Soundness in an Intensional Dependent Type Theory with Type-in-Type,
+Recursion and Data}
+
+\maketitle
+\textbf{There is an error in the parallel reduction that has not yet
+been corrected}
+
+\section{Examples}
+
+logical unsoundness:
+
+$\mathsf{fun}\,f:\left(x.x\right).\,x:\star.f\,x\qquad:\varPi x:\star.x$
+
+\subsection*{some constructs}
+
+while logically unsound, the language is extremely expressive. Conventional
+data is representable:
+
+$\mathsf{data}\,Unit.\,\mathsf{where}\,\left\{ tt.\rightarrow Unit\right\} $
+
+~
+
+$\mathsf{data}\,\mathbb{B}.\,\mathsf{where}\,\left\{ true.\rightarrow\mathbb{B}\,|\,false.\rightarrow\mathbb{B}\right\} $
+
+~
+
+$\mathsf{data}\,\mathbb{N}.\,\mathsf{where}\,\left\{ z.\rightarrow\mathbb{N}\,|\,suc\,x:\mathbb{N}.\rightarrow\mathbb{N}\right\} $
+
+data abstraction allows some self-reference
+
+$0\coloneqq z$
+
+$1\coloneqq suc\,z$
+
+~
+
+$\mathsf{data}\,Vec\,A:\star,n:\mathbb{N}.\,\mathsf{where}\left\{ \begin{array}{cc}
+nil\,A:\star. & \rightarrow Vec\,A\,0\\
+cons\,A:\star,n:\mathbb{N},-:A,-:Vec\,A\,n. & \rightarrow Vec\,A\,\left(suc\,n\right)
+\end{array}\right\} $
+
+$rep_{\mathbb{B}}\coloneqq\mathsf{fun}\,f:\left(n.Vec\,\mathbb{B}\,n\right).\,n:\mathbb{N}.\mathsf{Case}_{n':\mathbb{N}\rightarrow Vec\,\mathbb{B}\,n'}\,n\,\mathsf{of}\left\{ z\Rightarrow nil\,\mathbb{B}\,|\,suc\,x\Rightarrow cons\,\mathbb{B}\,x\,true\,\left(f\,x\right)\right\} \qquad:\varPi n:\mathbb{N}.Vec\,\mathbb{B}\,n$
+
+~
+
+$\mathsf{data}\,Id\,A:\star,a_{1}:A,a_{2}:A.\,\mathsf{where}\,\left\{ refl\,A:\star,a:A.\rightarrow Id\,A\,a\,a\right\} $
+
+$a_{1}=_{A}a_{2}\coloneqq Id\,A,a_{1},a_{2}$
+
+~
+
+$subst\coloneqq\lambda A.\lambda a_{1}.\lambda a_{2}.\lambda pr.\mathsf{Case}_{-:Id\,A,a_{1},a_{2}.\rightarrow\varPi C:\left(A\rightarrow\star\right).C\,a_{1}\rightarrow C\,a_{2}}\,pr\,\mathsf{of}\left\{ refl\,A:\star,a:A\Rightarrow\lambda C.\lambda x:C\,a.\,x\right\} $
+
+$subst:\varPi A:\star.\varPi a_{1}:A.\varPi a_{2}:A.a_{1}=_{A}a_{2}\rightarrow\varPi C:\left(A\rightarrow\star\right).C\,a_{1}\rightarrow C\,a_{2}$
+
+~
+
+$\mathsf{data}\,\perp\,.\,\mathsf{where}\,\left\{ \,\right\} $
+
+~
+
+$\lnot A\coloneqq\varPi A:\star..A\rightarrow\perp$
+
+~
+
+$\lnot1=_{\mathbb{N}}0$ is provable (in a non trivial way):
+
+$dec\coloneqq\lambda n.\mathsf{Case}_{-:\mathbb{N}.\rightarrow\star}\,pr\,\mathsf{of}\mathsf{of}\left\{ z\Rightarrow\perp\,|\,suc\,-\Rightarrow Unit\right\} \qquad:\mathbb{N}\rightarrow\star$
+
+$\lambda pr.subst\,\mathbb{N}\,1\,0\,pr\,dec\,tt\qquad:\lnot1=_{\mathbb{N}}0$
+
+Several larger examples are workable in prototype implementation
+
+\section{Properties}
+
+\subsection{Contexts}
+
+\subsubsection{Sub-Contexts are well formed}
+
+The following rules are admissible:
+
+\[
+\frac{\Gamma,\Gamma'\vdash}{\Gamma\vdash}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash M:\sigma}{\Gamma\vdash}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash M\Rrightarrow M':\sigma}{\Gamma\vdash}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash M\Rrightarrow_{\ast}M':\sigma}{\Gamma\vdash}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash M\equiv M':\sigma}{\Gamma\vdash}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash\Delta:\overline{*}}{\Gamma\vdash}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash\overline{M}:\Delta}{\Gamma\vdash}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash\overline{M}\Rrightarrow\overline{M'}:\Delta}{\Gamma\vdash}
+\]
+
+by mutual induction on the derivations.
+
+\subsubsection{Context weakening}
+
+For any derivation of $\Gamma\vdash\sigma:\star$, the following rules
+are admissible:
+
+\[
+\frac{\Gamma,\Gamma'\vdash}{\Gamma,x:\sigma,\Gamma'\vdash}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash M:\tau}{\Gamma,x:\sigma,\Gamma'\vdash M:\tau}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash M\Rrightarrow M':\sigma}{\Gamma,x:\sigma,\Gamma'\vdash M\Rrightarrow M':\sigma}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash M\Rrightarrow_{\ast}M':\sigma}{\Gamma,x:\sigma,\Gamma'\vdash M\Rrightarrow_{\ast}M':\sigma}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash M\equiv M':\tau}{\Gamma,x:\sigma,\Gamma'\vdash M\equiv M':\tau}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash\Delta:\overline{*}}{\Gamma,x:\sigma,\Gamma'\vdash\Delta:\overline{*}}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash\overline{M}:\Delta}{\Gamma,x:\sigma,\Gamma'\vdash\overline{M}:\Delta}
+\]
+
+\[
+\frac{\Gamma,\Gamma'\vdash\overline{M}\Rrightarrow\overline{M'}:\Delta}{\Gamma,x:\sigma,\Gamma'\vdash\overline{M}\Rrightarrow\overline{M'}:\Delta}
+\]
+
+by mutual induction on the derivations.
+
+\subsubsection{$\Rrightarrow$ is reflexive}
+
+The following rule is admissible:
+
+\[
+\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash M\Rrightarrow\,M:\sigma}\,\textrm{\ensuremath{\Rrightarrow}-refl}
+\]
+
+\[
+\frac{\Gamma\vdash\overline{M}:\Delta}{\Gamma\vdash\overline{M}\Rrightarrow\,\overline{M}:\Delta}\,\textrm{\ensuremath{\Rrightarrow}-refl'}
+\]
+
+by induction
+
+\subsubsection{$\equiv$ is reflexive}
+
+The following rule is admissible:
+
+\[
+\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash M\equiv M:\sigma}\,\textrm{\ensuremath{\equiv}-refl}
+\]
+
+by $\,\textrm{\ensuremath{\Rrightarrow\ast}-refl}$
+
+\subsubsection{Context substitution}
+
+For any derivation of $\Gamma\vdash N:\tau$ the following rules are
+admissible:
+
+\[
+\frac{\Gamma,x:\tau,\Gamma'\vdash}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash}
+\]
+
+\[
+\frac{\Gamma,x:\tau,\Gamma'\vdash M:\sigma}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\,:\,\sigma\left[x\coloneqq N\right]}
+\]
+
+\[
+\frac{\Gamma,x:\tau,\Gamma'\vdash M\Rrightarrow M':\sigma}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\Rrightarrow M'\left[x\coloneqq N\right]:\sigma\left[x\coloneqq N\right]}
+\]
+
+\[
+\frac{\Gamma,x:\tau,\Gamma'\vdash M\Rrightarrow_{\ast}M':\sigma}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\Rrightarrow_{\ast}M'\left[x\coloneqq N\right]:\sigma}
+\]
+
+\[
+\frac{\Gamma,x:\tau,\Gamma'\vdash M\equiv M':\sigma}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\,\equiv\,M'\left[x\coloneqq N\right]:\sigma\left[x\coloneqq N\right]}
+\]
+
+\[
+\frac{\Gamma,x:\tau,\Gamma'\vdash\Delta:\overline{*}}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash\Delta\left[x\coloneqq N\right]\,:\overline{*}}
+\]
+
+\[
+\frac{\Gamma,x:\tau,\Gamma'\vdash\overline{M}:\Delta}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash\overline{M}\left[x\coloneqq N\right]\,:\Delta\left[x\coloneqq N\right]}
+\]
+
+\[
+\frac{\Gamma,x:\tau,\overline{M}\Rrightarrow\overline{M'}:\Delta}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash\overline{M}\left[x\coloneqq N\right]\Rrightarrow\overline{M'}\left[x\coloneqq N\right]:\Delta\left[x\coloneqq N\right]}
+\]
+
+by mutual induction on the derivations. Specifically, at every usage
+of $x$ from the var rule in the original derivation, replace the
+usage of the var rule with the derivation of $\Gamma\vdash N:\tau$
+weakened to the context of $\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash N:\tau$,
+and apply appropriate reflexivity when needed.
+
+\subsection{Computation}
+
+\subsubsection{$\Rrightarrow$ preserves type of source}
+
+The following rules are admissible:
+
+\[
+\frac{\Gamma\vdash N\Rrightarrow N':\tau}{\Gamma\vdash N:\tau}
+\]
+
+\[
+\frac{\Gamma\vdash\overline{N}\Rrightarrow\overline{N'}:\Delta}{\Gamma\vdash\overline{N}:\Delta}
+\]
+
+by mutual induction
+
+\subsubsection{$\Rrightarrow$ substitution }
+
+The following rule is admissible:
+
+\[
+\frac{\Gamma,\Delta,\Gamma'\vdash\overline{M}\Rrightarrow\overline{M'}:\varTheta\quad\Gamma\vdash\overline{N}\Rrightarrow\overline{N'}:\Delta}{\Gamma,\Gamma'\left[\Delta\coloneqq\overline{N}\right]\vdash\overline{M}\left[\Delta\coloneqq\overline{N}\right]\Rrightarrow\overline{M'}\left[\Delta\coloneqq\overline{N'}\right]:\varTheta\left[\Delta\coloneqq\overline{N}\right]}
+\]
+
+by induction on the $\Rrightarrow$ derivations with the corollary
+
+Corollary, the following rule is admissible:
+
+\[
+\frac{\Gamma,x:\sigma,\Gamma'\vdash M\Rrightarrow M':\tau\quad\Gamma\vdash N\Rrightarrow N':\sigma}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\Rrightarrow M'\left[x\coloneqq N'\right]:\tau\left[x\coloneqq N\right]}
+\]
+
+
+\subsubsection{$\Rrightarrow$ is confluent}
+
+if $\Gamma\vdash M\Rrightarrow N:\sigma$ and $\Gamma\vdash M\Rrightarrow N':\sigma$
+then there exists $P$ such that $\Gamma\vdash N\Rrightarrow P:\sigma$
+and $\Gamma\vdash N'\Rrightarrow P:\sigma$
+
+and $\Gamma\vdash\overline{M}\Rrightarrow\,\overline{N}:\Delta$ and
+$\Gamma\vdash\overline{M}\Rrightarrow\,\overline{N'}:\Delta$ then
+there exists $\overline{P}$ such that $\Gamma\vdash\overline{N}\Rrightarrow\overline{P}:\Delta$
+and $\Gamma\vdash\overline{N'}\Rrightarrow\overline{P}:\Delta$
+
+by mutual induction on all possible pairs of reductions ( abusing
+notation by suppressing $\Gamma,\sigma,\Delta$ that are constant
+throughout)
+\begin{itemize}
+\item $\Pi\textrm{-E-\ensuremath{\Rrightarrow}}$ and $\Pi\textrm{-\ensuremath{\Rrightarrow}}$
+\begin{itemize}
+\item $M$ is $\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.B\right)\,A$ 
+\item $N$ is $\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.B'\right)\,A'$
+, $B\Rrightarrow B'$ , $A\Rrightarrow A'$
+\item $N'$ is $B''\left[x\coloneqq A'',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.B''\right)\right]$
+, $B\Rrightarrow B''$ , $A\Rrightarrow A''$
+\item $B\Rrightarrow B_{v}$, $A\Rrightarrow A_{v}$ by I.H 
+\item $\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.B\right)\,A\Rrightarrow B_{v}\left[x\coloneqq A_{v},f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.B_{v}\right)\right]$
+by repeated $\Rrightarrow$ substitution 
+\end{itemize}
+\item $D\textrm{-E\textrm{-\ensuremath{\Rrightarrow}}}$ and $D\textrm{-\ensuremath{\Rrightarrow}}$
+\begin{itemize}
+\item $M$ is $\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(d\,\overline{A}\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow B_{i}\,|}\right\} $
+\item $N$ is $\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(d\,\overline{A'}\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow B'_{i}\,|}\right\} $,
+$\overline{A}\Rrightarrow\overline{A'}$, $\forall i.\,B{}_{i}\Rrightarrow B'_{i}$
+\item $N'$ is $B''\left[\overline{x}\coloneqq\overline{A''}\right]$, $\overline{A}\Rrightarrow\overline{A''}$,
+$B\Rrightarrow B''$, $d\overline{x}\Rightarrow B\in_{i}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow B_{i}\,|}\right\} $
+\item $B\Rrightarrow B_{v}$, $\overline{A}\Rrightarrow\overline{A_{v}}$
+by I.H 
+\item $\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(d\,\overline{A}\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow B_{i}\,|}\right\} \Rrightarrow B_{v}\left[\overline{x}\coloneqq\overline{A_{v}}\right]$
+by repeated $\Rrightarrow$ substitution
+\end{itemize}
+\item all other reductions match, and follow immediately from induction,
+or are symmetric to already presented cases
+\end{itemize}
+
+\subsection{$\Rrightarrow_{\ast}$}
+
+\subsubsection{$\Rrightarrow_{\ast}$ is transitive}
+
+The following rule is admissible:
+
+\[
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma\quad\Gamma\vdash M'\Rrightarrow_{\ast}M'':\sigma}{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma}\,\textrm{\ensuremath{\Rrightarrow\ast}-trans}
+\]
+
+by induction
+
+\subsubsection{$\Rrightarrow$ preserves type in source}
+
+The following rules are admissible:
+
+\[
+\frac{\Gamma\vdash N\Rrightarrow N':\tau}{\Gamma\vdash N':\tau}
+\]
+
+\[
+\frac{\Gamma\vdash\overline{N}\Rrightarrow\overline{N'}:\Delta}{\Gamma\vdash\overline{N'}:\Delta}
+\]
+
+By induction on the $\Rrightarrow$ derivation with the help of the
+substitution lemma.
+\begin{itemize}
+\item $\Pi\textrm{-\ensuremath{\Rrightarrow}}$
+\begin{itemize}
+\item $M'\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'\right)\right]\,:\,\tau\left[x\coloneqq N\right]$
+by the substitution lemma used on the inductive hypotheses
+\end{itemize}
+\item $D\textrm{-\ensuremath{\Rrightarrow}}$
+\begin{itemize}
+\item $O'\left[\overline{x}\coloneqq\overline{N'}\right]:\sigma\left[x\coloneqq d\overline{x}_{i},\overline{y}\coloneqq\overline{N}\right]$
+by the substitution lemma used on the inductive hypotheses
+\end{itemize}
+\item all other cases are trivial
+\end{itemize}
+
+\subsubsection{$\Rrightarrow_{\ast}$ preserves type}
+
+The following rule is admissible:
+
+\[
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma}{\Gamma\vdash M:\sigma}
+\]
+
+by induction
+
+\[
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma}{\Gamma\vdash M':\sigma}
+\]
+
+by induction
+
+\subsubsection{$\Rrightarrow_{\ast}$ is confluent}
+
+if $\Gamma\vdash M\Rrightarrow_{\ast}\,N:\sigma$ and $\Gamma\vdash M\Rrightarrow_{\ast}\,N':\sigma$
+then there exists $P$ such that 
+
+$\Gamma\vdash N\Rrightarrow_{\ast}\,P:\sigma$ and $\Gamma\vdash N'\Rrightarrow_{\ast}\,P:\sigma$
+
+Follows from $\textrm{\ensuremath{\Rrightarrow\ast}-trans}$ and the
+confluence of $\Rrightarrow$ using standard techniques
+
+\subsubsection{$\equiv$ is symmetric}
+
+The following rule is admissible:
+
+\[
+\frac{\Gamma\vdash M\equiv N:\sigma}{\Gamma\vdash N\equiv M:\sigma}\,\textrm{\ensuremath{\equiv}-sym}
+\]
+
+trivial
+
+\subsubsection{$\equiv$ is transitive}
+
+\[
+\frac{\Gamma\vdash M\equiv N:\sigma\qquad\Gamma\vdash N\equiv P:\sigma}{\Gamma\vdash M\equiv P:\sigma}\,\textrm{\ensuremath{\equiv}-trans}
+\]
+
+by the confluence of $\Rrightarrow_{\ast}$
+
+\subsubsection{$\equiv$ preserves type}
+
+The following rules are admissible:
+
+\[
+\frac{\Gamma\vdash M\equiv\,M':\sigma}{\Gamma\vdash M:\sigma}
+\]
+
+\[
+\frac{\Gamma\vdash M\equiv\,M':\sigma}{\Gamma\vdash M':\sigma}
+\]
+
+by the def of $\Rrightarrow_{\ast}$
+
+\subsubsection{Regularity}
+
+The following rule is admissible:
+
+\[
+\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash\sigma:\star}
+\]
+
+by induction with $\equiv$-preservation for the Conv case
+
+\subsubsection{$\rightsquigarrow$ implies \textmd{$\Rrightarrow$} }
+
+The following rules are admissible:
+
+\[
+\frac{\Gamma\vdash M:\sigma\quad M\rightsquigarrow M'}{\Gamma\vdash M\Rrightarrow M':\sigma}
+\]
+
+\[
+\frac{\Gamma\vdash\overline{M}:\Delta\quad\overline{M}\rightsquigarrow\overline{M'}}{\Gamma\vdash\overline{M}\Rrightarrow\overline{M'}':\Delta}
+\]
+
+by induction on $\rightsquigarrow$
+
+\subsubsection{$\rightsquigarrow$ preserves type}
+
+For any derivations of $\Gamma\vdash M:\sigma$, $M\rightsquigarrow M'$,
+
+\[
+\Gamma\vdash M':\sigma
+\]
+
+since $\rightsquigarrow$ implies $\Rrightarrow$ and $\Rrightarrow$
+preserves types
+
+\subsection{Type constructors}
+
+\subsubsection{Type constructors are stable}
+\begin{itemize}
+\item if $\Gamma\vdash\ast\Rrightarrow M:\sigma$ then $M$ is $\ast$
+\item if $\Gamma\vdash\ast\Rrightarrow_{\ast}M:\sigma$ then $M$ is $\ast$
+\item if $\Gamma\vdash\Pi x:\sigma.\tau\Rrightarrow M:\sigma$ then $M$
+is $\Pi x:\sigma'.\tau'$ for some $\sigma',\tau'$
+\item if $\Gamma\vdash\Pi x:\sigma.\tau\Rrightarrow_{\ast}M:\sigma$ then
+$M$ is $\Pi x:\sigma'.\tau'$ for some $\sigma',\tau'$
+\item if $\Gamma\vdash D\,\overline{M}\Rrightarrow M:\sigma$ then $M$
+is $D\,\overline{M'}$ for some $\overline{M'}$
+\item if $\Gamma\vdash D\,\overline{M}\Rrightarrow_{\ast}M:\sigma$ then
+$M$ is $D\,\overline{M'}$ for some $\overline{M'}$
+\end{itemize}
+by induction on the respective relations
+
+\subsubsection{Type constructors definitionaly unique}
+
+There is no derivation of 
+\begin{itemize}
+\item $\Gamma\vdash\ast\equiv\Pi x:\sigma.\tau\,:\sigma'$ for any $\Gamma,\sigma,\tau,\sigma'$
+\item $\Gamma\vdash\ast\equiv D\,\overline{M}\,:\sigma'$ for any $\Gamma,\overline{M},\sigma'$
+\item $\Gamma\vdash\Pi x:\sigma.\tau\equiv D\,\overline{M}:\sigma'$ for
+any $\Gamma,\sigma,\tau,\overline{M},\sigma'$
+\item $\Gamma\vdash D\,\overline{M}\equiv D'\,\overline{N}:\sigma'$ , $D\neq D'$
+for any $\Gamma,\overline{M},\overline{N},\sigma'$
+\end{itemize}
+from $\equiv\textrm{-Def}$ and constructor stability
+
+\subsection{Canonical forms}
+
+If $\Xi\vdash v:\sigma$ then 
+\begin{itemize}
+\item if $\sigma$ is $\star$ then $v$ is $\star$ , $\Pi x:\sigma.\tau$
+or $D\,\overline{M}$ 
+\item if $\sigma$ is $\Pi x:\sigma'.\tau$ for some $\sigma'$, $\tau$
+then $v$ is $\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma''.P'$
+for some $\tau'$, $\sigma''$, $P'$
+\item if $\sigma$ is $D\,\overline{M}$ for some $\overline{M}$ then $v$
+is $d_{k}\,\overline{v}$ for some $\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d_{i}\,\varTheta_{i}\rightarrow D\overline{M}_{i}\,|}\right\} \in\Xi$
+and $d_{k}\,\varTheta_{k}\rightarrow D\overline{M}_{k}\in\overline{d_{i}\,\varTheta_{i}\rightarrow D\overline{M}_{i}\,|}$
+\end{itemize}
+By induction on the typing derivation
+\begin{itemize}
+\item Conv,
+\begin{itemize}
+\item if $\sigma$ is $\star$ then eventually, it was typed with type-in-type,
+$\Pi\textrm{-F}$, $D\textrm{-F}$,or $D\textrm{-F}'$. It could not
+have been typed by $\Pi\textrm{-I}$ or $D\textrm{-I}$ since constructors
+are definitionaly unique
+\item if $\sigma$ is $\Pi x:\sigma'.\tau$ then eventually, it was typed
+with $\Pi\textrm{-I}$. it could not have been typed b type-in-type,
+$\Pi\textrm{-F}$, $D\textrm{-F}$, $D\textrm{-F'}$, or $D\textrm{-I}$
+since constructors are definitionaly unique
+\item if $\sigma$ is $D\,\overline{M}$ then eventually, it was typed with
+$D\textrm{-I}$. it could not have been typed b type-in-type, $\Pi\textrm{-F}$,
+$D\textrm{-F}$, $D\textrm{-F'}$, or $\Pi\textrm{-I}$ since constructors
+are definitionaly unique
+\item can never eventually type with $\Pi\textrm{-E}$, or $D\textrm{-E}$,
+since those cannot type values in the empty ctx
+\end{itemize}
+\item type-in-type, $\Xi\vdash v:\sigma$  is $\Xi\vdash\star:\star$ 
+\item $\Pi\textrm{-F}$, $\Xi\vdash v:\sigma$  is $\Xi\vdash\Pi x:\sigma.\tau\,:\star$ 
+\item $D\textrm{-F}$, $\Xi\vdash v:\sigma$ is $\Xi\vdash D\,\overline{M}:\star$ 
+\item $D\textrm{-F}'$, $\Xi\vdash v:\sigma$ is $\Xi\vdash D\,\overline{M}:\star$ 
+\item $\Pi\textrm{-I}$, $\Xi\vdash v:\sigma$  is $\Xi\vdash\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\,:\,\varPi x:\sigma.\tau$ 
+\item $D\textrm{-I}$, $\Xi\vdash v:\sigma$  is $d\,\overline{N}\,:\,D\,\overline{M}'$
+for some $\overline{M}'$
+\item no other typing rules are applicable
+\end{itemize}
+
+\subsection{Progress}
+
+$\Xi\vdash M:\sigma$ implies that $M$ is a value or there exists
+$N$ such that $M\rightsquigarrow N$ and $\Xi\vdash\overline{M}:\Delta$
+implies that $\overline{M}$ is a list of values or there exists $\overline{N}$
+such that $\overline{M}\rightsquigarrow\overline{N}$
+
+By mutual induction on the typing derivation and list typing derivation
+
+Explicitly:
+\begin{itemize}
+\item $M$ is typed by the conversion rule, then by \textbf{induction},
+$M$ is a value or there exists $N$ such that $M\rightsquigarrow N$ 
+\item $M$ cannot be typed by the variable rule in the empty context
+\item $M$ is typed by type-in-type. $M$ is $\star$, a value
+\item $M$ is typed by $\Pi\textrm{-F}$. $M$ is $\Pi x:\sigma.\tau$,
+a value
+\item $M$ is typed by $\Pi\textrm{-I}$. $M$ is $\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'$,
+a value
+\item $M$ is typed by $\Pi\textrm{-E}$. $M$ is $P\,N$ then there exist
+some $\sigma,\tau$ for $\Xi\vdash P:\Pi x:\sigma.\tau$ and $\Xi\vdash N:\sigma$.
+By \textbf{induction} (on the $P$ branch of the derivation) $P$
+is a value or there exists $P'$ such that $P\rightsquigarrow P'$.
+By \textbf{induction} (on the $N$ branch of the derivation) $N$
+is a value or there exists $N'$ such that $N\rightsquigarrow N'$
+\begin{itemize}
+\item if $P$ is a value then by \textbf{canonical forms}, $P$ is$\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'$
+and 
+\begin{itemize}
+\item if $N$ is a value then the one step reduction is $\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'\right)\,N\,\rightsquigarrow\,P'\left[x\coloneqq N,f\coloneqq\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right]$ 
+\item otherwise there exists $N'$ such that $N\rightsquigarrow N'$, and
+the one step reduction is $\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'\right)\,N\,\rightsquigarrow\,\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'\right)\,N'$ 
+\end{itemize}
+\item otherwise, there exists $P'$ such that $P\rightsquigarrow P'$ and
+the one step reduction is $P\,N\rightsquigarrow P'\,N$
+\end{itemize}
+\item $M$ is typed by $D\textrm{-F'}$. $M$ is $D\,\overline{N}$, a value
+\item $M$ is typed by $D\textrm{-F}$. $M$ is $D\,\overline{N}$, a value
+\item $M$ is typed by $D\textrm{-I}$. By \textbf{induction} on lists
+\item $M$ is typed by $D\textrm{-E}$. $M$ is $\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,N\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} $
+By \textbf{induction} (on the $N$ branch of the derivation) $N$
+is a value or there exists $N'$ such that $N\rightsquigarrow N'$
+\begin{itemize}
+\item if $N$ is a value, by \textbf{canonical forms} $N$ is $d_{k}\,\overline{v}$.
+from the typing derivation we know that there is a $d_{k}$ clause
+in the case expression. The 1 step reduction is $\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(d_{k}\,\overline{v}\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \rightsquigarrow O_{k}\left[\overline{x}\coloneqq\overline{v}\right]$
+\item otherwise, the one step reduction is $\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,N\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \rightsquigarrow\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,N'\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} $
+\end{itemize}
+\item $\overline{M}$ is typed by $\Delta\textrm{-Trm-Emp}$. $\overline{M}$
+is $\lozenge$ a degenerate value
+\item $\overline{M}$ is typed by $\Delta\textrm{-Trm-+}$. 
+\begin{itemize}
+\item $\overline{M}$ is a list of values
+\item $\overline{M}$ is $\overline{v},N,\overline{N'}$. By \textbf{induction}
+\end{itemize}
+\end{itemize}
+
+\subsection{Type Soundness}
+
+For any well typed term in an empty context, no sequence of small
+step reductions will cause result in a computation to ``get stuck''.
+Either a final value will be reached or further reductions can be
+taken. This follows by iterating the progress and preservation lemmas.
+
+\section{Conjectured properties}
+
+telescope regularity
+
+\[
+\frac{\Gamma\vdash\overline{M}:\varDelta}{\Gamma\vdash\varDelta:\overline{\star}}
+\]
+
+
+\section{Non-Properties}
+\begin{itemize}
+\item decidable type checking
+\item normalization/logical soundness
+\end{itemize}
+
+\section{Differences from implementation}
+
+differences from Agda development
+\begin{itemize}
+\item In Agda presentation only handles functions, without data syntax
+\item In Agda the parallel reduction relation does not track the original
+typing judgment, though this should be equivalent
+\item Only proved the function part of the canonical forms lemma
+\item As here, standard properties are 
+\end{itemize}
+differences from prototype
+\begin{itemize}
+\item bidirectional, type annotations are not always needed on functions
+or data
+\item top-level definitions of functions and data
+\begin{itemize}
+\item top-level recursion function recursion is supported
+\item top-level data references are supported
+\item mutual recursion is allowed much more than in this presentation
+\end{itemize}
+\item data constructors use re-use function application parameters rather
+then having a list of sub-terms 
+\item aside from establishing that a term has a type, type annotations are
+not relevant for definitional equality in the prototype
+\end{itemize}
+
+\section{Proof improvements}
+\begin{itemize}
+\item abstract types subtly break the canonical forms lemma
+\item Clarify what unsoundness means 
+\item proof outline at the top of document
+\item better function notation
+\item meta syntax to quantify over contextual judgments
+\item meta syntax to quantify over $\Rrightarrow$ judgments
+\item clean up syntax
+\begin{itemize}
+\item move to the more modern (a:M)-> N, instead of pi
+\item clean up the case matching a bit
+\end{itemize}
+\item make at terms represented by Latin characters, reserving the geek
+letters for other constructs
+\item enumerate the syntactic abbreviations
+\item Single (or double args) instead of the messy arg list notation 
+\end{itemize}
+
+\end{document}

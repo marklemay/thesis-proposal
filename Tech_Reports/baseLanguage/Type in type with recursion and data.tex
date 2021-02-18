@@ -1,0 +1,324 @@
+%% LyX 2.3.0 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+
+\title{an Intensional Dependent Type Theory with Type-in-Type, Recursion
+and Data}
+
+\maketitle
+\textbf{There is an error in the parallel reduction that has not yet
+been corrected}
+
+Owes much of it's presentation to http://www.cs.yale.edu/homes/vilhelm/papers/msfp12prog.pdf
+
+\section*{Pre-syntax }
+
+\begin{tabular}{lcrll}
+$\Delta,\varTheta$ & $\Coloneqq$ &  & . | $x:\sigma,\,\Delta$ & telescope\tabularnewline
+$\Xi$ & $\Coloneqq$ &  & $\lozenge$ & data contexts: empty\tabularnewline
+ &  &  | & $\Xi,\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d\,\varTheta\rightarrow D\overline{M}\,|}\right\} $ & data type\tabularnewline
+ &  & | &  $\Xi,\mathsf{data}\,D\,\Delta$ & abstract data type\tabularnewline
+$\Gamma$ & $\Coloneqq$ &  & $\Xi;\Delta$ & var contexts\tabularnewline
+$\sigma,\tau$,$M,N,H_{-},P$ & $\Coloneqq$ &  & x & expressions: var\tabularnewline
+ &  & | & $\star$ & type universe\tabularnewline
+ &  & | & $\Pi x:\sigma.\tau$  & types\tabularnewline
+ &  & | & $\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M$ | $M\,N$ & terms\tabularnewline
+ &  & | & $D\,\overline{M}$  & data type constructor\tabularnewline
+ &  & | & $d\,\overline{M}$ | $\mathsf{Case}_{x:D\,\overline{x}.\sigma}\,N\,\mathsf{of}\left\{ \overline{d\overline{x}\Rightarrow M\,|}\right\} $ & data\tabularnewline
+v & $\Coloneqq$ &  & x & values\tabularnewline
+ &  & | & $\star$ & \tabularnewline
+ &  & | & $\Pi x:\sigma.\tau$  & \tabularnewline
+ &  & | & $\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M$  & \tabularnewline
+ &  & | & $D\,\overline{M}$ | $d\,\overline{v}$ & \tabularnewline
+$\overline{\boxempty}$ & $\Coloneqq$ &  & $\lozenge$ | $\boxempty,\overline{\boxempty}$ & list of syntax\tabularnewline
+\end{tabular}
+
+\section*{Judgment Forms}
+
+core judgments:
+
+\begin{tabular}{lc}
+$\Gamma\vdash$ & $\Gamma$ context is well formed\tabularnewline
+$\Gamma\vdash M:\sigma$ & $M$ is a term of type $\sigma$\tabularnewline
+$\Gamma\vdash M\equiv N:\sigma$ & Definitional Equality on terms\tabularnewline
+$\Gamma\vdash M\Rrightarrow N:\sigma$ & $M$ parallel-reduces to $N$\tabularnewline
+$\Gamma\vdash M\Rrightarrow_{\ast}N:\sigma$ & $M$ parallel-reduces to $N$ after 0 or more steps\tabularnewline
+$M\rightsquigarrow N$ & $M$ CBV-reduces to $N$ in 1 step \tabularnewline
+\end{tabular}
+
+generalized judgments:
+
+\begin{tabular}{lc}
+$\Gamma\vdash\Delta:\overline{*}$ & telescope only has types $\Delta$\tabularnewline
+$\Gamma\vdash\overline{M}:\Delta$ & the list of terms matches the types of $\Delta$\tabularnewline
+$\Gamma\vdash\overline{M}\Rrightarrow\overline{M'}:\Delta$ & the list of terms parallel reduces to\tabularnewline
+$\overline{M}\rightsquigarrow\overline{N}$ & $\overline{M}$ CBV-reduces to $\overline{N}$ in 1 step \tabularnewline
+\end{tabular}
+
+\section*{Judgments}
+
+The following judgments are mutually inductively defined.
+
+\subsection*{transitive reflexive closure}
+
+\[
+\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash M\Rrightarrow_{\ast}M':\sigma}\,\textrm{\ensuremath{\Rrightarrow\ast}-refl}
+\]
+
+\[
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma\quad\Gamma\vdash M'\Rrightarrow M'':\sigma}{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma}\,\textrm{\ensuremath{\Rrightarrow\ast}-step}
+\]
+
+
+\subsection*{Definitional Equality}
+
+\[
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,N:\sigma\quad\Gamma\vdash M'\Rrightarrow_{\ast}\,N:\sigma}{\Gamma\vdash M\equiv M':\sigma}\,\equiv\textrm{-Def}
+\]
+
+
+\subsection*{Context Rules}
+
+\[
+\frac{\,}{\lozenge\vdash}\,\textrm{C-Emp}
+\]
+\[
+\frac{\Xi\vdash\Delta:\overline{*}\qquad\forall d.\left\{ \Xi,\mathsf{data}\,D\,\Delta\vdash\varTheta:\overline{*}\qquad\Xi,\varTheta,\mathsf{data}\,D\,\Delta\vdash\overline{M}:\varTheta\right\} }{\Xi,\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d\varTheta\rightarrow D\overline{M}\,|}\right\} \vdash}\,\textrm{C-def}
+\]
+
+\[
+\frac{\Gamma\vdash\sigma:\star}{\Gamma,x:\sigma\vdash}\,\textrm{C-Ext}
+\]
+
+
+\subsection*{Conversion}
+
+\[
+\frac{\Gamma\vdash M:\sigma\qquad\Gamma\vdash\sigma\equiv\tau:\star}{\Gamma\vdash M:\tau}\,\textrm{Conv}
+\]
+
+
+\subsection*{Variables}
+
+\[
+\frac{\Gamma,x:\sigma,\Gamma'\vdash}{\Gamma,x:\sigma,\Gamma'\vdash x:\sigma}\,\textrm{Var}
+\]
+
+\[
+\frac{\Gamma\vdash x:\sigma}{\Gamma\vdash x\Rrightarrow x\,:\sigma}\,\textrm{Var}\textrm{-\ensuremath{\Rrightarrow}}
+\]
+
+
+\subsection*{Type-in-Type}
+
+\[
+\frac{\Gamma\vdash}{\Gamma\vdash\star:\star}\,\star\textrm{-F}
+\]
+
+\[
+\frac{\Gamma\vdash}{\Gamma\vdash\star\Rrightarrow\star\,:\star}\,\star\textrm{-\ensuremath{\Rrightarrow}}
+\]
+
+
+\subsection*{Dependent Recursive Functions}
+
+\[
+\frac{\Gamma\vdash\sigma:\star\qquad\Gamma,x:\sigma\vdash\tau:\star}{\Gamma\vdash\Pi x:\sigma.\tau\,:\star}\,\Pi\textrm{-F}
+\]
+
+\[
+\frac{\Gamma,x:\sigma\vdash\tau:\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M:\tau}{\Gamma\vdash\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\,:\,\varPi x:\sigma.\tau}\,\Pi\textrm{-I}
+\]
+
+\[
+\frac{\Gamma\vdash M:\,\Pi x:\sigma.\tau\qquad\Gamma\vdash N:\sigma}{\Gamma\vdash M\,N\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-E}
+\]
+
+\[
+\frac{\Gamma,x:\sigma\vdash\tau:\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M\Rrightarrow M':\tau\qquad\Gamma\vdash N\Rrightarrow N':\sigma}{\Gamma\vdash\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,N\,\Rrightarrow\,M'\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'\right)\right]\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-\ensuremath{\Rrightarrow}}
+\]
+
+structural rules, 
+
+\[
+\frac{\Gamma\vdash\sigma\Rrightarrow\sigma'\,:\star\qquad\Gamma,x:\sigma\vdash\tau\Rrightarrow\tau'\,:\star}{\Gamma\vdash\Pi x:\sigma.\tau\,\Rrightarrow\,\Pi x:\sigma'.\tau'\,:\star}\,\Pi\textrm{-F-\ensuremath{\Rrightarrow}}
+\]
+
+\[
+\frac{\Gamma\vdash M\Rrightarrow M'\,:\,\Pi x:\sigma.\tau\qquad\Gamma\vdash N\Rrightarrow N'\,:\sigma}{\Gamma\vdash M\,N\,\Rrightarrow\,M'\,N'\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-E-\ensuremath{\Rrightarrow}}
+\]
+
+\[
+\frac{\Gamma,x:\sigma\vdash\tau:\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M\Rrightarrow M':\tau}{\Gamma\vdash\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\,\Rrightarrow\,\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'\,:\,\varPi x:\sigma.\tau}\,\Pi\textrm{-I-\ensuremath{\Rrightarrow}}
+\]
+
+CBV
+
+\[
+\frac{\,}{\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,v\,\rightsquigarrow\,M\left[x\coloneqq v,f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\right]}\,\Pi\textrm{-}\rightsquigarrow
+\]
+
+\[
+\frac{M\,\rightsquigarrow\,M'}{M\,N\,\rightsquigarrow\,M'\,N}\,\Pi\textrm{-E-\ensuremath{\rightsquigarrow}-1}
+\]
+
+\[
+\frac{N\,\rightsquigarrow\,N'}{v\,N\,\rightsquigarrow\,v\,N'}\,\Pi\textrm{-E-\ensuremath{\rightsquigarrow}-2}
+\]
+
+
+\subsection*{Dependent Data
+\[
+\frac{\protect\begin{array}{c}
+\mathsf{data}\,D\,\Delta\in\Gamma\protect\\
+\Gamma\vdash\overline{M}:\Delta
+\protect\end{array}}{\Gamma\vdash D\,\overline{M}\,:\star}\,D\textrm{-F'}
+\]
+}
+
+\[
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d_{i}\,\varTheta_{i}\rightarrow D\overline{M}_{i}\,|}\right\} \in\Gamma\\
+\Gamma\vdash\overline{M}:\Delta
+\end{array}}{\Gamma\vdash D\,\overline{M}\,:\star}\,D\textrm{-F}
+\]
+
+\[
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ C\right\} \in\Gamma\\
+d\,\varTheta\rightarrow D\overline{M}'\in C\\
+\Gamma\vdash\overline{N}:\varTheta
+\end{array}}{\Gamma\vdash d\,\overline{N}\,:\,D\,\overline{M}'\left[\varTheta\coloneqq\overline{N}\right]}\,D\textrm{-I}
+\]
+
+with some abuse of notation: $\overline{M}_{i}$ parameterized over
+$\varTheta_{i}$ instead of $\overline{x}_{i}$
+
+\[
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d_{i}\,\varTheta_{i}\rightarrow D\overline{M}_{i}\,|}\right\} \in\Gamma\\
+\Gamma,\overline{y}:\Delta,x:D\overline{y}\vdash\sigma:\star\\
+\Gamma\vdash N:D\,\overline{P}\\
+\forall i.\,\Gamma,\overline{x}_{i}:\varTheta_{i}\vdash O_{i}:\sigma\left[x\coloneqq d\overline{x}_{i},\overline{y}\coloneqq\overline{M}_{i}\right]
+\end{array}}{\Gamma\vdash\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,N\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \,:\,\sigma\left[x\coloneqq N,\overline{y}\coloneqq\overline{P}\right]}\,D\textrm{-E}
+\]
+
+\[
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d_{i}\,\varTheta_{i}\rightarrow D\overline{M}_{i}\,|}\right\} \in\Gamma\\
+\Gamma,\overline{y}:\Delta,x:D\overline{y}\vdash\sigma:\star\\
+\forall i.\,\Gamma,\overline{x}_{i}:\varTheta_{i}\vdash O_{i}:\sigma\left[x\coloneqq d\overline{x}_{i},\overline{y}\coloneqq\overline{M}_{i}\right]\\
+\,\\
+d\,\varTheta\rightarrow D\overline{M}'\,\in\,\overline{d_{i}\,\varTheta_{i}\rightarrow D\overline{M}_{i}\,|}\\
+\,\\
+d\overline{x}\Rightarrow O\,\in\,\overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\\
+\Gamma\vdash\overline{N}\Rrightarrow\overline{N'}:\varTheta\\
+\,\\
+\Gamma\vdash O\Rrightarrow O':\sigma\left[x\coloneqq d_{i}\overline{x}_{i},\overline{y}\coloneqq\overline{N}\right]
+\end{array}}{\begin{array}{c}
+\Gamma\vdash\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(d\,\overline{N}\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \\
+\Rrightarrow O'\left[\overline{x}\coloneqq\overline{N'}\right]:\sigma\left[x\coloneqq d\overline{x}_{i},\overline{y}\coloneqq\overline{N}\right]
+\end{array}}\,D\textrm{-\ensuremath{\Rrightarrow}}
+\]
+
+structural rules, 
+
+\[
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\in\Gamma\\
+\Gamma\vdash\overline{M}\Rrightarrow\overline{M'}:\Delta
+\end{array}}{\Gamma\vdash D\overline{M}\,\Rrightarrow D\overline{M'}:\star}\,D\textrm{-F'\textrm{-\ensuremath{\Rrightarrow}}}
+\]
+
+\[
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d_{i}\,\varTheta_{i}\rightarrow D\overline{M}_{i}\,|}\right\} \in\Gamma\\
+\Gamma\vdash\overline{M}\Rrightarrow\overline{M'}:\Delta
+\end{array}}{\Gamma\vdash D\overline{M}\,\Rrightarrow D\overline{M'}:\star}\,D\textrm{-F\textrm{-\ensuremath{\Rrightarrow}}}
+\]
+
+\[
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ C\right\} \in\Gamma\\
+d:\varTheta\rightarrow D\overline{M}'\in C\\
+\Gamma\vdash\overline{N}\Rrightarrow\overline{N'}:\varTheta
+\end{array}}{\Gamma\vdash d\,\overline{N}\,\Rrightarrow d\,\overline{N'}:\,D\,\overline{M}'\left[\varTheta\coloneqq\overline{N}\right]}\,D\textrm{-I}
+\]
+
+\[
+\frac{\begin{array}{c}
+\mathsf{data}\,D\,\Delta\,\mathsf{where}\,\left\{ \overline{d_{i}\,\varTheta_{i}\rightarrow D\overline{M}_{i}\,|}\right\} \in\Gamma\\
+\Gamma,\overline{y}:\Delta,x:D\overline{y}\vdash\sigma:\star\\
+\Gamma\vdash N\Rrightarrow N':D\,\overline{P}\\
+\forall i.\,\Gamma,\overline{x}_{i}:\varTheta_{i}\vdash O_{i}\Rrightarrow O'_{i}:\sigma\left[x\coloneqq d\overline{x}_{i},\overline{y}\coloneqq\overline{M}_{i}\right]
+\end{array}}{\Gamma\vdash\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,N\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \,\Rrightarrow\,\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,N'\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O'_{i}\,|}\right\} \,:\,\sigma\left[x\coloneqq N,\overline{y}\coloneqq\overline{P}\right]}\,D\textrm{-E\textrm{-\ensuremath{\Rrightarrow}}}
+\]
+
+CBV
+
+\[
+\frac{d\overline{x}\Rightarrow O\,\in\,\overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}}{\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(d\,\overline{v}\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \rightsquigarrow O\left[\overline{x}\coloneqq\overline{v}\right]}\,D\textrm{-\ensuremath{\rightsquigarrow}}
+\]
+
+\[
+\frac{M\rightsquigarrow M'}{\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(M\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} \rightsquigarrow\mathsf{Case}_{x:D\,\overline{y}.\sigma}\,\left(M'\right)\,\mathsf{of}\left\{ \overline{d_{i}\overline{x}_{i}\Rightarrow O_{i}\,|}\right\} }\,D\textrm{-\ensuremath{\rightsquigarrow}}
+\]
+
+\[
+\frac{\overline{M}\rightsquigarrow\overline{M'}}{d\overline{M}\rightsquigarrow d\overline{M'}}\,D\textrm{-\ensuremath{\rightsquigarrow}}
+\]
+
+
+\subsection*{Telescopes}
+
+\[
+\frac{\,}{\Gamma\vdash.:\overline{\star}}\,\textrm{C-Emp}
+\]
+
+\[
+\frac{\Gamma,x:\sigma\vdash\Delta:\overline{\star}\qquad\Gamma\vdash\sigma:\star}{\Gamma\vdash x:\sigma,\Delta\::\overline{\star}}\,\Delta\textrm{-Ty-+}
+\]
+
+\[
+\frac{\,}{\Gamma\vdash\lozenge:.}\,\Delta\textrm{-Trm-Emp}
+\]
+
+\[
+\frac{\Gamma\vdash\overline{M}:\Delta\left[x\coloneqq N\right]\qquad\Gamma\vdash N:\sigma}{\Gamma\vdash N,\overline{M}\,:\,x:\sigma,\Delta}\,\Delta\textrm{-Trm-+}
+\]
+
+
+\subsection*{parallel reductions}
+
+\[
+\frac{\lozenge}{\Gamma\vdash\lozenge\Rrightarrow\lozenge:.}
+\]
+
+\[
+\frac{\Gamma\vdash\overline{M}\Rrightarrow\overline{M'}:\Delta\left[x\coloneqq N\right]\qquad\Gamma\vdash N\Rrightarrow N':\sigma}{\Gamma\vdash N,\overline{M}\,\Rrightarrow N',\overline{M'}\,:\,x:\sigma,\Delta}\,\Delta\textrm{-Trm-+}
+\]
+
+.
+
+\[
+\frac{N\rightsquigarrow N'}{\overline{v},N,\overline{M}\rightsquigarrow\overline{v},N',\overline{M}}\,D\textrm{-\ensuremath{\rightsquigarrow}}
+\]
+
+\end{document}

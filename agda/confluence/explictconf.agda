@@ -133,9 +133,6 @@ confulent-~> : {n : ℕ} {a b b' : Syntax {n}}
 confulent-~> {_} {a} ab ab' = (par-max a) , (par-triangle ab) , par-triangle ab'
 
 {-
-
-
-
 data _val {n : ℕ} : PreSyntax {n} -> Set where
   -- ..
 -}

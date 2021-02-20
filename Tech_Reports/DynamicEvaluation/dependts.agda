@@ -15,11 +15,11 @@ open import Relation.Binary.PropositionalEquality hiding ([_])
 data PreSyntax {n : ℕ} : Set 
 data PreHeadSyntax {n : ℕ} : Set  where
   pVar : (i : Fin n) -> PreHeadSyntax
-  pTyU : PreHeadSyntax
-  pPi : PreSyntax {n} -> PreSyntax {suc n} -> PreHeadSyntax
   pFun :
     (bod : PreSyntax {suc (suc n)}) -> PreHeadSyntax
   pApp :  PreSyntax {n} -> PreSyntax {n} -> PreHeadSyntax
+--  pTyU : PreHeadSyntax
+--  pPi : PreSyntax {n} -> PreSyntax {suc n} -> PreHeadSyntax
 
 data PreSyntax {n}  where
   pCast : PreHeadSyntax {n} -> List (PreSyntax {n}) -> PreSyntax
@@ -35,26 +35,25 @@ extPreSyntax ρ (suc x) = suc (ρ x)
 
  
 postulate
-  substPreSyntax : ∀ {i j}
-    → (σ : (Fin i → PreSyntax {j} ))
-    → (PreSyntax {i}  → PreSyntax {j})
-   
   o : {n : ℕ} -> PreSyntax {n} -> PreSyntax {suc n}
 
   _[_] :{n : ℕ} -> PreSyntax {suc n} -> PreSyntax {n} -> PreSyntax {n}
-
-postulate
+  
   Ctx  : ℕ -> Set
   Emp : Ctx 0
   extCtx : {n : ℕ} -> Ctx n -> PreSyntax {n} -> Ctx (suc n)
   lookup : {n : ℕ} (Γ : Ctx n) -> (i : Fin n)  -> PreSyntax {n}
-
-  _[_:=_] :{n : ℕ} -> PreSyntax {suc n} -> (i : Fin n) -> PreSyntax {n} -> PreSyntax {n}
   
-  _~>peq_ : {n : ℕ} -> List (PreSyntax {n})  -> List (PreSyntax {n}) -> Set
-  allPi : {n : ℕ} -> List (PreSyntax {n}) -> List (PreSyntax {suc n}) -> Set
+--  allPi : {n : ℕ} -> List (PreSyntax {n}) -> List (PreSyntax {suc n}) -> Set
   
   _~:~_ : {n : ℕ} -> PreSyntax {n} -> List (PreSyntax {n}) -> PreSyntax {n}
+
+-- data  _~>peq_ : {n : ℕ} -> List (PreSyntax {n})  -> List (PreSyntax {n}) -> Set
+
+data  _~>peq_ {n : ℕ}: List (PreSyntax {n})  -> List (PreSyntax {n}) -> Set
+
+data allPi {n : ℕ} :  List (PreSyntax {n}) -> List (PreSyntax {suc n}) -> Set  where
+  singPi2 : {aTy : _} -> {bodTy : _} -> allPi (pPi2 aTy bodTy ∷  []) (bodTy  ∷  [])
   
 
 data _~>p_ {n : ℕ} : PreSyntax {n}  -> PreSyntax {n} -> Set  where
@@ -62,28 +61,21 @@ data _~>p_ {n : ℕ} : PreSyntax {n}  -> PreSyntax {n} -> Set  where
   par-red : {a a' : _} -> {bod bod' : _ } -> {casts casts' : List (PreSyntax {n})}  -> casts ~>peq casts'
     -> a ~>p a'
     -> bod ~>p bod'
-    -> (fcasts : _) (bodcasts : _) -> allPi fcasts bodcasts -- TODO will need fcasts' ?
+    -> (fcasts : _) (bodcasts bodcasts' : _) -> allPi fcasts bodcasts
+    -> bodcasts ~>peq bodcasts'
     ->  pCast (pApp (pCast (pFun bod) fcasts)  a) casts
-         ~>p ((( (bod' [ o (pCast (pFun bod') fcasts) ])  ~:~ bodcasts ) [ a' ]) ~:~ casts')
+         ~>p ((( (bod' [ o (pCast (pFun bod') fcasts) ])  ~:~ bodcasts' ) [ a' ]) ~:~ casts')
 
   -- structural
   par-Var : {i : Fin n} -> {casts casts' : List (PreSyntax {n})}  -> casts ~>peq casts'
     -> (pCast (pVar i) casts) ~>p (pCast (pVar i) casts')
 
-  par-TyU : {casts casts' : List (PreSyntax {n})} -> casts ~>peq casts'
-    -> (pCast pTyU casts) ~>p (pCast pTyU casts')
-    
   par-TyU2 : (pTyU2) ~>p pTyU2
 
   par-Pi2 : {aTy aTy' : _} -> {bodTy bodTy' : _}
     -> aTy ~>p aTy' 
     -> bodTy ~>p bodTy'
     -> (pPi2 aTy bodTy) ~>p pPi2 aTy' bodTy'
-
-  par-Pi : {aTy aTy' : _} -> {bodTy bodTy' : _} -> {casts casts' : List (PreSyntax {n})}  -> casts ~>peq casts'
-    -> aTy ~>p aTy' 
-    -> bodTy ~>p bodTy'
-    -> pCast  (pPi aTy bodTy) casts ~>p pCast (pPi aTy' bodTy') casts'
 
   par-Fun : 
     {bod bod' : _} -> {casts casts' : List (PreSyntax {n})}  -> casts ~>peq casts'
@@ -94,9 +86,35 @@ data _~>p_ {n : ℕ} : PreSyntax {n}  -> PreSyntax {n} -> Set  where
     -> f ~>p f'
     -> a ~>p a'
     -> pCast (pApp f a) casts ~>p pCast (pApp f' a') casts'
+{-
+  par-TyU : {casts casts' : List (PreSyntax {n})} -> casts ~>peq casts'
+    -> (pCast pTyU casts) ~>p (pCast pTyU casts')
+    
+  par-Pi : {aTy aTy' : _} -> {bodTy bodTy' : _} -> {casts casts' : List (PreSyntax {n})}  -> casts ~>peq casts'
+    -> aTy ~>p aTy' 
+    -> bodTy ~>p bodTy'
+    -> pCast  (pPi aTy bodTy) casts ~>p pCast (pPi aTy' bodTy') casts'
+-}
 
 
+data  _~>peq_ {n}  where
+  par-emp : [] ~>peq []
+  par-cons :  {a a' : _} {rest rest' : _} 
+    -> a ~>p a'
+    -> rest ~>peq rest'
+    -> (a ∷ rest) ~>peq (a' ∷ rest')
 
+par-eq-refll : {n : ℕ}  (a : List (PreSyntax {n})) -> a ~>peq a
+
+par-refll : {n : ℕ}  (a : PreSyntax {n}) -> a ~>p a
+par-refll (pCast (pVar i) eqs) = par-Var (par-eq-refll eqs)
+par-refll (pCast (pFun bod) eqs) = par-Fun (par-eq-refll eqs) (par-refll bod)
+par-refll (pCast (pApp x x₁) eqs) = par-App (par-eq-refll eqs) (par-refll x) (par-refll x₁)
+par-refll pTyU2 = par-TyU2
+par-refll (pPi2 a a₁) = par-Pi2 (par-refll a) (par-refll a₁)
+
+par-eq-refll [] = par-emp
+par-eq-refll (x ∷ a) = par-cons (par-refll x) (par-eq-refll a)
 
 postulate
   sub-par : {n : ℕ} {a a' : PreSyntax {suc n}} {b b' : PreSyntax {n}}
@@ -112,6 +130,8 @@ postulate
       -> a ~>p  a'  -> b ~>peq  b'
       -> (a ~:~ b) ~>p  (a' ~:~ b') 
 
+
+{-
   confulent-eqs-par :  {n : ℕ} {a b b' : List (PreSyntax {n})}
    -> a ~>peq b
    -> a ~>peq b'
@@ -132,22 +152,21 @@ postulate
     
   allPi?-max : {n : ℕ} -> List (PreSyntax {n})  -> Maybe (List (PreSyntax {suc n})) -- ⊎  List (PreSyntax {n})
 
-{-
   allPi?-triangle  :  {n : ℕ} {a b : List (PreSyntax {n}) }
    -> a ~>peq b
    -> b ~>peq (eqs-par-max a)
 -}
 
-par-refll : {n : ℕ}  (a : PreSyntax {n}) -> a ~>p a
-par-refll (pCast (pVar i) eqs) = par-Var eqs-par-refl 
-par-refll (pCast pTyU eqs) = par-TyU eqs-par-refl 
-par-refll (pCast (pPi x x₁) eqs) = par-Pi eqs-par-refl  (par-refll x) (par-refll x₁)
-par-refll (pCast (pFun bod) eqs) = par-Fun eqs-par-refl  (par-refll bod)
-par-refll (pCast (pApp x x₁) eqs) = par-App eqs-par-refl  (par-refll x) (par-refll x₁)
-par-refll pTyU2 = par-TyU2
-par-refll (pPi2 a a₁) = par-Pi2 (par-refll a) (par-refll a₁)
+par-eq-max : {n : ℕ} -> List (PreSyntax {n}) -> List (PreSyntax {n})
+par-max : {n : ℕ} -> PreSyntax {n} -> PreSyntax {n}
+par-max (pCast (pApp  f a) eqs) = {!!}
+par-max (pCast (pVar i) eqs) = {!!}
+par-max (pCast (pFun bod) eqs) = {!!}
+par-max pTyU2 = pTyU2
+par-max (pPi2 aTy bodTy) = pPi2 (par-max aTy) (par-max bodTy)
 
-par-max : {n : ℕ} -> PreSyntax {n} -> PreSyntax {n} 
+par-eq-max = {!!}
+{-
 par-max (pCast (pApp (pCast (pFun bod) feqs) a) eqs) with allPi?-max feqs
 par-max (pCast (pApp f@(pCast (pFun bod) feqs) a) eqs) | just bodeqs =   (((par-max bod [ o (par-max f) ]) ~:~ eqs-par-max bodeqs)  [ par-max a ]) ~:~ eqs-par-max eqs
 par-max (pCast (pApp f@(pCast (pFun bod) feqs) a) eqs) | nothing = pCast (pApp (par-max f) (par-max a)) (eqs-par-max eqs) 
@@ -202,7 +221,7 @@ confulent-~> : {n : ℕ} {a b b' : PreSyntax {n}}
    -> Σ _ \ v  -> b ~>p v  × b' ~>p v
 confulent-~> {_} {a} ab ab' = (par-max a) , (par-triangle ab) , par-triangle ab'
 
-
+-}
 {-
 
 data _val {n : ℕ} : PreSyntax {n} -> Set where

@@ -1,4 +1,4 @@
-module boolconf where
+module explictconf where
 
 open import Data.Nat
 open import Data.Fin
@@ -13,94 +13,86 @@ open import Relation.Binary.PropositionalEquality hiding ([_])
 
 
 data Syntax {n : ℕ} : Set  where
-  Var : (i : Fin n) -> Syntax
+  Var : {ty : Syntax {n}} -> (i : Fin n) -> Syntax
   Fun :
-    (bod : Syntax {suc (suc n)}) -> Syntax
-  App :  Syntax {n} -> Syntax {n} -> Syntax
-  BT BF :  Syntax
-  If :  Syntax {n} -> Syntax {n} -> Syntax {n} -> Syntax
+    {ty : Syntax {n}} -> (bod : Syntax {suc (suc n)}) -> Syntax
+  App :  {ty : Syntax {n}} -> Syntax {n} -> Syntax {n} -> Syntax
+
+  Pi : Syntax {n} -> (bod : Syntax {suc n}) -> Syntax -- TODO Ty here?
+  TyU :  Syntax
 
 
- 
 postulate
   o : {n : ℕ} -> Syntax {n} -> Syntax {suc n}
 
-  _[_] :{n : ℕ} -> Syntax {suc n} -> Syntax {n} -> Syntax {n}
+  _[_::_] :{n : ℕ} -> Syntax {suc n} -> Syntax {n} -> (ty : Syntax {n}) -> Syntax {n}
+    --  technically incorrect assumption becuase this needs type equality,  but as long as this is handwaved, minimize type annotations
 
+ 
 
 data _~>p_ {n : ℕ} : Syntax {n}  -> Syntax {n} -> Set  where
 
-  par-fun-red : {a a' : _} -> {bod bod' : _ } 
+  par-fun-red : {a a' aTy aTy' : _} -> {bodTy bodTy' : _} -> {bod bod' : _ } 
+    -> (par-aTy : aTy ~>p aTy')
+    -> bodTy ~>p bodTy'
+    -> a ~>p a'
     -> a ~>p a'
     -> bod ~>p bod'
-    -> App (Fun bod) a ~>p (bod' [ o (Fun bod') ] [ a' ])
-    
-  par-BT-red : {else then then' : _} 
-    -> then ~>p then'
-    -> If BT then else ~>p  then' 
-    
-  par-BF-red : {else else' then  : _} 
-    -> else ~>p else'
-    -> If BF then else ~>p else' 
+    -> App {_} {bodTy   [ a :: aTy ] } (Fun {_} {Pi aTy bodTy } bod) a ~>p (bod' [ o (Fun {_} {(Pi aTy' bodTy')} bod') :: o (Pi aTy' bodTy') ]  [ a :: aTy' ] )
     
   -- structural
-  par-Var : {i : Fin n}
-    -> Var i ~>p Var i
+  par-Var : {ty ty' : Syntax {n}}-> ty ~>p ty'
+    -> {i : Fin n}
+    -> Var {_} {ty}  i ~>p Var {_} {ty'}  i
     
-  par-Fun : 
-    {bod bod' : _}
+  par-Fun : {ty ty' : Syntax {n}}-> ty ~>p ty'
+    -> {bod bod' : _}
     -> bod ~>p bod'
-    -> Fun bod ~>p Fun  bod'
+    -> Fun  {_}  {ty}  bod ~>p Fun  {_}  {ty'}  bod'
 
-  par-App : {f f' a a' : _}
+  par-App : {f f' a a' : _} {ty ty' : Syntax {n}}-> ty ~>p ty'
     -> f ~>p f'
     -> a ~>p a'
-    -> App f a ~>p App f' a'
+    -> App  {_}  {ty}  f a ~>p App  {_}  {ty'} f' a'
 
-  par-BT : BT ~>p BT
-  par-BF : BF ~>p BF
-  
-  par-If : {cond cond' then then' else else' : _} 
-    -> cond ~>p cond'
-    -> then ~>p then'
-    -> else ~>p else'
-    -> If cond then else ~>p If cond' then' else'
+  par-Pi : {aTy aTy' : _} -> {bodTy bodTy' : _}
+    -> aTy ~>p aTy'
+    -> bodTy ~>p bodTy'
+    -> Pi aTy bodTy  ~>p  Pi aTy' bodTy'  
 
+  par-TyU :  TyU  ~>p  TyU
 
 postulate
-  sub-par : {n : ℕ} {a a' : Syntax {suc n}} {b b' : Syntax {n}}
+  sub-par : {n : ℕ} {a a' : Syntax {suc n}} {b b' bTy : Syntax {n}}
     -> a ~>p  a'
     -> b ~>p b'
-    -> (a [ b ] ) ~>p  (a' [ b' ])
+    -> (a [ b :: bTy ]  ) ~>p  (a' [ b' :: bTy ])
+    --  technically incorrect assumption becuase this needs type equality
     
   o-par : {n : ℕ} {a a' : Syntax { n}} 
       -> a ~>p  a'
       -> o a ~>p  o a'
 
-
-
 par-refll : {n : ℕ}  (a : Syntax {n}) -> a ~>p a
-par-refll {n} (Var i) = par-Var
-par-refll {n} (Fun x) = par-Fun (par-refll x)
-par-refll {n} (App x x₁) = par-App (par-refll x) (par-refll x₁)
-par-refll {n} BT = par-BT
-par-refll {n} BF = par-BF
-par-refll {n} (If x x₁ x₂) = par-If (par-refll x) (par-refll x₁) (par-refll x₂)
+par-refll (Var {ty}  i) = par-Var (par-refll ty)
+par-refll (Fun {ty} x) = par-Fun (par-refll ty) (par-refll x)
+par-refll (App {ty} x x₁) = par-App (par-refll ty) (par-refll x) (par-refll x₁)
+par-refll (Pi x x₁) = par-Pi (par-refll x) (par-refll x₁)
+par-refll TyU = par-TyU
 
 par-max : {n : ℕ} -> Syntax {n} -> Syntax {n}
-par-max (App (Fun bod) a) = (par-max bod) [ o (Fun (par-max bod)) ] [ par-max a ]
-par-max (If BT t _) = (par-max t)
-par-max (If BF _ e) = (par-max e) 
-par-max (Var i) = Var i
-par-max (Fun bod) = Fun (par-max bod)
-par-max BT = BT
-par-max BF = BF
-par-max (App f a) = App (par-max f) (par-max a)
-par-max (If c t e) = If (par-max c) (par-max t) (par-max e)
+par-max (App {_} (Fun {fty@(Pi aTy bodTy)} bod) a) = (par-max bod) [ o (Fun {_} {par-max fty} (par-max bod)) :: o (par-max fty) ]  [ par-max a :: par-max aTy ] 
+par-max (App {ty} f a) = App  {_}  {par-max ty} (par-max f) (par-max a)
+par-max (Var {ty} i) = (Var {_} {par-max ty} i)  -- wierd, patterns and values not symetric
+par-max (Fun {ty} bod) = Fun {_} {par-max ty} (par-max bod)
+par-max (Pi aTy bodTy) = Pi (par-max aTy) (par-max bodTy)
+par-max TyU = TyU
 
 par-triangle :  {n : ℕ} {a b : Syntax {n}}
    -> a ~>p b
    -> b ~>p (par-max a)
+par-triangle x = {!!}
+{-
 par-triangle (par-fun-red par-a par-bod) = sub-par (sub-par (par-triangle par-bod) (o-par (par-Fun (par-triangle par-bod)))) (par-triangle par-a)
 par-triangle (par-App (par-Fun par-bod) par-a) =  par-fun-red (par-triangle par-a) (par-triangle par-bod)
 par-triangle (par-BT-red x) = par-triangle x
@@ -144,6 +136,8 @@ par-triangle (par-If par-c@(par-App x x₁) par-t par-e) =
 par-triangle (par-If par-c@(par-If x x₁ x₂) par-t par-e) = 
   par-If (par-triangle par-c) (par-triangle par-t) (par-triangle par-e)
 
+-}
+
 
 confulent-~> : {n : ℕ} {a b b' : Syntax {n}}
    -> a ~>p b
@@ -153,9 +147,8 @@ confulent-~> {_} {a} ab ab' = (par-max a) , (par-triangle ab) , par-triangle ab'
 
 {-
 
+
+
 data _val {n : ℕ} : PreSyntax {n} -> Set where
-  vTyU2 : pTyU2 val
-  vPi2 : { aTy : PreSyntax } -> {bodTy : PreSyntax }
-     -> (pPi2 aTy bodTy) val
   -- ..
 -}

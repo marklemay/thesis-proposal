@@ -338,7 +338,6 @@ canonical-form-pi (Pi der der₁) vPi eq = ⊥-elim (tyu=/=pi eq) --!
 canonical-form-pi der (pFun {aTy} {bodTy} {bod}) eq = aTy , bodTy , (bod , refl)  -- ok
 
 
-
 progress : {m n : _} -> Emp |- m :: n -> m val ⊎ Σ PreSyntax \ m' -> m ~> m'
 progress (Conv x x₁) = progress x
 progress TyU = inj₁ vTyU

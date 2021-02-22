@@ -47,12 +47,13 @@ subst σ (Lam bod) = Lam (subst (exts σ) bod)
 rename-id : ∀ {x} → Fin x -> Fin x
 rename-id x = x
 
+{-
 rename-id-ok : ∀ {x} → (e : Exp x) ->  rename rename-id e ≡ e
 rename-id-ok {x} (Var x₁) = refl
 rename-id-ok {x} (App f a) with (rename-id-ok f , rename-id-ok a)
 rename-id-ok {x} (App f a) | fst , snd = {! !}
 rename-id-ok {x} (Lam bod) = {!!}
-
+-}
 -- rename-comp, rename-comp-ok
 
 subst-id : ∀ {x} →  Fin x -> Exp x

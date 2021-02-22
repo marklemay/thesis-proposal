@@ -46,7 +46,10 @@ postulate
 data  _~>peq_ {n : ℕ}: List (PreSyntax {n})  -> List (PreSyntax {n}) -> Set
 
 data allPi {n : ℕ} :  List (PreSyntax {n}) -> List (PreSyntax {suc n}) -> Set  where
-  singPi2 : {aTy : _} -> {bodTy : _} -> allPi (pPi2 aTy bodTy ∷  []) (bodTy  ∷  [])
+  all-is-emp : allPi [] []
+  pi2-cons : {aTy : _} -> {bodTy : _} ->
+    {input  : _} -> {out : _} ->
+    allPi input out -> allPi (pPi2 aTy bodTy ∷ input) (bodTy  ∷  out)
   
 
 data _~>p_ {n : ℕ} : PreSyntax {n}  -> PreSyntax {n} -> Set  where
@@ -148,33 +151,24 @@ par-max (pPi2 aTy bodTy) = pPi2 (par-max aTy) (par-max bodTy)
 par-eq-max [] = []
 par-eq-max (a ∷ rest) = (par-max a)  ∷ par-eq-max rest
 
-par-red-max' :  {n : ℕ} -> List (PreSyntax {n}) -> Maybe (Σ (List (PreSyntax {suc n})) λ x → {!!})
-par-red-max' = {!!}
-
-par-red-max ((pPi2 aTy bodTy)  ∷ []) = just ((par-max bodTy) ∷ []) -- TODO: insert arg cast
+par-red-max [] = just [] -- TODO: insert arg cast
+par-red-max ((pPi2 aTy bodTy) ∷ rest) with par-red-max rest
+par-red-max (pPi2 aTy bodTy ∷ rest) | just rest' = just ((par-max bodTy) ∷ rest') -- TODO: insert arg cast
+par-red-max (pPi2 aTy bodTy ∷ rest) | nothing = nothing
 par-red-max _ = nothing
 
-par-red-max-ok :  {n : ℕ}  {fcast : _}  {bodcast : _} -> allPi {n} fcast bodcast -> par-red-max fcast ≡ just (par-eq-max bodcast)
-par-red-max-ok = {!!}
+par-red-max-ok :  {n : ℕ}  {fcast : _}  {bodcast : _} -> allPi {n} fcast bodcast -> par-red-max fcast ≡ just (par-eq-max bodcast) -- fragile
+par-red-max-ok all-is-emp = refl
+par-red-max-ok (pi2-cons x) rewrite par-red-max-ok x = refl
 
-
-
-
-
-par-red-triangle' :  {n : ℕ}  (fcast : _)
-  -> (par-red-max fcast ≡ nothing)
-  ⊎ Σ _ λ bodcast → (par-red-max fcast ≡ just (par-eq-max bodcast)) × allPi {n} fcast bodcast × ({fcast' : _} -> fcast ~>peq fcast' ->  Σ _ λ bodcast' → allPi {n} fcast' bodcast' × bodcast ~>peq bodcast'  ) -- better as 2 lemmas?
-par-red-triangle' = {!!}
-{-
-par-red-max-ok2 :  {n : ℕ}  (fcast : _) (bodcast : _)  -> par-red-max fcast ≡ just bodcast -> allPi {n} fcast bodcast
-par-red-max-ok2 = {!!}
--}
-
-
-par-red-triangle :  {n : ℕ}  (fcast : _)
-  -> (par-red-max fcast ≡ nothing)
-  ⊎ Σ _ λ bodcast → (par-red-max fcast ≡ just (par-eq-max bodcast)) × allPi {n} fcast bodcast × ({fcast' : _} -> fcast ~>peq fcast' ->  Σ _ λ bodcast' → allPi {n} fcast' bodcast' × (bodcast' ~>peq par-eq-max bodcast) ) -- better as 2 lemmas?
-par-red-triangle = {!!}
+allPi? :  {n : ℕ}  (fcast : _) ->
+  ( Σ _ λ bodcast → allPi {n} fcast bodcast) -- TODO also unique
+  ⊎ ¬ ( (bodcast : _) -> allPi {n} fcast bodcast) 
+allPi? [] = inj₁ ([] , all-is-emp)
+allPi? ((pPi2 aTy bodTy) ∷ fcast) with allPi? fcast
+allPi? (pPi2 aTy bodTy ∷ fcast) | inj₁ (fst , snd) = inj₁ (bodTy ∷ fst , pi2-cons snd) 
+allPi? (pPi2 aTy bodTy ∷ fcast) | inj₂ y = inj₂ {!!} -- ok
+allPi? (_  ∷ fcast)  = inj₂ {!!} -- ok
 
 
 par-eq-triangle :  {n : ℕ} {a b : List (PreSyntax {n})}
@@ -184,6 +178,40 @@ par-eq-triangle :  {n : ℕ} {a b : List (PreSyntax {n})}
 par-triangle :  {n : ℕ} {a b : PreSyntax {n}}
    -> a ~>p b
    -> b ~>p (par-max a)
+
+{-# NON_TERMINATING #-}
+par-red-triangle :  {n : ℕ}  (fcast : _)
+  -> (par-red-max fcast ≡ nothing)
+  ⊎ Σ _ λ bodcast → (par-red-max fcast ≡ just (par-eq-max bodcast)) × allPi {n} fcast bodcast × ({fcast' : _} -> fcast ~>peq fcast' ->  Σ _ λ bodcast' → allPi {n} fcast' bodcast' × (bodcast' ~>peq par-eq-max bodcast) ) -- better as 2 lemmas? would make temination checking more possible
+par-red-triangle [] = inj₂ ([] , (refl , (all-is-emp ,  xx)))
+  where
+    xx :  {fcast' : _} -> [] ~>peq fcast' -> Σ (List PreSyntax) (λ z → Σ (allPi fcast' z) (λ _ → z ~>peq []))
+    xx par-emp = [] , all-is-emp , par-emp 
+par-red-triangle ((pPi2 aTy bodTy) ∷ fcast) with par-red-triangle fcast
+par-red-triangle (pPi2 aTy bodTy ∷ fcast) | inj₂ (bodcast , eq , allPi-fcast-bodcast , max) rewrite eq  = inj₂ ((bodTy  ∷  bodcast) , (refl , (pi2-cons allPi-fcast-bodcast) , xx))
+  where
+ --   xx :  {fcast' : {!!}} -> {!!} ~>peq {!!} -> {!!}
+    xx : {fcast' : _} → (pPi2 aTy bodTy ∷ fcast) ~>peq fcast' → Σ (_) (λ bodcast' → (allPi fcast' bodcast')  ×  (bodcast' ~>peq (par-max bodTy ∷ par-eq-max bodcast)))
+    xx (par-cons top rest) with max rest
+    xx (par-cons (par-Pi2 par-aty par-bodty) rest) | bodcast' , allPi-rest'-bodcast' , to-max = (_ ∷ bodcast') , ((pi2-cons allPi-rest'-bodcast') , par-cons (par-triangle par-bodty)  to-max) -- ? , (? , ?) , ( {!!} , {!!}) -- pi2-cons {?} {?} {?} ?
+
+par-red-triangle (pPi2 aTy bodTy ∷ fcast) | inj₁ x = inj₁ {!!} -- ok
+
+par-red-triangle (_ ∷ fcast) = inj₁ {!!} -- ok
+{-
+par-red-triangle fcast with par-red-max fcast
+par-red-triangle fcast | nothing = inj₁ refl
+par-red-triangle fcast | just x with allPi? fcast
+par-red-triangle fcast | just x | inj₂ y = {!!} -- bot
+par-red-triangle fcast | just x | inj₁ bodcast with = inj₂ {!!}
+-}
+
+
+
+
+
+
+
 -- par-triangle (par-red par-casts par-arg par-bod fcasts bodcasts all-pi) with allPi?-max fcasts
 -- fcasts bodcasts bodcasts'
 par-triangle (par-red par-casts par-arg par-bod {fcasts} par-fcasts all-pi par-bodcasts) rewrite par-red-max-ok all-pi

@@ -216,32 +216,22 @@ These issues are not superficial, but are tied to some of the conventional
  Logical soundness is essential when dependent types are considered as a
  mathematical foundation, but may be too restrictive in a programming language.
  Conservative equality is easy to hand-wave away informally, but it makes
- many programs difficult to type check.
+ many reasonable programs not type check.
  Users often experience these language properties as inexplicable static
- errors, and cannot debug their programs using conventional dynamic debugging.
+ errors, and cannot debug their programs using conventional dynamic techniques.
  In practice exploratory programming is difficult in these systems.
 \end_layout
 
 \begin_layout Abstract
 A possible solution is to design a dependently typed language with programmatic
  features that supports type sound, but logically unsound execution.
+ This language can then be generalized into a dynamic language with more
+ permissive type checking.
  Programmers can trade poor static errors for precise counterexamples that
  are made available at runtime.
- Progress towards that solution has been made by developing a language with
- dependent types and programming oriented features, characterizing some
- correctness criteria for blame tracking, and implementing a subset of that
- language that matches those criteria.
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-% awk
-\end_layout
-
-\end_inset
-
-
+ Progress has been made by formalizing the intended relationship between
+ the 2 languages, implementing prototypes of those languages, and proving
+ some properties hold over the formal language.
 \end_layout
 
 \begin_layout Standard
@@ -294,7 +284,7 @@ by providing an appropriate term of that type.
 \begin_inset Formula $IsSorted$
 \end_inset
 
- is no different then any other datatype like 
+ is no different then any other term of a datatype like 
 \family roman
 \series medium
 \shape up
@@ -341,7 +331,7 @@ es in the design space.
 \begin_inset Quotes eld
 \end_inset
 
-Full-spectrum
+full-spectrum
 \begin_inset Quotes erd
 \end_inset
 
@@ -352,7 +342,7 @@ n can appear anywhere in a term or type.
  exact same syntax and behavior as a program.
  Even though this style makes writing efficient programs hard, and drastically
  complicates the ability to encode effects, it can be seen in some of the
- most popular dependently typed languages such as Agda and Idris.
+ most popular dependently typed programming languages such as Agda and Idris.
 \end_layout
 
 \begin_layout Standard
@@ -396,7 +386,7 @@ x + 1 != suc x of type
 .
  The error is confusing since it objects to an intended property of addition,
  and if addition were buggy no hints are given to fix the problem.
- While an expert in Type Theory can appreciate the subtleties of definitional
+ While an expert in type theory can appreciate the subtleties of definitional
  equality, programmers would prefer an error message that gives a specific
  instance of 
 \begin_inset Formula $x$
@@ -460,8 +450,8 @@ literal "false"
 
 .
  This leads to a different workflow then traditional type systems, instead
- of verifying everything first and only then executing the program, execution
- and type checking can both inform the programmer.
+ of type checking first and only then executing the program, execution and
+ type checking can both inform the programmer.
 \begin_inset ERT
 status open
 
@@ -487,8 +477,9 @@ this
 Several steps have been taken to make this new workflow possible.
  Section 2 will describe a conventional dependently typed base language
  with some programmatic features.
- Section 3 describes dynamic dependent equality and the conditions that
- would make an implementation reasonable.
+ Section 3 describes a dynamic extension to that language that supports
+ dependent equality and the conditions that would make an implementation
+ reasonable.
  Section 4 covers some of the other features a language in this style could
  support.
  
@@ -643,9 +634,9 @@ Logical soundness seems not to matter in programming practice.
 
 .
  While unproductive non-termination is always a bug, it seems an easy bug
- to detect and fix.
- In mainstream languages, types help to communicate intent, beyond what
- is strictly guaranteed by the type system.
+ to detect and fix when it occurs.
+ In mainstream languages, types help to communicate the intent of termination,
+ even though termination is not guaranteed by the type system.
 \end_layout
 
 \begin_layout Standard
@@ -862,8 +853,8 @@ literal "false"
 
 \end_inset
 
- was an early Haskell like language that combined dependent types with and
- data and non-termination.
+ is a Haskell like language that combined dependent types with and data
+ and non-termination.
  Agda supports general recursion and Type-in-Type with compiler flags, and
  can simulate some non-positive data types using coinduction.
  Idris supports similar 
@@ -905,7 +896,7 @@ A key issue with dependent type theories is the characterization of definitional
  equality.
  Since computation can appear at the type level, and types must be checked
  for equality, dependent type theories must define what computational equalities
- they intend to equate.
+ they intend to equate for type checking.
  For instance, the base language follows the common choice of 
 \begin_inset Formula $\alpha\beta$
 \end_inset
@@ -922,7 +913,7 @@ A key issue with dependent type theories is the characterization of definitional
 \begin_inset Formula $1+x$
 \end_inset
 
- does not have the same definition as 
+ does not have the same normalized syntax as 
 \begin_inset Formula $x+1$
 \end_inset
 
@@ -939,7 +930,7 @@ status open
 
 \begin_layout Plain Layout
 I am also unaware of any suitable notion of complete extensional equality
- for dependent type theory though it is considered in 
+ for dependent type theory though it is considered briefly in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sjoberg2015dependently"
@@ -1003,14 +994,14 @@ or
 
 \end_deeper
 \begin_layout Standard
-Type soundness is preserved, or inequality can be proven at a specific source
+Type soundness holds, or av inequality can be witnessed at a specific source
  location.
  In the example above 
 \begin_inset Formula $\lambda x.\mathtt{head}\,x\,\left(\mathtt{rep}\,\left(x+1\right)\right)\,:\,\mathbb{N}\rightarrow\mathbb{B}$
 \end_inset
 
- will not emit any errors at compile time or runtime (though a static warning
- may be given).
+ will not emit any type checking errors or runtime errors (though a static
+ warning may be given).
  
 \end_layout
 
@@ -1094,6 +1085,33 @@ gradual guarantee
 
  of gradual typing, there are several basic properties in addition to weakened
  type soundness that this cast language hopes to fulfill:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% settle on 
+\begin_inset Quotes eld
+\end_inset
+
+cast language
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+dynamic language
+\begin_inset Quotes erd
+\end_inset
+
+?
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -1231,7 +1249,7 @@ literal "false"
 .
  Blame tracking can help establish the reasonableness of monitoring systems
  by linking a dynamic failure directly to the broken static invariant.
- Blame is also a key ingredient of good error messages.
+ Blame is also a key ingredient of clear runtime error messages.
  However, as many authors have noticed, proving blame correctness is tedious
  and error prone, it is often only conjectured.
 \end_layout
@@ -1341,7 +1359,7 @@ Further Features
 \end_layout
 
 \begin_layout Standard
-Dynamic equality appears to be a prerequisite to other interesting possibilities.
+Dynamic equality appears to be a prerequisite for other useful features.
 \end_layout
 
 \begin_layout Subsection
@@ -1369,11 +1387,11 @@ obvious
  For instance, in Agda it is possible to write a sorting function quickly
  using simple types.
  With effort is it possible to prove that sorting procedure correct by rewriting
- it with the necessarily invariants.
+ it with the necessarily dependently typed invariants.
  However, very little is offered in between.
  The problem is magnified if module boundaries hide the implementation details
- of a function, since the details are exactly what is needed to make a proof!
- This is especially important for larger scale software where a library
+ of a function, since those details are exactly what is needed to make a
+ proof! This is especially important for larger scale software where a library
  may require proof terms that while 
 \begin_inset Quotes eld
 \end_inset
@@ -1386,8 +1404,8 @@ correct
 \end_layout
 
 \begin_layout Standard
-The solution proposed here is some additional syntax that will search for
- a term of the type when resolved at runtime.
+The solution proposed here is additional syntax that will search for a term
+ of the type when resolved at runtime.
  Given the sorting function 
 \end_layout
 
@@ -1442,7 +1460,7 @@ This term will act like any other function at runtime, given a list input
 \begin_inset Formula $\mathtt{sort}$
 \end_inset
 
- function correctly handles that input, gives an error, or non-terminates.
+ function correctly handles that input, gives an error, or non-terminate.
 \end_layout
 
 \begin_layout Standard
@@ -1501,8 +1519,8 @@ depends on the definitional properties of functions.
 \end_layout
 
 \begin_layout Standard
-Though the proof search is currently primitive, better search methods could
- be incorporated in future work.
+A primitive proof search was implemented in an earlier prototype, better
+ search methods could be incorporated in future work.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1542,8 +1560,8 @@ Both dynamic equalities and dynamic proof search vastly weaken the guarantees
 \end_layout
 
 \begin_layout Standard
-The mainstream software industry has similar needs for evidence of correctness,
- and has made use of testing done in a separate execution phase.
+The mainstream software industry has a similar need for evidence of correctness,
+ and has standardized on testing done in a separate execution phase.
  Given the rich specifications that dependent types provide it is possible
  to improve on the hand crafted tests used by most of the industry.
  Instead we can use a type directed symbolic execution, to run questionable
@@ -1560,6 +1578,8 @@ nt in the common case of repeating tests at regular intervals of code that
 Interestingly dynamic equality is necessary for testing like this, since
  otherwise, definitional properties of functions would need to be accounted
  for.
+ Previous attempts to test dependent specifications were overwhelmed by
+ definitional considerations.
  Using dynamic equality it is possible only consider the extensional behavior
  of functions.
 \end_layout
@@ -1580,7 +1600,7 @@ Symbolic Execution
 \end_layout
 
 \begin_layout Standard
-Most research for Symbolic Execution targets popular imparative languages
+Most research for Symbolic Execution targets popular imperative languages
  (like C) and uses SMT solvers to efficiently explore conditional branches
  that depend on base types.
  Most work does not support higher order functions or makes simplifying

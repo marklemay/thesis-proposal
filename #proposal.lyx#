@@ -1359,7 +1359,7 @@ Further Features
 \end_layout
 
 \begin_layout Standard
-Dynamic equality appears to be a prerequisite for other useful features.
+Dynamic equality appears to be a prerequisite to other interesting possibilities.
 \end_layout
 
 \begin_layout Subsection
@@ -1387,11 +1387,11 @@ obvious
  For instance, in Agda it is possible to write a sorting function quickly
  using simple types.
  With effort is it possible to prove that sorting procedure correct by rewriting
- it with the necessarily dependently typed invariants.
+ it with the necessarily invariants.
  However, very little is offered in between.
  The problem is magnified if module boundaries hide the implementation details
- of a function, since those details are exactly what is needed to make a
- proof! This is especially important for larger scale software where a library
+ of a function, since the details are exactly what is needed to make a proof!
+ This is especially important for larger scale software where a library
  may require proof terms that while 
 \begin_inset Quotes eld
 \end_inset
@@ -1404,8 +1404,8 @@ correct
 \end_layout
 
 \begin_layout Standard
-The solution proposed here is additional syntax that will search for a term
- of the type when resolved at runtime.
+The solution proposed here is some additional syntax that will search for
+ a term of the type when resolved at runtime.
  Given the sorting function 
 \end_layout
 
@@ -1460,7 +1460,7 @@ This term will act like any other function at runtime, given a list input
 \begin_inset Formula $\mathtt{sort}$
 \end_inset
 
- function correctly handles that input, gives an error, or non-terminate.
+ function correctly handles that input, gives an error, or non-terminates.
 \end_layout
 
 \begin_layout Standard
@@ -1519,8 +1519,8 @@ depends on the definitional properties of functions.
 \end_layout
 
 \begin_layout Standard
-A primitive proof search was implemented in an earlier prototype, better
- search methods could be incorporated in future work.
+Though the proof search is currently primitive, better search methods could
+ be incorporated in future work.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1560,7 +1560,7 @@ Both dynamic equalities and dynamic proof search vastly weaken the guarantees
 \end_layout
 
 \begin_layout Standard
-The mainstream software industry has a similar need for evidence of correctness,
+The mainstream software industry has similar needs for evidence of correctness,
  and has made use of testing done in a separate execution phase.
  Given the rich specifications that dependent types provide it is possible
  to improve on the hand crafted tests used by most of the industry.

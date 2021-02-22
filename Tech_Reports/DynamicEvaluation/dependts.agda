@@ -157,8 +157,14 @@ par-red-max _ = nothing
 par-red-max-ok :  {n : ℕ}  {fcast : _}  {bodcast : _} -> allPi {n} fcast bodcast -> par-red-max fcast ≡ just (par-eq-max bodcast)
 par-red-max-ok = {!!}
 
+par-red-triangle :  {n : ℕ}  (fcast : _)
+  -> (par-red-max fcast ≡ nothing)
+  ⊎ Σ _ λ bodcast → (par-red-max fcast ≡ just (par-eq-max bodcast)) × allPi {n} fcast bodcast × ({fcast' : _} -> fcast ~>peq fcast' ->  Σ _ λ bodcast' → allPi {n} fcast' bodcast' × bodcast ~>peq bodcast'  ) -- better as 2 lemmas?
+par-red-triangle = {!!}
+{-
 par-red-max-ok2 :  {n : ℕ}  (fcast : _) (bodcast : _)  -> par-red-max fcast ≡ just bodcast -> allPi {n} fcast bodcast
 par-red-max-ok2 = {!!}
+-}
 
 par-eq-triangle :  {n : ℕ} {a b : List (PreSyntax {n})}
    -> a ~>peq b
@@ -178,16 +184,22 @@ par-triangle (par-red par-casts par-arg par-bod {fcasts} par-fcasts all-pi par-b
     (par-triangle par-arg))
     (par-eq-triangle par-casts)
 
-par-triangle (par-App par-casts (par-Fun {_} {_} {fcasts} par-bod par-fcasts) par-a) with par-red-max fcasts
+par-triangle (par-App par-casts (par-Fun {_} {_} {fcasts} par-fcasts par-bod) par-a) with par-red-triangle fcasts
+par-triangle (par-App par-casts (par-Fun {_} {_} {fcasts} {fcasts'} par-fcasts par-bod) par-a) | inj₂ (bodcast , eq , fst , snd) rewrite eq with snd par-fcasts
+... | max-f , allPi-f , par-bodcast   = par-red (par-eq-triangle par-casts) (par-triangle par-a) (par-triangle par-bod) (par-eq-triangle par-fcasts) allPi-f (par-eq-triangle par-bodcast)
+par-triangle (par-App par-casts (par-Fun {_} {_} {fcasts} par-fcasts par-bod) par-a) | inj₁ x rewrite x
+  = par-App {!!} {!!} {!!}
+{-
+with par-red-max fcasts
 ... | nothing = par-App {!!} {!!} {!!}
 par-triangle (par-App par-casts (par-Fun {_} {_} {fcasts} {fcasts'} par-fcasts par-bod) par-a) | just par-max-fcasts 
-  =  par-red (par-eq-triangle par-casts) (par-triangle par-a) (par-triangle par-bod) (par-eq-triangle par-fcasts) (allPi-par par-fcasts (?) (par-red-max-ok2 fcasts par-max-fcasts obv)) {!!}
+  =  par-red (par-eq-triangle par-casts) (par-triangle par-a) (par-triangle par-bod) (par-eq-triangle par-fcasts) (allPi-par par-fcasts ({!!}) (par-red-max-ok2 fcasts par-max-fcasts obv)) {!!}
     where
       obv : par-red-max fcasts ≡ just par-max-fcasts 
       obv  = {!!}
       obv2 : par-max-fcasts ≡ par-eq-max {!!}
       obv2  = {!!}
-
+-}
 -- par-f
 par-triangle (par-App par-casts (par-red x x₁ x₂ x₃ x₄ x₅) par-a) = {!!}
 par-triangle (par-App par-casts (par-Var x) par-a) = {!!}
@@ -195,8 +207,8 @@ par-triangle (par-App par-casts par-TyU2 par-a) = {!!}
 par-triangle (par-App par-casts (par-Pi2 x x₁) par-a) = {!!}
 par-triangle (par-App par-casts (par-App x x₁ x₂) par-a) = {!!} 
 par-triangle (par-Var x) = {!!}
-par-triangle par-TyU2 = {!!}
-par-triangle (par-Pi2 x x₁) = {!!}
+par-triangle par-TyU2 = par-TyU2
+par-triangle (par-Pi2 x x₁) = par-Pi2 (par-triangle x) (par-triangle x₁)
 par-triangle (par-Fun x x₁) = {!!}
 
 par-eq-triangle = {!!}

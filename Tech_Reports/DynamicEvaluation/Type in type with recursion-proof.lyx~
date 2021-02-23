@@ -101,7 +101,688 @@ Preservation
 \end_layout
 
 \begin_layout Subsection
-Canonical forms?
+Computation
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\sim$
+\end_inset
+
+Equivalence
+\end_layout
+
+\begin_layout Standard
+The following rules are admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a:A}{H\vdash a\sim a'}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\sim a'}{H\vdash a'\sim a}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\sim a'\quad H\vdash a'\sim a''}{H\vdash a'\sim a''}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+each by induction
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\sim$
+\end_inset
+
+ preserves type
+\end_layout
+
+\begin_layout Standard
+The following rules are admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a:A\quad a\sim a'}{H\vdash a':A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\equiv$
+\end_inset
+
+ is symmetric
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\equiv a':A}{H\vdash a'\equiv a:A}\,\textrm{\ensuremath{\equiv}-sym}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by 
+\begin_inset Formula $\sim$
+\end_inset
+
+Equivalence
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\equiv$
+\end_inset
+
+ is transitive
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\equiv b:A\qquad H\vdash b\equiv c:A}{H\vdash a\equiv c:A}\,\textrm{\ensuremath{\equiv}-trans}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by the confluence of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+and
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $\sim com$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\equiv$
+\end_inset
+
+ preserves type
+\end_layout
+
+\begin_layout Standard
+The following rules are admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\equiv\,a':A}{H\vdash a:A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\equiv\,a':A}{H\vdash a':A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by the def of 
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+ and preservation of 
+\begin_inset Formula $\sim$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\rightsquigarrow$
+\end_inset
+
+ preserves type
+\end_layout
+
+\begin_layout Standard
+For any derivations of
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $H\vdash a:A$
+\end_inset
+
+, 
+\begin_inset Formula $a\rightsquigarrow a'$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+H\vdash a':A
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+since 
+\begin_inset Formula $\rightsquigarrow$
+\end_inset
+
+ implies 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ preserves types
+\end_layout
+
+\begin_layout Subsection
+Type constructors
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $H\vdash\ast\Rrightarrow A:B$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $A$
+\end_inset
+
+ is 
+\begin_inset Formula $\ast$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $H\vdash\ast::e\Rrightarrow A_{h}::e':B$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $A_{h}$
+\end_inset
+
+ is 
+\begin_inset Formula $\ast$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $H\vdash\ast\Rrightarrow_{\ast}A:B$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $A_{h}$
+\end_inset
+
+ is 
+\begin_inset Formula $\ast$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $H\vdash\ast::e\Rrightarrow_{\ast}A_{h}::e':B$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $A_{h}$
+\end_inset
+
+ is 
+\begin_inset Formula $\ast$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $H\vdash\Pi x:A.B\Rrightarrow C:D$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $C$
+\end_inset
+
+ is 
+\begin_inset Formula $\Pi x:A'.B'$
+\end_inset
+
+ for some 
+\begin_inset Formula $A',B'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $H\vdash\Pi x:A.B::e\Rrightarrow C_{h}::e':D$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $C_{h}$
+\end_inset
+
+ is 
+\begin_inset Formula $\Pi x:A'.B'$
+\end_inset
+
+ for some 
+\begin_inset Formula $A',B'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $H\vdash\Pi x:A.B\Rrightarrow_{\ast}C:D$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $C$
+\end_inset
+
+ is 
+\begin_inset Formula $\Pi x:A'.B'$
+\end_inset
+
+ for some 
+\begin_inset Formula $A',B'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $H\vdash\Pi x:A.B::e\Rrightarrow_{\ast}C_{h}::e':D$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $C_{h}$
+\end_inset
+
+ is 
+\begin_inset Formula $\Pi x:A'.B'$
+\end_inset
+
+ for some 
+\begin_inset Formula $A',B'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction on the respective relations
+\end_layout
+
+\begin_layout Subsubsection
+Type constructors definitionaly unique
+\end_layout
+
+\begin_layout Standard
+There are no derivations of
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $H\vdash\ast\sim\Pi x:A.B\,:C$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $H\vdash\ast::e\sim\Pi x:A.B\,:C$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $H\vdash\ast\sim\Pi x:A.B::e\,:C$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $H\vdash\ast::e\sim\Pi x:A.B::e'\,:C$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $H\vdash\ast\equiv\Pi x:A.B\,:C$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $H\vdash\ast::e\equiv\Pi x:A.B\,:C$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $H\vdash\ast\equiv\Pi x:A.B::e\,:C$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $H\vdash\ast::e\equiv\Pi x:A.B::e'\,:C$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+for any 
+\begin_inset Formula $H,A,B,C,e,e'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+from constructor stability
+\end_layout
+
+\begin_layout Subsection
+Canonical forms
+\end_layout
+
+\begin_layout Standard
+if 
+\begin_inset Formula $\lozenge\vdash v_{h}\,:\Pi x:A.B$
+\end_inset
+
+, then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $v_{h}$
+\end_inset
+
+ is 
+\begin_inset Formula $\mathsf{fun}\,f.\,x.b$
+\end_inset
+
+, since it is the only applicable rule
 \end_layout
 
 \begin_layout Subsection
@@ -133,11 +814,19 @@ To minimize bookkeeping, when
 \begin_inset Formula $\star::v_{eq}$
 \end_inset
 
- can be simplified to 
+ can be said to simplify to 
 \begin_inset Formula $\star$
 \end_inset
 
- or there is a source of blame
+ if each 
+\begin_inset Formula $v_{eq}$
+\end_inset
+
+ simplifies to 
+\begin_inset Formula $\star$
+\end_inset
+
+ (if it does not simplify there is a source of blame)
 \end_layout
 
 \begin_layout Itemize
@@ -157,15 +846,19 @@ To minimize bookkeeping, when
 \begin_inset Formula $\Pi x:A.B::v_{eq}$
 \end_inset
 
- can be simplified to 
+ can be said to simplify to 
 \begin_inset Formula $\Pi x:A.B$
 \end_inset
 
- or there is a source of blame
-\end_layout
+ if each 
+\begin_inset Formula $v_{eq}$
+\end_inset
 
-\begin_layout Standard
-...
+ simplifies to 
+\begin_inset Formula $\star$
+\end_inset
+
+ (if it does not simplify there is a source of blame)
 \end_layout
 
 \begin_layout Subsection
@@ -794,7 +1487,33 @@ if
 \begin_inset Formula $\Pi x:A_{\uparrow}.B_{\uparrow}$
 \end_inset
 
- or blame can be produced) (by stability) 
+ or blame can be produced) (by 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+stability
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+) 
 \end_layout
 
 \begin_deeper
@@ -813,7 +1532,7 @@ if
 \noun off
 \color none
 
-\begin_inset Formula $v_{eq}\,Elim_{\Pi}$
+\begin_inset Formula $v_{eq}\,Elim_{\Pi}\,x:e_{A}.e_{B}$
 \end_inset
 
  then 
@@ -834,7 +1553,7 @@ if
 
  or blame can be produced) by 
 \family default
-\series default
+\series bold
 \shape default
 \size default
 \emph default
@@ -845,108 +1564,9 @@ if
 \uwave default
 \noun default
 \color inherit
-Canonical forms 
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-bad reasoning 2
-\end_layout
-
-\begin_layout Itemize
-if 
-\begin_inset Formula $b$
-\end_inset
-
- is 
-\begin_inset Formula $\star::v_{eq}$
-\end_inset
-
- then 
-\begin_inset Formula $v_{eq}\downarrow$
-\end_inset
-
-is 
-\begin_inset Formula $\star$
-\end_inset
-
- and there must exist 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\left[\star=_{l,o}\Pi x:A''.B''\right]\in v_{eq}$
-\end_inset
-
- so 
-\begin_inset Formula $l,o$
-\end_inset
-
- can be blamed 
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Similarly if 
-\begin_inset Formula $b$
-\end_inset
-
- is 
-\begin_inset Formula $\Pi x:-.-::v_{eq}$
-\end_inset
-
+Canonical forms
+\series default
  
-\end_layout
-
-\begin_layout Itemize
-if 
-\begin_inset Formula $b$
-\end_inset
-
- is 
-\begin_inset Formula $\Pi x:-.-::v_{eq}$
-\end_inset
-
- 
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-bad reasoning
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-If all 
-\begin_inset Formula $A\in v_{eq}$
-\end_inset
-
- are in the form 
-\begin_inset Formula $\Pi x:A.B$
-\end_inset
-
- then 
-\begin_inset Formula $v_{eq}\,Elim_{\Pi}$
-\end_inset
-
- and 
-\begin_inset Formula $v_{eq}\downarrow$
-\end_inset
-
- is 
-\begin_inset Formula $\Pi x:A.B$
-\end_inset
-
- so 
 \begin_inset Formula $b_{h}$
 \end_inset
 
@@ -968,56 +1588,18 @@ If all
 \noun off
 \color none
 
-\begin_inset Formula $\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b::e_{B}\right)\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq},x\coloneqq v\right]::v_{eq}'$
+\begin_inset Formula $\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right),x\coloneqq v::e_{A}\right]::e_{B}'\left[x\coloneqq v\right]\right)$
 \end_inset
 
- 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-(by canonical head forms?)
+ (implicitly uses that 
+\begin_inset Formula $Elim_{\Pi}$
+\end_inset
+
+is deterministic in its first argument)
 \end_layout
 
 \begin_layout Itemize
-otherwise, 
-\begin_inset Formula $b$
-\end_inset
-
- is one of the only other possible values, 
-\begin_inset Formula $\Pi x:A.B$
-\end_inset
-
- or 
-\begin_inset Formula $\star$
-\end_inset
-
- .
- so 
-\begin_inset Formula $v_{eq}\downarrow$
-\end_inset
-
-is 
-\begin_inset Formula $\star$
-\end_inset
-
-, but 
-\begin_inset Formula $v_{eq}\uparrow$
-\end_inset
-
- is 
-\begin_inset Formula $\Pi x:A.B$
-\end_inset
-
- but there is some 
+if 
 \family roman
 \series medium
 \shape up
@@ -1031,14 +1613,56 @@ is
 \noun off
 \color none
 
-\begin_inset Formula $\left[\star=_{l,o}\Pi x:A.B\right]\in v_{eq}$
+\begin_inset Formula $v_{eq}\,\bcancel{Elim_{\Pi}}$
 \end_inset
 
- and 
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+then there must exist 
+\begin_inset Formula $\left[\star=_{l,o}\Pi x:A''.B''\right]\in v_{eq}$
+\end_inset
+
+ (or by simplification 
+\begin_inset Formula $\left[\star:v'_{eq}=_{l,o}\Pi x:A''.B''\right]$
+\end_inset
+
+, 
+\begin_inset Formula $\left[\star=_{l,o}\Pi x:A''.B'':v'_{eq}\right]$
+\end_inset
+
+,
+\begin_inset Formula $\left[\star:v'_{eq}=_{l,o}\Pi x:A''.B'':v''_{eq}\right]$
+\end_inset
+
+) and 
 \begin_inset Formula $l,o$
 \end_inset
 
- can be blamed (TODO: there could be lingering irrelevant annotations)
+ can be blamed 
 \end_layout
 
 \end_deeper

@@ -2882,18 +2882,7 @@ Consistent
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{e\sim e'\quad A\sim A'}{e=_{l,o}A\sim e'=_{l',o'}A'}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{e\sim e'\quad A\sim A'}{e=_{l,o}A\sim e'=_{l',o'}A'}
+\frac{a_{h}\sim a'_{h}\quad e\sim e'}{a_{h}::e\sim a'_{h}::e'}
 \]
 
 \end_inset

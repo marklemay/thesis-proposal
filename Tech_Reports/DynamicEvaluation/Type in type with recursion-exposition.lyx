@@ -334,7 +334,7 @@ elaboration produces a well typed term
 
 \begin_layout Standard
 type soundness goes through as before but, all head constructors match or
- blame is availiblein an empty ctx
+ blame is available in an empty ctx
 \end_layout
 
 \begin_layout Standard
@@ -359,7 +359,7 @@ pair,singleton
 \end_layout
 
 \begin_layout Itemize
-walk through of varous examples
+walk through of various examples
 \end_layout
 
 \end_deeper
@@ -377,6 +377,39 @@ substitution!
 proofs
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+top level summery!!
+\end_layout
+
+\begin_layout Itemize
+consistency is a little too restricted
+\end_layout
+
+\begin_layout Itemize
+clean up, the first type cast is unneeded and dropping it might make induction
+ easier?
+\end_layout
+
+\begin_layout Itemize
+consider separating annotation evaluation and term evaluation
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+more specifics about var binding
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+presented in an almost capture avoiding way
+\end_layout
+
+\begin_layout Itemize
+more explicit about the connection to heterogeneous substitution
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 exposition
 \end_layout

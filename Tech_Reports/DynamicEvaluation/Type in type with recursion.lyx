@@ -1189,7 +1189,7 @@ observation
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $o.bod[x\coloneqq a]$
+\begin_inset Formula $o.bod[a]$
 \end_inset
 
 
@@ -1853,7 +1853,7 @@ Substitution
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\left(o.bod[y\coloneqq b]\right)\left[x\coloneqq a\right]$
+\begin_inset Formula $\left(o.bod[b]\right)\left[x\coloneqq a\right]$
 \end_inset
 
 
@@ -1865,7 +1865,7 @@ Substitution
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $o\left[x\coloneqq a\right].bod[y\coloneqq b\left[x\coloneqq a\right]]$
+\begin_inset Formula $o\left[x\coloneqq a\right].bod[b\left[x\coloneqq a\right]]$
 \end_inset
 
 
@@ -2506,7 +2506,20 @@ head type
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $r\Rrightarrow r'$
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $e\sim e'$
 \end_inset
 
 
@@ -2518,7 +2531,7 @@ head type
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+same except for observations and evidence
 \end_layout
 
 \end_inset
@@ -2719,7 +2732,7 @@ Head Typing
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{???}{H\vdash\star:\star}\star-ty
+\frac{x:A\in H}{H\vdash x:A}var-ty
 \]
 
 \end_inset
@@ -2730,7 +2743,7 @@ Head Typing
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{x:A\in H}{H\vdash x:A}var-ty
+\frac{???}{H\vdash\star:\star}\star-ty
 \]
 
 \end_inset
@@ -2773,6 +2786,11 @@ allow typing to uncast heads
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+TODO: do I need a head converions rule? should I have a head conversion
+ rule?
 \end_layout
 
 \begin_layout Subsection
@@ -2893,7 +2911,18 @@ Consistent
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{e\sim e'\quad A\sim A'}{e=_{l,o}A\sim e'=_{l',o'}A'}
+\frac{a\sim a'}{\mathsf{fun}\,f.\,x.a\sim\mathsf{fun}\,f.\,x.a'}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{b\sim b'\quad a\sim a'}{b\,a\sim b'\,a'}
 \]
 
 \end_inset
@@ -3069,6 +3098,43 @@ Cast Term Par reduction
 
 \end_layout
 
+\begin_layout Subsection
+Observation Par reduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash}{H\vdash.\Rrightarrow.}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash A\Rrightarrow A':\star\quad H,x:A\vdash B\Rrightarrow B':\star}{H\vdash\Pi x:A.B\Rrightarrow\Pi x:A'.B'\,:\,\star}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash e\Rrightarrow e':\star\quad H\vdash a\Rrightarrow a':e\downarrow}{H\vdash a::e\Rrightarrow a'::e'\,:\,e\uparrow}
+\]
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Dynamic Check
 \end_layout
@@ -3131,7 +3197,7 @@ Dynamic Check
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{e\,Elim_{\Pi}\,x:e_{A}.e_{B}}{\Pi x:A.B=_{l,o}e\,Elim_{\Pi}\,x:A=_{l,o.arg}e_{A}.e_{B}\left[x\coloneqq x::A=_{l,o.arg}A'\right]=_{l,o.bod}B}
+\frac{e\,Elim_{\Pi}\,x:e_{A}.e_{B}}{\Pi x:A.B=_{l,o}e\,Elim_{\Pi}\,x:A=_{l,o.arg}e_{A}.e_{B}\left[x\coloneqq x::A=_{l,o.arg}A'\right]=_{l,o.bod[x]}B}
 \]
 
 \end_inset
@@ -3142,7 +3208,7 @@ Dynamic Check
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{e\,Elim_{\Pi}\,x:e_{A}.e_{B}\quad e''\,Elim_{\star}}{\left(\Pi x:A.B::e''\right)=_{l,o}e\,Elim_{\Pi}\,x:A=_{l,o.arg}e_{A}.e_{B}\left[x\coloneqq x::A=_{l,o.arg}A'\right]=_{l,o.bod}B}
+\frac{e\,Elim_{\Pi}\,x:e_{A}.e_{B}\quad e''\,Elim_{\star}}{\left(\Pi x:A.B::e''\right)=_{l,o}e\,Elim_{\Pi}\,x:A=_{l,o.arg}e_{A}.e_{B}\left[x\coloneqq x::A=_{l,o.arg}A'\right]=_{l,o.bod[x]}B}
 \]
 
 \end_inset
@@ -3156,7 +3222,7 @@ Call-by-Value Small Step
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="5">
+<lyxtabular version="3" rows="9" columns="5">
 <features tabularvalignment="middle">
 <column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
@@ -3492,6 +3558,162 @@ Call-by-Value Small Step
 \end_inset
 </cell>
 </row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $v_{obs}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Coloneqq$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $.$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $v_{obs}.arg$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $v_{obs}.bod[v]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
 </lyxtabular>
 
 \end_inset
@@ -3502,7 +3724,29 @@ Call-by-Value Small Step
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{A\rightsquigarrow A'}{v_{eq}=_{l,o}A\rightsquigarrow v_{eq}=_{l,o}A'}
+\frac{A\rightsquigarrow A'}{v_{obs}.bod[A]\rightsquigarrow v_{obs}.bod[A']}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{O\rightsquigarrow O'}{v_{eq}=_{l,O}A\rightsquigarrow v_{eq}=_{l,O'}A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{A\rightsquigarrow A'}{v_{eq}=_{l,v_{obs}}A\rightsquigarrow v_{eq}=_{l,v_{obs}}A'}
 \]
 
 \end_inset
@@ -3519,11 +3763,6 @@ Call-by-Value Small Step
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-TODO need to step the bodies of observations to be consistent with par reduction
-s, or fix equality!
 \end_layout
 
 \begin_layout Standard
@@ -3579,6 +3818,10 @@ s, or fix equality!
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+(this substitutes non-value casts into values) 
 \end_layout
 
 \begin_layout Section*

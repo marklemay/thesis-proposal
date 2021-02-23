@@ -839,7 +839,7 @@ if
 \noun off
 \color none
 
-\begin_inset Formula $v_{eq}\,Elim_{\Pi}$
+\begin_inset Formula $v_{eq}\,Elim_{\Pi}\,x:e_{A}.e_{B}$
 \end_inset
 
  then 
@@ -895,10 +895,35 @@ Canonical forms
 \noun off
 \color none
 
-\begin_inset Formula $\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b::e_{B}\right)\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq},x\coloneqq v\right]::v_{eq}'$
+\begin_inset Formula $\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right),x\coloneqq v::e_{A}\right]::e_{B}'\left[x\coloneqq v\right]\right)$
 \end_inset
 
- 
+ (implicitly uses that 
+\begin_inset Formula $Elim_{\Pi}$
+\end_inset
+
+is deterministic in it's first argument)
+\end_layout
+
+\begin_layout Itemize
+if 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $v_{eq}\,\bcancel{Elim_{\Pi}}$
+\end_inset
+
+
 \family default
 \series default
 \shape default
@@ -911,11 +936,40 @@ Canonical forms
 \uwave default
 \noun default
 \color inherit
-(by canonical head forms?)
-\end_layout
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+then there must exist 
+\begin_inset Formula $\left[\star=_{l,o}\Pi x:A''.B''\right]\in v_{eq}$
+\end_inset
 
-\begin_layout Itemize
-...
+ (or by simplification 
+\begin_inset Formula $\left[\star:e=_{l,o}\Pi x:A''.B''\right]$
+\end_inset
+
+, 
+\begin_inset Formula $\left[\star=_{l,o}\Pi x:A''.B'':e\right]$
+\end_inset
+
+,
+\begin_inset Formula $\left[\star:e=_{l,o}\Pi x:A''.B''\right]$
+\end_inset
+
+, 
+\begin_inset Formula $\left[\star=_{l,o}\Pi x:A''.B'':e\right]$
+\end_inset
+
+
 \end_layout
 
 \end_deeper

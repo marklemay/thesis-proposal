@@ -9,7 +9,7 @@ open import Data.Sum  hiding (map)
 open import Data.Product hiding (map)
 open import Relation.Nullary -- using (¬_)
 open import Data.Empty
-open import Relation.Binary.PropositionalEquality hiding ([_])
+open import Relation.Binary.PropositionalEquality hiding ([_]; subst)
 
 
 data PreSyntax {n : ℕ} : Set 
@@ -24,6 +24,7 @@ data PreHeadSyntax {n : ℕ} : Set  where
 data PreSyntax {n}  where
   pCast : PreHeadSyntax {n} -> List (PreSyntax {n})
   -- TODO list is actually different then the formulation... is it better? perhaps it could avoid that little bit of surgery
+  -- head has the first cast, m : [A,B,C]  has apparent type of C 
     -> PreSyntax
   pTyU2 : PreSyntax
   pPi2 : PreSyntax {n} -> PreSyntax {suc n} -> PreSyntax
@@ -40,6 +41,10 @@ postulate
   o : {n : ℕ} -> PreSyntax {n} -> PreSyntax {suc n}
 
   _[_] :{n : ℕ} -> PreSyntax {suc n} -> PreSyntax {n} -> PreSyntax {n}
+
+ -- subst :{n j : ℕ} -> PreSyntax {n} -> (Fin n -> PreSyntax { j}) -> PreSyntax { j}
+ 
+  sub-in-place :{n : ℕ} -> PreSyntax {suc n} -> PreSyntax {suc n} -> PreSyntax {suc n}
   
   _~:~_ : {n : ℕ} -> PreSyntax {n} -> List (PreSyntax {n}) -> PreSyntax {n}
 
@@ -49,7 +54,7 @@ data allPi {n : ℕ} :  List (PreSyntax {n}) -> List (PreSyntax {suc n}) -> Set 
   all-is-emp : allPi [] []
   pi2-cons : {aTy : _} -> {bodTy : _} ->
     {input  : _} -> {out : _} ->
-    allPi input out -> allPi (pPi2 aTy bodTy ∷ input) (bodTy  ∷  out)
+    allPi input out -> allPi (pPi2 aTy bodTy ∷ input) (bodTy  ∷  Data.List.map (λ bty → sub-in-place bty (pCast (pVar 0F) ( o aTy  ∷  []))) out)
   
 
 data _~>p_ {n : ℕ} : PreSyntax {n}  -> PreSyntax {n} -> Set  where
@@ -153,14 +158,15 @@ par-eq-max (a ∷ rest) = (par-max a)  ∷ par-eq-max rest
 
 par-red-max [] = just [] -- TODO: insert arg cast
 par-red-max ((pPi2 aTy bodTy) ∷ rest) with par-red-max rest
-par-red-max (pPi2 aTy bodTy ∷ rest) | just rest' = just ((par-max bodTy) ∷ rest') -- TODO: insert arg cast
+par-red-max (pPi2 aTy bodTy ∷ rest) | just rest' = just ((par-max bodTy) ∷ Data.List.map (λ bty → sub-in-place bty (pCast (pVar 0F) ( o (par-max aTy)  ∷  []))) rest') -- TODO: insert arg cast
 par-red-max (pPi2 aTy bodTy ∷ rest) | nothing = nothing
 par-red-max _ = nothing
 
 par-red-max-ok :  {n : ℕ}  {fcast : _}  {bodcast : _} -> allPi {n} fcast bodcast -> par-red-max fcast ≡ just (par-eq-max bodcast) -- fragile
 par-red-max-ok all-is-emp = refl
-par-red-max-ok (pi2-cons x) rewrite par-red-max-ok x = refl
+par-red-max-ok (pi2-cons x) rewrite par-red-max-ok x = {!!} --correct, but non tirvial to proove
 
+{-
 allPi? :  {n : ℕ}  (fcast : _) ->
   ( Σ _ λ bodcast → allPi {n} fcast bodcast) -- TODO also unique
   ⊎ ¬ ( (bodcast : _) -> allPi {n} fcast bodcast) 
@@ -170,7 +176,7 @@ allPi? (pPi2 aTy bodTy ∷ fcast) | inj₁ (fst , snd) = inj₁ (bodTy ∷ fst ,
 allPi? (pPi2 aTy bodTy ∷ fcast) | inj₂ y = inj₂ {!!} -- ok
 allPi? (_  ∷ fcast)  = inj₂ {!!} -- ok
 
-
+-}
 par-eq-triangle :  {n : ℕ} {a b : List (PreSyntax {n})}
    -> a ~>peq b
    -> b ~>peq (par-eq-max a)
@@ -182,17 +188,26 @@ par-triangle :  {n : ℕ} {a b : PreSyntax {n}}
 {-# TERMINATING #-}
 par-red-triangle :  {n : ℕ}  (fcast : _)
   -> (par-red-max fcast ≡ nothing)
-  ⊎ Σ _ λ bodcast → (par-red-max fcast ≡ just (par-eq-max bodcast)) × allPi {n} fcast bodcast × ({fcast' : _} -> fcast ~>peq fcast' ->  Σ _ λ bodcast' → allPi {n} fcast' bodcast' × (bodcast' ~>peq par-eq-max bodcast) ) -- better as 2 lemmas? would make temination checking more possible
+  ⊎ Σ _ λ bodcast → (par-red-max fcast ≡ just (par-eq-max bodcast)) × allPi {n} fcast bodcast × ({fcast' : _} -> fcast ~>peq fcast' ->  Σ _ λ bodcast' → allPi {n} fcast' bodcast' × (bodcast' ~>peq par-eq-max bodcast) )
+  -- better as 2 lemmas? would make temination checking more possible
 par-red-triangle [] = inj₂ ([] , (refl , (all-is-emp ,  xx)))
   where
     xx :  {fcast' : _} -> [] ~>peq fcast' -> Σ (List PreSyntax) (λ z → Σ (allPi fcast' z) (λ _ → z ~>peq []))
     xx par-emp = [] , all-is-emp , par-emp 
 par-red-triangle ((pPi2 aTy bodTy) ∷ fcast) with par-red-triangle fcast
-par-red-triangle (pPi2 aTy bodTy ∷ fcast) | inj₂ (bodcast , eq , allPi-fcast-bodcast , max) rewrite eq  = inj₂ ((bodTy  ∷  bodcast) , (refl , (pi2-cons allPi-fcast-bodcast) , xx))
+par-red-triangle (pPi2 aTy bodTy ∷ fcast) | inj₂ (bodcast , eq , allPi-fcast-bodcast , max) rewrite eq
+  = inj₂ (bodTy ∷ Data.List.map (λ z → sub-in-place z (pCast (pVar 0F) (o aTy ∷ [])))  bodcast
+    , ({!!} , ( pi2-cons allPi-fcast-bodcast
+  ) , xx))
   where
-    xx : {fcast' : _} → (pPi2 aTy bodTy ∷ fcast) ~>peq fcast' → Σ (_) (λ bodcast' → (allPi fcast' bodcast')  ×  (bodcast' ~>peq (par-max bodTy ∷ par-eq-max bodcast)))
-    xx (par-cons top rest) with max rest
-    xx (par-cons (par-Pi2 par-aty par-bodty) rest) | bodcast' , allPi-rest'-bodcast' , to-max = (_ ∷ bodcast') , ((pi2-cons allPi-rest'-bodcast') , par-cons (par-triangle par-bodty)  to-max)
+    xx : {fcast' : _} → (pPi2 aTy bodTy ∷ fcast) ~>peq fcast'
+      →  Σ _ (λ bodcast' →  (allPi fcast' bodcast')
+          × (bodcast' ~>peq (par-max bodTy ∷
+             par-eq-max
+             (Data.List.map
+              (λ z → sub-in-place z (pCast (pVar 0F) (o aTy ∷ []))) bodcast))))
+    xx (par-cons (par-Pi2 par-aty par-bodty) rest) with max rest
+    xx (par-cons (par-Pi2 par-aty par-bodty) rest) | bodcast' , allPi-rest'-bodcast' , to-max = _ , ((pi2-cons allPi-rest'-bodcast') , par-cons (par-triangle par-bodty) {!!}) -- looks correct...
 
 par-red-triangle (pPi2 aTy bodTy ∷ fcast) | inj₁ x = inj₁ {!!} -- ok
 par-red-triangle (_ ∷ fcast) = inj₁ {!!} -- ok
@@ -240,7 +255,8 @@ confulent-~> : {n : ℕ} {a b b' : PreSyntax {n}}
    -> Σ _ \ v  -> b ~>p v  × b' ~>p v
 confulent-~> {_} {a} ab ab' = (par-max a) , (par-triangle ab) , par-triangle ab'
 
-
+{-
+-}
 {-
 
 data _val {n : ℕ} : PreSyntax {n} -> Set where

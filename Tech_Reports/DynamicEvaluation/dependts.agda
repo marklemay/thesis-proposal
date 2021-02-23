@@ -179,7 +179,7 @@ par-triangle :  {n : ℕ} {a b : PreSyntax {n}}
    -> a ~>p b
    -> b ~>p (par-max a)
 
-{-# NON_TERMINATING #-}
+{-# TERMINATING #-}
 par-red-triangle :  {n : ℕ}  (fcast : _)
   -> (par-red-max fcast ≡ nothing)
   ⊎ Σ _ λ bodcast → (par-red-max fcast ≡ just (par-eq-max bodcast)) × allPi {n} fcast bodcast × ({fcast' : _} -> fcast ~>peq fcast' ->  Σ _ λ bodcast' → allPi {n} fcast' bodcast' × (bodcast' ~>peq par-eq-max bodcast) ) -- better as 2 lemmas? would make temination checking more possible
@@ -190,26 +190,12 @@ par-red-triangle [] = inj₂ ([] , (refl , (all-is-emp ,  xx)))
 par-red-triangle ((pPi2 aTy bodTy) ∷ fcast) with par-red-triangle fcast
 par-red-triangle (pPi2 aTy bodTy ∷ fcast) | inj₂ (bodcast , eq , allPi-fcast-bodcast , max) rewrite eq  = inj₂ ((bodTy  ∷  bodcast) , (refl , (pi2-cons allPi-fcast-bodcast) , xx))
   where
- --   xx :  {fcast' : {!!}} -> {!!} ~>peq {!!} -> {!!}
     xx : {fcast' : _} → (pPi2 aTy bodTy ∷ fcast) ~>peq fcast' → Σ (_) (λ bodcast' → (allPi fcast' bodcast')  ×  (bodcast' ~>peq (par-max bodTy ∷ par-eq-max bodcast)))
     xx (par-cons top rest) with max rest
-    xx (par-cons (par-Pi2 par-aty par-bodty) rest) | bodcast' , allPi-rest'-bodcast' , to-max = (_ ∷ bodcast') , ((pi2-cons allPi-rest'-bodcast') , par-cons (par-triangle par-bodty)  to-max) -- ? , (? , ?) , ( {!!} , {!!}) -- pi2-cons {?} {?} {?} ?
+    xx (par-cons (par-Pi2 par-aty par-bodty) rest) | bodcast' , allPi-rest'-bodcast' , to-max = (_ ∷ bodcast') , ((pi2-cons allPi-rest'-bodcast') , par-cons (par-triangle par-bodty)  to-max)
 
 par-red-triangle (pPi2 aTy bodTy ∷ fcast) | inj₁ x = inj₁ {!!} -- ok
-
 par-red-triangle (_ ∷ fcast) = inj₁ {!!} -- ok
-{-
-par-red-triangle fcast with par-red-max fcast
-par-red-triangle fcast | nothing = inj₁ refl
-par-red-triangle fcast | just x with allPi? fcast
-par-red-triangle fcast | just x | inj₂ y = {!!} -- bot
-par-red-triangle fcast | just x | inj₁ bodcast with = inj₂ {!!}
--}
-
-
-
-
-
 
 
 -- par-triangle (par-red par-casts par-arg par-bod fcasts bodcasts all-pi) with allPi?-max fcasts

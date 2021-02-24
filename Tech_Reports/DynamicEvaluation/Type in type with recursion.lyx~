@@ -80,7 +80,11 @@
 an Intensional Dependent Type Theory with Type-in-Type and Recursion
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
+Language
+\end_layout
+
+\begin_layout Subsection
 Surface Language
 \end_layout
 
@@ -625,7 +629,7 @@ function values
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Subsection
 Cast Language
 \end_layout
 
@@ -1214,7 +1218,11 @@ observation
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
+Definitions
+\end_layout
+
+\begin_layout Subsection
 Substitution
 \end_layout
 
@@ -1890,7 +1898,11 @@ Substitution
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Standard
+and for contexts.
+\end_layout
+
+\begin_layout Subsection
 lookup
 \end_layout
 
@@ -2100,7 +2112,7 @@ constructor type
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Subsection
 Casts
 \end_layout
 
@@ -2216,16 +2228,39 @@ occasionally we will use the shorthand
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Judgments
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="11" columns="2">
+<lyxtabular version="3" rows="15" columns="2">
 <features tabularvalignment="middle">
 <column alignment="right" valignment="top">
 <column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Gamma\sim H\vdash$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+well formed translation
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
@@ -2316,6 +2351,42 @@ Check cast*
 \uwave off
 \noun off
 \color none
+\begin_inset Formula $H\vdash$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+well formed context (not presented)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
 \begin_inset Formula $H\vdash a:A$
 \end_inset
 
@@ -2334,6 +2405,349 @@ apparent type
 \end_inset
 </cell>
 </row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash e:\overline{\star}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+well formed casts
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash a\equiv a':A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash a\Rrightarrow_{*}a':A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash a\Rrightarrow a':A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash e\Rrightarrow e':\overline{\star}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+par reductions
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $H\vdash o\Rrightarrow o'$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $A\sim A'$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+same except for observations and evidence
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $e\sim e'$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $e\,Elim_{\star}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+concrete elimination
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $e\,Elim_{\Pi}x:e_{A}.e_{b}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Head Judgments
+\end_layout
+
+\begin_layout Standard
+It is helpful to present some judgments that only consider head form, this
+ avoids some bookkeeping with casts
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features tabularvalignment="middle">
+<column alignment="right" valignment="top">
+<column alignment="left" valignment="top">
 <row>
 <cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
@@ -2400,7 +2814,7 @@ head type
 \begin_inset Text
 
 \begin_layout Plain Layout
-**
+
 \end_layout
 
 \end_inset
@@ -2424,148 +2838,7 @@ head type
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $H\vdash e\Rrightarrow e':\overline{\star}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-*
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $H\vdash a\Rrightarrow a':A$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-*
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $H\vdash o\Rrightarrow o'$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-**
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $e\sim e'$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-same except for observations and evidence
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $e\,Elim_{\star}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-concrete elimination
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $e\,Elim_{\Pi}x:e_{A}.e_{b}$
+\begin_inset Formula $H\vdash a_{h}\sim a'_{h}$
 \end_inset
 
 
@@ -2590,18 +2863,18 @@ concrete elimination
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Elaboration
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Infer
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{x:A\in H}{\Gamma\sim H\vdash x\,Elab\,x::A}
+\frac{x:A\in H}{H\vdash x\,Elab\,x::A}
 \]
 
 \end_inset
@@ -2612,7 +2885,7 @@ Infer
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\sim H\vdash M\,Elab_{\star,l}\,C\quad\Gamma\sim H\vdash m\,Elab_{C,l}\,a}{\Gamma\sim H\vdash m::_{l}M\,Elab\,a}
+\frac{H\vdash M\,Elab_{\star,l}\,C\quad H\vdash m\,Elab_{C,l}\,a}{H\vdash m::_{l}M\,Elab\,a}
 \]
 
 \end_inset
@@ -2623,7 +2896,7 @@ Infer
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{???}{\Gamma\sim H\vdash\star\,Elab\,\star}
+\frac{H\vdash}{H\vdash\star\,Elab\,\star}
 \]
 
 \end_inset
@@ -2634,7 +2907,7 @@ Infer
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\sim H\vdash M\,Elab_{\star,l}\,A\quad\Gamma,x:M\sim H,x:A\vdash N\,Elab_{\star,l'}\,B}{\Gamma\vdash\Pi x:M_{l}.N_{l'}\,Elab\,\left(\Pi x:A.B\right)::\star}
+\frac{H\vdash M\,Elab_{\star,l}\,A\quad H,x:A\vdash N\,Elab_{\star,l'}\,B}{H\vdash\Pi x:M_{l}.N_{l'}\,Elab\,\Pi x:A.B}
 \]
 
 \end_inset
@@ -2645,7 +2918,7 @@ Infer
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\sim H\vdash m\,Elab\,b::e\quad\left(\Pi x:A.B\right)=e\uparrow\quad\Gamma\sim H\vdash n\,Elab_{A,l}\,a}{\Gamma\sim H\vdash m\,_{l}n\,Elab\,b\,a}
+\frac{H\vdash m\,Elab\,b_{h}::e\quad\Pi x:A.B=e\uparrow\quad H\vdash n\,Elab_{A,l}\,a}{H\vdash m\,_{l}n\,Elab\,\left(b_{h}::e\right)\,a}
 \]
 
 \end_inset
@@ -2653,7 +2926,7 @@ Infer
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Check
 \end_layout
 
@@ -2665,7 +2938,7 @@ TODO probably easiest to extend the elaboration checking judgment with the
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{???}{\Gamma\sim H\vdash\star\,Elab_{\star,l}\,\star}
+\frac{H\vdash}{H\vdash\star\,Elab_{\star,l}\,\star}
 \]
 
 \end_inset
@@ -2676,7 +2949,7 @@ TODO probably easiest to extend the elaboration checking judgment with the
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,???\sim H,f:\Pi x:A.B,\,x:A\vdash m\,Elab_{B,l??}\,b}{\Gamma\sim H\vdash\mathsf{fun}\,f.\,x.\,m\,Elab_{\Pi x:A.B,l}\,\mathsf{fun}\,f.\,x.b}
+\frac{H,f:\Pi x:A.B,\,x:A\vdash m\,Elab_{B,l}\,b}{H\vdash\mathsf{fun}\,f.\,x.\,m\,Elab_{\Pi x:A.B,l}\,\mathsf{fun}\,f.\,x.b}
 \]
 
 \end_inset
@@ -2687,19 +2960,19 @@ TODO probably easiest to extend the elaboration checking judgment with the
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\sim H\vdash m\,Elab\,a_{h}::e}{\Gamma\sim H\vdash m\,Elab_{A,l}\,a_{h}::e=_{l,.}A}
+\frac{H\vdash m\,Elab\,a_{h}::e}{H\vdash m\,Elab_{A,l}\,a_{h}::e=_{l,.}A}
 \]
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Section
-Typing
 \end_layout
 
 \begin_layout Subsection
+Typing
+\end_layout
+
+\begin_layout Subsubsection
 Cast Typing
 \end_layout
 
@@ -2725,7 +2998,7 @@ Cast Typing
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Head Typing
 \end_layout
 
@@ -2743,7 +3016,7 @@ Head Typing
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{???}{H\vdash\star:\star}\star-ty
+\frac{H\vdash}{H\vdash\star:\star}\star-ty
 \]
 
 \end_inset
@@ -2760,10 +3033,6 @@ Head Typing
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-allow typing to uncast heads
 \end_layout
 
 \begin_layout Standard
@@ -2788,19 +3057,14 @@ allow typing to uncast heads
 
 \end_layout
 
-\begin_layout Standard
-TODO: do I need a head converions rule? should I have a head conversion
- rule?
-\end_layout
-
-\begin_layout Subsection
-Cast Term Typing
+\begin_layout Subsubsection
+Term Typing
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{???}{H\vdash\star:\star}
+\frac{H\vdash}{H\vdash\star:\star}
 \]
 
 \end_inset
@@ -2841,11 +3105,7 @@ Cast Term Typing
 
 \end_layout
 
-\begin_layout Standard
-(TODO: may regret these as functions instead of relations)
-\end_layout
-
-\begin_layout Section
+\begin_layout Subsection
 Definitional Equality
 \end_layout
 
@@ -2860,8 +3120,13 @@ Definitional Equality
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Consistent
+\end_layout
+
+\begin_layout Standard
+A relation that equates terms except for source location and observation
+ information
 \end_layout
 
 \begin_layout Standard
@@ -2930,7 +3195,7 @@ Consistent
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Parallel Reductions
 \end_layout
 
@@ -2956,11 +3221,11 @@ Parallel Reductions
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Parallel Reduction
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Cast Par reduction
 \end_layout
 
@@ -2987,18 +3252,18 @@ Cast Par reduction
 \end_layout
 
 \begin_layout Standard
-annoyingly need to support observation reductions, to allow a direct substitutio
-n lemma to simplify the proof
+annoyingly need to support observation reductions, to allow a substitution
+ lemma to simplify the proof
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Head Par reduction
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H,f:\Pi x:A.B,x:A\vdash b\Rrightarrow b':B\quad H\vdash a\Rrightarrow a':A\quad e\,Elim_{\Pi}\,x:e_{A}.e_{B}\quad H\vdash e_{B}\Rrightarrow e_{B}':\overline{\star}}{H\vdash\left(\mathsf{fun}\,f.\,x.b\right)::e\,a\Rrightarrow\left(b'\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b'\right),x\coloneqq a'::e_{A}\right]::e_{B}'\left[x\coloneqq a'\right]\right)\,:\,B\left[x\coloneqq a\right]}
+\frac{H,f:\Pi x:A.B,x:A\vdash b\Rrightarrow b':B\quad H\vdash a\Rrightarrow a':A\quad e\,Elim_{\Pi}\,x:e_{A}.e_{B}\quad H\vdash e_{B}\Rrightarrow e_{B}':\overline{\star}}{H\vdash\left(\mathsf{fun}\,f.\,x.b\right)::e\,a\Rrightarrow\left(b'\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b'\right),x\coloneqq a'::e_{A}\right]::e_{B}\left[x\coloneqq a'\right]\right)\,:\,B\left[x\coloneqq a\right]}\Pi C\Rrightarrow
 \]
 
 \end_inset
@@ -3053,7 +3318,7 @@ Head Par reduction
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash b\Rrightarrow b':\Pi x:A.B\quad H\vdash a\Rrightarrow b':A}{H\vdash b\,a\Rrightarrow b'\,a'\,:\,B\left[x\coloneqq a\right]}
+\frac{H\vdash b\Rrightarrow b':\Pi x:A.B\quad H\vdash a\Rrightarrow b':A}{H\vdash b\,a\Rrightarrow b'\,a'\,:\,B\left[x\coloneqq a\right]}\Pi E\Rrightarrow
 \]
 
 \end_inset
@@ -3061,8 +3326,8 @@ Head Par reduction
 
 \end_layout
 
-\begin_layout Subsection
-Cast Term Par reduction
+\begin_layout Subsubsection
+Term Par reduction
 \end_layout
 
 \begin_layout Standard
@@ -3098,7 +3363,7 @@ Cast Term Par reduction
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Observation Par reduction
 \end_layout
 
@@ -3135,14 +3400,14 @@ Observation Par reduction
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Dynamic Check
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{???}{\star\,Elim_{\star}}
+\frac{\,}{\star\,Elim_{\star}}
 \]
 
 \end_inset
@@ -3153,7 +3418,7 @@ Dynamic Check
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{???}{\star::\star\,Elim_{\star}}
+\frac{\,}{\star::\star\,Elim_{\star}}
 \]
 
 \end_inset
@@ -3175,7 +3440,7 @@ Dynamic Check
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{???}{\Pi x:A.B\,Elim_{\Pi}\,x:A.B}
+\frac{\,}{\Pi x:A.B\,Elim_{\Pi}\,x:A.B}
 \]
 
 \end_inset
@@ -3197,7 +3462,7 @@ Dynamic Check
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{e\,Elim_{\Pi}\,x:e_{A}.e_{B}}{\Pi x:A.B=_{l,o}e\,Elim_{\Pi}\,x:A=_{l,o.arg}e_{A}.e_{B}\left[x\coloneqq x::A=_{l,o.arg}A'\right]=_{l,o.bod[x]}B}
+\frac{e\,Elim_{\Pi}\,x:e_{A}.e_{B}}{\Pi x:A.B=_{l,o}e\,Elim_{\Pi}\,x:\left(A=_{l,o.arg}e_{A}\right).e_{B}\left[x\coloneqq x::A=_{l,o.arg}A'\right]=_{l,o.bod[x]}B}
 \]
 
 \end_inset
@@ -3208,7 +3473,7 @@ Dynamic Check
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{e\,Elim_{\Pi}\,x:e_{A}.e_{B}\quad e''\,Elim_{\star}}{\left(\Pi x:A.B::e''\right)=_{l,o}e\,Elim_{\Pi}\,x:A=_{l,o.arg}e_{A}.e_{B}\left[x\coloneqq x::A=_{l,o.arg}A'\right]=_{l,o.bod[x]}B}
+\frac{e\,Elim_{\Pi}\,x:e_{A}.e_{B}\quad e''\,Elim_{\star}}{\left(\Pi x:A.B::e''\right)=_{l,o}e\,Elim_{\Pi}\,x:\left(A=_{l,o.arg}e_{A}\right).e_{B}\left[x\coloneqq x::A=_{l,o.arg}A'\right]=_{l,o.bod[x]}B}
 \]
 
 \end_inset
@@ -3222,12 +3487,11 @@ Call-by-Value Small Step
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="11" columns="5">
+<lyxtabular version="3" rows="11" columns="4">
 <features tabularvalignment="middle">
 <column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="right" valignment="top">
-<column alignment="left" valignment="top">
 <column alignment="left" valignment="top">
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -3279,15 +3543,6 @@ Call-by-Value Small Step
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
 </row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -3324,15 +3579,6 @@ Call-by-Value Small Step
 \begin_inset Formula $v_{h}::v_{eq}$
 \end_inset
 
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -3398,15 +3644,6 @@ Call-by-Value Small Step
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
 </row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -3443,15 +3680,6 @@ Call-by-Value Small Step
 \begin_inset Formula $\star$
 \end_inset
 
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -3498,15 +3726,6 @@ Call-by-Value Small Step
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
 </row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -3543,15 +3762,6 @@ Call-by-Value Small Step
 \begin_inset Formula $\mathsf{fun}\,f.\,x.a$
 \end_inset
 
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -3604,15 +3814,6 @@ Call-by-Value Small Step
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
 </row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -3649,15 +3850,6 @@ Call-by-Value Small Step
 \begin_inset Formula $v_{eq}=_{l,o}v$
 \end_inset
 
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -3710,15 +3902,6 @@ Call-by-Value Small Step
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
 </row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -3760,15 +3943,6 @@ Call-by-Value Small Step
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
 </row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -3805,15 +3979,6 @@ Call-by-Value Small Step
 \begin_inset Formula $v_{obs}.bod[v]$
 \end_inset
 
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -3929,1210 +4094,6 @@ Call-by-Value Small Step
 \begin_layout Standard
 (this substitutes non-value casts into values, which is a little awkward
  but doesn't break anything) 
-\end_layout
-
-\begin_layout Section*
-Alt rules/ notation
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\forall C\in B=_{l,o}e=_{l',o'}A,\,H\vdash C:\star\quad H\vdash a_{h}:B}{H\vdash a_{h}::B=_{l,o}e=_{l',o'}A\,:A}apparent
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{v_{eq}Elim_{\Pi}\,v_{eq}{}_{A},e_{B}\quad v_{eq}{}_{A}\,Elim_{\star}\quad v_{eq}{}_{A}\,Elim_{\star}}{\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-.....
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{v_{eq}Elim_{\Pi}\,v_{eq}{}_{A},e_{B}\quad v_{eq}{}_{A}\,Elim_{\star}\quad v_{eq}{}_{A}\,Elim_{\star}}{\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\rightsquigarrow b\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right),x\coloneqq v\right]}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-...
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{v_{eq}\,Elim_{\Pi}\,x,-,v_{eq}{}_{A},e_{B}\quad v_{eq}{}_{A}\,Elim_{\star}}{\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b::e_{B}\right)\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq},x\coloneqq v\right]::v_{eq}'}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H,f:\Pi x:A.B,x:A\vdash b\Rrightarrow b'\,:B}{H\vdash\left(\left(\mathsf{fun}\,f.\,x.b\right)::e\right)\,a\Rrightarrow\left(\left(\mathsf{fun}\,f.\,x.b\right)::e\right)\,a\,:\,B\left[x\coloneqq a\right]}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="2" columns="2">
-<features tabularvalignment="middle">
-<column alignment="right" valignment="top">
-<column alignment="left" valignment="top">
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $\underrightarrow{A}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=A$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $\underrightarrow{e=_{l,o}A}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=A$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-a
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\sim H\vdash m\,Elab\,b::e\quad\left(\Pi x:A.B\right)::e'\in e\quad\Gamma\sim H\vdash n\,Elab_{A,l}\,a}{\Gamma\sim H\vdash m\,_{l}n\,Elab\,b\,a}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{???}{H\vdash\star\,Elim_{\star}}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{???}{H\vdash\star::\star\,Elim_{\star}}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash e\,Elim_{\star}\quad H\vdash A\,Elim_{\star}}{H\vdash e=_{l,o}A\,Elim_{\star}}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{???}{H\vdash\Pi x:A.B\,Elim_{\Pi}\,x:A.B}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash e\,Elim_{\star}}{H\vdash\Pi x:A.B::e\,Elim_{\Pi}\,x:A.B}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash e\,Elim_{\Pi}\,x:A'.e'}{H\vdash\Pi x:A.B=_{l,o}e\,Elim_{\Pi}\,x:A.e'\left[x\coloneqq x::A=_{l,o.arg}A'\right]=_{l,o.bod}B}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash e\,Elim_{\Pi}\,x:A'.e'\quad H\vdash e''\,Elim_{\star}}{H\vdash\left(\Pi x:A.B::e''\right)=_{l,o}e\,Elim_{\Pi}\,x:A.e'\left[x\coloneqq x::A=_{l,o.arg}A'\right]=_{l,o.bod}B}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-TODO this is too strict a notion of equality! Evidences should be irrelevant!
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash a\Rrightarrow_{*}b_{h}::e\,:A\quad H\vdash a'\Rrightarrow_{*}b_{h}::e'\,:A}{H\vdash a\equiv a':A}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-not enough since it may share an internal cast 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash|a|\Rrightarrow_{*}|b|\,:A\quad H\vdash|a'|\Rrightarrow_{*}|b|\,:A}{H\vdash a\equiv a':A}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section*
-Erased Language
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="5">
-<features tabularvalignment="middle">
-<column alignment="left" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="right" valignment="top">
-<column alignment="left" valignment="top">
-<column alignment="left" valignment="top">
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $r,r',R,R'$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\Coloneqq$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-x
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="right" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-|
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\star$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-|
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\Pi x:R.R'$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="right" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-|
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\mathsf{fun}\,f.\,x.r$
-\end_inset
-
- | 
-\begin_inset Formula $r\,r'$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section*
-Erasure
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="14" columns="3">
-<features tabularvalignment="middle">
-<column alignment="right" valignment="top">
-<column alignment="left" valignment="top">
-<column alignment="left" valignment="top">
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $|\star|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $=\star$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $|a|\rightarrow r$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $|\Pi x:A.B|$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=\Pi x:|A|.|B|$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $|A::e|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=|A|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $|x|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=x$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $|a_{h}|\rightarrow r$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $|\star|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $=\star$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $|\Pi x:A.B|$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=\Pi x:|A|.|B|$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $|\mathsf{fun}\,f.\,x.b|$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=\mathsf{fun}\,f.\,x.|b|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $|b\,c|$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=|b|\,|c|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $|x|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=x$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $|m|\rightarrow r$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $|m::_{l}M|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=|m|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $|\star|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $=\star$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $|\Pi x:M_{l}.N_{l'}|$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=\Pi x:|M|.|N|$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $|\mathsf{fun}\,f.\,x.m|$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $=\mathsf{fun}\,f.\,x.|m|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $|m\,_{l}n|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $=|m|\,|n|$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{|a|\Rrightarrow_{*}r\quad|a'|\Rrightarrow_{*}r\quad H\vdash a:A\quad H\vdash a':A}{H\vdash a\equiv a':A}
-\]
-
-\end_inset
-
-
 \end_layout
 
 \end_body

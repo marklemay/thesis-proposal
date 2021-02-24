@@ -731,7 +731,7 @@ Computation
 \end_layout
 
 \begin_layout Standard
-The following rules are admissible:
+The following rule is admissible:
 \end_layout
 
 \begin_layout Standard
@@ -1025,7 +1025,6 @@ By induction on the
 \noun off
 \color none
 by the conversion rule 
-
 \begin_inset Formula $M'\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\right)\right]\,:\,\tau\left[x\coloneqq N\right]$
 \end_inset
 
@@ -1127,7 +1126,6 @@ by the conversion rule
 \noun off
 \color none
 by the conversion rule 
-
 \begin_inset Formula $M'\,N'\,:\,\tau\left[x\coloneqq N\right]$
 \end_inset
 
@@ -1225,7 +1223,6 @@ by the conversion rule
 \noun off
 \color none
 by the conversion rule 
-
 \begin_inset Formula $\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\,:\,\varPi x:\sigma.\tau$
 \end_inset
 

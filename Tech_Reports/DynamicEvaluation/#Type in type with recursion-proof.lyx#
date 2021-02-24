@@ -84,24 +84,1630 @@ an Intensional Dependent Type Theory with Type-in-Type and Recursion
 type soundness or blame
 \end_layout
 
-\begin_layout Subsection
-well formed
+\begin_layout Standard
+The proof follows the standard structure:
 \end_layout
 
+\begin_layout Itemize
+All judgments respect weakening and well typed substitution
+\end_layout
+
+\begin_layout Itemize
+Most judgments are marked with types to make subject reduction obvious (assuming
+ the substitution lemma)
+\end_layout
+
+\begin_layout Itemize
+definitional equality is defined in terms par-reductions, which (via confluence)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+gives transitivity to equality
+\end_layout
+
+\begin_layout Itemize
+means that type constructors are unique
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+for preservation, function elimination is the only interesting case 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+the stack of casts is inspected, all casts are values (usually either 
+\begin_inset Formula $\star$
+\end_inset
+
+ or 
+\begin_inset Formula $\Pi$
+\end_inset
+
+ )
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+if all casts are 
+\begin_inset Formula $\Pi$
+\end_inset
+
+ then coersions can be calculated and a reduction can step
+\end_layout
+
+\begin_layout Itemize
+if any casts are not 
+\begin_inset Formula $\Pi$
+\end_inset
+
+ there is a specific source location and observation to blame 
+\end_layout
+
+\end_deeper
+\end_deeper
 \begin_layout Subsection
+Structural Properties
+\end_layout
+
+\begin_layout Subsubsection
 Weakening
+\end_layout
+
+\begin_layout Standard
+For any derivation of
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $H\vdash A:\star$
+\end_inset
+
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+the following rules are admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,H'\vdash}{H,x:A,H'\vdash}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,H'\vdash b:B}{H,x:A,H'\vdash b:B}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,H'\vdash e:\overline{\star}}{H,x:A,H'\vdash e:\overline{\star}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,H'\vdash b\equiv b':B}{H,x:A,H'\vdash b\equiv b':B}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,H'\vdash b\Rrightarrow_{*}b':B}{H,x:A,H'\vdash b\Rrightarrow_{*}b':B}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,H'\vdash b\Rrightarrow b':B}{H,x:A,H'\vdash b\Rrightarrow b':B}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,H'\vdash e\Rrightarrow e':\overline{\star}}{H,x:A,H'\vdash e\Rrightarrow e':\overline{\star}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,H'\vdash o\Rrightarrow o'}{H,x:A,H'\vdash o\Rrightarrow o'}
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
 Substitution
 \end_layout
 
-\begin_layout Subsection
-Preservation
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ is reflexive
+\end_layout
+
+\begin_layout Standard
+The following rules are admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a:A}{H\vdash a\Rrightarrow\,a:A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash e:\overline{\star}}{H\vdash e\Rrightarrow e':\overline{\star}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash}{H\vdash o\Rrightarrow o}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by mutual induction
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\sim$
+\end_inset
+
+ is reflexive
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash}{H\vdash a\sim a}\,\textrm{\ensuremath{\sim}-refl}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\equiv$
+\end_inset
+
+ is reflexive
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a:A}{H\vdash a\equiv a:A}\,\textrm{\ensuremath{\equiv}-refl}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by 
+\begin_inset Formula $\,\textrm{\Rrightarrow\ast-refl}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Context substitution
+\end_layout
+
+\begin_layout Standard
+For any derivation of
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $H\vdash a:A$
+\end_inset
+
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+the following rules are admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,x:A,H'\vdash}{H,H'\left[x\coloneqq A\right]\vdash}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,x:A,H'\vdash b:B}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\,:\,B\left[x\coloneqq a\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,x:A,H'\vdash e:\overline{\star}}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\,:\overline{\star}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,x:A,H'\vdash e:\overline{\star}}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\,:\overline{\star}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,x:A,H'\vdash b\equiv b':B}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\equiv b'\left[x\coloneqq a\right]:B\left[x\coloneqq a\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,x:A,H'\vdash b\Rrightarrow_{*}b':B}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\Rrightarrow_{*}b'\left[x\coloneqq a\right]:B\left[x\coloneqq a\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,x:A,H'\vdash b\Rrightarrow b':B}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\Rrightarrow b'\left[x\coloneqq a\right]:B\left[x\coloneqq a\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,x:A,H'\vdash e\Rrightarrow e':\overline{\star}}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\Rrightarrow e'\left[x\coloneqq a\right]\,:\overline{\star}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,x:A,H'\vdash o\Rrightarrow o'}{H,H'\left[x\coloneqq a\right]\vdash o\left[x\coloneqq a\right]\Rrightarrow o'\left[x\coloneqq a\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{b\sim b'}{b\left[x\coloneqq a\right]\sim b'\left[x\coloneqq a\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{e\sim e'}{e\left[x\coloneqq a\right]\sim e'\left[x\coloneqq a\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{e\,Elim_{\star}}{e\left[x\coloneqq a\right]\,Elim_{\star}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{e\,Elim_{\Pi}y:e_{A}.e_{B}}{e\left[x\coloneqq a\right]\,Elim_{\Pi}y:e_{A}\left[x\coloneqq a\right].e_{B}\left[x\coloneqq a\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by mutual induction on the derivations with reflexivity lemmas.
+ 
 \end_layout
 
 \begin_layout Subsection
 Computation
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ preserves type of source
+\end_layout
+
+\begin_layout Standard
+The following rules are admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\Rrightarrow a':A}{H\vdash a:A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash e\Rrightarrow e':\overline{\star}}{H\vdash e:\overline{\star}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ 
+\begin_inset Formula $Elim_{\star}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+if 
+\begin_inset Formula $e\,Elim_{\star}$
+\end_inset
+
+ and 
+\begin_inset Formula $e\Rrightarrow e'$
+\end_inset
+
+ then 
+\begin_inset Formula $e'\,Elim_{\star}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction on 
+\begin_inset Formula $Elim_{\star}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ 
+\begin_inset Formula $Elim_{\Pi}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+if 
+\begin_inset Formula $e\,Elim_{\Pi}x:e_{A}.e_{B}$
+\end_inset
+
+ and 
+\begin_inset Formula $e\Rrightarrow e'$
+\end_inset
+
+ then 
+\begin_inset Formula $e'\,Elim_{\Pi}x:e'_{A}.e'_{B}$
+\end_inset
+
+ , 
+\begin_inset Formula $e_{A}\Rrightarrow e'_{A}$
+\end_inset
+
+ , 
+\begin_inset Formula $e_{B}\Rrightarrow e'_{B}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+by induction on 
+\begin_inset Formula $Elim_{\Pi}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+-substitution 
+\end_layout
+
+\begin_layout Standard
+The following rules are admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,x:A,H'\vdash b\Rrightarrow b':B\quad H\vdash a\Rrightarrow a':A}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\Rrightarrow b'\left[x\coloneqq a'\right]:B\left[x\coloneqq a\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,x:A,H'\vdash e\Rrightarrow e':\overline{\star}\quad H\vdash a\Rrightarrow a':A}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\Rrightarrow e'\left[x\coloneqq a'\right]:\overline{\star}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{e\left[x\coloneqq a\right]\,Elim_{\Pi}x:e_{A}\left[x\coloneqq a\right].e_{B}\left[x\coloneqq a\right]\quad H\vdash a\Rrightarrow a':A}{e\left[x\coloneqq a'\right]\,Elim_{\Pi}x:e_{A}\left[x\coloneqq a'\right].e_{B}\left[x\coloneqq a'\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by mutual induction on the 
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ derivations
+\end_layout
+
+\begin_layout Subsubsection
+def of 
+\begin_inset Formula $-^{*}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+there is a maximal par-reduction step that can be computed for every syntactic
+ form defined:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="11" columns="3">
+<features tabularvalignment="middle">
+<column alignment="right" valignment="top">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\star^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $=\star$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $a^{*}\rightarrow a$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\left(\Pi x:A.B\right)^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $=\Pi x:A^{*}.B^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left(a_{h}::e\right)^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=a_{h}^{*}::e^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left(\left(\mathsf{fun}\,f.\,y.b\right)::e\,a\right)^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=\left(b^{*}\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b^{*}\right),x\coloneqq a^{*}::e_{A}^{*}\right]::e_{B}^{*}\left[x\coloneqq a^{*}\right]\right)$
+\end_inset
+
+ if 
+\begin_inset Formula $e\,Elim_{\Pi}x:e_{A}.e_{B}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $a_{h}^{*}\rightarrow a$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left(b\,a\right)^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=b^{*}\,a^{*}$
+\end_inset
+
+ otherwise
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $x^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=x$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left(\mathsf{fun}\,f.\,x.b\right)^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=\mathsf{fun}\,f.\,x.b^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left(e=_{l,o}A\right)^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=e^{*}=_{l,o^{*}}A^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $e^{*}\rightarrow e$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $.^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=.$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $o^{*}\rightarrow o$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left(o.arg\right)^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=o^{*}.arg$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left(o.bod[b]\right)^{*}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=o^{*}.bod[b^{*}]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $-^{*}$
+\end_inset
+
+ 
+\begin_inset Formula $Elim_{\star}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+if 
+\begin_inset Formula $e\,Elim_{\star}$
+\end_inset
+
+ then 
+\begin_inset Formula $e^{*}\,Elim_{\star}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+by induction on 
+\begin_inset Formula $Elim_{\star}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $-^{*}$
+\end_inset
+
+ 
+\begin_inset Formula $Elim_{\Pi}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+if 
+\begin_inset Formula $e\,Elim_{\Pi}x:e_{A}.e_{B}$
+\end_inset
+
+ then 
+\begin_inset Formula $e^{*}\,Elim_{\Pi}x:e_{A}^{*}.e_{B}^{*}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+by induction on 
+\begin_inset Formula $Elim_{\Pi}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $-^{*}$
+\end_inset
+
+ is maximal
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $a\Rrightarrow a'$
+\end_inset
+
+ then 
+\begin_inset Formula $a'\Rrightarrow a^{*}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $e\Rrightarrow e'$
+\end_inset
+
+ then 
+\begin_inset Formula $e'\Rrightarrow e^{*}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $o\Rrightarrow o'$
+\end_inset
+
+ then 
+\begin_inset Formula $o'\Rrightarrow o^{*}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+by mutual induction on 
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ relations, interesting cases include
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\Pi C\Rrightarrow$
+\end_inset
+
+ since if 
+\begin_inset Formula $e\,Elim_{\Pi}x:e_{A}.e_{B}$
+\end_inset
+
+ then 
+\begin_inset Formula $e^{*}\,Elim_{\Pi}x:e_{A}^{*}.e_{B}^{*}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\Pi E\Rrightarrow$
+\end_inset
+
+ , 
+\begin_inset Formula $b\,a\Rrightarrow b'\,a'$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+if the elimination is not possible with 
+\begin_inset Formula $b$
+\end_inset
+
+, follows from induction
+\end_layout
+
+\begin_layout Itemize
+if the elimination is possible with 
+\begin_inset Formula $b$
+\end_inset
+
+, it will still be possible with 
+\begin_inset Formula $b'$
+\end_inset
+
+ since, by induction 
+\begin_inset Formula $b\Rrightarrow b'$
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ is confluent
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+if 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $H\vdash a\Rrightarrow b:A$
+\end_inset
+
+ and 
+\begin_inset Formula $H\vdash a\Rrightarrow b':A$
+\end_inset
+
+ then there exists 
+\begin_inset Formula $c$
+\end_inset
+
+ such that
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $H\vdash b\Rrightarrow c:A$
+\end_inset
+
+ and 
+\begin_inset Formula $\Gamma\vdash b'\Rrightarrow c:A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by the maximality of 
+\begin_inset Formula $-^{*}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+ is transitive
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\Rrightarrow_{\ast}\,b:A\quad H\vdash b\Rrightarrow_{\ast}c:A}{H\vdash a\Rrightarrow_{\ast}\,c:A}\,\textrm{\Rrightarrow\ast-trans}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ preserves type in destination
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\Rrightarrow a':A}{H\vdash a':A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the apparent type of 
+\begin_inset Formula $a$
+\end_inset
+
+ will at most 
+\begin_inset Formula $H\vdash A\Rrightarrow A':\star$
+\end_inset
+
+ so 
+\begin_inset Formula $H\vdash A\equiv A':\star$
+\end_inset
+
+ , and it follows from conversion
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+ preserves type
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\Rrightarrow_{\ast}\,a':A}{H\vdash a:A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\Rrightarrow_{\ast}\,a':A}{H\vdash a':A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+ is confluent
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+if 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $H\vdash a\Rrightarrow_{\ast}\,b:A$
+\end_inset
+
+ and 
+\begin_inset Formula $H\vdash a\Rrightarrow_{\ast}\,b':A$
+\end_inset
+
+ then there exists 
+\begin_inset Formula $c$
+\end_inset
+
+ such that
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $H\vdash b\Rrightarrow_{\ast}\,c:A$
+\end_inset
+
+ and 
+\begin_inset Formula $H\vdash b'\Rrightarrow_{\ast}\,c:A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Follows from 
+\begin_inset Formula $\textrm{\Rrightarrow\ast-trans}$
+\end_inset
+
+ and the confluence of 
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ using standard techniques
 \end_layout
 
 \begin_layout Subsubsection
@@ -118,7 +1724,7 @@ The following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash a:A}{H\vdash a\sim a'}
+\frac{\,}{a\sim a'}
 \]
 
 \end_inset
@@ -129,7 +1735,7 @@ The following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash a\sim a'}{H\vdash a'\sim a}
+\frac{a\sim a'}{a'\sim a}
 \]
 
 \end_inset
@@ -140,7 +1746,7 @@ The following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash a\sim a'\quad H\vdash a'\sim a''}{H\vdash a'\sim a''}
+\frac{a\sim a'\quad a'\sim a''}{a'\sim a''}
 \]
 
 \end_inset
@@ -213,7 +1819,7 @@ The following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash a\Rrightarrow a':A\quad H\vdash b\Rrightarrow b':A\quad H\vdash a\sim b}{H\vdash a'\sim b'}
+\frac{H\vdash a\Rrightarrow a':A\quad a\sim b}{H\vdash b\Rrightarrow b':A\quad a'\sim b'}
 \]
 
 \end_inset
@@ -224,7 +1830,7 @@ The following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash a\Rrightarrow_{\ast}a':A\quad H\vdash b\Rrightarrow_{\ast}b':A\quad H\vdash a\sim b}{H\vdash a'\sim b'}
+\frac{H\vdash a\Rrightarrow_{\ast}a':A\quad a\sim b}{H\vdash b\Rrightarrow_{\ast}b':A\quad a'\sim b'}
 \]
 
 \end_inset
@@ -233,7 +1839,7 @@ The following rules are admissible:
 \end_layout
 
 \begin_layout Standard
-each by induction
+both by induction 
 \end_layout
 
 \begin_layout Subsubsection
@@ -316,10 +1922,10 @@ and
 \noun default
 \color inherit
  
-\begin_inset Formula $\sim com$
+\begin_inset Formula $\sim$
 \end_inset
 
-
+ commutativity
 \end_layout
 
 \begin_layout Subsubsection
@@ -360,11 +1966,7 @@ by the def of
 \begin_inset Formula $\Rrightarrow_{\ast}$
 \end_inset
 
- and preservation of 
-\begin_inset Formula $\sim$
-\end_inset
-
-
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -480,6 +2082,10 @@ since
 
 \begin_layout Subsection
 Type constructors
+\end_layout
+
+\begin_layout Subsubsection
+Type constructors are stable
 \end_layout
 
 \begin_layout Itemize
@@ -1004,7 +2610,7 @@ induction
 \end_layout
 
 \begin_layout Standard
-cast term typing
+term typing
 \end_layout
 
 \begin_layout Itemize
@@ -1192,7 +2798,43 @@ induction
 \uwave default
 \noun default
 \color inherit
- each head typing
+ each head typing.
+ By induction
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $e$
+\end_inset
+
+ is a value, there exists 
+\begin_inset Formula $e'$
+\end_inset
+
+ such that 
+\begin_inset Formula $e\rightsquigarrow e'$
+\end_inset
+
+.
+ If there is blame that blame can be used, if 
+\begin_inset Formula $e\rightsquigarrow e'$
+\end_inset
+
+ preform the step.
+ otherwise 
+\begin_inset Formula $e$
+\end_inset
+
+ is a value:
 \end_layout
 
 \begin_deeper
@@ -1255,7 +2897,7 @@ typed by type-in-type.
 \begin_inset Formula $\star$
 \end_inset
 
-, a value
+.
 \end_layout
 
 \begin_layout Itemize
@@ -1701,21 +3343,11 @@ if
 \noun off
 \color none
 then there must exist 
-\begin_inset Formula $\left[\star=_{l,o}\Pi x:A''.B''\right]\in v_{eq}$
+\begin_inset Formula $\left[\bcancel{\Pi}=_{l,o}\Pi x:A''.B''\right]\in v_{eq}$
 \end_inset
 
- (or by simplification 
-\begin_inset Formula $\left[\star:v'_{eq}=_{l,o}\Pi x:A''.B''\right]$
-\end_inset
-
-, 
-\begin_inset Formula $\left[\star=_{l,o}\Pi x:A''.B'':v'_{eq}\right]$
-\end_inset
-
-,
-\begin_inset Formula $\left[\star:v'_{eq}=_{l,o}\Pi x:A''.B'':v''_{eq}\right]$
-\end_inset
-
+ (
+by simplification
 ) and 
 \begin_inset Formula $l,o$
 \end_inset
@@ -1815,7 +3447,7 @@ Type Soundness
 
 \begin_layout Standard
 For any well typed term in an empty context, no sequence of small step reduction
-s will cause result in a computation to 
+s will cause a computation to 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1830,30 +3462,34 @@ get stuck
 \end_layout
 
 \begin_layout Section
-elaboration embeds typing
+Elaboration Embeds Typing
 \end_layout
 
-\begin_layout Enumerate
-\begin_inset Formula $\vdash e:M$
+\begin_layout Standard
+\begin_inset Formula $\vdash m:M$
 \end_inset
 
 , 
-\begin_inset Formula $elab\left(M,*\right)=M'$
+\begin_inset Formula $\vdash M\,Elab_{\star,l}\,A$
 \end_inset
 
 , and 
-\begin_inset Formula $elab\left(e,M'\right)=e'$
+\begin_inset Formula $\vdash m\,Elab_{A,l}\,a$
 \end_inset
 
  then 
-\begin_inset Formula $\vdash_{c}e':M'$
+\begin_inset Formula $\vdash a:A$
 \end_inset
 
-.
+
+\end_layout
+
+\begin_layout Standard
+Sketch, stengthen the hypo
 \end_layout
 
 \begin_layout Section
-computation resulting in blame cannot be typed in the surface lang
+computation resulting in blame cannot be typed in the surface language
 \end_layout
 
 \begin_layout Enumerate

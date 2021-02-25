@@ -2556,7 +2556,7 @@ typed transitive closure of par reductions
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $a\Rrightarrow a'$
+\begin_inset Formula $H\vdash a\Rrightarrow a':A$
 \end_inset
 
 
@@ -2592,7 +2592,7 @@ par reductions
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $e\Rrightarrow e'$
+\begin_inset Formula $H\vdash e\sim e':\overline{\star}$
 \end_inset
 
 
@@ -2615,7 +2615,7 @@ par reductions
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $o\Rrightarrow o'$
+\begin_inset Formula $H\vdash o\Rrightarrow o'$
 \end_inset
 
 
@@ -2651,7 +2651,7 @@ par reductions
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $A\sim A'$
+\begin_inset Formula $H\vdash b\sim b':B$
 \end_inset
 
 
@@ -2687,7 +2687,7 @@ same except for observations and evidence
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $e\sim e'$
+\begin_inset Formula $H\vdash e\sim e':\overline{\star}$
 \end_inset
 
 
@@ -2710,7 +2710,7 @@ same except for observations and evidence
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $e\,Elim_{\star}$
+\begin_inset Formula $H\vdash e\,Elim_{\star}$
 \end_inset
 
 
@@ -2733,7 +2733,7 @@ concrete elimination
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $e\,Elim_{\Pi}x:e_{A}.e_{b}$
+\begin_inset Formula $H\vdash e\,Elim_{\Pi}x:e_{A}.e_{B}$
 \end_inset
 
 
@@ -2759,6 +2759,150 @@ concrete elimination
 \end_layout
 
 \begin_layout Subsection
+Judgment Variants
+\end_layout
+
+\begin_layout Standard
+There are variants of judgments that reduce book keeping.
+ All of these helper judgments could be expanded into the top level judgments
+ above, but would make the presentation significantly messier.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Direct typing
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="1" columns="2">
+<features tabularvalignment="middle">
+<column alignment="right" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash b:!\,B$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+direct typing
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A type judgment without top level use of the conversion rule.
+ It acts as a technical devise to recover the more verbose forms of typed
+ judgments.
+ For instance, given the following
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash\left(\left(\mathsf{fun}\,f.\,x.b\right)::e\right)\,a\,:!\,B\left[x\coloneqq a\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\left(\mathsf{fun}\,f.\,x.b\right)::e\,a\Rrightarrow\left(b'\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b'\right),x\coloneqq a'::e_{A}'\right]::e_{B}'\left[x\coloneqq a'\right]\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by inspection we can construct the typed version of the rule
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,f:\Pi x:A.B,x:B\vdash b\Rrightarrow b':B\quad H\vdash a\Rrightarrow a':A\quad e\,Elim_{\Pi}\,x:e_{A}.e_{B}\quad H\vdash e_{A}\Rrightarrow e_{A}':\overline{\star}\quad H,x:B\vdash e_{B}\Rrightarrow e_{B}':\overline{\star}}{H\vdash\left(\mathsf{fun}\,f.\,x.b\right)::e\,a\Rrightarrow\left(b'\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b'\right),x\coloneqq a'::e_{A}'\right]::e_{B}'\left[x\coloneqq a'\right]\right)\,:\,B\left[x\coloneqq a\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+which is ideal for induction, but hard to parse.
+ 
+\end_layout
+
+\begin_layout Standard
+(TODO: make sure this 
+\begin_inset Quotes eld
+\end_inset
+
+macro
+\begin_inset Quotes erd
+\end_inset
+
+ works as expected, there may need to be slight changes for function elimination
+, since it inspects 2 layers of term syntax)
+\end_layout
+
+\begin_layout Subsubsection
 Head Judgments
 \end_layout
 
@@ -2864,7 +3008,7 @@ head type
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $H\vdash a_{h}\sim a'_{h}$
+\begin_inset Formula $a_{h}\sim a'_{h}$
 \end_inset
 
 
@@ -2889,19 +3033,18 @@ head type
 
 \end_layout
 
-\begin_layout Subsection
-Typed versions of Judgments
+\begin_layout Subsubsection
+Untyped versions of Judgments
 \end_layout
 
 \begin_layout Standard
 Some Judgments do not rely on type contexts, but are almost always used
- in a typed setting, so these compound judgments can be used to save space.
- 
+ in a typed setting, so these compound judgments are used.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="5" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features tabularvalignment="middle">
 <column alignment="right" valignment="top">
 <column alignment="left" valignment="top">
@@ -2935,7 +3078,7 @@ Some Judgments do not rely on type contexts, but are almost always used
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $=b\sim b'\qquad H\vdash b:B$
+\begin_inset Formula $=b\sim b'\qquad H\vdash b:!\,B$
 \end_inset
 
 
@@ -3013,7 +3156,7 @@ Some Judgments do not rely on type contexts, but are almost always used
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $=a\Rrightarrow a'\qquad H\vdash a:A$
+\begin_inset Formula $=a\Rrightarrow a'\qquad H\vdash a:!\,A$
 \end_inset
 
 
@@ -3052,7 +3195,7 @@ Some Judgments do not rely on type contexts, but are almost always used
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $=e\Rrightarrow e'\qquad H\vdash e:\overline{\star}$
+\begin_inset Formula $=e\Rrightarrow e'\qquad H\vdash e:\,\overline{\star}$
 \end_inset
 
 
@@ -3079,6 +3222,58 @@ Some Judgments do not rely on type contexts, but are almost always used
 
 \begin_layout Plain Layout
 \begin_inset Formula $=o\Rrightarrow o'\qquad H\vdash$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $H\vdash e\,Elim_{\star}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=e\,Elim_{\star}\qquad H\vdash e:\,\overline{\star}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $H\vdash e\,Elim_{\Pi}x:e_{A}.e_{B}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=e\,Elim_{\Pi}x:e_{A}.e_{b}\qquad H\vdash e:\,\overline{\star}\qquad H\vdash e_{A}:\,\overline{\star}\qquad H\vdash e_{B}:\,\overline{\star}$
 \end_inset
 
 
@@ -3189,6 +3384,10 @@ and likewise for head judgments
 
 \end_layout
 
+\begin_layout Subsubsection
+Typed versions of Judgments
+\end_layout
+
 \begin_layout Subsection
 Elaboration
 \end_layout
@@ -3293,32 +3492,6 @@ Check
 Typing
 \end_layout
 
-\begin_layout Subsubsection
-Term Typing
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash}{H\vdash\star:\star}\star-ty
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash A:\star\quad H,x:A\vdash B:\star}{H\vdash\Pi x:A.B\,:\star}\Pi-ty
-\]
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Standard
 \begin_inset Formula 
 \[
@@ -3333,7 +3506,7 @@ Term Typing
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash e:\overline{\star}\quad H\vdash a_{h}:B\downarrow}{H\vdash a_{h}::e\quad:\quad e\uparrow}apparent
+\frac{H\vdash a:!A}{H\vdash a:A}direct
 \]
 
 \end_inset
@@ -3342,13 +3515,13 @@ Term Typing
 \end_layout
 
 \begin_layout Subsubsection
-Head Typing
+Direct Term Typing
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{x:A\in H}{H\vdash x:A}var-ty
+\frac{H\vdash}{H\vdash\star:!\,\star}\star-ty
 \]
 
 \end_inset
@@ -3359,7 +3532,7 @@ Head Typing
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H,f:\Pi x:A.B,x:A\vdash b:B}{H\vdash\mathsf{fun}\,f.\,x.b\,:\,\Pi x:A.B}\Pi-\mathsf{fun}-ty
+\frac{H\vdash A:\star\quad H,x:A\vdash B:\star}{H\vdash\Pi x:A.B\,:!\,\star}\Pi-ty
 \]
 
 \end_inset
@@ -3370,7 +3543,7 @@ Head Typing
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash b:\Pi x:A.B\quad H\vdash a:A}{H\vdash b\,a\,:\,B\left[x\coloneqq a\right]}\Pi-app-ty
+\frac{H\vdash e:\overline{\star}\quad H\vdash a_{h}:B\downarrow}{H\vdash a_{h}::e\quad:!\quad e\uparrow}apparent
 \]
 
 \end_inset
@@ -3379,7 +3552,44 @@ Head Typing
 \end_layout
 
 \begin_layout Subsubsection
-Cast Typing
+Direct Head Typing
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{x:A\in H}{H\vdash x\,:!\,A}var-ty
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,f:\Pi x:A.B,x:A\vdash b:B}{H\vdash\mathsf{fun}\,f.\,x.b\,:!\,\Pi x:A.B}\Pi-\mathsf{fun}-ty
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash b:\Pi x:A.B\quad H\vdash a:A}{H\vdash b\,a\,:!\,B\left[x\coloneqq a\right]}\Pi-app-ty
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Direct Cast Typing
 \end_layout
 
 \begin_layout Standard

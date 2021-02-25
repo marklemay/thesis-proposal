@@ -551,7 +551,7 @@ the following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{e\,Elim_{\Pi}y:e_{A}.e_{B}}{e\left[x\coloneqq a\right]\,Elim_{\Pi}y:e_{A}\left[x\coloneqq a\right].e_{B}\left[x\coloneqq a\right]}
+\frac{H,x:A,H'\vdash e\,Elim_{\Pi}y:e_{A}.e_{B}}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\,Elim_{\Pi}y:e_{A}\left[x\coloneqq a\right].e_{B}\left[x\coloneqq a\right]}
 \]
 
 \end_inset
@@ -562,7 +562,7 @@ the following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{e\,Elim_{\star}}{e\left[x\coloneqq a\right]\,Elim_{\star}}
+\frac{H,x:A,H'\vdash e\,Elim_{\star}}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\,Elim_{\star}}
 \]
 
 \end_inset
@@ -618,50 +618,139 @@ by induction on
 \begin_inset Formula $\Rrightarrow$
 \end_inset
 
- 
-\begin_inset Formula $Elim_{\Pi}$
+-substitution 
+\end_layout
+
+\begin_layout Standard
+For any 
+\begin_inset Formula $a\Rrightarrow a'$
+\end_inset
+
+.
+ The following rules are admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{b\Rrightarrow b'}{b\left[x\coloneqq a\right]\Rrightarrow b'\left[x\coloneqq a'\right]}
+\]
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-if 
-\begin_inset Formula $e\,Elim_{\Pi}x:e_{A}.e_{B}$
+\begin_inset Formula 
+\[
+\frac{e\Rrightarrow e}{e\left[x\coloneqq a\right]\Rrightarrow e'\left[x\coloneqq a'\right]}
+\]
+
 \end_inset
 
- and 
-\begin_inset Formula $e\Rrightarrow e'$
-\end_inset
 
- then 
-\begin_inset Formula $e'\,Elim_{\Pi}x:e'_{A}.e'_{B}$
-\end_inset
-
- , 
-\begin_inset Formula $e_{A}\Rrightarrow e'_{A}$
-\end_inset
-
- , 
-\begin_inset Formula $e_{B}\Rrightarrow e'_{B}$
-\end_inset
-
- 
 \end_layout
 
 \begin_layout Standard
-by induction on 
-\begin_inset Formula $Elim_{\Pi}$
+\begin_inset Formula 
+\[
+\frac{e\Rrightarrow e'\quad e\left[x\coloneqq a\right]\,Elim_{\Pi}x:e_{A}\left[x\coloneqq a\right].e_{B}\left[x\coloneqq a\right]}{e_{A}\Rrightarrow e_{A}'\quad e_{B}\Rrightarrow e_{B}'\quad e'\left[x\coloneqq a'\right]\,Elim_{\Pi}x:e_{A}'\left[x\coloneqq a'\right].e_{B}'\left[x\coloneqq a'\right]}
+\]
+
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+by mutual induction on the derivations
 \end_layout
 
 \begin_layout Subsubsection
 \begin_inset Formula $\Rrightarrow$
 \end_inset
 
--substitution 
+ preserves type in destination
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\Rrightarrow a':A}{H\vdash a':A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the apparent type of 
+\begin_inset Formula $a$
+\end_inset
+
+ will at most 
+\begin_inset Formula $A\Rrightarrow A'$
+\end_inset
+
+ (by 
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+-substitution) so 
+\begin_inset Formula $H\vdash A\equiv A':\star$
+\end_inset
+
+ , and follows from conversion
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+ preserves type
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\Rrightarrow_{\ast}\,a':A}{H\vdash a:A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\Rrightarrow_{\ast}\,a':A}{H\vdash a':A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\sim$
+\end_inset
+
+ preserves type
 \end_layout
 
 \begin_layout Standard
@@ -671,7 +760,33 @@ The following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H,x:A,H'\vdash b\Rrightarrow b':B\quad H\vdash a\Rrightarrow a':A}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\Rrightarrow b'\left[x\coloneqq a'\right]:B\left[x\coloneqq a\right]}
+\frac{H\vdash a\sim a':A}{H\vdash a':A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $\equiv$
+\end_inset
+
+ preserves type
+\end_layout
+
+\begin_layout Standard
+The following rules are admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a\equiv\,a':A}{H\vdash a:A}
 \]
 
 \end_inset
@@ -682,7 +797,7 @@ The following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H,x:A,H'\vdash e\Rrightarrow e':\overline{\star}\quad H\vdash a\Rrightarrow a':A}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\Rrightarrow e'\left[x\coloneqq a'\right]:\overline{\star}}
+\frac{H\vdash a\equiv\,a':A}{H\vdash a':A}
 \]
 
 \end_inset
@@ -691,22 +806,11 @@ The following rules are admissible:
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{e\left[x\coloneqq a\right]\,Elim_{\Pi}x:e_{A}\left[x\coloneqq a\right].e_{B}\left[x\coloneqq a\right]\quad H\vdash a\Rrightarrow a':A}{e\left[x\coloneqq a'\right]\,Elim_{\Pi}x:e_{A}\left[x\coloneqq a'\right].e_{B}\left[x\coloneqq a'\right]}
-\]
-
+by the def of 
+\begin_inset Formula $\Rrightarrow_{\ast}$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-by mutual induction on the 
-\begin_inset Formula $\Rrightarrow$
-\end_inset
-
- derivations
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -1518,81 +1622,6 @@ by induction
 \end_layout
 
 \begin_layout Subsubsection
-\begin_inset Formula $\Rrightarrow$
-\end_inset
-
- preserves type in destination
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash a\Rrightarrow a':A}{H\vdash a':A}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Since the apparent type of 
-\begin_inset Formula $a$
-\end_inset
-
- will at most 
-\begin_inset Formula $H\vdash A\Rrightarrow A':\star$
-\end_inset
-
- so 
-\begin_inset Formula $H\vdash A\equiv A':\star$
-\end_inset
-
- , and it follows from conversion
-\end_layout
-
-\begin_layout Subsubsection
-\begin_inset Formula $\Rrightarrow_{\ast}$
-\end_inset
-
- preserves type
-\end_layout
-
-\begin_layout Standard
-The following rule is admissible:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash a\Rrightarrow_{\ast}\,a':A}{H\vdash a:A}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-by induction
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash a\Rrightarrow_{\ast}\,a':A}{H\vdash a':A}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-by induction
-\end_layout
-
-\begin_layout Subsubsection
 \begin_inset Formula $\Rrightarrow_{\ast}$
 \end_inset
 
@@ -1729,32 +1758,6 @@ each by induction
 \begin_inset Formula $\sim$
 \end_inset
 
- preserves type
-\end_layout
-
-\begin_layout Standard
-The following rules are admissible:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash a:A\quad a\sim a'}{H\vdash a':A}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-by induction
-\end_layout
-
-\begin_layout Subsubsection
-\begin_inset Formula $\sim$
-\end_inset
-
  commutes with 
 \family roman
 \series medium
@@ -1786,7 +1789,7 @@ The following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash a\Rrightarrow a':A\quad a\sim b}{H\vdash b\Rrightarrow b':A\quad a'\sim b'}
+\frac{a\Rrightarrow a'\quad a\sim b}{b\Rrightarrow b'\quad a'\sim b'}
 \]
 
 \end_inset
@@ -1806,7 +1809,11 @@ The following rules are admissible:
 \end_layout
 
 \begin_layout Standard
-both by induction 
+both by induction (observations can be ignored since 
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+ is reflexive)
 \end_layout
 
 \begin_layout Subsubsection
@@ -1893,47 +1900,6 @@ and
 \end_inset
 
  commutativity
-\end_layout
-
-\begin_layout Subsubsection
-\begin_inset Formula $\equiv$
-\end_inset
-
- preserves type
-\end_layout
-
-\begin_layout Standard
-The following rules are admissible:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash a\equiv\,a':A}{H\vdash a:A}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash a\equiv\,a':A}{H\vdash a':A}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-by the def of 
-\begin_inset Formula $\Rrightarrow_{\ast}$
-\end_inset
-
- 
 \end_layout
 
 \begin_layout Subsubsection
@@ -2052,12 +2018,16 @@ Type constructors
 \end_layout
 
 \begin_layout Subsubsection
-Type constructors are stable
+Type constructors are stable over 
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
 if 
-\begin_inset Formula $H\vdash\ast\Rrightarrow A:B$
+\begin_inset Formula $\ast\Rrightarrow A$
 \end_inset
 
  then 
@@ -2086,7 +2056,7 @@ if
 
 \begin_layout Itemize
 if 
-\begin_inset Formula $H\vdash\ast::e\Rrightarrow A_{h}::e':B$
+\begin_inset Formula $\ast::e\Rrightarrow A_{h}::e'$
 \end_inset
 
  then 
@@ -2108,6 +2078,88 @@ if
 
  is 
 \begin_inset Formula $\ast$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\Pi x:A.B\Rrightarrow C$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $C$
+\end_inset
+
+ is 
+\begin_inset Formula $\Pi x:A'.B'$
+\end_inset
+
+ for some 
+\begin_inset Formula $A',B'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\Pi x:A.B::e\Rrightarrow C_{h}::e'$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $C_{h}$
+\end_inset
+
+ is 
+\begin_inset Formula $\Pi x:A'.B'$
+\end_inset
+
+ for some 
+\begin_inset Formula $A',B'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction on 
+\begin_inset Formula $\Rrightarrow$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Type constructors are stable over 
+\begin_inset Formula $\Rrightarrow_{\ast}$
 \end_inset
 
 
@@ -2166,72 +2218,6 @@ if
 
  is 
 \begin_inset Formula $\ast$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-if 
-\begin_inset Formula $H\vdash\Pi x:A.B\Rrightarrow C:D$
-\end_inset
-
- then 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $C$
-\end_inset
-
- is 
-\begin_inset Formula $\Pi x:A'.B'$
-\end_inset
-
- for some 
-\begin_inset Formula $A',B'$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-if 
-\begin_inset Formula $H\vdash\Pi x:A.B::e\Rrightarrow C_{h}::e':D$
-\end_inset
-
- then 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $C_{h}$
-\end_inset
-
- is 
-\begin_inset Formula $\Pi x:A'.B'$
-\end_inset
-
- for some 
-\begin_inset Formula $A',B'$
 \end_inset
 
 
@@ -2304,71 +2290,155 @@ if
 \end_layout
 
 \begin_layout Standard
-by induction on the respective relations
+by induction on 
+\begin_inset Formula $\Rrightarrow_{\ast}$
+\end_inset
+
+ and
+\end_layout
+
+\begin_layout Subsubsection
+Type constructors are stable over 
+\begin_inset Formula $\sim$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\ast\sim A$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $A$
+\end_inset
+
+ is 
+\begin_inset Formula $\ast$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\ast::e\sim A_{h}::e'$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $A_{h}$
+\end_inset
+
+ is 
+\begin_inset Formula $\ast$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\Pi x:A.B\sim C$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $C$
+\end_inset
+
+ is 
+\begin_inset Formula $\Pi x:A'.B'$
+\end_inset
+
+ for some 
+\begin_inset Formula $A',B'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\Pi x:A.B::e\sim C_{h}::e'$
+\end_inset
+
+ then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $C_{h}$
+\end_inset
+
+ is 
+\begin_inset Formula $\Pi x:A'.B'$
+\end_inset
+
+ for some 
+\begin_inset Formula $A',B'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by induction on 
+\begin_inset Formula $\sim$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
 Type constructors definitionaly unique
-\end_layout
-
-\begin_layout Standard
-There are no derivations of
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $H\vdash\ast\sim\Pi x:A.B\,:C$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $H\vdash\ast::e\sim\Pi x:A.B\,:C$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $H\vdash\ast\sim\Pi x:A.B::e\,:C$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $H\vdash\ast::e\sim\Pi x:A.B::e'\,:C$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $H\vdash\ast\equiv\Pi x:A.B\,:C$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $H\vdash\ast::e\equiv\Pi x:A.B\,:C$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $H\vdash\ast\equiv\Pi x:A.B::e\,:C$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $H\vdash\ast::e\equiv\Pi x:A.B::e'\,:C$
-\end_inset
-
- 
 \end_layout
 
 \begin_layout Standard
@@ -2377,6 +2447,34 @@ for any
 \end_inset
 
 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $H\vdash\ast\bcancel{\equiv}\Pi x:A.B\,:C$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $H\vdash\ast::e\bcancel{\equiv}\Pi x:A.B\,:C$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $H\vdash\ast\bcancel{\equiv}\Pi x:A.B::e\,:C$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $H\vdash\ast::e\bcancel{\equiv}\Pi x:A.B::e'\,:C$
+\end_inset
+
+ 
 \end_layout
 
 \begin_layout Standard
@@ -2388,7 +2486,7 @@ Canonical forms
 \end_layout
 
 \begin_layout Standard
-if 
+If 
 \begin_inset Formula $\lozenge\vdash v_{h}\,:\Pi x:A.B$
 \end_inset
 

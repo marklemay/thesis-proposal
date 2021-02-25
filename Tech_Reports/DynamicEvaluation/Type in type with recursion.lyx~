@@ -77,7 +77,7 @@
 \begin_body
 
 \begin_layout Title
-an Intensional Dependent Type Theory with Type-in-Type and Recursion
+A Dynamic Dependent Type Theory with Type-in-Type and Recursion
 \end_layout
 
 \begin_layout Section
@@ -749,7 +749,7 @@ x
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Term Head
 \end_layout
 
 \end_inset
@@ -1050,7 +1050,7 @@ type equality chain
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Term
 \end_layout
 
 \end_inset
@@ -1216,6 +1216,54 @@ observation
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+There is syntactic ambiguity at 
+\begin_inset Formula $\star$
+\end_inset
+
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Pi$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ which are both a Term Head and a Term.
+ When rules apply equally to both forms they may not be restated.
+ Similarly for 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $e$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -2051,7 +2099,7 @@ apparent type
 \begin_inset Text
 
 \begin_layout Plain Layout
-constructor type
+raw type
 \end_layout
 
 \end_inset
@@ -2117,7 +2165,7 @@ Casts
 \end_layout
 
 \begin_layout Standard
-occasionally we will use the shorthand 
+Occasionally we will use the shorthand 
 \family roman
 \series medium
 \shape up
@@ -2234,33 +2282,10 @@ Judgments
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="15" columns="2">
+<lyxtabular version="3" rows="14" columns="2">
 <features tabularvalignment="middle">
 <column alignment="right" valignment="top">
 <column alignment="left" valignment="top">
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\Gamma\sim H\vdash$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-well formed translation
-\end_layout
-
-\end_inset
-</cell>
-</row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
 \begin_inset Text
@@ -2279,7 +2304,7 @@ well formed translation
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\Gamma\sim H\vdash n\,Elab\,a$
+\begin_inset Formula $H\vdash n\,Elab\,a$
 \end_inset
 
 
@@ -2315,7 +2340,7 @@ Infer cast
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\Gamma\sim H\vdash n\,Elab_{M,l}\,a$
+\begin_inset Formula $H\vdash n\,Elab_{A,l}\,a$
 \end_inset
 
 
@@ -2507,7 +2532,7 @@ well formed casts
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+typed transitive closure of par reductions
 \end_layout
 
 \end_inset
@@ -2531,43 +2556,7 @@ well formed casts
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $H\vdash a\Rrightarrow a':A$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $H\vdash e\Rrightarrow e':\overline{\star}$
+\begin_inset Formula $a\Rrightarrow a'$
 \end_inset
 
 
@@ -2590,7 +2579,43 @@ par reductions
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $H\vdash o\Rrightarrow o'$
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $e\Rrightarrow e'$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $o\Rrightarrow o'$
 \end_inset
 
 
@@ -2739,7 +2764,8 @@ Head Judgments
 
 \begin_layout Standard
 It is helpful to present some judgments that only consider head form, this
- avoids some bookkeeping with casts
+ avoids some bookkeeping with casts.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -2802,7 +2828,7 @@ head type
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $H\vdash a_{h}\Rrightarrow a:A$
+\begin_inset Formula $a_{h}\Rrightarrow a$
 \end_inset
 
 
@@ -2850,6 +2876,306 @@ head type
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Typed versions of Judgments
+\end_layout
+
+\begin_layout Standard
+Some Judgments do not rely on type contexts, but are almost always used
+ in a typed setting, so these compound judgments can be used to save space.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="2">
+<features tabularvalignment="middle">
+<column alignment="right" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash b\sim b':B$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=b\sim b'\qquad H\vdash b:B$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash e\sim e':\overline{\star}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=e\sim e'\qquad H\vdash e:\overline{\star}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash a\Rrightarrow a':A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=a\Rrightarrow a'\qquad H\vdash a:A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash e\Rrightarrow e':\overline{\star}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=e\Rrightarrow e'\qquad H\vdash e:\overline{\star}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $H\vdash o\Rrightarrow o'$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=o\Rrightarrow o'\qquad H\vdash$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and likewise for head judgments
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="2">
+<features tabularvalignment="middle">
+<column alignment="right" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash a_{h}\Rrightarrow a:A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=a_{h}\Rrightarrow a\qquad H\vdash a_{h}:A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash a_{h}\sim a'_{h}:A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $=a_{h}\sim a'_{h}\qquad H\vdash a_{h}:A$
+\end_inset
+
 
 \end_layout
 
@@ -2931,11 +3257,6 @@ Check
 \end_layout
 
 \begin_layout Standard
-TODO probably easiest to extend the elaboration checking judgment with the
- raw terms of the base lang, so everything can move in lock step
-\end_layout
-
-\begin_layout Standard
 \begin_inset Formula 
 \[
 \frac{H\vdash}{H\vdash\star\,Elab_{\star,l}\,\star}
@@ -2973,44 +3294,7 @@ Typing
 \end_layout
 
 \begin_layout Subsubsection
-Cast Typing
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash A:\star}{H\vdash A:\overline{\star}}eq-ty-1
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash e:\overline{\star}\quad H\vdash A:\star}{H\vdash e=_{l,o}A:\overline{\star}}eq-ty-2
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Head Typing
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{x:A\in H}{H\vdash x:A}var-ty
-\]
-
-\end_inset
-
-
+Term Typing
 \end_layout
 
 \begin_layout Standard
@@ -3028,6 +3312,43 @@ Head Typing
 \begin_inset Formula 
 \[
 \frac{H\vdash A:\star\quad H,x:A\vdash B:\star}{H\vdash\Pi x:A.B\,:\star}\Pi-ty
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a:A\quad H\vdash A\equiv A':\star}{H\vdash a:A'}conv
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash e:\overline{\star}\quad H\vdash a_{h}:B\downarrow}{H\vdash a_{h}::e\quad:\quad e\uparrow}apparent
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Head Typing
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{x:A\in H}{H\vdash x:A}var-ty
 \]
 
 \end_inset
@@ -3058,13 +3379,13 @@ Head Typing
 \end_layout
 
 \begin_layout Subsubsection
-Term Typing
+Cast Typing
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash}{H\vdash\star:\star}
+\frac{H\vdash A:\star}{H\vdash A:\overline{\star}}eq-ty-1
 \]
 
 \end_inset
@@ -3075,29 +3396,7 @@ Term Typing
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash A:\star\quad H,x:A\vdash B:\star}{H\vdash\Pi x:A.B\,:\star}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash a:A\quad H\vdash A\equiv A':\star}{H\vdash a:A'}conv
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash e:\overline{\star}\quad H\vdash a_{h}:B\downarrow}{H\vdash a_{h}::e\quad:\quad e\uparrow}apparent
+\frac{H\vdash e:\overline{\star}\quad H\vdash A:\star}{H\vdash e=_{l,o}A:\overline{\star}}eq-ty-2
 \]
 
 \end_inset
@@ -3112,7 +3411,7 @@ Definitional Equality
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash a\Rrightarrow_{*}b:A\quad H\vdash a'\Rrightarrow_{*}b'\,:A\quad b\sim b'}{H\vdash a\equiv a':A}
+\frac{H\vdash a\Rrightarrow_{*}b:A\quad H\vdash a'\Rrightarrow_{*}b'\,:A\quad H\vdash b\sim b':A}{H\vdash a\equiv a':A}
 \]
 
 \end_inset
@@ -3226,13 +3525,13 @@ Parallel Reduction
 \end_layout
 
 \begin_layout Subsubsection
-Cast Par reduction
+Term Par reduction
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash A\Rrightarrow A'\,:\,\star}{H\vdash A\Rrightarrow A'\,:\,\overline{\star}}
+\frac{\,}{\star\Rrightarrow\star}
 \]
 
 \end_inset
@@ -3243,7 +3542,81 @@ Cast Par reduction
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash e\Rrightarrow e':\overline{\star}\quad H\vdash A\Rrightarrow A'\,:\,\star\quad H\vdash o\Rrightarrow o'}{H\vdash e=_{l,o}A\Rrightarrow e'=_{l,o'}A'\,:\,\overline{\star}}
+\frac{A\Rrightarrow A'\quad B\Rrightarrow B'}{\Pi x:A.B\Rrightarrow\Pi x:A'.B'}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{a_{h}\Rrightarrow a'_{h}\quad e\Rrightarrow e'}{a_{h}::e\Rrightarrow a'_{h}::e'}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Head Par reduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{b\Rrightarrow b'\quad a\Rrightarrow a'\quad e\,Elim_{\Pi}\,x:e_{A}.e_{B}\quad e_{B}\Rrightarrow e_{B}'}{\left(\mathsf{fun}\,f.\,x.b\right)::e\,a\Rrightarrow\left(b'\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b'\right),x\coloneqq a'::e_{A}\right]::e_{B}'\left[x\coloneqq a'\right]\right)}\Pi C\Rrightarrow
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\,}{x\Rrightarrow x}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{b\Rrightarrow b'}{\mathsf{fun}\,f.\,x.b\Rrightarrow\mathsf{fun}\,f.\,x.b'}\Pi I\Rrightarrow
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{b\Rrightarrow b'\quad a\Rrightarrow a'}{b\,a\Rrightarrow b'\,a'}\Pi E\Rrightarrow
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Cast Par reduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{e\Rrightarrow e'\quad A\Rrightarrow A'\quad o\Rrightarrow o'}{e=_{l,o}A\Rrightarrow e'=_{l,o'}A'}
 \]
 
 \end_inset
@@ -3257,120 +3630,13 @@ annoyingly need to support observation reductions, to allow a substitution
 \end_layout
 
 \begin_layout Subsubsection
-Head Par reduction
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H,f:\Pi x:A.B,x:A\vdash b\Rrightarrow b':B\quad H\vdash a\Rrightarrow a':A\quad e\,Elim_{\Pi}\,x:e_{A}.e_{B}\quad H\vdash e_{B}\Rrightarrow e_{B}':\overline{\star}}{H\vdash\left(\mathsf{fun}\,f.\,x.b\right)::e\,a\Rrightarrow\left(b'\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b'\right),x\coloneqq a'::e_{A}\right]::e_{B}\left[x\coloneqq a'\right]\right)\,:\,B\left[x\coloneqq a\right]}\Pi C\Rrightarrow
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{x:A\in H}{H\vdash x\Rrightarrow x:A}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash}{H\vdash\star\Rrightarrow\star:\star}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash A\Rrightarrow A':\star\quad H,x:A\vdash B\Rrightarrow B':\star}{H\vdash\Pi x:A.B\Rrightarrow\Pi x:A'.B'\,:\,\star}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H,f:\Pi x:A.B,x:A\vdash b\Rrightarrow b'\,:B}{H\vdash\mathsf{fun}\,f.\,x.b\Rrightarrow\mathsf{fun}\,f.\,x.b'\,:\,\Pi x:A.B}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash b\Rrightarrow b':\Pi x:A.B\quad H\vdash a\Rrightarrow b':A}{H\vdash b\,a\Rrightarrow b'\,a'\,:\,B\left[x\coloneqq a\right]}\Pi E\Rrightarrow
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Term Par reduction
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash}{H\vdash\star\Rrightarrow\star:\star}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash A\Rrightarrow A':\star\quad H,x:A\vdash B\Rrightarrow B':\star}{H\vdash\Pi x:A.B\Rrightarrow\Pi x:A'.B'\,:\,\star}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash e\Rrightarrow e':\star\quad H\vdash a\Rrightarrow a':e\downarrow}{H\vdash a::e\Rrightarrow a'::e'\,:\,e\uparrow}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
 Observation Par reduction
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash}{H\vdash.\Rrightarrow.}
+\frac{\,}{.\Rrightarrow.}
 \]
 
 \end_inset
@@ -3381,7 +3647,7 @@ Observation Par reduction
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash A\Rrightarrow A':\star\quad H,x:A\vdash B\Rrightarrow B':\star}{H\vdash\Pi x:A.B\Rrightarrow\Pi x:A'.B'\,:\,\star}
+\frac{o\Rrightarrow o'}{o.arg\Rrightarrow o'.arg}
 \]
 
 \end_inset
@@ -3392,7 +3658,7 @@ Observation Par reduction
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash e\Rrightarrow e':\star\quad H\vdash a\Rrightarrow a':e\downarrow}{H\vdash a::e\Rrightarrow a'::e'\,:\,e\uparrow}
+\frac{o\Rrightarrow o'\quad a\Rrightarrow a'}{o.bod[a]\Rrightarrow o'.bod[a']}
 \]
 
 \end_inset
@@ -4006,7 +4272,7 @@ Call-by-Value Small Step
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{O\rightsquigarrow O'}{v_{eq}=_{l,O}A\rightsquigarrow v_{eq}=_{l,O'}A}
+\frac{o\rightsquigarrow o'}{v_{eq}=_{l,o}A\rightsquigarrow v_{eq}=_{l,o'}A}
 \]
 
 \end_inset

@@ -77,7 +77,7 @@
 \begin_body
 
 \begin_layout Title
-an Intensional Dependent Type Theory with Type-in-Type and Recursion
+A Dynamic Dependent Type Theory with Type-in-Type and Recursion
 \end_layout
 
 \begin_layout Section
@@ -2716,7 +2716,136 @@ Head Judgments
 
 \begin_layout Standard
 It is helpful to present some judgments that only consider head form, this
- avoids some bookkeeping with casts
+ avoids some bookkeeping with casts.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features tabularvalignment="middle">
+<column alignment="right" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash a_{h}:A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+head type
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash a_{h}\Rrightarrow a:A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $H\vdash a_{h}\sim a'_{h}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Shorthand Jugments
+\end_layout
+
+\begin_layout Standard
+Some Judments do not rely on type, 
 \end_layout
 
 \begin_layout Standard
@@ -2950,13 +3079,13 @@ Typing
 \end_layout
 
 \begin_layout Subsubsection
-Cast Typing
+Term Typing
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash A:\star}{H\vdash A:\overline{\star}}eq-ty-1
+\frac{H\vdash}{H\vdash\star:\star}
 \]
 
 \end_inset
@@ -2967,7 +3096,29 @@ Cast Typing
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash e:\overline{\star}\quad H\vdash A:\star}{H\vdash e=_{l,o}A:\overline{\star}}eq-ty-2
+\frac{H\vdash A:\star\quad H,x:A\vdash B:\star}{H\vdash\Pi x:A.B\,:\star}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a:A\quad H\vdash A\equiv A':\star}{H\vdash a:A'}conv
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash e:\overline{\star}\quad H\vdash a_{h}:B\downarrow}{H\vdash a_{h}::e\quad:\quad e\uparrow}apparent
 \]
 
 \end_inset
@@ -3035,13 +3186,13 @@ Head Typing
 \end_layout
 
 \begin_layout Subsubsection
-Term Typing
+Cast Typing
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash}{H\vdash\star:\star}
+\frac{H\vdash A:\star}{H\vdash A:\overline{\star}}eq-ty-1
 \]
 
 \end_inset
@@ -3052,29 +3203,7 @@ Term Typing
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash A:\star\quad H,x:A\vdash B:\star}{H\vdash\Pi x:A.B\,:\star}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash a:A\quad H\vdash A\equiv A':\star}{H\vdash a:A'}conv
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash e:\overline{\star}\quad H\vdash a_{h}:B\downarrow}{H\vdash a_{h}::e\quad:\quad e\uparrow}apparent
+\frac{H\vdash e:\overline{\star}\quad H\vdash A:\star}{H\vdash e=_{l,o}A:\overline{\star}}eq-ty-2
 \]
 
 \end_inset

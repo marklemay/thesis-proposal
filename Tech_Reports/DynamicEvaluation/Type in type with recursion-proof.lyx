@@ -77,7 +77,7 @@
 \begin_body
 
 \begin_layout Title
-an Intensional Dependent Type Theory with Type-in-Type and Recursion
+A Dynamic Dependent Type Theory with Type-in-Type and Recursion
 \end_layout
 
 \begin_layout Section
@@ -343,7 +343,7 @@ The following rule is admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash}{H\vdash a\sim a}\,\textrm{\ensuremath{\sim}-refl}
+\frac{\,}{a\sim a}\,\textrm{\ensuremath{\sim}-refl}
 \]
 
 \end_inset
@@ -380,6 +380,10 @@ The following rule is admissible:
 \begin_layout Standard
 by 
 \begin_inset Formula $\,\textrm{\Rrightarrow\ast-refl}$
+\end_inset
+
+and 
+\begin_inset Formula $\textrm{\ensuremath{\sim}-refl}$
 \end_inset
 
 
@@ -525,7 +529,7 @@ the following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{b\sim b'}{b\left[x\coloneqq a\right]\sim b'\left[x\coloneqq a\right]}
+\frac{H,x:A,H'\vdash b\sim b':B}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\sim b'\left[x\coloneqq a\right]:B\left[x\coloneqq a\right]}
 \]
 
 \end_inset
@@ -536,18 +540,7 @@ the following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{e\sim e'}{e\left[x\coloneqq a\right]\sim e'\left[x\coloneqq a\right]}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{e\,Elim_{\star}}{e\left[x\coloneqq a\right]\,Elim_{\star}}
+\frac{H,x:A,H'\vdash e\sim e':\overline{\star}}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\sim e'\left[x\coloneqq a\right]:\overline{\star}}
 \]
 
 \end_inset
@@ -567,49 +560,23 @@ the following rules are admissible:
 \end_layout
 
 \begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{e\,Elim_{\star}}{e\left[x\coloneqq a\right]\,Elim_{\star}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 by mutual induction on the derivations with reflexivity lemmas.
  
 \end_layout
 
 \begin_layout Subsection
 Computation
-\end_layout
-
-\begin_layout Subsubsection
-\begin_inset Formula $\Rrightarrow$
-\end_inset
-
- preserves type of source
-\end_layout
-
-\begin_layout Standard
-The following rules are admissible:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash a\Rrightarrow a':A}{H\vdash a:A}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash e\Rrightarrow e':\overline{\star}}{H\vdash e:\overline{\star}}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-by induction
 \end_layout
 
 \begin_layout Subsubsection
@@ -3346,9 +3313,7 @@ then there must exist
 \begin_inset Formula $\left[\bcancel{\Pi}=_{l,o}\Pi x:A''.B''\right]\in v_{eq}$
 \end_inset
 
- (
-with simplification
-) and 
+ (with simplification) and 
 \begin_inset Formula $l,o$
 \end_inset
 

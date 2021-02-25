@@ -77,7 +77,7 @@
 \begin_body
 
 \begin_layout Title
-an Intensional Dependent Type Theory with Type-in-Type and Recursion
+A Dynamic Dependent Type Theory with Type-in-Type and Recursion
 \end_layout
 
 \begin_layout Section
@@ -343,7 +343,7 @@ The following rule is admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash}{H\vdash a\sim a}\,\textrm{\ensuremath{\sim}-refl}
+\frac{\,}{a\sim a}\,\textrm{\ensuremath{\sim}-refl}
 \]
 
 \end_inset
@@ -380,6 +380,10 @@ The following rule is admissible:
 \begin_layout Standard
 by 
 \begin_inset Formula $\,\textrm{\Rrightarrow\ast-refl}$
+\end_inset
+
+and 
+\begin_inset Formula $\textrm{\ensuremath{\sim}-refl}$
 \end_inset
 
 
@@ -525,7 +529,7 @@ the following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{b\sim b'}{b\left[x\coloneqq a\right]\sim b'\left[x\coloneqq a\right]}
+\frac{H,x:A,H'\vdash b\sim b':B}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\sim b'\left[x\coloneqq a\right]:B\left[x\coloneqq a\right]}
 \]
 
 \end_inset
@@ -536,7 +540,7 @@ the following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{e\sim e'}{e\left[x\coloneqq a\right]\sim e'\left[x\coloneqq a\right]}
+\frac{H,x:A,H'\vdash e\sim e':\overline{\star}}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\sim e'\left[x\coloneqq a\right]:\overline{\star}}
 \]
 
 \end_inset
@@ -573,43 +577,6 @@ by mutual induction on the derivations with reflexivity lemmas.
 
 \begin_layout Subsection
 Computation
-\end_layout
-
-\begin_layout Subsubsection
-\begin_inset Formula $\Rrightarrow$
-\end_inset
-
- preserves type of source
-\end_layout
-
-\begin_layout Standard
-The following rules are admissible:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash a\Rrightarrow a':A}{H\vdash a:A}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash e\Rrightarrow e':\overline{\star}}{H\vdash e:\overline{\star}}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-by induction
 \end_layout
 
 \begin_layout Subsubsection
@@ -3346,9 +3313,7 @@ then there must exist
 \begin_inset Formula $\left[\bcancel{\Pi}=_{l,o}\Pi x:A''.B''\right]\in v_{eq}$
 \end_inset
 
- (
-by simplification
-) and 
+ (with simplification) and 
 \begin_inset Formula $l,o$
 \end_inset
 
@@ -3485,59 +3450,163 @@ Elaboration Embeds Typing
 \end_layout
 
 \begin_layout Standard
-Sketch, stengthen the hypo
+Sketch (the Surface type system has slight but pervasive changes to the
+ language described in the 
+\begin_inset Quotes eld
+\end_inset
+
+baselanguage
+\begin_inset Quotes erd
+\end_inset
+
+ folder), 
 \end_layout
 
-\begin_layout Section
-computation resulting in blame cannot be typed in the surface language
-\end_layout
+\begin_layout Itemize
+strengthen the hypothesis to 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
 
-\begin_layout Enumerate
-\begin_inset Formula $\vdash_{c}e':M'$
-\end_inset
-
- and 
-\begin_inset Formula $e'\downarrow blame$
-\end_inset
-
- then there is no 
-\begin_inset Formula $\vdash e:M$
-\end_inset
-
- such that 
-\begin_inset Formula $elab\left(M,*\right)=M'$
+\begin_inset Formula $\varGamma\,Elab\,H$
 \end_inset
 
 , 
-\begin_inset Formula $elab\left(e,M'\right)=e'$
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\varGamma\vdash m:M$
+\end_inset
+
+, 
+\begin_inset Formula $H\vdash M\,Elab_{\star,l}\,A$
+\end_inset
+
+, and 
+\begin_inset Formula $H\vdash m\,Elab_{A,l}\,a$
+\end_inset
+
+ then 
+\begin_inset Formula $H\vdash a:A$
 \end_inset
 
 
+\end_layout
+
+\begin_layout Itemize
+follows by mutual induction
 \end_layout
 
 \begin_layout Section
-computation in the cast lang respects computation in the surface lang
+Computation resulting in blame cannot be typed in the surface language
 \end_layout
 
-\begin_layout Enumerate
-\begin_inset Formula $\vdash_{c}e':*$
+\begin_layout Standard
+\begin_inset Formula $\vdash a:A$
 \end_inset
 
  and 
-\begin_inset Formula $elab\left(e,*\right)=e'$
+\begin_inset Formula $a$
+\end_inset
+
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+blame
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ then there is no 
+\begin_inset Formula $\vdash m:M$
+\end_inset
+
+ such that 
+\begin_inset Formula $\vdash M\,Elab_{\star,l}\,A$
+\end_inset
+
+, and 
+\begin_inset Formula $\vdash m\,Elab_{A,l'}\,a$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Sketch: if 
+\begin_inset Formula $\vdash m:M$
+\end_inset
+
+ then 
+\begin_inset Formula $\vdash a:A$
+\end_inset
+
+ are elaborated without source labels (
+\begin_inset Formula $l,l'$
+\end_inset
+
+ are superfluous) therefore blame is impossible to construct
+\end_layout
+
+\begin_layout Section
+Computation in the cast language respects computation in the surface language
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\vdash A:*$
+\end_inset
+
+ and 
+\begin_inset Formula $\vdash M\,Elab_{\star,l}\,A$
 \end_inset
 
  then
 \end_layout
 
-\begin_deeper
 \begin_layout Enumerate
 if 
-\begin_inset Formula $e'\downarrow*$
+\begin_inset Formula $A\rightsquigarrow_{*}*$
 \end_inset
 
  then 
-\begin_inset Formula $e\downarrow*$
+\begin_inset Formula $M\rightsquigarrow_{*}*$
 \end_inset
 
 
@@ -3545,28 +3614,29 @@ if
 
 \begin_layout Enumerate
 if 
-\begin_inset Formula $e'\downarrow(x:M')\rightarrow N'$
+\begin_inset Formula $A\rightsquigarrow_{*}\Pi x:B.C$
 \end_inset
 
  then 
-\begin_inset Formula $e\downarrow(x:M)\rightarrow N$
+\begin_inset Formula $M\rightsquigarrow_{*}\Pi x:N.P$
 \end_inset
 
  
 \end_layout
 
-\begin_layout Enumerate
-if 
-\begin_inset Formula $e'\downarrow TCon\,\overline{M'}$
+\begin_layout Standard
+Sketch: evaluation is designed to be 
+\begin_inset Quotes eld
 \end_inset
 
- then 
-\begin_inset Formula $e\downarrow TCon\,\overline{M}$
+correct by construction
+\begin_inset Quotes erd
 \end_inset
 
- 
+ .
+ Casts and cast evaluation steps can be completely removed, resulting in
+ exactly the small steps of the surface language
 \end_layout
 
-\end_deeper
 \end_body
 \end_document

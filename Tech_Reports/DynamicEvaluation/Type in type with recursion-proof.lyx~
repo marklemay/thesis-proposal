@@ -81,7 +81,7 @@ A Dynamic Dependent Type Theory with Type-in-Type and Recursion
 \end_layout
 
 \begin_layout Section
-type soundness or blame
+Type Soundness or Blame
 \end_layout
 
 \begin_layout Standard
@@ -519,17 +519,6 @@ the following rules are admissible:
 \begin_inset Formula 
 \[
 \frac{H,x:A,H'\vdash o\Rrightarrow o'}{H,H'\left[x\coloneqq a\right]\vdash o\left[x\coloneqq a\right]\Rrightarrow o'\left[x\coloneqq a\right]}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H,x:A,H'\vdash b\sim b':B}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\sim b'\left[x\coloneqq a\right]:B\left[x\coloneqq a\right]}
 \]
 
 \end_inset
@@ -1809,7 +1798,7 @@ The following rules are admissible:
 \end_layout
 
 \begin_layout Standard
-both by induction (observations can go uncomputed since 
+both by induction (observations can be ignored since 
 \begin_inset Formula $\Rrightarrow$
 \end_inset
 

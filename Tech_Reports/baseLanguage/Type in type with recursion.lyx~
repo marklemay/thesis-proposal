@@ -80,13 +80,13 @@
 an Intensional Dependent Type Theory with Type-in-Type and Recursion
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Pre-syntax 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="8" columns="5">
+<lyxtabular version="3" rows="9" columns="5">
 <features tabularvalignment="middle">
 <column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
@@ -135,7 +135,7 @@ Pre-syntax
 \end_inset
 
  | 
-\begin_inset Formula $\Gamma,x:\sigma$
+\begin_inset Formula $\Gamma,x:M$
 \end_inset
 
 
@@ -158,11 +158,8 @@ var contexts
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\sigma,\tau$
-\end_inset
-
-,
-\begin_inset Formula $M,N,H_{-},P$
+m,n,h,p,
+\begin_inset Formula $M,N,H,P$
 \end_inset
 
 
@@ -205,6 +202,56 @@ x
 
 \begin_layout Plain Layout
 expressions: var
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+|
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m::M$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+annotation
 \end_layout
 
 \end_inset
@@ -292,7 +339,7 @@ type universe
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\Pi x:\sigma.\tau$
+\begin_inset Formula $\Pi x:M.N$
 \end_inset
 
  
@@ -342,11 +389,11 @@ types
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M$
+\begin_inset Formula $\mathsf{fun}\,f.\,x.m$
 \end_inset
 
  | 
-\begin_inset Formula $M\,N$
+\begin_inset Formula $m\,n$
 \end_inset
 
 
@@ -450,7 +497,7 @@ values
 \end_inset
 
  | 
-\begin_inset Formula $\Pi x:\sigma.\tau$
+\begin_inset Formula $\Pi x:M.N$
 \end_inset
 
  
@@ -500,10 +547,10 @@ values
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M$
+\begin_inset Formula $\mathsf{fun}\,f.\,x.m$
 \end_inset
 
- 
+
 \end_layout
 
 \end_inset
@@ -525,13 +572,13 @@ values
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Judgment Forms
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features tabularvalignment="middle">
 <column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
@@ -566,7 +613,7 @@ Judgment Forms
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\Gamma\vdash M:\sigma$
+\begin_inset Formula $\Gamma\vdash m:M$
 \end_inset
 
 
@@ -591,11 +638,11 @@ Judgment Forms
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $M$
+\begin_inset Formula $m$
 \end_inset
 
- is a term of type 
-\begin_inset Formula $\sigma$
+ checks as a term of type 
+\begin_inset Formula $M$
 \end_inset
 
 
@@ -609,7 +656,51 @@ Judgment Forms
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\Gamma\vdash M\equiv N:\sigma$
+\begin_inset Formula $\Gamma\vdash m\vec{:}M$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+type 
+\begin_inset Formula $M$
+\end_inset
+
+ can be infered for 
+\begin_inset Formula $m$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Gamma\vdash m\equiv m':M$
 \end_inset
 
 
@@ -645,7 +736,7 @@ Definitional Equality on terms
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\Gamma\vdash M\Rrightarrow N:\sigma$
+\begin_inset Formula $\Gamma\vdash m\Rrightarrow m':M$
 \end_inset
 
 
@@ -670,11 +761,11 @@ Definitional Equality on terms
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $M$
+\begin_inset Formula $m$
 \end_inset
 
  parallel reduces to 
-\begin_inset Formula $N$
+\begin_inset Formula $m'$
 \end_inset
 
 
@@ -688,7 +779,7 @@ Definitional Equality on terms
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\Gamma\vdash M\Rrightarrow_{\ast}N:\sigma$
+\begin_inset Formula $\Gamma\vdash m\Rrightarrow_{\ast}m':M$
 \end_inset
 
 
@@ -713,11 +804,11 @@ Definitional Equality on terms
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $M$
+\begin_inset Formula $m$
 \end_inset
 
  parallel reduces to 
-\begin_inset Formula $N$
+\begin_inset Formula $m'$
 \end_inset
 
  after 
@@ -744,7 +835,7 @@ Definitional Equality on terms
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $M\rightsquigarrow N$
+\begin_inset Formula $m\rightsquigarrow m'$
 \end_inset
 
 
@@ -769,11 +860,11 @@ Definitional Equality on terms
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $M$
+\begin_inset Formula $m$
 \end_inset
 
  CBV-reduces to 
-\begin_inset Formula $N$
+\begin_inset Formula $m'$
 \end_inset
 
  in 1 step 
@@ -789,7 +880,7 @@ Definitional Equality on terms
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Section
 Judgments
 \end_layout
 
@@ -797,48 +888,7 @@ Judgments
 The following judgments are mutually inductively defined.
 \end_layout
 
-\begin_layout Subsection*
-Transitive reflexive closure
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash M\Rrightarrow_{\ast}M':\sigma}\,\textrm{\Rrightarrow\ast-refl}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma\quad\Gamma\vdash M'\Rrightarrow M'':\sigma}{\Gamma\vdash M\Rrightarrow_{\ast}\,M';:\sigma}\,\textrm{\Rrightarrow\ast-step}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection*
-Definitional Equality
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,N:\sigma\quad\Gamma\vdash M'\Rrightarrow_{\ast}\,N:\sigma}{\Gamma\vdash M\equiv M':\sigma}\,\equiv\textrm{-Def}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection*
+\begin_layout Subsection
 Context Rules
 \end_layout
 
@@ -856,7 +906,7 @@ Context Rules
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash\sigma:\star}{\Gamma,x:\sigma\vdash}\,\textrm{C-Ext}
+\frac{\Gamma\vdash M:\star}{\Gamma,x:M\vdash}\,\textrm{C-Ext}
 \]
 
 \end_inset
@@ -864,14 +914,29 @@ Context Rules
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
+Definitional Equality
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash m\Rrightarrow_{\ast}\,n:M\quad\Gamma\vdash m'\Rrightarrow_{\ast}\,n:M}{\Gamma\vdash m\equiv m':M}\,\equiv\textrm{-Def}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 Conversion
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash M:\sigma\qquad\Gamma\vdash\sigma\equiv\tau:\star}{\Gamma\vdash M:\tau}\,\textrm{Conv}
+\frac{\Gamma\vdash m:M\qquad\Gamma\vdash M\equiv M':\star}{\Gamma\vdash m:M'}\,\textrm{Conv}
 \]
 
 \end_inset
@@ -879,14 +944,14 @@ Conversion
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 Variables
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:\sigma,\Gamma'\vdash}{\Gamma,x:\sigma,\Gamma'\vdash x:\sigma}\,\textrm{Var}
+\frac{\Gamma,x:M,\Gamma'\vdash}{\Gamma,x:M,\Gamma'\vdash x:M}\,\textrm{Var}
 \]
 
 \end_inset
@@ -897,7 +962,7 @@ Variables
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash x:\sigma}{\Gamma\vdash x\Rrightarrow x\,:\sigma}\,\textrm{Var}\textrm{-\Rrightarrow}
+\frac{\Gamma,x:M,\Gamma'\vdash}{\Gamma,x:M,\Gamma'\vdash x\Rrightarrow x\,:M}\,\textrm{Var}\textrm{-\Rrightarrow}
 \]
 
 \end_inset
@@ -905,7 +970,7 @@ Variables
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 Type-in-Type
 \end_layout
 
@@ -931,14 +996,14 @@ Type-in-Type
 
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsection
 Dependent Recursive Functions
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash\sigma:\star\qquad\Gamma,x:\sigma\vdash\tau:\star}{\Gamma\vdash\Pi x:\sigma.\tau\,:\star}\,\Pi\textrm{-F}
+\frac{\Gamma\vdash M:\star\qquad\Gamma,x:N\vdash\tau:\star}{\Gamma\vdash\Pi x:M.N\,:\star}\,\Pi\textrm{-F}
 \]
 
 \end_inset
@@ -949,7 +1014,7 @@ Dependent Recursive Functions
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:\sigma\vdash\tau:\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M:\tau}{\Gamma\vdash\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\,:\,\varPi x:\sigma.\tau}\,\Pi\textrm{-I}
+\frac{\Gamma,x:M\vdash\tau:\star\qquad\Gamma,f:\Pi x:M.N,x:M\vdash n:N}{\Gamma\vdash\mathsf{fun}\,f.\,x.n\,:\,\varPi x:M.N}\,\Pi\textrm{-I}
 \]
 
 \end_inset
@@ -960,7 +1025,7 @@ Dependent Recursive Functions
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash M:\,\Pi x:\sigma.\tau\qquad\Gamma\vdash N:\sigma}{\Gamma\vdash M\,N\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-E}
+\frac{\Gamma\vdash n:\,\Pi x:M.N\qquad\Gamma\vdash m:M}{\Gamma\vdash n\,m\,:\,M\left[x\coloneqq m\right]}\,\Pi\textrm{-E}
 \]
 
 \end_inset
@@ -971,7 +1036,7 @@ Dependent Recursive Functions
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:\sigma\vdash\tau:\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M\Rrightarrow M':\tau\qquad\Gamma\vdash N\Rrightarrow N':\sigma}{\Gamma\vdash\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,N\,\Rrightarrow\,M\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'\right)\right]\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-\Rrightarrow}
+\frac{\Gamma\vdash M:\star\qquad\Gamma,x:M\vdash N:\star\qquad\Gamma,f:\Pi x:M.N,x:M\vdash n\Rrightarrow n':N\qquad\Gamma\vdash m\Rrightarrow m':M}{\Gamma\vdash\left(\mathsf{fun}\,f.\,x.n\right)\,m\,\Rrightarrow\,n'\left[x\coloneqq m',f\coloneqq\left(\mathsf{fun}\,f.\,x.n'\right)\right]\,:\,M\left[x\coloneqq m\right]}\,\Pi\textrm{-\Rrightarrow}
 \]
 
 \end_inset
@@ -979,25 +1044,14 @@ Dependent Recursive Functions
 
 \end_layout
 
-\begin_layout Standard
-structural rules, 
+\begin_layout Subsubsection
+Structural Rules
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash\sigma\Rrightarrow\sigma'\,:\star\qquad\Gamma,x:\sigma\vdash\tau\Rrightarrow\tau'\,:\star}{\Gamma\vdash\Pi x:\sigma.\tau\,\Rrightarrow\,\Pi x:\sigma'.\tau'\,:\star}\,\Pi\textrm{-F-\Rrightarrow}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash M\Rrightarrow M'\,:\,\Pi x:\sigma.\tau\qquad\Gamma\vdash N\Rrightarrow N'\,:\sigma}{\Gamma\vdash M\,N\,\Rrightarrow\,M'\,N'\,:\,\tau\left[x\coloneqq N\right]}\,\Pi\textrm{-E-\Rrightarrow}
+\frac{\Gamma\vdash M\Rrightarrow M'\,:\star\qquad\Gamma,x:M\vdash N\Rrightarrow N'\,:\star}{\Gamma\vdash\Pi x:M.N\,\Rrightarrow\,\Pi x:M'.N'\,:\star}\,\Pi\textrm{-F-\Rrightarrow}
 \]
 
 \end_inset
@@ -1008,22 +1062,7 @@ structural rules,
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:\sigma\vdash\tau:\star\qquad\Gamma,x:\sigma,f:\Pi x:\sigma.\tau\vdash M\Rrightarrow M':\tau}{\Gamma\vdash\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\,\Rrightarrow\,\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'\,:\,\varPi x:\sigma.\tau}\,\Pi\textrm{-I-\Rrightarrow}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-CBV,
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\,}{\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\,v\,\rightsquigarrow\,M\left[x\coloneqq v,f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right)\right]}\,\Pi\textrm{-}\rightsquigarrow
+\frac{\Gamma\vdash n\Rrightarrow n'\,:\,\Pi x:M.N\qquad\Gamma\vdash m\Rrightarrow m'\,:M}{\Gamma\vdash n\,m\,\Rrightarrow\,n'\,m'\,:\,N\left[x\coloneqq m\right]}\,\Pi\textrm{-E-\Rrightarrow}
 \]
 
 \end_inset
@@ -1034,7 +1073,22 @@ CBV,
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{M\,\rightsquigarrow\,M'}{M\,N\,\rightsquigarrow\,M'\,N}\,\Pi\textrm{-E-\rightsquigarrow-1}
+\frac{\Gamma\vdash M:\star\qquad\Gamma,x:M\vdash N:\star\qquad\Gamma,f:\Pi x:M.N,x:M\vdash n\Rrightarrow n':N\qquad\Gamma\vdash m\Rrightarrow m':M}{\Gamma\vdash\left(\mathsf{fun}\,f.\,x.n\right)\,m\,\Rrightarrow\,\left(\mathsf{fun}\,f.\,x.n'\right)\,m'\,:\,M\left[x\coloneqq m\right]}\,\Pi\textrm{-I-\Rrightarrow}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Call-by-Value
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\,}{\left(\mathsf{fun}\,f.\,x.m\right)\,v\,\rightsquigarrow\,m\left[x\coloneqq v,f\coloneqq\left(\mathsf{fun}\,f.\,x.m\right)\right]}\,\Pi\textrm{-}\rightsquigarrow
 \]
 
 \end_inset
@@ -1045,7 +1099,44 @@ CBV,
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{N\,\rightsquigarrow\,N'}{v\,N\,\rightsquigarrow\,v\,N'}\,\Pi\textrm{-E-\rightsquigarrow-2}
+\frac{m\,\rightsquigarrow\,m'}{m\,n\,\rightsquigarrow\,m'\,n}\,\Pi\textrm{-E-\rightsquigarrow-1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{n\,\rightsquigarrow\,n'}{v\,n\,\rightsquigarrow\,v\,n'}\,\Pi\textrm{-E-\rightsquigarrow-2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Transitive reflexive closure
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash m:M}{\Gamma\vdash m\Rrightarrow_{\ast}m':M}\,\textrm{\Rrightarrow\ast-refl}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash m\Rrightarrow_{\ast}\,m':M\quad\Gamma\vdash m'\Rrightarrow m'':M}{\Gamma\vdash m\Rrightarrow_{\ast}\,m'':M}\,\textrm{\Rrightarrow\ast-step}
 \]
 
 \end_inset

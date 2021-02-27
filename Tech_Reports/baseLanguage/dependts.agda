@@ -15,9 +15,9 @@ data PreSyntax {n} where
   pVar : (i : Fin n) -> PreSyntax
   pTyU : PreSyntax
   pPi :  (aTy : PreSyntax {n}) -> (bodTy :  PreSyntax {suc n}) -> PreSyntax
-  pFun : (aTy : PreSyntax {n}) -> (bodTy :  PreSyntax {suc n}) -- annotations
-    -> (bod : PreSyntax {suc (suc n)}) -> PreSyntax
+  pFun : (bod : PreSyntax {suc (suc n)}) -> PreSyntax
   pApp :  (f : PreSyntax {n}) -> (a : PreSyntax {n}) -> PreSyntax
+  pCast :  (e : PreSyntax {n}) -> (ty : PreSyntax {n}) -> PreSyntax
 
 
 
@@ -35,9 +35,10 @@ renamePreSyntax : {i j : ℕ}
 renamePreSyntax ρ (pVar i) = pVar (ρ i)
 renamePreSyntax ρ pTyU = pTyU
 renamePreSyntax ρ (pPi aTy bodTy) = pPi (renamePreSyntax ρ aTy) (renamePreSyntax (extPreSyntax ρ) bodTy)
-renamePreSyntax ρ (pFun aTy bodTy bod)
-  = pFun (renamePreSyntax ρ aTy) (renamePreSyntax (extPreSyntax ρ) bodTy) ((renamePreSyntax (extPreSyntax (extPreSyntax ρ)) bod))
+renamePreSyntax ρ (pFun bod)
+  = pFun ((renamePreSyntax (extPreSyntax (extPreSyntax ρ)) bod))
 renamePreSyntax ρ (pApp f a) = pApp (renamePreSyntax ρ f) (renamePreSyntax ρ a)
+renamePreSyntax ρ (pCast e ty) = pCast (renamePreSyntax ρ e) (renamePreSyntax ρ ty)
 
 o : {n : ℕ} -> PreSyntax {n} -> PreSyntax {suc n}
 o = renamePreSyntax (raise 1)
@@ -103,17 +104,26 @@ data _val {n : ℕ} : PreSyntax {n} -> Set where
   vTyU : pTyU val
   vPi : { aTy : PreSyntax } -> {bodTy : PreSyntax }
      -> (pPi aTy bodTy) val
-  pFun : { aTy : PreSyntax } -> {bodTy : PreSyntax } -> {bod : PreSyntax {suc (suc n)} }
-    -> (pFun aTy bodTy bod) val
+  vFun : {bod : PreSyntax {suc (suc n)} }
+    -> (pFun bod) val
+  -- TODO should casts be values?
 
 data  _~>_ {n : ℕ} : PreSyntax {n} ->  PreSyntax {n} -> Set where
-  app-red : {a aTy : PreSyntax} -> {bodTy : PreSyntax} -> {bod : PreSyntax {suc (suc n)} }
+  app-red : {a  : PreSyntax} ->  {bod : PreSyntax {suc (suc n)} }
     ->  a val
-    -> (pApp (pFun aTy  bodTy bod)  a) ~> ( bod [ o (pFun aTy  bodTy bod) ] [ a ]  )
+    -> (pApp (pFun bod)  a) ~> ( bod [ o (pFun  bod) ] [ a ]  )
+    
+  cast-red : {e : PreSyntax} -> {ty : PreSyntax}
+    ->  e val
+    -> (pCast e ty) ~> e
+    
   -- structural
-  appf : {f f' a : PreSyntax } -> f ~> f' -> pApp f a ~> pApp f' a
-  appa : {f a a' : PreSyntax } -> f val -> a ~> a' -> pApp f a ~> pApp f a'
-
+  appf-struc : {f f' a : PreSyntax } -> f ~> f' -> pApp f a ~> pApp f' a
+  appa-struc : {f a a' : PreSyntax } -> f val -> a ~> a' -> pApp f a ~> pApp f a'
+  
+  cast-struc : {e e' : PreSyntax} -> {ty : PreSyntax}
+    ->  e ~> e' 
+    -> (pCast e ty) ~> (pCast e' ty) 
 
 data _|-_::_ {n : ℕ} (Γ : Ctx n) : PreSyntax {n}  -> PreSyntax {n} -> Set
 
@@ -128,13 +138,17 @@ data  _|-_==_::_ {n : ℕ} (Γ : Ctx n) : PreSyntax {n} -> PreSyntax {n} -> PreS
     
 
 data _~>p_ {n : ℕ} : PreSyntax {n}  -> PreSyntax {n} -> Set  where
-  par-red : {a a' aTy aTy' : _} -> {bodTy bodTy' : _} -> {bod bod' : _ }
+  par-red : {a a' : _} -> {bod bod' : _ }
     -> (a-a' : a ~>p a')
     -> (bod-bod' : bod ~>p bod')
-    -> (aTy-aTy' : aTy ~>p aTy')
-    -> (bodTy-bodty' : bodTy ~>p bodTy')
-    -> (pApp (pFun aTy  bodTy bod)  a) ~>p ( bod' [ o (pFun aTy'  bodTy' bod') ] [ a' ]  )
+  --  -> (aTy-aTy' : aTy ~>p aTy')
+ --   -> (bodTy-bodty' : bodTy ~>p bodTy')
+    -> (pApp (pFun bod)  a) ~>p ( bod' [ o (pFun bod') ] [ a' ]  )
 
+  par-cast-red : {e e' : PreSyntax} -> {ty : PreSyntax}
+    ->  e ~>p e' 
+    -> (pCast e ty) ~>p e'
+    
   -- structural
 
   par-Var : {i : Fin n}
@@ -148,31 +162,43 @@ data _~>p_ {n : ℕ} : PreSyntax {n}  -> PreSyntax {n} -> Set  where
     -> (pPi aTy bodTy) ~>p pPi aTy' bodTy'
     
   par-Fun :
-    {aTy aTy' : _} -> {bodTy bodTy' : _} ->
+ --   {aTy aTy' : _} -> {bodTy bodTy' : _} ->
     {bod bod' : _}
     -> bod ~>p bod'
-    -> aTy ~>p aTy'
-    -> bodTy ~>p bodTy'
-    -> (pFun aTy bodTy bod) ~>p pFun aTy' bodTy' bod'
+--    -> aTy ~>p aTy'
+--    -> bodTy ~>p bodTy'
+    -> (pFun bod) ~>p pFun bod'
     
   par-App : {f f' a a' : _}
     -> f ~>p f'
     -> a ~>p a'
     -> (pApp f a) ~>p (pApp f' a')
 
+  par-cast : {e e' : PreSyntax} -> {ty ty' : PreSyntax}
+    ->  e ~>p e' 
+    ->  ty ~>p ty' 
+    -> (pCast e ty) ~>p (pCast e' ty')
 
+par-refll : {n : ℕ}  (a : PreSyntax {n}) -> a ~>p a
+par-refll (pVar i) = par-Var
+par-refll pTyU = par-TyU
+par-refll (pPi x x₁) = par-Pi (par-refll x) (par-refll x₁)
+par-refll (pFun x) = par-Fun (par-refll x)
+par-refll (pApp x x₁) = par-App (par-refll x) (par-refll x₁)
+par-refll (pCast x x₁) = par-cast (par-refll x) (par-refll x₁)
 
 -- very influenced by https://plfa.github.io/Confluence/#parallel-reduction-satisfies-the-diamond-property
 -- misleading name
 -- the way this is presented, par-max may not be par, but instead withinexactly 2 par reductions away
 par-max : {n : ℕ} -> PreSyntax {n} -> PreSyntax {n} 
-par-max (pApp f@(pFun aTy bodTy bod) a) = (par-max bod) [ o (par-max f) ] [ par-max a ]
+par-max (pApp f@(pFun bod) a) = (par-max bod) [ o (par-max f) ] [ par-max a ]
+par-max (pApp f a) = pApp (par-max f) (par-max a)
 par-max (pVar i) = pVar i
 par-max pTyU = pTyU
 par-max (pPi aTy bodTy) = pPi (par-max aTy) (par-max bodTy)
-par-max (pFun aTy bodTy bod) = pFun (par-max aTy) (par-max bodTy) (par-max bod)
-par-max (pApp f a) = pApp (par-max f) (par-max a)
-
+par-max (pFun bod) = pFun (par-max bod)
+par-max (pCast e ty) = (par-max e) -- stepping back, this is a little silly since every cast will be imedately erased
+    
 postulate
   sub-par : {n : ℕ} {a a' : PreSyntax {suc n}} {b b' : PreSyntax {n}}
     -> a ~>p  a'
@@ -187,45 +213,39 @@ postulate
 par-triangle :  {n : ℕ} {a b : PreSyntax {n}}
    -> a ~>p b
    -> b ~>p (par-max a)
-par-triangle (par-red par-arg par-bod par-aTy par-bodTy)
-  = sub-par (sub-par (par-triangle par-bod) (o-par (par-triangle (par-Fun par-bod par-aTy par-bodTy)))) (par-triangle par-arg)
-par-triangle (par-App  (par-Fun par-f par-f₁ par-f₂) par-a)
-  = par-red (par-triangle par-a) (par-triangle par-f) (par-triangle par-f₁) (par-triangle par-f₂)
+par-triangle (par-red par-arg par-bod)
+  = sub-par (sub-par (par-triangle par-bod) (o-par (par-triangle (par-Fun par-bod)))) (par-triangle par-arg)
+par-triangle (par-App  (par-Fun par-f) par-a)
+  = par-red (par-triangle par-a) (par-triangle par-f)
+par-triangle (par-cast-red par-e) = par-triangle par-e
 par-triangle par-Var = par-Var
 par-triangle par-TyU = par-TyU
 par-triangle (par-Pi par-aTy par-bodTy) = par-Pi (par-triangle par-aTy) (par-triangle par-bodTy)
-par-triangle (par-Fun par-bod par-aTy par-bodT)
-  = par-Fun (par-triangle par-bod) (par-triangle par-aTy) (par-triangle par-bodT)
+par-triangle (par-Fun par-bod) = par-Fun (par-triangle par-bod)
+par-triangle (par-cast par-e _) = par-cast-red (par-triangle par-e)
+
 -- applications spelled out, someday replace with 
 -- par-triangle (par-App par-f par-a) = par-App (par-triangle par-f) (par-triangle par-a)
-par-triangle (par-App par-f@(par-red _ _ _ _) par-a)
+par-triangle (par-App par-f@(par-red x x₁) par-a) 
   = par-App (par-triangle par-f) (par-triangle par-a)
-par-triangle (par-App par-f@par-Var par-a)
+par-triangle (par-App par-f@(par-cast-red x) par-a)
   = par-App (par-triangle par-f) (par-triangle par-a)
-par-triangle (par-App par-f@par-TyU par-a)
+par-triangle (par-App par-f@par-Var par-a) 
   = par-App (par-triangle par-f) (par-triangle par-a)
-par-triangle (par-App par-f@(par-Pi _ _) par-a)
+par-triangle (par-App par-f@par-TyU par-a) 
   = par-App (par-triangle par-f) (par-triangle par-a)
-par-triangle (par-App  par-f@(par-App _ _) par-a)
+par-triangle (par-App par-f@(par-Pi x x₁) par-a) 
   = par-App (par-triangle par-f) (par-triangle par-a)
-
-
-
-
-par-refll : {n : ℕ}  (a : PreSyntax {n}) -> a ~>p a
-par-refll (pVar i) = par-Var
-par-refll pTyU = par-TyU
-par-refll (pPi a a₁) = par-Pi (par-refll a) (par-refll a₁)
-par-refll (pFun a a₁ a₂) = par-Fun (par-refll a₂) (par-refll a) (par-refll a₁)
-par-refll (pApp a a₁) = par-App (par-refll a) (par-refll a₁)
-
+par-triangle (par-App par-f@(par-App x x₁) par-a)
+  = par-App (par-triangle par-f) (par-triangle par-a)
+par-triangle (par-App par-f@(par-cast x x₁) par-a)
+  = par-App (par-triangle par-f) (par-triangle par-a)
 
 confulent-~> : {n : ℕ} {a b b' : PreSyntax {n}}
    -> a ~>p b
    -> a ~>p b'
    -> Σ _ \ v  -> b ~>p v  × b' ~>p v
 confulent-~>  {_} {a} ab ab' = par-max a , par-triangle ab , par-triangle ab'
-
 
 -- typed transitive reflective closer
 data _|-_~>*p_::_ {n} Γ  where
@@ -294,19 +314,20 @@ data _|-_::_ {n} Γ  where
     -> Γ |-  pPi aTy bodTy :: pTyU
   Fun : { aTy : PreSyntax } -> {bodTy : PreSyntax }
     -> {bod : PreSyntax }
-    -> Γ |-  pFun aTy bodTy bod  :: pPi aTy bodTy
+    ->  Γ  |- (pPi aTy bodTy) :: pTyU -- so it does not depend on x in a silly way
+    -> extCtx (extCtx Γ aTy)  (o (pPi aTy bodTy)) |-  bod  :: o bodTy
+     -> Γ |-  pFun bod  :: pPi aTy bodTy
   App : {f a aTy : PreSyntax } -> {bodTy : PreSyntax }
     -> Γ |-  f  :: pPi aTy bodTy -> Γ  |- a :: aTy 
     -> Γ |-  pApp f a  :: (bodTy [ a ])
+  Cast : {e : PreSyntax } -> {ty : PreSyntax }
+    -> Γ |-  e :: ty
+    -> Γ |-  pCast e ty  :: ty
+    
   Conv : {a m m' : PreSyntax }
     -> Γ |-  a  :: m
     -> Γ |- m == m' :: pTyU
     -> Γ |-  a  :: m'
-
-postulate
-  wf-ty : {n : ℕ} {Γ : Ctx n} {a ty : _} -- TODO: rename regularity
-    -> Γ |- a :: ty
-    -> Γ |- ty :: pTyU
 
 trans-== : {n : ℕ} {Γ : Ctx n} {a b c ty : _}
     -> Γ |- a == b :: ty
@@ -314,6 +335,11 @@ trans-== : {n : ℕ} {Γ : Ctx n} {a b c ty : _}
     -> Γ |- a == c :: ty
 trans-== (join {n} an bn) (join {m} bm cm) with confulent-~>* bn bm
 trans-== (join {n} an bn) (join {m} bm cm) | o , mo , n~>o = join {_} {_} {o} (trans-~>*  an mo) (trans-~>*  cm n~>o)
+
+postulate
+  reg : {n : ℕ} {Γ : Ctx n} {a ty : _}
+    -> Γ |- a :: ty
+    -> Γ |- ty :: pTyU
 
 refl-== : {n : ℕ} {Γ : Ctx n} {a ty : _}
     -> Γ |- a :: ty
@@ -326,27 +352,26 @@ tyu=/=pi (join {n} an bn) with stable-tyu an
 tyu=/=pi (join {.pTyU} an bn) | refl with stable-pi bn
 tyu=/=pi (join {.pTyU} an bn) | refl | ()
 
-
 canonical-form-pi : {m pi aTy : _} -> {bodTy : _}
   -> Emp |- m :: pi -> m val
   -> Emp |- pi == pPi aTy bodTy :: pTyU
-  ->  Σ _ \ aTy'  -> Σ _ \ bodTy'  ->  Σ _ \ bod  -> m ≡ pFun aTy' bodTy' bod
+  ->  Σ _ \ bod  -> m ≡ pFun bod
 canonical-form-pi (Conv der x) vTyU eq = canonical-form-pi der vTyU (trans-==  x eq)
 canonical-form-pi (Conv der x) vPi eq = canonical-form-pi  der vPi (trans-==  x eq)
 canonical-form-pi TyU vTyU eq = ⊥-elim (tyu=/=pi eq) --!
 canonical-form-pi (Pi der der₁) vPi eq = ⊥-elim (tyu=/=pi eq) --!
-canonical-form-pi der (pFun {aTy} {bodTy} {bod}) eq = aTy , bodTy , (bod , refl)  -- ok
-
+canonical-form-pi der (vFun {bod}) eq = bod , refl
 
 progress : {m n : _} -> Emp |- m :: n -> m val ⊎ Σ PreSyntax \ m' -> m ~> m'
 progress (Conv x x₁) = progress x
 progress TyU = inj₁ vTyU
-progress (Pi x x₁) = inj₁ vPi
-progress Fun = inj₁ pFun
-progress (App fDer aDer) with (progress fDer , progress aDer)
-progress (App {f} {a} fDer aDer) | inj₂ (f' , f~>f') , _ = inj₂ (pApp f' a , appf f~>f')
-progress (App {f} {a} fDer aDer) | inj₁ fval , inj₂ (a' , a~>a') = inj₂ (pApp f a' , appa fval a~>a')
-progress (App fDer aDer) | inj₁ fval , inj₁ aval with canonical-form-pi fDer fval (refl-== (wf-ty fDer))
-progress (App {_} {a} fDer aDer) | inj₁ fval , inj₁ aval | aTy' , bodTy' , bod , refl
-  = inj₂ (((bod [ o (pFun aTy' bodTy' bod) ]) [ a ]) , app-red aval)
-
+progress (Fun x x₁) = inj₁ vFun
+progress (Pi aTy bodTy) = inj₁ vPi
+progress (App fDer aDer)  with progress fDer | progress aDer
+progress (App {f} {a} fDer aDer) | inj₂ (f' , f~>f') | _ = inj₂ (pApp f' a , appf-struc f~>f' )
+progress (App {f} {a} fDer aDer) | inj₁ fval | inj₂ (a' , a~>a') = inj₂ (pApp f a' , appa-struc fval a~>a')
+progress (App {f} {a} fDer aDer) | inj₁ fval | inj₁ y with canonical-form-pi fDer fval (refl-== (reg fDer))
+progress (App {_} {a} fDer aDer) | inj₁ fval | inj₁ aval | bod , refl = inj₂ ((bod [ o (pFun bod) ] [ a ]) , app-red aval)
+progress (Cast x) with progress x
+progress (Cast x) | inj₁ x₁ = inj₂ (_ , cast-red x₁)
+progress (Cast x) | inj₂ (e , step) = inj₂ (pCast e _ , cast-struc step)

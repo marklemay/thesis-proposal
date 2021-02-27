@@ -681,11 +681,11 @@ Judgment Forms
 \uwave off
 \noun off
 \color none
-type 
+infer type 
 \begin_inset Formula $M$
 \end_inset
 
- can be infered for 
+ for 
 \begin_inset Formula $m$
 \end_inset
 
@@ -951,7 +951,7 @@ Variables
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:M,\Gamma'\vdash}{\Gamma,x:M,\Gamma'\vdash x:M}\,\textrm{Var}
+\frac{\Gamma,x:M,\Gamma'\vdash}{\Gamma,x:M,\Gamma'\vdash x\vec{:}M}\,\textrm{Var}
 \]
 
 \end_inset
@@ -971,13 +971,50 @@ Variables
 \end_layout
 
 \begin_layout Subsection
+Annotation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash m:\,M}{\Gamma\vdash m::M\,\vec{:}\,M}\textrm{Ann}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash m\,\vec{:}\,M}{\Gamma\vdash m:\,M}\,\textrm{Check}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash m\Rrightarrow m':M\quad\Gamma\vdash M\Rrightarrow M':\star}{\Gamma\vdash m::M\,\Rrightarrow m'::M'\,:M}\,\textrm{Var}\textrm{-\Rrightarrow}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 Type-in-Type
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash}{\Gamma\vdash\star:\star}\,\star\textrm{-F}
+\frac{\Gamma\vdash}{\Gamma\vdash\star\vec{:}\star}\,\star\textrm{-F}
 \]
 
 \end_inset
@@ -1003,7 +1040,7 @@ Dependent Recursive Functions
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash M:\star\qquad\Gamma,x:N\vdash\tau:\star}{\Gamma\vdash\Pi x:M.N\,:\star}\,\Pi\textrm{-F}
+\frac{\Gamma\vdash M:\star\qquad\Gamma,x:N\vdash\tau:\star}{\Gamma\vdash\Pi x:M.N\,\vec{:}\star}\,\Pi\textrm{-F}
 \]
 
 \end_inset
@@ -1119,7 +1156,7 @@ Call-by-Value
 \end_layout
 
 \begin_layout Subsection
-Transitive reflexive closure
+Transitive reflexive closure of Parallel Reductions
 \end_layout
 
 \begin_layout Standard

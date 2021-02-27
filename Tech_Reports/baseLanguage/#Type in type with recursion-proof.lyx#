@@ -314,6 +314,10 @@ Context substitution
 \end_layout
 
 \begin_layout Standard
+TODO does this need regularity?
+\end_layout
+
+\begin_layout Standard
 For any derivation of
 \family roman
 \series medium
@@ -361,7 +365,7 @@ the following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:M,\Gamma'\vdash n:N}{\Gamma,\Gamma'\left[x\coloneqq m\right]\vdash n\left[x\coloneqq m\right]\,:\,N\left[x\coloneqq m\right]}
+\frac{\Gamma,x:\tau,\Gamma'\vdash n:N}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\,:\,\sigma\left[x\coloneqq N\right]}
 \]
 
 \end_inset
@@ -372,7 +376,7 @@ the following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:M,\Gamma'\vdash n\Rrightarrow n':N}{\Gamma,\Gamma'\left[x\coloneqq m\right]\vdash n\left[x\coloneqq m\right]\Rrightarrow n'\left[x\coloneqq m\right]:N\left[x\coloneqq m\right]}
+\frac{\Gamma,x:\tau,\Gamma'\vdash M\Rrightarrow M':\sigma}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\Rrightarrow M'\left[x\coloneqq N\right]:\sigma\left[x\coloneqq N\right]}
 \]
 
 \end_inset
@@ -383,7 +387,7 @@ the following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:M,\Gamma'\vdash n\Rrightarrow_{\ast}n':N}{\Gamma,\Gamma'\left[x\coloneqq m\right]\vdash n\left[x\coloneqq m\right]\Rrightarrow_{\ast}n'\left[x\coloneqq m\right]:N}
+\frac{\Gamma,x:\tau,\Gamma'\vdash M\Rrightarrow_{\ast}M':\sigma}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\Rrightarrow_{\ast}M'\left[x\coloneqq N\right]:\sigma}
 \]
 
 \end_inset
@@ -394,7 +398,7 @@ the following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:M,\Gamma'\vdash n\equiv n':N}{\Gamma,\Gamma'\left[x\coloneqq m\right]\vdash n\left[x\coloneqq m\right]\,\equiv\,n'\left[x\coloneqq m\right]:N\left[x\coloneqq m\right]}
+\frac{\Gamma,x:\tau,\Gamma'\vdash M\equiv M':\sigma}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\,\equiv\,M'\left[x\coloneqq N\right]:\sigma\left[x\coloneqq N\right]}
 \]
 
 \end_inset
@@ -423,7 +427,7 @@ by mutual induction on the derivations.
 \noun off
 \color none
 
-\begin_inset Formula $\Gamma\vdash m:M$
+\begin_inset Formula $\Gamma\vdash N:\tau$
 \end_inset
 
 
@@ -453,7 +457,7 @@ by mutual induction on the derivations.
 \noun off
 \color none
 
-\begin_inset Formula $\Gamma,\Gamma'\left[x\coloneqq m\right]$
+\begin_inset Formula $\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash N:\tau$
 \end_inset
 
 
@@ -502,7 +506,7 @@ The following rule is admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m\Rrightarrow m':M}{\Gamma\vdash m:M}
+\frac{\Gamma\vdash N\Rrightarrow N':\tau}{\Gamma\vdash N:\tau}
 \]
 
 \end_inset
@@ -528,7 +532,7 @@ The following rule is admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:M,\Gamma'\vdash n\Rrightarrow n':N\quad\Gamma\vdash m\Rrightarrow m':M}{\Gamma,\Gamma'\left[x\coloneqq m\right]\vdash n\left[x\coloneqq m\right]\Rrightarrow n'\left[x\coloneqq m'\right]:N\left[x\coloneqq m\right]}
+\frac{\Gamma,x:\sigma,\Gamma'\vdash M\Rrightarrow M':\tau\quad\Gamma\vdash N\Rrightarrow N':\sigma}{\Gamma,\Gamma'\left[x\coloneqq N\right]\vdash M\left[x\coloneqq N\right]\Rrightarrow M'\left[x\coloneqq N'\right]:\tau\left[x\coloneqq N\right]}
 \]
 
 \end_inset
@@ -579,15 +583,15 @@ if
 \noun default
 \color inherit
 
-\begin_inset Formula $\Gamma\vdash m\Rrightarrow n:M$
+\begin_inset Formula $\Gamma\vdash M\Rrightarrow N:\sigma$
 \end_inset
 
  and 
-\begin_inset Formula $\Gamma\vdash m\Rrightarrow n':M$
+\begin_inset Formula $\Gamma\vdash M\Rrightarrow N':\sigma$
 \end_inset
 
  then there exists 
-\begin_inset Formula $m'$
+\begin_inset Formula $P$
 \end_inset
 
  such that
@@ -607,11 +611,11 @@ if
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\Gamma\vdash n\Rrightarrow m':M$
+\begin_inset Formula $\Gamma\vdash N\Rrightarrow P:\sigma$
 \end_inset
 
  and 
-\begin_inset Formula $\Gamma\vdash n'\Rrightarrow m':M$
+\begin_inset Formula $\Gamma\vdash N'\Rrightarrow P:\sigma$
 \end_inset
 
 
@@ -642,7 +646,7 @@ The following rule is admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m\Rrightarrow_{\ast}\,m':M\quad\Gamma\vdash m'\Rrightarrow_{\ast}m'':M}{\Gamma\vdash m\Rrightarrow_{\ast}\,m'':M}\,\textrm{\Rrightarrow\ast-trans}
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma\quad\Gamma\vdash M'\Rrightarrow_{\ast}M'':\sigma}{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma}\,\textrm{\Rrightarrow\ast-trans}
 \]
 
 \end_inset
@@ -664,7 +668,7 @@ by induction
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m\Rrightarrow m':M}{\Gamma\vdash m':M}
+\frac{\Gamma\vdash N\Rrightarrow N':\tau}{\Gamma\vdash N':\tau}
 \]
 
 \end_inset
@@ -715,7 +719,7 @@ By induction on the
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $m'\left[x\coloneqq n',f\coloneqq\left(\mathsf{fun}\,f.\,x.m'\right)\right]\,:\,M'\left[x\coloneqq n'\right]$
+\begin_inset Formula $M'\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\right)\right]\,:\,\tau'\left[x\coloneqq N'\right]$
 \end_inset
 
  by the substitution lemma used on the inductive hypotheses
@@ -735,7 +739,7 @@ By induction on the
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $M\left[x\coloneqq n\right]\Rrightarrow M'\left[x\coloneqq n'\right]$
+\begin_inset Formula $\tau\left[x\coloneqq N\right]\Rrightarrow\tau'\left[x\coloneqq N'\right]$
 \end_inset
 
  by 
@@ -769,7 +773,7 @@ By induction on the
 \noun off
 \color none
 , so 
-\begin_inset Formula $M\left[x\coloneqq n\right]\equiv M'\left[x\coloneqq n'\right]$
+\begin_inset Formula $\tau\left[x\coloneqq N\right]\equiv\tau'\left[x\coloneqq N'\right]$
 \end_inset
 
 
@@ -790,7 +794,7 @@ By induction on the
 \noun off
 \color none
 by the conversion rule 
-\begin_inset Formula $m'\left[x\coloneqq n',f\coloneqq\left(\mathsf{fun}\,f.\,x.m'\right)\right]\,:\,M\left[x\coloneqq m\right]$
+\begin_inset Formula $M'\left[x\coloneqq N',f\coloneqq\left(\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\right)\right]\,:\,\tau\left[x\coloneqq N\right]$
 \end_inset
 
 
@@ -819,7 +823,7 @@ by the conversion rule
 
 \begin_deeper
 \begin_layout Itemize
-\begin_inset Formula $m'\,n'\,:\,\tau\left[x\coloneqq n'\right]$
+\begin_inset Formula $M'\,N'\,:\,\tau\left[x\coloneqq N'\right]$
 \end_inset
 
 , by 
@@ -840,130 +844,7 @@ by the conversion rule
 \noun off
 \color none
 
-\begin_inset Formula $M\left[x\coloneqq n\right]\Rrightarrow M\left[x\coloneqq n'\right]$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-, so
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $M\left[x\coloneqq n\right]\equiv M\left[x\coloneqq n'\right]$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Itemize
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-by the conversion rule 
-\begin_inset Formula $m'\,n'\,:\,M\left[x\coloneqq n\right]$
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-\begin_inset Formula $\Pi\textrm{-I-\Rrightarrow}$
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\begin_inset Formula $\mathsf{fun}\,f.\,x.m'\,:\,\varPi x:M'.N'$
-\end_inset
-
-, 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\varPi x:M.N\Rrightarrow\varPi x:M'.N'$
+\begin_inset Formula $\tau\left[x\coloneqq N\right]\Rrightarrow\tau\left[x\coloneqq N'\right]$
 \end_inset
 
 
@@ -993,7 +874,7 @@ by the conversion rule
 \noun off
 \color none
 , so 
-\begin_inset Formula $\varPi x:M.N\equiv\varPi x:M'.N'$
+\begin_inset Formula $\tau\left[x\coloneqq N\right]\equiv\tau\left[x\coloneqq N'\right]$
 \end_inset
 
 
@@ -1014,7 +895,104 @@ by the conversion rule
 \noun off
 \color none
 by the conversion rule 
-\begin_inset Formula $\mathsf{fun}\,f.\,x.m'\,:\,\varPi x:M.N$
+\begin_inset Formula $M'\,N'\,:\,\tau\left[x\coloneqq N\right]$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\Pi\textrm{-I-\Rrightarrow}$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\,:\,\varPi x:\sigma'.\tau'$
+\end_inset
+
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\varPi x:\sigma.\tau\Rrightarrow\varPi x:\sigma'.\tau'$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+, so 
+\begin_inset Formula $\varPi x:\sigma.\tau\equiv\varPi x:\sigma'.\tau'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+by the conversion rule 
+\begin_inset Formula $\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma'.M'\,:\,\varPi x:\sigma.\tau$
 \end_inset
 
 
@@ -1039,7 +1017,7 @@ The following rule is admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m\Rrightarrow_{\ast}\,m':M}{\Gamma\vdash m:M}
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma}{\Gamma\vdash M:\sigma}
 \]
 
 \end_inset
@@ -1054,7 +1032,7 @@ by induction
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m\Rrightarrow_{\ast}\,m':M}{\Gamma\vdash m':M}
+\frac{\Gamma\vdash M\Rrightarrow_{\ast}\,M':\sigma}{\Gamma\vdash M':\sigma}
 \]
 
 \end_inset
@@ -1101,15 +1079,15 @@ if
 \noun default
 \color inherit
 
-\begin_inset Formula $\Gamma\vdash m\Rrightarrow_{\ast}\,n:M$
+\begin_inset Formula $\Gamma\vdash M\Rrightarrow_{\ast}\,N:\sigma$
 \end_inset
 
  and 
-\begin_inset Formula $\Gamma\vdash m\Rrightarrow_{\ast}\,n':M$
+\begin_inset Formula $\Gamma\vdash M\Rrightarrow_{\ast}\,N':\sigma$
 \end_inset
 
  then there exists 
-\begin_inset Formula $m'$
+\begin_inset Formula $P$
 \end_inset
 
  such that
@@ -1129,11 +1107,11 @@ if
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\Gamma\vdash n\Rrightarrow_{\ast}m':M$
+\begin_inset Formula $\Gamma\vdash N\Rrightarrow_{\ast}\,P:\sigma$
 \end_inset
 
  and 
-\begin_inset Formula $\Gamma\vdash n'\Rrightarrow_{\ast}m':M$
+\begin_inset Formula $\Gamma\vdash N'\Rrightarrow_{\ast}\,P:\sigma$
 \end_inset
 
 
@@ -1165,7 +1143,7 @@ The following rule is admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m\equiv m':M}{\Gamma\vdash m'\equiv m:M}\,\textrm{\ensuremath{\equiv}-sym}
+\frac{\Gamma\vdash M\equiv N:\sigma}{\Gamma\vdash N\equiv M:\sigma}\,\textrm{\ensuremath{\equiv}-sym}
 \]
 
 \end_inset
@@ -1187,7 +1165,7 @@ trivial
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m\equiv m':M\qquad\Gamma\vdash m'\equiv m'':M}{\Gamma\vdash m\equiv m'':M}\,\textrm{\ensuremath{\equiv}-trans}
+\frac{\Gamma\vdash M\equiv N:\sigma\qquad\Gamma\vdash N\equiv P:\sigma}{\Gamma\vdash M\equiv P:\sigma}\,\textrm{\ensuremath{\equiv}-trans}
 \]
 
 \end_inset
@@ -1230,7 +1208,7 @@ The following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m\equiv\,m':M}{\Gamma\vdash m:M}
+\frac{\Gamma\vdash M\equiv\,M':\sigma}{\Gamma\vdash M:\sigma}
 \]
 
 \end_inset
@@ -1241,7 +1219,7 @@ The following rules are admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m\equiv\,m':M}{\Gamma\vdash m':M}
+\frac{\Gamma\vdash M\equiv\,M':\sigma}{\Gamma\vdash M':\sigma}
 \]
 
 \end_inset
@@ -1268,7 +1246,7 @@ The following rule is admissible:
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m:M}{\Gamma\vdash M:\star}
+\frac{\Gamma\vdash M:\sigma}{\Gamma\vdash\sigma:\star}
 \]
 
 \end_inset
@@ -1362,11 +1340,11 @@ For any derivations of
 \noun off
 \color none
  
-\begin_inset Formula $\Gamma\vdash m:M$
+\begin_inset Formula $\Gamma\vdash M:\sigma$
 \end_inset
 
 , 
-\begin_inset Formula $m\rightsquigarrow m'$
+\begin_inset Formula $M\rightsquigarrow M'$
 \end_inset
 
 
@@ -1375,7 +1353,7 @@ For any derivations of
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\Gamma\vdash m\Rrightarrow m':M
+\Gamma\vdash M\Rrightarrow M':\sigma
 \]
 
 \end_inset
@@ -1426,11 +1404,11 @@ For any derivations of
 \noun off
 \color none
  
-\begin_inset Formula $\Gamma\vdash m:M$
+\begin_inset Formula $\Gamma\vdash M:\sigma$
 \end_inset
 
 , 
-\begin_inset Formula $m\rightsquigarrow m'$
+\begin_inset Formula $M\rightsquigarrow M'$
 \end_inset
 
 ,
@@ -1439,7 +1417,7 @@ For any derivations of
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\Gamma\vdash m':M
+\Gamma\vdash M':\sigma
 \]
 
 \end_inset
@@ -1525,7 +1503,7 @@ Type constructors are stable
 
 \begin_layout Itemize
 if 
-\begin_inset Formula $\Gamma\vdash\ast\Rrightarrow m:M$
+\begin_inset Formula $\Gamma\vdash\ast\Rrightarrow M:\sigma$
 \end_inset
 
  then 
@@ -1542,7 +1520,7 @@ if
 \noun off
 \color none
 
-\begin_inset Formula $m$
+\begin_inset Formula $M$
 \end_inset
 
  is 
@@ -1554,7 +1532,7 @@ if
 
 \begin_layout Itemize
 if 
-\begin_inset Formula $\Gamma\vdash\ast\Rrightarrow_{\ast}m:M$
+\begin_inset Formula $\Gamma\vdash\ast\Rrightarrow_{\ast}M:\sigma$
 \end_inset
 
  then 
@@ -1571,7 +1549,7 @@ if
 \noun off
 \color none
 
-\begin_inset Formula $m$
+\begin_inset Formula $M$
 \end_inset
 
  is 
@@ -1583,7 +1561,7 @@ if
 
 \begin_layout Itemize
 if 
-\begin_inset Formula $\Gamma\vdash\Pi x:N.P\Rrightarrow m:M$
+\begin_inset Formula $\Gamma\vdash\Pi x:\sigma.\tau\Rrightarrow M:\sigma$
 \end_inset
 
  then 
@@ -1600,15 +1578,15 @@ if
 \noun off
 \color none
 
-\begin_inset Formula $m$
+\begin_inset Formula $M$
 \end_inset
 
  is 
-\begin_inset Formula $\Pi x:N'.P'$
+\begin_inset Formula $\Pi x:\sigma'.\tau'$
 \end_inset
 
  for some 
-\begin_inset Formula $N',P'$
+\begin_inset Formula $\sigma',\tau'$
 \end_inset
 
 
@@ -1616,7 +1594,7 @@ if
 
 \begin_layout Itemize
 if 
-\begin_inset Formula $\Gamma\vdash\Pi x:N.P\Rrightarrow_{\ast}m:M$
+\begin_inset Formula $\Gamma\vdash\Pi x:\sigma.\tau\Rrightarrow_{\ast}M:\sigma$
 \end_inset
 
  then 
@@ -1633,15 +1611,15 @@ if
 \noun off
 \color none
 
-\begin_inset Formula $m$
+\begin_inset Formula $M$
 \end_inset
 
  is 
-\begin_inset Formula $\Pi x:N'.P'$
+\begin_inset Formula $\Pi x:\sigma'.\tau'$
 \end_inset
 
  for some 
-\begin_inset Formula $N',P'$
+\begin_inset Formula $\sigma',\tau'$
 \end_inset
 
 
@@ -1657,11 +1635,11 @@ Type constructors definitionaly unique
 
 \begin_layout Standard
 There is no derivation of 
-\begin_inset Formula $\Gamma\vdash\ast\equiv\Pi x:M.N\,:P$
+\begin_inset Formula $\Gamma\vdash\ast\equiv\Pi x:\sigma.\tau\,:\sigma'$
 \end_inset
 
  for any 
-\begin_inset Formula $\Gamma,M,N,P$
+\begin_inset Formula $\Gamma,\sigma,\tau,\sigma'$
 \end_inset
 
 
@@ -1694,7 +1672,7 @@ Canonical forms
 \noun off
 \color none
 If 
-\begin_inset Formula $\lozenge\vdash v:P$
+\begin_inset Formula $\lozenge\vdash v:\sigma$
 \end_inset
 
 
@@ -1728,7 +1706,7 @@ then
 
 \begin_layout Itemize
 if 
-\begin_inset Formula $P$
+\begin_inset Formula $\sigma$
 \end_inset
 
  is 
@@ -1770,7 +1748,7 @@ if
 \end_inset
 
  or 
-\begin_inset Formula $\Pi x:M.N$
+\begin_inset Formula $\Pi x:\sigma.\tau$
 \end_inset
 
 
@@ -1778,17 +1756,47 @@ if
 
 \begin_layout Itemize
 if 
-\begin_inset Formula $P$
+\begin_inset Formula $\sigma$
 \end_inset
 
  is 
-\begin_inset Formula $\Pi x:M.N$
+\begin_inset Formula $\Pi x:\sigma'.\tau$
 \end_inset
 
  for some 
-\begin_inset Formula $M,N$
+\begin_inset Formula $\sigma'$
 \end_inset
 
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\tau$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
  then 
 \family roman
 \series medium
@@ -1820,11 +1828,19 @@ if
 \noun default
 \color inherit
  is 
-\begin_inset Formula $\mathsf{fun}\,f.\,x.m$
+\begin_inset Formula $\mathsf{fun}\,f:\left(x.\tau'\right).\,x:\sigma''.P'$
 \end_inset
 
  for some 
-\begin_inset Formula $m$
+\begin_inset Formula $\tau'$
+\end_inset
+
+, 
+\begin_inset Formula $\sigma''$
+\end_inset
+
+, 
+\begin_inset Formula $P'$
 \end_inset
 
 
@@ -1841,7 +1857,7 @@ Conv,
 \begin_deeper
 \begin_layout Itemize
 if 
-\begin_inset Formula $P$
+\begin_inset Formula $\sigma$
 \end_inset
 
  is 
@@ -1888,11 +1904,11 @@ if
 
 \begin_layout Itemize
 if 
-\begin_inset Formula $P$
+\begin_inset Formula $\sigma$
 \end_inset
 
  is 
-\begin_inset Formula $\Pi x:M.N$
+\begin_inset Formula $\Pi x:\sigma'.\tau$
 \end_inset
 
  then eventually, it was typed with 
@@ -1949,7 +1965,7 @@ type-in-type,
 \noun off
 \color none
  
-\begin_inset Formula $\lozenge\vdash v:P$
+\begin_inset Formula $\lozenge\vdash v:\sigma$
 \end_inset
 
 
@@ -2016,7 +2032,7 @@ type-in-type,
 \noun off
 \color none
  
-\begin_inset Formula $\lozenge\vdash v:P$
+\begin_inset Formula $\lozenge\vdash v:\sigma$
 \end_inset
 
 
@@ -2046,7 +2062,7 @@ type-in-type,
 \noun off
 \color none
 
-\begin_inset Formula $\lozenge\vdash\Pi x:M.N\,:\star$
+\begin_inset Formula $\lozenge\vdash\Pi x:\sigma.\tau\,:\star$
 \end_inset
 
 
@@ -2083,7 +2099,7 @@ type-in-type,
 \noun off
 \color none
  
-\begin_inset Formula $\lozenge\vdash v:P$
+\begin_inset Formula $\lozenge\vdash v:\sigma$
 \end_inset
 
 
@@ -2113,7 +2129,7 @@ type-in-type,
 \noun off
 \color none
 
-\begin_inset Formula $\lozenge\vdash\mathsf{fun}\,f.\,x.m\,:\,\varPi x:M.N$
+\begin_inset Formula $\lozenge\vdash\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\,:\,\varPi x:\sigma.\tau$
 \end_inset
 
 
@@ -2154,19 +2170,19 @@ Progress
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\lozenge\vdash m:M$
+\begin_inset Formula $\lozenge\vdash M:\sigma$
 \end_inset
 
  implies that 
-\begin_inset Formula $m$
+\begin_inset Formula $M$
 \end_inset
 
  is a value or there exists 
-\begin_inset Formula $m'$
+\begin_inset Formula $N$
 \end_inset
 
  such that 
-\begin_inset Formula $m\rightsquigarrow m'$
+\begin_inset Formula $M\rightsquigarrow N$
 \end_inset
 
 .

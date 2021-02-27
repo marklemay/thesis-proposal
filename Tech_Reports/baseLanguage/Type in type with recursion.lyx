@@ -572,13 +572,22 @@ values
 
 \end_layout
 
+\begin_layout Standard
+Supports type casts in the form of 
+\begin_inset Formula $m::M$
+\end_inset
+
+.
+ However unlike the implementation the meta-theory is not bidirectional.
+\end_layout
+
 \begin_layout Section
 Judgment Forms
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="7" columns="2">
+<lyxtabular version="3" rows="6" columns="2">
 <features tabularvalignment="middle">
 <column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
@@ -643,50 +652,6 @@ Judgment Forms
 
  checks as a term of type 
 \begin_inset Formula $M$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\Gamma\vdash m\vec{:}M$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-infer type 
-\begin_inset Formula $M$
-\end_inset
-
- for 
-\begin_inset Formula $m$
 \end_inset
 
 
@@ -951,7 +916,7 @@ Variables
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:M,\Gamma'\vdash}{\Gamma,x:M,\Gamma'\vdash x\vec{:}M}\,\textrm{Var}
+\frac{\Gamma,x:M,\Gamma'\vdash}{\Gamma,x:M,\Gamma'\vdash x:M}\,\textrm{Var}
 \]
 
 \end_inset
@@ -977,7 +942,7 @@ Annotation
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m:\,M}{\Gamma\vdash m::M\,\vec{:}\,M}\textrm{Ann}
+\frac{\Gamma\vdash m:\,M}{\Gamma\vdash m::M\,:\,M}::
 \]
 
 \end_inset
@@ -988,7 +953,7 @@ Annotation
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m\,\vec{:}\,M}{\Gamma\vdash m:\,M}\,\textrm{Check}
+\frac{\Gamma\vdash m\Rrightarrow m':M}{\Gamma\vdash m::M\,\Rrightarrow m'\,:M}\,::\textrm{\Rrightarrow}
 \]
 
 \end_inset
@@ -999,7 +964,29 @@ Annotation
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m\Rrightarrow m':M\quad\Gamma\vdash M\Rrightarrow M':\star}{\Gamma\vdash m::M\,\Rrightarrow m'::M'\,:M}\,\textrm{Var}\textrm{-\Rrightarrow}
+\frac{\Gamma\vdash m\Rrightarrow m':M\quad\Gamma\vdash M\Rrightarrow M':\star}{\Gamma\vdash m::M\,\Rrightarrow m'::M'\,:M}\,::\textrm{-S-\Rrightarrow}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{m\,\rightsquigarrow\,m'}{m::M\,\rightsquigarrow\,m'::M}\,::\textrm{-S-\rightsquigarrow-1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\,}{v::M\,\rightsquigarrow\,v}\,::\textrm{-S-\rightsquigarrow-2}
 \]
 
 \end_inset
@@ -1014,7 +1001,7 @@ Type-in-Type
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash}{\Gamma\vdash\star\vec{:}\star}\,\star\textrm{-F}
+\frac{\Gamma\vdash}{\Gamma\vdash\star:\star}\,\star\textrm{-F}
 \]
 
 \end_inset
@@ -1040,7 +1027,7 @@ Dependent Recursive Functions
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash M:\star\qquad\Gamma,x:N\vdash\tau:\star}{\Gamma\vdash\Pi x:M.N\,\vec{:}\star}\,\Pi\textrm{-F}
+\frac{\Gamma\vdash M:\star\qquad\Gamma,x:N\vdash\tau:\star}{\Gamma\vdash\Pi x:M.N\,:\star}\,\Pi\textrm{-F}
 \]
 
 \end_inset
@@ -1079,10 +1066,6 @@ Dependent Recursive Functions
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-TODO: this is incorrect since now annotations can block reduction!
 \end_layout
 
 \begin_layout Subsubsection

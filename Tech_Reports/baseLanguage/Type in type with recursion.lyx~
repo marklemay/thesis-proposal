@@ -942,7 +942,7 @@ Annotation
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m:\,M}{\Gamma\vdash m::M\,:\,M}\textrm{Ann}
+\frac{\Gamma\vdash m:\,M}{\Gamma\vdash m::M\,:\,M}::
 \]
 
 \end_inset
@@ -953,7 +953,7 @@ Annotation
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m\Rrightarrow m':M}{\Gamma\vdash m::M\,\Rrightarrow m'\,:M}\,\textrm{Ann}\textrm{-\Rrightarrow}
+\frac{\Gamma\vdash m\Rrightarrow m':M}{\Gamma\vdash\,m::M\,\Rrightarrow\,m'\::\,M}\,::\textrm{\Rrightarrow}
 \]
 
 \end_inset
@@ -964,7 +964,7 @@ Annotation
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m\Rrightarrow m':M\quad\Gamma\vdash M\Rrightarrow M':\star}{\Gamma\vdash m::M\,\Rrightarrow m'::M'\,:M}\,\textrm{Ann}\textrm{-S-\Rrightarrow}
+\frac{\Gamma\vdash m\Rrightarrow m':M\quad\Gamma\vdash M\Rrightarrow M':\star}{\Gamma\vdash m::M\,\Rrightarrow m'::M'\,:M}\,::\textrm{-S-\Rrightarrow}
 \]
 
 \end_inset
@@ -975,7 +975,7 @@ Annotation
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{m\,\rightsquigarrow\,m'}{m::M\,\rightsquigarrow\,m'::M}\,\Pi\textrm{-E-\rightsquigarrow-1}
+\frac{m\,\rightsquigarrow\,m'}{m::M\,\rightsquigarrow\,m'::M}\,::\textrm{-S-\rightsquigarrow-1}
 \]
 
 \end_inset
@@ -986,7 +986,7 @@ Annotation
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\,}{v::M\,\rightsquigarrow\,v}\,\Pi\textrm{-E-\rightsquigarrow-1}
+\frac{\,}{v::M\,\rightsquigarrow\,v}\,::\textrm{-S-\rightsquigarrow-2}
 \]
 
 \end_inset
@@ -1027,7 +1027,7 @@ Dependent Recursive Functions
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash M:\star\qquad\Gamma,x:N\vdash\tau:\star}{\Gamma\vdash\Pi x:M.N\,:\star}\,\Pi\textrm{-F}
+\frac{\Gamma\vdash M:\star\qquad\Gamma,x:M\vdash N:\star}{\Gamma\vdash\Pi x:M.N\,:\star}\,\Pi\textrm{-F}
 \]
 
 \end_inset
@@ -1038,7 +1038,7 @@ Dependent Recursive Functions
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma,x:M\vdash\tau:\star\qquad\Gamma,f:\Pi x:M.N,x:M\vdash n:N}{\Gamma\vdash\mathsf{fun}\,f.\,x.n\,:\,\varPi x:M.N}\,\Pi\textrm{-I}
+\frac{\Gamma\vdash M:\star\qquad\Gamma,x:M\vdash N:\star\qquad\Gamma,f:\Pi x:M.N,x:M\vdash n:N}{\Gamma\vdash\mathsf{fun}\,f.\,x.n\,:\,\varPi x:M.N}\,\Pi\textrm{-I}
 \]
 
 \end_inset
@@ -1049,7 +1049,7 @@ Dependent Recursive Functions
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash n:\,\Pi x:M.N\qquad\Gamma\vdash m:M}{\Gamma\vdash n\,m\,:\,M\left[x\coloneqq m\right]}\,\Pi\textrm{-E}
+\frac{\Gamma\vdash n:\,\Pi x:M.N\qquad\Gamma\vdash m:M}{\Gamma\vdash n\,m\,:\,N\left[x\coloneqq m\right]}\,\Pi\textrm{-E}
 \]
 
 \end_inset
@@ -1149,7 +1149,7 @@ Transitive reflexive closure of Parallel Reductions
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\Gamma\vdash m:M}{\Gamma\vdash m\Rrightarrow_{\ast}m':M}\,\textrm{\Rrightarrow\ast-refl}
+\frac{\Gamma\vdash m:M}{\Gamma\vdash m\Rrightarrow_{\ast}m:M}\,\textrm{\Rrightarrow\ast-refl}
 \]
 
 \end_inset

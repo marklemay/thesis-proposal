@@ -280,36 +280,6 @@ by induction
 \end_layout
 
 \begin_layout Subsubsection
-\begin_inset Formula $\equiv$
-\end_inset
-
- is reflexive
-\end_layout
-
-\begin_layout Standard
-The following rule is admissible:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\Gamma\vdash m:M}{\Gamma\vdash m\equiv m:M}\,\textrm{\ensuremath{\equiv}-refl}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-by 
-\begin_inset Formula $\,\textrm{\Rrightarrow\ast-refl}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
 Context substitution
 \end_layout
 
@@ -408,8 +378,15 @@ by mutual induction on the derivations.
 \begin_inset Formula $x$
 \end_inset
 
- from the var rule in the original derivation, replace the usage of the
- var rule with the derivation of 
+ from the var rule in the original derivation, 
+\end_layout
+
+\begin_layout Itemize
+replace the usage of the 
+\begin_inset Formula $\textrm{Var}$
+\end_inset
+
+ rule with the derivation of 
 \family roman
 \series medium
 \shape up
@@ -457,6 +434,35 @@ by mutual induction on the derivations.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Itemize
+similarly for the 
+\begin_inset Formula $\textrm{Var}\textrm{-\Rrightarrow}$
+\end_inset
+
+ rule replace with the derivation of 
+\begin_inset Formula $\textrm{\Rrightarrow-refl}$
+\end_inset
+
+ , 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+at 
+\begin_inset Formula $\Gamma\vdash m\Rrightarrow m:M$
+\end_inset
+
+
 \family default
 \series default
 \shape default
@@ -469,19 +475,37 @@ by mutual induction on the derivations.
 \uwave default
 \noun default
 \color inherit
-, and apply 
-\begin_inset Formula $\textrm{\Rrightarrow-refl}$
+ weakened to the context of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Gamma,\Gamma'\left[x\coloneqq m\right]$
 \end_inset
 
- , 
-\begin_inset Formula $\textrm{\Rrightarrow_{\ast}-refl}$
-\end_inset
 
- or 
-\begin_inset Formula $\textrm{\ensuremath{\equiv}-refl}$
-\end_inset
-
- when needed.
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -618,7 +642,7 @@ if
 \end_layout
 
 \begin_layout Standard
-by standard techniques
+by standard techniques, outlined in the agda development
 \end_layout
 
 \begin_layout Subsection
@@ -1148,14 +1172,37 @@ Follows from
 \begin_inset Formula $\Rrightarrow$
 \end_inset
 
- using standard techniques
+ using standard techniques, outlined in the agda development
 \end_layout
 
 \begin_layout Subsubsection
 \begin_inset Formula $\equiv$
 \end_inset
 
- is symmetric
+ is an equivelence
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\vdash m:M}{\Gamma\vdash m\equiv m:M}\,\textrm{\ensuremath{\equiv}-refl}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by 
+\begin_inset Formula $\,\textrm{\Rrightarrow\ast-refl}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1174,14 +1221,11 @@ The following rule is admissible:
 \end_layout
 
 \begin_layout Standard
-trivial
+trivial.
 \end_layout
 
-\begin_layout Subsubsection
-\begin_inset Formula $\equiv$
-\end_inset
-
- is transitive
+\begin_layout Standard
+The following rule is admissible:
 \end_layout
 
 \begin_layout Standard
@@ -2182,7 +2226,7 @@ Explicitly:
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $M$
+\begin_inset Formula $m$
 \end_inset
 
  is
@@ -2225,22 +2269,22 @@ induction
 \noun off
 \color none
 , 
-\begin_inset Formula $M$
+\begin_inset Formula $m$
 \end_inset
 
  is a value or there exists 
-\begin_inset Formula $N$
+\begin_inset Formula $m'$
 \end_inset
 
  such that 
-\begin_inset Formula $M\rightsquigarrow N$
+\begin_inset Formula $m\rightsquigarrow m'$
 \end_inset
 
- 
+.
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $M$
+\begin_inset Formula $m$
 \end_inset
 
 
@@ -2260,7 +2304,7 @@ induction
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $M$
+\begin_inset Formula $m$
 \end_inset
 
  is 
@@ -2291,7 +2335,7 @@ typed by type-in-type.
 \noun default
 \color inherit
 
-\begin_inset Formula $M$
+\begin_inset Formula $m$
 \end_inset
 
  is 
@@ -2302,7 +2346,7 @@ typed by type-in-type.
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $M$
+\begin_inset Formula $m$
 \end_inset
 
  is 
@@ -2341,14 +2385,14 @@ typed by
 \end_inset
 
  is 
-\begin_inset Formula $\Pi x:\sigma.\tau$
+\begin_inset Formula $\Pi x:N.P$
 \end_inset
 
 , a value
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $M$
+\begin_inset Formula $m$
 \end_inset
 
  is 
@@ -2383,7 +2427,7 @@ typed by
 \noun default
 \color inherit
  
-\begin_inset Formula $M$
+\begin_inset Formula $m$
 \end_inset
 
  is
@@ -2400,14 +2444,14 @@ typed by
 \noun off
 \color none
  
-\begin_inset Formula $\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M'$
+\begin_inset Formula $\mathsf{fun}\,f.\,x.n$
 \end_inset
 
 , a value
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $M$
+\begin_inset Formula $m$
 \end_inset
 
  is 
@@ -2459,7 +2503,7 @@ typed by
 \noun off
 \color none
  
-\begin_inset Formula $P\,N$
+\begin_inset Formula $p\,n$
 \end_inset
 
 
@@ -2790,6 +2834,93 @@ otherwise
 
  and the one step reduction is 
 \begin_inset Formula $P\,N\rightsquigarrow P'\,N$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Formula $m$
+\end_inset
+
+ is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+typed by 
+\begin_inset Formula $::$
+\end_inset
+
+, 
+\begin_inset Formula $m$
+\end_inset
+
+ is 
+\begin_inset Formula $n::N$
+\end_inset
+
+ by induction
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $n$
+\end_inset
+
+ is a value, 
+\begin_inset Formula $n::N\rightsquigarrow n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+or there exists 
+\begin_inset Formula $n'$
+\end_inset
+
+ such that 
+\begin_inset Formula $n\rightsquigarrow n'$
+\end_inset
+
+., 
+\begin_inset Formula $n::N\rightsquigarrow n'::N$
 \end_inset
 
 

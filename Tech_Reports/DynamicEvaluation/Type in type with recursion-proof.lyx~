@@ -107,7 +107,11 @@ gives transitivity to equality
 \end_layout
 
 \begin_layout Itemize
-means that type constructors are unique
+means that type constructors are unique, 
+\begin_inset Formula $\ast\bcancel{\equiv}\Pi$
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -330,66 +334,6 @@ by mutual induction
 \end_layout
 
 \begin_layout Subsubsection
-\begin_inset Formula $\sim$
-\end_inset
-
- is reflexive
-\end_layout
-
-\begin_layout Standard
-The following rule is admissible:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{\,}{a\sim a}\,\textrm{\ensuremath{\sim}-refl}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-by induction
-\end_layout
-
-\begin_layout Subsubsection
-\begin_inset Formula $\equiv$
-\end_inset
-
- is reflexive
-\end_layout
-
-\begin_layout Standard
-The following rule is admissible:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\frac{H\vdash a:A}{H\vdash a\equiv a:A}\,\textrm{\ensuremath{\equiv}-refl}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-by 
-\begin_inset Formula $\,\textrm{\Rrightarrow\ast-refl}$
-\end_inset
-
-and 
-\begin_inset Formula $\textrm{\ensuremath{\sim}-refl}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
 Context substitution
 \end_layout
 
@@ -519,6 +463,17 @@ the following rules are admissible:
 \begin_inset Formula 
 \[
 \frac{H,x:A,H'\vdash o\Rrightarrow o'}{H,H'\left[x\coloneqq a\right]\vdash o\left[x\coloneqq a\right]\Rrightarrow o'\left[x\coloneqq a\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H,x:A,H'\vdash b\sim b':B}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\sim b'\left[x\coloneqq a\right]:B\left[x\coloneqq a\right]}
 \]
 
 \end_inset
@@ -1809,7 +1764,34 @@ both by induction (observations can be ignored since
 \begin_inset Formula $\equiv$
 \end_inset
 
- is symmetric
+Equivalence
+\end_layout
+
+\begin_layout Standard
+The following rule is admissible:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash a:A}{H\vdash a\equiv a:A}\,\textrm{\ensuremath{\equiv}-refl}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+by 
+\begin_inset Formula $\,\textrm{\Rrightarrow\ast-refl}$
+\end_inset
+
+and 
+\begin_inset Formula $\textrm{\ensuremath{\sim}-refl}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1835,11 +1817,8 @@ by
 Equivalence
 \end_layout
 
-\begin_layout Subsubsection
-\begin_inset Formula $\equiv$
-\end_inset
-
- is transitive
+\begin_layout Standard
+The following rule is admissible:
 \end_layout
 
 \begin_layout Standard
@@ -2283,7 +2262,7 @@ by induction on
 \begin_inset Formula $\Rrightarrow_{\ast}$
 \end_inset
 
- and
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -3521,32 +3500,19 @@ Elaboration Embeds Typing
 \begin_inset Formula $\vdash m:M$
 \end_inset
 
-, 
-\begin_inset Formula $\vdash M\,Elab_{\star,l}\,A$
-\end_inset
-
 , and 
-\begin_inset Formula $\vdash m\,Elab_{A,l}\,a$
+\begin_inset Formula $\vdash m\,Elab\,a$
 \end_inset
 
  then 
+\begin_inset Formula $\vdash M\,Elab\,A$
+\end_inset
+
+, 
 \begin_inset Formula $\vdash a:A$
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Sketch (the Surface type system has slight but pervasive changes to the
- language described in the 
-\begin_inset Quotes eld
-\end_inset
-
-baselanguage
-\begin_inset Quotes erd
-\end_inset
-
- folder), 
 \end_layout
 
 \begin_layout Itemize
@@ -3584,25 +3550,81 @@ strengthen the hypothesis to
 \begin_inset Formula $\varGamma\vdash m:M$
 \end_inset
 
-, 
-\begin_inset Formula $H\vdash M\,Elab_{\star,l}\,A$
-\end_inset
-
 , and 
-\begin_inset Formula $H\vdash m\,Elab_{A,l}\,a$
+\begin_inset Formula $H\vdash m\,Elab\,a$
 \end_inset
 
  then 
 \begin_inset Formula $H\vdash a:A$
 \end_inset
 
+, 
+\begin_inset Formula $H\vdash M\,Elab\,A$
+\end_inset
+
 
 \end_layout
 
 \begin_layout Itemize
-follows by mutual induction
+by induction if 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\varGamma\,Elab\,H$
+\end_inset
+
+, for all 
+\begin_inset Formula $x:M\in\varGamma$
+\end_inset
+
+, implies 
+\begin_inset Formula $x:A\in H$
+\end_inset
+
+,
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $H\vdash M\,Elab\,A$
+\end_inset
+
+
 \end_layout
 
+\begin_layout Itemize
+follows by induction on the typing derivation (of the base language)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+conv
+\end_layout
+
+\begin_layout Itemize
+..
+\end_layout
+
+\end_deeper
 \begin_layout Section
 Computation resulting in blame cannot be typed in the surface language
 \end_layout

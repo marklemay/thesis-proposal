@@ -3516,7 +3516,7 @@ Elaboration Embeds Typing
 \end_layout
 
 \begin_layout Standard
-Sketch (need to extend the hypothesis further to handle conversion):
+Sketch (need to extend the hyposisi:
 \end_layout
 
 \begin_layout Itemize
@@ -3619,6 +3619,16 @@ by induction if
 follows by induction on the typing derivation (of the base language)
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+conv
+\end_layout
+
+\begin_layout Itemize
+..
+\end_layout
+
+\end_deeper
 \begin_layout Section
 Computation resulting in blame cannot be typed in the surface language
 \end_layout

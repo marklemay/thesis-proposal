@@ -90,7 +90,7 @@ Surface Language
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="10" columns="5">
+<lyxtabular version="3" rows="7" columns="5">
 <features tabularvalignment="middle">
 <column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
@@ -463,160 +463,6 @@ function type
 
 \begin_layout Plain Layout
 function constructor, eliminator
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-v
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\Coloneqq$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-x
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-values
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-|
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\star$
-\end_inset
-
- | 
-\begin_inset Formula $\Pi x:M.N$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-type values
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-|
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\mathsf{fun}\,f.\,x.\,n$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-function values
 \end_layout
 
 \end_inset
@@ -2352,7 +2198,7 @@ Infer cast
 \begin_inset Text
 
 \begin_layout Plain Layout
-Check cast*
+Check cast
 \end_layout
 
 \end_inset
@@ -3174,8 +3020,8 @@ and likewise for head judgment
 \end_layout
 
 \begin_layout Standard
-Unfortunately, for the purposes of induction, the following judgments need
- to be spelled out explicitly to avoid the conversion rule:
+Unfortunately, for the purposes of induction, it appears the following judgments
+ need to be spelled out explicitly to avoid the conversion rule:
 \end_layout
 
 \begin_layout Standard
@@ -3270,12 +3116,42 @@ and for its head judgment
 
 \end_layout
 
-\begin_layout Subsubsection
-Typed versions of Judgments
-\end_layout
-
 \begin_layout Subsection
 Elaboration
+\end_layout
+
+\begin_layout Subsubsection
+Contexts
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\,}{\lozenge\,Elab\,\lozenge}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\Gamma\,Elab\,H\quad H\vdash M\,Elab\,A\quad H\vdash A:\star}{\Gamma,x:M\,Elab\,H,x:A}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+note that 
+\begin_inset Formula $\Gamma,x:M$
+\end_inset
+
+ may not necessarily be well formed
 \end_layout
 
 \begin_layout Subsubsection
@@ -3375,7 +3251,37 @@ Check
 \end_layout
 
 \begin_layout Subsection
+Context
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\,}{\lozenge\vdash}\,\textrm{C-Emp}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{H\vdash A:\star}{H,x:A\vdash}\,\textrm{C-Ext}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 Typing
+\end_layout
+
+\begin_layout Subsubsection
+Conversion
 \end_layout
 
 \begin_layout Standard
@@ -3496,7 +3402,7 @@ Definitional Equality
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash a\Rrightarrow_{*}b:A\quad H\vdash a'\Rrightarrow_{*}b'\,:A\quad H\vdash b\sim b':A}{H\vdash a\equiv a':A}
+\frac{H\vdash a\Rrightarrow_{*}b:A\quad H\vdash a'\Rrightarrow_{*}b'\,:A\quad b\sim b'}{H\vdash a\equiv a':A}
 \]
 
 \end_inset
@@ -3709,13 +3615,13 @@ Cast Par reduction
 
 \end_layout
 
-\begin_layout Standard
-annoyingly need to support observation reductions, to allow a substitution
- lemma to simplify the proof
-\end_layout
-
 \begin_layout Subsubsection
 Observation Par reduction
+\end_layout
+
+\begin_layout Standard
+annoyingly need to support observation reductions, to allow a substitution
+ lemma to simplify the proof of confluence
 \end_layout
 
 \begin_layout Standard
@@ -3840,6 +3746,10 @@ Typed Head Par reduction
 Dynamic Check
 \end_layout
 
+\begin_layout Subsubsection
+Is Type?
+\end_layout
+
 \begin_layout Standard
 \begin_inset Formula 
 \[
@@ -3854,7 +3764,7 @@ Dynamic Check
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{\,}{\star::\star\,Elim_{\star}}
+\frac{e\,Elim_{\star}}{\star::e\,Elim_{\star}}
 \]
 
 \end_inset
@@ -3871,6 +3781,10 @@ Dynamic Check
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsubsection
+Is Function Type?
 \end_layout
 
 \begin_layout Standard
@@ -3915,6 +3829,19 @@ Dynamic Check
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This definition could probably be cleaned up by taking advantage of the
+ syntactic ambiguity between 
+\begin_inset Formula $e$
+\end_inset
+
+ and 
+\begin_inset Formula $A$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section

@@ -3620,6 +3620,41 @@ follows by induction on the typing derivation (of the base language)
 \end_layout
 
 \begin_layout Section
+Elaboration Embeds Typing 2
+\end_layout
+
+\begin_layout Standard
+a better proposition would be 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\vdash m:M$
+\end_inset
+
+, then 
+\begin_inset Formula $\vdash m\,Elab\,a$
+\end_inset
+
+ 
+\begin_inset Formula $\vdash M\,Elab\,A$
+\end_inset
+
+, 
+\begin_inset Formula $\vdash a:A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+but this is technically incorrect since 
+\begin_inset Formula $\vdash(\lambda x.x)7:\mathbb{N}$
+\end_inset
+
+, but the Elaboration process is bidirectional.
+\end_layout
+
+\begin_layout Section
 Computation resulting in blame cannot be typed in the surface language
 \end_layout
 

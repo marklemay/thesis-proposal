@@ -4,29 +4,459 @@
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \usepackage{mathtools}
-\usepackage{amstext}
+\usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{cancel}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+\makeatother
+
 \usepackage{babel}
 \begin{document}
 
-\title{an Intensional Dependent Type Theory with Type-in-Type and Recursion}
+\title{A Dynamic Dependent Type Theory with Type-in-Type and Recursion}
 \maketitle
 
-\section{type soundness or blame}
+\section{Type Soundness or Blame}
 
-\subsection{well formed}
+The proof follows the standard structure:
+\begin{itemize}
+\item All judgments respect weakening and well typed substitution
+\item Most judgments are marked with types to make subject reduction obvious
+(assuming the substitution lemma)
+\item definitional equality is defined in terms par-reductions, which (via
+confluence)
+\begin{itemize}
+\item gives transitivity to equality
+\item means that type constructors are unique, $\ast\bcancel{\equiv}\Pi$
+\end{itemize}
+\item for preservation, function elimination is the only interesting case 
+\begin{itemize}
+\item the stack of casts is inspected, all casts are values (usually either
+$\star$ or $\Pi$ )
+\begin{itemize}
+\item if all casts are $\Pi$ then coersions can be calculated and a reduction
+can step
+\item if any casts are not $\Pi$ there is a specific source location and
+observation to blame 
+\end{itemize}
+\end{itemize}
+\end{itemize}
 
-\subsection{weakening}
+\subsection{Structural Properties}
 
-\subsection{substitution}
+\subsubsection{Weakening}
 
-\subsection{preservation}
+For any derivation of $H\vdash A:\star$ the following rules are admissible:
+
+\[
+\frac{H,H'\vdash}{H,x:A,H'\vdash}
+\]
+
+\[
+\frac{H,H'\vdash b:B}{H,x:A,H'\vdash b:B}
+\]
+
+\[
+\frac{H,H'\vdash e:\overline{\star}}{H,x:A,H'\vdash e:\overline{\star}}
+\]
+
+\[
+\frac{H,H'\vdash b\equiv b':B}{H,x:A,H'\vdash b\equiv b':B}
+\]
+
+\[
+\frac{H,H'\vdash b\Rrightarrow_{*}b':B}{H,x:A,H'\vdash b\Rrightarrow_{*}b':B}
+\]
+
+\[
+\frac{H,H'\vdash b\Rrightarrow b':B}{H,x:A,H'\vdash b\Rrightarrow b':B}
+\]
+
+\[
+\frac{H,H'\vdash e\Rrightarrow e':\overline{\star}}{H,x:A,H'\vdash e\Rrightarrow e':\overline{\star}}
+\]
+
+\[
+\frac{H,H'\vdash o\Rrightarrow o'}{H,x:A,H'\vdash o\Rrightarrow o'}
+\]
+
+
+\subsection{Substitution}
+
+\subsubsection{$\Rrightarrow$ is reflexive}
+
+The following rules are admissible:
+
+\[
+\frac{H\vdash a:A}{H\vdash a\Rrightarrow\,a:A}
+\]
+
+\[
+\frac{H\vdash e:\overline{\star}}{H\vdash e\Rrightarrow e':\overline{\star}}
+\]
+
+\[
+\frac{H\vdash}{H\vdash o\Rrightarrow o}
+\]
+
+by mutual induction
+
+\subsubsection{Context substitution}
+
+For any derivation of $H\vdash a:A$ the following rules are admissible:
+
+\[
+\frac{H,x:A,H'\vdash}{H,H'\left[x\coloneqq A\right]\vdash}
+\]
+
+\[
+\frac{H,x:A,H'\vdash b:B}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\,:\,B\left[x\coloneqq a\right]}
+\]
+
+\[
+\frac{H,x:A,H'\vdash e:\overline{\star}}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\,:\overline{\star}}
+\]
+
+\[
+\frac{H,x:A,H'\vdash e:\overline{\star}}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\,:\overline{\star}}
+\]
+
+\[
+\frac{H,x:A,H'\vdash b\equiv b':B}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\equiv b'\left[x\coloneqq a\right]:B\left[x\coloneqq a\right]}
+\]
+
+\[
+\frac{H,x:A,H'\vdash b\Rrightarrow_{*}b':B}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\Rrightarrow_{*}b'\left[x\coloneqq a\right]:B\left[x\coloneqq a\right]}
+\]
+
+\[
+\frac{H,x:A,H'\vdash b\Rrightarrow b':B}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\Rrightarrow b'\left[x\coloneqq a\right]:B\left[x\coloneqq a\right]}
+\]
+
+\[
+\frac{H,x:A,H'\vdash e\Rrightarrow e':\overline{\star}}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\Rrightarrow e'\left[x\coloneqq a\right]\,:\overline{\star}}
+\]
+
+\[
+\frac{H,x:A,H'\vdash o\Rrightarrow o'}{H,H'\left[x\coloneqq a\right]\vdash o\left[x\coloneqq a\right]\Rrightarrow o'\left[x\coloneqq a\right]}
+\]
+
+\[
+\frac{H,x:A,H'\vdash b\sim b':B}{H,H'\left[x\coloneqq a\right]\vdash b\left[x\coloneqq a\right]\sim b'\left[x\coloneqq a\right]:B\left[x\coloneqq a\right]}
+\]
+
+\[
+\frac{H,x:A,H'\vdash e\sim e':\overline{\star}}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\sim e'\left[x\coloneqq a\right]:\overline{\star}}
+\]
+
+\[
+\frac{H,x:A,H'\vdash e\,Elim_{\Pi}y:e_{A}.e_{B}}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\,Elim_{\Pi}y:e_{A}\left[x\coloneqq a\right].e_{B}\left[x\coloneqq a\right]}
+\]
+
+\[
+\frac{H,x:A,H'\vdash e\,Elim_{\star}}{H,H'\left[x\coloneqq a\right]\vdash e\left[x\coloneqq a\right]\,Elim_{\star}}
+\]
+
+by mutual induction on the derivations with reflexivity lemmas. 
+
+\subsection{Computation}
+
+\subsubsection{$\Rrightarrow$ $Elim_{\star}$}
+
+if $e\,Elim_{\star}$ and $e\Rrightarrow e'$ then $e'\,Elim_{\star}$
+
+by induction on $Elim_{\star}$
+
+\subsubsection{$\Rrightarrow$-substitution }
+
+For any $a\Rrightarrow a'$. The following rules are admissible:
+
+\[
+\frac{b\Rrightarrow b'}{b\left[x\coloneqq a\right]\Rrightarrow b'\left[x\coloneqq a'\right]}
+\]
+
+\[
+\frac{e\Rrightarrow e}{e\left[x\coloneqq a\right]\Rrightarrow e'\left[x\coloneqq a'\right]}
+\]
+
+\[
+\frac{e\Rrightarrow e'\quad e\left[x\coloneqq a\right]\,Elim_{\Pi}x:e_{A}\left[x\coloneqq a\right].e_{B}\left[x\coloneqq a\right]}{e_{A}\Rrightarrow e_{A}'\quad e_{B}\Rrightarrow e_{B}'\quad e'\left[x\coloneqq a'\right]\,Elim_{\Pi}x:e_{A}'\left[x\coloneqq a'\right].e_{B}'\left[x\coloneqq a'\right]}
+\]
+
+by mutual induction on the derivations
+
+\subsubsection{$\Rrightarrow$ preserves type in destination}
+
+\[
+\frac{H\vdash a\Rrightarrow a':A}{H\vdash a':A}
+\]
+
+Since the apparent type of $a$ will at most $A\Rrightarrow A'$ (by
+$\Rrightarrow$-substitution) so $H\vdash A\equiv A':\star$ , and
+follows from conversion
+
+\subsubsection{$\Rrightarrow_{\ast}$ preserves type}
+
+The following rule is admissible:
+
+\[
+\frac{H\vdash a\Rrightarrow_{\ast}\,a':A}{H\vdash a:A}
+\]
+
+by induction
+
+\[
+\frac{H\vdash a\Rrightarrow_{\ast}\,a':A}{H\vdash a':A}
+\]
+
+by induction
+
+\subsubsection{$\sim$ preserves type}
+
+The following rules are admissible:
+
+\[
+\frac{H\vdash a\sim a':A}{H\vdash a':A}
+\]
+
+by induction
+
+\subsubsection{$\equiv$ preserves type}
+
+The following rules are admissible:
+
+\[
+\frac{H\vdash a\equiv\,a':A}{H\vdash a:A}
+\]
+
+\[
+\frac{H\vdash a\equiv\,a':A}{H\vdash a':A}
+\]
+
+by the def of $\Rrightarrow_{\ast}$ 
+
+\subsubsection{def of $-^{*}$ }
+
+there is a maximal par-reduction step that can be computed for every
+syntactic form defined:
+
+\begin{tabular}{rll}
+$\star^{*}$ & $=\star$ & $a^{*}\rightarrow a$\tabularnewline
+$\left(\Pi x:A.B\right)^{*}$ & $=\Pi x:A^{*}.B^{*}$ & \tabularnewline
+$\left(a_{h}::e\right)^{*}$ & $=a_{h}^{*}::e^{*}$ & \tabularnewline
+$\left(\left(\mathsf{fun}\,f.\,y.b\right)::e\,a\right)^{*}$ & $=\left(b^{*}\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b^{*}\right),x\coloneqq a^{*}::e_{A}^{*}\right]::e_{B}^{*}\left[x\coloneqq a^{*}\right]\right)$
+if $e\,Elim_{\Pi}x:e_{A}.e_{B}$ & $a_{h}^{*}\rightarrow a$\tabularnewline
+$\left(b\,a\right)^{*}$ & $=b^{*}\,a^{*}$ otherwise & \tabularnewline
+$x^{*}$ & $=x$ & \tabularnewline
+$\left(\mathsf{fun}\,f.\,x.b\right)^{*}$ & $=\mathsf{fun}\,f.\,x.b^{*}$ & \tabularnewline
+$\left(e=_{l,o}A\right)^{*}$ & $=e^{*}=_{l,o^{*}}A^{*}$ & $e^{*}\rightarrow e$\tabularnewline
+$.^{*}$ & $=.$ & $o^{*}\rightarrow o$\tabularnewline
+$\left(o.arg\right)^{*}$ & $=o^{*}.arg$ & \tabularnewline
+$\left(o.bod[b]\right)^{*}$ & $=o^{*}.bod[b^{*}]$ & \tabularnewline
+\end{tabular}
+
+\subsubsection{$-^{*}$ $Elim_{\star}$}
+
+if $e\,Elim_{\star}$ then $e^{*}\,Elim_{\star}$ 
+
+by induction on $Elim_{\star}$
+
+\subsubsection{$-^{*}$ $Elim_{\Pi}$}
+
+if $e\,Elim_{\Pi}x:e_{A}.e_{B}$ then $e^{*}\,Elim_{\Pi}x:e_{A}^{*}.e_{B}^{*}$ 
+
+by induction on $Elim_{\Pi}$
+
+
+\subsubsection{$-^{*}$ is maximal}
+\begin{itemize}
+\item if $a\Rrightarrow a'$ then $a'\Rrightarrow a^{*}$ 
+\item if $e\Rrightarrow e'$ then $e'\Rrightarrow e^{*}$ 
+\item if $o\Rrightarrow o'$ then $o'\Rrightarrow o^{*}$ 
+\end{itemize}
+by mutual induction on $\Rrightarrow$ relations, interesting cases
+include
+\begin{itemize}
+\item $\Pi C\Rrightarrow$ since if $e\,Elim_{\Pi}x:e_{A}.e_{B}$ then $e^{*}\,Elim_{\Pi}x:e_{A}^{*}.e_{B}^{*}$ 
+\item $\Pi E\Rrightarrow$ , $b\,a\Rrightarrow b'\,a'$
+\begin{itemize}
+\item if the elimination is not possible with $b$, follows from induction
+\item if the elimination is possible with $b$, it will still be possible
+with $b'$ since, by induction $b\Rrightarrow b'$ 
+\end{itemize}
+\end{itemize}
+
+\subsubsection{$\Rrightarrow$ is confluent}
+
+if $H\vdash a\Rrightarrow b:A$ and $H\vdash a\Rrightarrow b':A$
+then there exists $c$ such that 
+
+$H\vdash b\Rrightarrow c:A$ and $\Gamma\vdash b'\Rrightarrow c:A$
+
+by the maximality of $-^{*}$
+
+\subsubsection{$\Rrightarrow_{\ast}$ is transitive}
+
+The following rule is admissible:
+
+\[
+\frac{H\vdash a\Rrightarrow_{\ast}\,b:A\quad H\vdash b\Rrightarrow_{\ast}c:A}{H\vdash a\Rrightarrow_{\ast}\,c:A}\,\textrm{\ensuremath{\Rrightarrow\ast}-trans}
+\]
+
+by induction
+
+\subsubsection{$\Rrightarrow_{\ast}$ is confluent}
+
+if $H\vdash a\Rrightarrow_{\ast}\,b:A$ and $H\vdash a\Rrightarrow_{\ast}\,b':A$
+then there exists $c$ such that 
+
+$H\vdash b\Rrightarrow_{\ast}\,c:A$ and $H\vdash b'\Rrightarrow_{\ast}\,c:A$
+
+Follows from $\textrm{\ensuremath{\Rrightarrow\ast}-trans}$ and the
+confluence of $\Rrightarrow$ using standard techniques
+
+\subsubsection{$\sim$Equivalence}
+
+The following rules are admissible:
+
+\[
+\frac{\,}{a\sim a'}
+\]
+
+\[
+\frac{a\sim a'}{a'\sim a}
+\]
+
+\[
+\frac{a\sim a'\quad a'\sim a''}{a'\sim a''}
+\]
+
+each by induction
+
+\subsubsection{$\sim$ commutes with \textmd{$\Rrightarrow$, $\Rrightarrow_{\ast}$}}
+
+The following rules are admissible:
+
+\[
+\frac{a\Rrightarrow a'\quad a\sim b}{b\Rrightarrow b'\quad a'\sim b'}
+\]
+
+\[
+\frac{H\vdash a\Rrightarrow_{\ast}a':A\quad a\sim b}{H\vdash b\Rrightarrow_{\ast}b':A\quad a'\sim b'}
+\]
+
+both by induction (observations can be ignored since $\Rrightarrow$
+is reflexive)
+
+\subsubsection{$\equiv$Equivalence}
+
+The following rule is admissible:
+
+\[
+\frac{H\vdash a:A}{H\vdash a\equiv a:A}\,\textrm{\ensuremath{\equiv}-refl}
+\]
+
+by $\,\textrm{\ensuremath{\Rrightarrow\ast}-refl}$and $\textrm{\ensuremath{\sim}-refl}$
+
+The following rule is admissible:
+
+\[
+\frac{H\vdash a\equiv a':A}{H\vdash a'\equiv a:A}\,\textrm{\ensuremath{\equiv}-sym}
+\]
+
+by $\sim$Equivalence
+
+The following rule is admissible:
+
+\[
+\frac{H\vdash a\equiv b:A\qquad H\vdash b\equiv c:A}{H\vdash a\equiv c:A}\,\textrm{\ensuremath{\equiv}-trans}
+\]
+
+by the confluence of $\Rrightarrow_{\ast}$and $\sim$ commutativity
+
+\subsubsection{$\rightsquigarrow$ preserves type}
+
+For any derivations of $H\vdash a:A$, $a\rightsquigarrow a'$,
+
+\[
+H\vdash a':A
+\]
+
+since $\rightsquigarrow$ implies $\Rrightarrow$ and $\Rrightarrow$
+preserves types
+
+\subsection{Type constructors}
+
+\subsubsection{Type constructors are stable over $\Rrightarrow$}
+\begin{itemize}
+\item if $\ast\Rrightarrow A$ then $A$ is $\ast$
+\item if $\ast::e\Rrightarrow A_{h}::e'$ then $A_{h}$ is $\ast$
+\item if $\Pi x:A.B\Rrightarrow C$ then $C$ is $\Pi x:A'.B'$ for some
+$A',B'$
+\item if $\Pi x:A.B::e\Rrightarrow C_{h}::e'$ then $C_{h}$ is $\Pi x:A'.B'$
+for some $A',B'$
+\end{itemize}
+by induction on $\Rrightarrow$
+
+\subsubsection{Type constructors are stable over $\Rrightarrow_{\ast}$}
+\begin{itemize}
+\item if $H\vdash\ast\Rrightarrow_{\ast}A:B$ then $A_{h}$ is $\ast$
+\item if $H\vdash\ast::e\Rrightarrow_{\ast}A_{h}::e':B$ then $A_{h}$ is
+$\ast$
+\item if $H\vdash\Pi x:A.B\Rrightarrow_{\ast}C:D$ then $C$ is $\Pi x:A'.B'$
+for some $A',B'$
+\item if $H\vdash\Pi x:A.B::e\Rrightarrow_{\ast}C_{h}::e':D$ then $C_{h}$
+is $\Pi x:A'.B'$ for some $A',B'$
+\end{itemize}
+by induction on $\Rrightarrow_{\ast}$ 
+
+\subsubsection{Type constructors are stable over $\sim$}
+\begin{itemize}
+\item if $\ast\sim A$ then $A$ is $\ast$
+\item if $\ast::e\sim A_{h}::e'$ then $A_{h}$ is $\ast$
+\item if $\Pi x:A.B\sim C$ then $C$ is $\Pi x:A'.B'$ for some $A',B'$
+\item if $\Pi x:A.B::e\sim C_{h}::e'$ then $C_{h}$ is $\Pi x:A'.B'$ for
+some $A',B'$
+\end{itemize}
+by induction on $\sim$
+
+\subsubsection{Type constructors definitionaly unique}
+
+for any $H,A,B,C,e,e'$
+\begin{itemize}
+\item $H\vdash\ast\bcancel{\equiv}\Pi x:A.B\,:C$ 
+\item $H\vdash\ast::e\bcancel{\equiv}\Pi x:A.B\,:C$ 
+\item $H\vdash\ast\bcancel{\equiv}\Pi x:A.B::e\,:C$ 
+\item $H\vdash\ast::e\bcancel{\equiv}\Pi x:A.B::e'\,:C$ 
+\end{itemize}
+from constructor stability
 
 \subsection{Canonical forms}
 
+If $\lozenge\vdash v_{h}\,:\Pi x:A.B$, then $v_{h}$ is $\mathsf{fun}\,f.\,x.b$,
+since it is the only applicable rule
+
+\subsection{Type simplification}
+
+To minimize bookkeeping, when $\lozenge\vdash v_{eq}:\overline{\star}$
+\begin{itemize}
+\item $\star::v_{eq}$ can be said to simplify to $\star$ if each $v_{eq}$
+simplifies to $\star$ (if it does not simplify there is a source
+of blame)
+\item $\Pi x:A.B::v_{eq}$ can be said to simplify to $\Pi x:A.B$ if each
+$v_{eq}$ simplifies to $\star$ (if it does not simplify there is
+a source of blame)
+\end{itemize}
+
 \subsection{Progress}
 
-$\lozenge\vdash c:A$ implies that $a$ is a value, there exists $c'$
+$\lozenge\vdash c:A$ implies that $c$ is a value, there exists $c'$
 such that $c\rightsquigarrow c'$, or a static location can be blamed.
 and $\lozenge\vdash e:\overline{\star}$ implies that $e$ is a value,
 there exists $e'$ such that $e\rightsquigarrow e'$, or a static
@@ -36,94 +466,104 @@ By mutual induction on the typing derivations with the help of the
 canonical forms lemma
 
 Explicitly:
-\begin{itemize}
-\item cast typing
+
+cast typing
 \begin{itemize}
 \item $eq-ty-1$ by \textbf{induction}
 \item $eq-ty-2$ by \textbf{induction}
 \end{itemize}
-\item head typing
+term typing
 \begin{itemize}
-\item $c$ cannot be typed by the variable rule in the empty context
-\item $c$ is typed by type-in-type. $a$ is $\star$, a value
+\item $c$ is typed by type-in-type. $c$ is $\star$, a value
 \item $c$ is typed by $\Pi-ty$. $a$ is a value
-\item $c$ is typed by $\Pi-\mathsf{fun}-ty$. $a$ is a value
-\item $c$ is typed by $\Pi-app-ty$. Then $c$ is $b\,a$, and there are
-derivations of $\lozenge\vdash b:\Pi x:A.B$, and $\lozenge\vdash a:A$
+\item $c$ is typed by the conversion rule, then by \textbf{induction}
+\item $c$ is typed by the $apparent$ rule, then $c$ is $a_{h}::e$ by
+each head typing. By induction $e$ is a value, there exists $e'$
+such that $e\rightsquigarrow e'$. If there is blame that blame can
+be used, if $e\rightsquigarrow e'$ preform the step. otherwise $e$
+is a value:
+\begin{itemize}
+\item $a_{h}$ cannot be typed by the variable rule in the empty context
+\item $a_{h}$ is typed by type-in-type. $a$ is $\star$.
+\item $a_{h}$ is typed by $\Pi-ty$. $a$ is a value
+\item $a_{h}$ is typed by $\Pi-\mathsf{fun}-ty$. $a$ is a value
+\item $a_{h}$ is typed by $\Pi-app-ty$. Then $a_{h}$ is $b\,a$, and
+there are derivations of $\lozenge\vdash b:\Pi x:A.B$, and $\lozenge\vdash a:A$
 for some $A$ and $B$. By \textbf{induction} $a$ is a value, there
 exists $a'$ such that $a\rightsquigarrow a'$, or blame and $b$
 is a value or there exists $b'$ such that $b\rightsquigarrow b'$
-or blame. (TODO jumping from one syntactic form to another)
+or blame.
 \begin{itemize}
-\item if $b$ is a value and $a$ is a value, then $b$ is $b_{h}::v_{eq}$. 
+\item if $b$ and $a$ are values, then $b$ is $b_{h}::v_{eq}$, where
+$v_{eq}\uparrow$ is $\Pi x:A_{\uparrow}.B_{\uparrow}$ (or $v_{eq}\uparrow$
+is $\Pi x:A_{\uparrow}.B_{\uparrow}::e$ , and by simplification $\Pi x:A_{\uparrow}.B_{\uparrow}$
+or blame can be produced) (by \textbf{stability}) 
 \begin{itemize}
-\item If all$A\in v_{eq}$ are in the form $\Pi x:A.B$ then $v_{eq}\,Elim_{\Pi}$
-and $v_{eq}\downarrow$ is $\Pi x:A.B$ so $b_{h}$ is $\left(\mathsf{fun}\,f.\,x.b'\right)$
-and the step is $\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b::e_{B}\right)\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq},x\coloneqq v\right]::v_{eq}'$
-\item otherwise, $v_{eq}\uparrow$ is $\Pi x:A.B$ but there is some $\left[\star=_{l,o}\Pi x:A.B\right]\in v$
-and $l,o$ can be blamed
+\item if $v_{eq}\,Elim_{\Pi}\,x:e_{A}.e_{B}$ then $v_{eq}\downarrow$ is
+$\Pi x:A_{\downarrow}.B_{\downarrow}$ (or $\Pi x:A_{\downarrow}.B_{\downarrow}::e$,
+and by simplification $\Pi x:A_{\downarrow}.B_{\downarrow}$ or blame
+can be produced) by \textbf{Canonical forms} $b_{h}$ is $\left(\mathsf{fun}\,f.\,x.b'\right)$
+and the step is $\left(\left(\mathsf{fun}\,f.\,x.b\right)::v_{eq}\,v\right)::v_{eq}'\rightsquigarrow\left(b\left[f\coloneqq\left(\mathsf{fun}\,f.\,x.b\right),x\coloneqq v::e_{A}\right]::e_{B}'\left[x\coloneqq v\right]\right)$
+(implicitly uses that $Elim_{\Pi}$is deterministic in its first argument)
+\item if $v_{eq}\,\bcancel{Elim_{\Pi}}$ then there must exist $\left[\bcancel{\Pi}=_{l,o}\Pi x:A''.B''\right]\in v_{eq}$
+(with simplification) and $l,o$ can be blamed 
 \end{itemize}
-\item if $b$ or $a$ can construct blame then $b\,a$ can be used to construct
-blame
+\item if $b$ or $a$ can construct blame then $b\,a$ can use that blame
 \item if $b$ is a value and $a\rightsquigarrow a'$ then $b\,a\rightsquigarrow b\,a'$
 \item if $b\rightsquigarrow b'$ then $b\,a\rightsquigarrow b'\,a$
 \end{itemize}
-\end{itemize}
-\item cast term typing
-\begin{itemize}
-\item $a$ is typed by type-in-type. $a$ is $\star$, a value
-\item $a$ is typed by $\Pi-ty$. $a$ is a value
-\item $a$ is typed by the conversion rule, then by \textbf{induction}
-\item $a$ is typed by the $apparent$ rule, then by \textbf{induction}
-\end{itemize}
-\item $M$ is typed by $\Pi\textrm{-E}$. $M$ is $P\,N$ then exist some
-$\sigma,\tau$ for $\lozenge\vdash P:\Pi x:\sigma.\tau$ and $\lozenge\vdash N:\sigma$.
-By \textbf{induction} (on the $P$ branch of the derivation) $P$
-is a value or there exists $P'$ such that $P\rightsquigarrow P'$.
-By \textbf{induction} (on the $N$ branch of the derivation) $N$
-is a value or there exists $N'$ such that $N\rightsquigarrow N'$
-\begin{itemize}
-\item if $P$ is a value then by \textbf{canonical forms}, $P$ is$\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'$
-and 
-\begin{itemize}
-\item if $N$ is a value then the one step reduction is $\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'\right)\,N\,\rightsquigarrow\,P'\left[x\coloneqq N,f\coloneqq\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.M\right]$ 
-\item otherwise there exists $N'$ such that $N\rightsquigarrow N'$, and
-the one step reduction is $\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'\right)\,N\,\rightsquigarrow\,\left(\mathsf{fun}\,f:\left(x.\tau\right).\,x:\sigma.P'\right)\,N'$ 
-\end{itemize}
-\item otherwise, there exists $P'$ such that $P\rightsquigarrow P'$ and
-the one step reduction is $P\,N\rightsquigarrow P'\,N$
 \end{itemize}
 \end{itemize}
 
 \subsection{Type Soundness}
 
 For any well typed term in an empty context, no sequence of small
-step reductions will cause result in a computation to ``get stuck''
-without blame. Either a final value will be reached, further reductions
-can be taken, or blame is omitted. This follows by iterating the progress
+step reductions will cause a computation to ``get stuck'' without
+blame. Either a final value will be reached, further reductions can
+be taken, or blame is omitted. This follows by iterating the progress
 and preservation lemmas.
 
-\section{elaboration embeds typing}
-\begin{enumerate}
-\item $\vdash e:M$, $elab\left(M,*\right)=M'$, and $elab\left(e,M'\right)=e'$
-then $\vdash_{c}e':M'$.
-\end{enumerate}
+\section{Elaboration Embeds Typing}
 
-\section{computation resulting in blame cannot be typed in the surface lang}
-\begin{enumerate}
-\item $\vdash_{c}e':M'$ and $e'\downarrow blame$ then there is no $\vdash e:M$
-such that $elab\left(M,*\right)=M'$, $elab\left(e,M'\right)=e'$
-\end{enumerate}
+$\vdash m:M$, and $\vdash m\,Elab\,a$ then $\vdash M\,Elab\,A$,
+$\vdash a:A$
 
-\section{computation in the cast lang respects computation in the surface
-lang}
-\begin{enumerate}
-\item $\vdash_{c}e':*$ and $elab\left(e,*\right)=e'$ then
-\begin{enumerate}
-\item if $e'\downarrow*$ then $e\downarrow*$
-\item if $e'\downarrow(x:M')\rightarrow N'$ then $e\downarrow(x:M)\rightarrow N$ 
-\item if $e'\downarrow TCon\,\overline{M'}$ then $e\downarrow TCon\,\overline{M}$ 
-\end{enumerate}
-\end{enumerate}
+Sketch (need to extend the hypothesis further to handle conversion):
+\begin{itemize}
+\item strengthen the hypothesis to $\varGamma\,Elab\,H$, $\varGamma\vdash m:M$,
+and $H\vdash m\,Elab\,a$ then $H\vdash a:A$, $H\vdash M\,Elab\,A$
+\item by induction if $\varGamma\,Elab\,H$, for all $x:M\in\varGamma$,
+implies $x:A\in H$, $H\vdash M\,Elab\,A$
+\item follows by induction on the typing derivation (of the base language)
+\end{itemize}
 
+\section{Elaboration Embeds Typing 2}
+
+a better proposition would be 
+
+$\vdash m:M$, then $\vdash m\,Elab\,a$ $\vdash M\,Elab\,A$, $\vdash a:A$
+
+but this is technically incorrect since $\vdash(\lambda x.x)7:\mathbb{N}$,
+but the Elaboration process is bidirectional.
+
+\section{Computation resulting in blame cannot be typed in the surface language}
+
+$\vdash a:A$ and $a$ blame then there is no $\vdash m:M$ such that
+$\vdash M\,Elab_{\star,l}\,A$, and $\vdash m\,Elab_{A,l'}\,a$ 
+
+Sketch: if $\vdash m:M$ then $\vdash a:A$ are elaborated without
+source labels ($l,l'$ are superfluous) therefore blame is impossible
+to construct
+
+\section{Computation in the cast language respects computation in the surface
+language}
+
+$\vdash A:*$ and $\vdash M\,Elab_{\star,l}\,A$ then
+\begin{enumerate}
+\item if $A\rightsquigarrow_{*}*$ then $M\rightsquigarrow_{*}*$
+\item if $A\rightsquigarrow_{*}\Pi x:B.C$ then $M\rightsquigarrow_{*}\Pi x:N.P$ 
+\end{enumerate}
+Sketch: evaluation is designed to be ``correct by construction''
+. Casts and cast evaluation steps can be completely removed, resulting
+in exactly the small steps of the surface language
 \end{document}

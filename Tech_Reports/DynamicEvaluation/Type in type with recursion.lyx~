@@ -3146,6 +3146,14 @@ Contexts
 
 \end_layout
 
+\begin_layout Standard
+note that 
+\begin_inset Formula $\Gamma,x:M$
+\end_inset
+
+ may not necessarily be well formed
+\end_layout
+
 \begin_layout Subsubsection
 Infer
 \end_layout

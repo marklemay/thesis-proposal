@@ -325,6 +325,64 @@ when
 \end_layout
 
 \begin_layout Section
+Data problems
+\end_layout
+
+\begin_layout Standard
+note that the only way to induce an error is by feeding the functions more
+ functions untill they get stuck.
+ This inderection means that we cannot say 
+\begin_inset Formula $\underline{C\,\star}\neq\underline{C\,\perp}$
+\end_inset
+
+ since 
+\begin_inset Formula $\star\neq\perp$
+\end_inset
+
+ without giving a value to C.
+ this means that we can't observe tem level differences directly.
+\end_layout
+
+\begin_layout Standard
+The solution is likely to add dependent data where the motive can observe
+ type level issues via term computatoin and case elimination observes data
+ constructor discrepencies.
+\end_layout
+
+\begin_layout Standard
+consider some data with 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $T:\mathbb{N}\rightarrow\mathbb{N}\rightarrow\mathbb{N}\rightarrow\star$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and some data constructor
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $D:\left(x:\mathbb{N}\right)\rightarrow\left(y:\mathbb{N}\right)\rightarrow\left(z:\mathbb{N}\right)\rightarrow T\,x\,y\,z$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and an elimination like
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $case\,D\,0\,1\,0\,::T\,0\,0\,0\,<-:T\,x\,y\,z.\,case\,x+y+z\,of\,3.\,\mathbb{N}\rightarrow\mathbb{N}\,|\,-$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Proof summery
 \end_layout
 
@@ -380,6 +438,10 @@ proofs
 \begin_deeper
 \begin_layout Itemize
 top level summery!!
+\end_layout
+
+\begin_layout Itemize
+consistency is a little too restricted
 \end_layout
 
 \begin_layout Itemize

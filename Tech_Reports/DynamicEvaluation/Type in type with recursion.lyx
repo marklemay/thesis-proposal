@@ -3568,6 +3568,10 @@ Head Par reduction
 \end_layout
 
 \begin_layout Standard
+note the fun is in head so substitutiona is actually not defined
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \[
 \frac{\,}{x\Rrightarrow x}

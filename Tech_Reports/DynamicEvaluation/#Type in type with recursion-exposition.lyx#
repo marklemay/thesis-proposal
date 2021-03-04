@@ -354,29 +354,7 @@ consider some data with
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $T:\mathbb{N}\rightarrow\mathbb{N}\rightarrow\mathbb{N}\rightarrow\star$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-and some data constructor
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $D:\left(x:\mathbb{N}\right)\rightarrow\left(y:\mathbb{N}\right)\rightarrow\left(z:\mathbb{N}\right)\rightarrow T\,x\,y\,z$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-and an elimination like
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $case\,D\,0\,1\,0\,::T\,0\,0\,0\,<-:T\,x\,y\,z.\,case\,x+y+z\,of\,0.\,\mathbb{N}\rightarrow\mathbb{N}\,|\,-.\star>\,of\,...$
+\begin_inset Formula $T:\mathbb{N}\rightarrow$
 \end_inset
 
 

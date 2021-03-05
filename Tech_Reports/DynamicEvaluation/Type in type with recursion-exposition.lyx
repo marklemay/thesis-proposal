@@ -330,8 +330,8 @@ Data problems
 
 \begin_layout Standard
 The only way to induce a type soundness error is by feeding the functions
- more functions untill they get stuck.
- This inderection means that we cannot say 
+ more functions until they get stuck.
+ This indirection means that we cannot say 
 \begin_inset Quotes eld
 \end_inset
 
@@ -348,13 +348,13 @@ The only way to induce a type soundness error is by feeding the functions
 \end_inset
 
  without giving a value to C.
- This means that we can't observe tem level differences directly.
+ This means that we can't observe term level differences directly.
 \end_layout
 
 \begin_layout Standard
 The solution is likely to add dependent data where the motive can observe
- type level issues via term computatoin and case elimination observes data
- constructor discrepencies.
+ type level issues via term computation and case elimination observes data
+ constructor discrepancies.
 \end_layout
 
 \begin_layout Standard
@@ -828,8 +828,8 @@ also the motive scrutinee is not necessarily type compatible as it was in
  the stack case
 \end_layout
 
-\begin_layout Subsection
-weaken equality
+\begin_layout Standard
+Currently this is the closest to the prototype implementation
 \end_layout
 
 \begin_layout Section

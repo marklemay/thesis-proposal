@@ -85,7 +85,7 @@ Examples
 \end_layout
 
 \begin_layout Subsection
-pretending 
+Pretending 
 \begin_inset Formula $\star=_{\star}\perp$
 \end_inset
 
@@ -196,7 +196,7 @@ proof
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\lambda\varPi C:\left(\star\rightarrow\star\right).C\,\star\rightarrow\underline{C\,\star}\neq\lambda\varPi C:\left(\star\rightarrow\star\right).C\,\star\rightarrow\underline{C\,\perp}$
+\begin_inset Formula $\varPi C:\left(\star\rightarrow\star\right).C\,\star\rightarrow\underline{C\,\star}\neq\varPi C:\left(\star\rightarrow\star\right).C\,\star\rightarrow\underline{C\,\perp}$
 \end_inset
 
 
@@ -221,7 +221,7 @@ when
 \end_layout
 
 \begin_layout Subsection
-pretending 
+Pretending 
 \begin_inset Formula $true_{c}=_{\mathbb{B}_{c}}false_{c}$
 \end_inset
 
@@ -300,7 +300,7 @@ gotten stuck
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\lambda\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow\underline{C\,true_{c}}\neq\lambda\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,false_{c}\rightarrow\underline{C\,false_{c}}$
+\begin_inset Formula $\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,true_{c}\rightarrow\underline{C\,true_{c}}\neq\varPi C:\left(\mathbb{B}_{c}\rightarrow\star\right).C\,false_{c}\rightarrow\underline{C\,false_{c}}$
 \end_inset
 
 
@@ -311,7 +311,7 @@ when
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $C\coloneqq\lambda x.x$
+\begin_inset Formula $C\coloneqq\lambda b:\mathbb{B}_{c}.b\,\star\,\star\,\perp$
 \end_inset
 
 
@@ -329,9 +329,13 @@ Data problems
 \end_layout
 
 \begin_layout Standard
-note that the only way to induce an error is by feeding the functions more
- functions untill they get stuck.
+The only way to induce a type soundness error is by feeding the functions
+ more functions untill they get stuck.
  This inderection means that we cannot say 
+\begin_inset Quotes eld
+\end_inset
+
+
 \begin_inset Formula $\underline{C\,\star}\neq\underline{C\,\perp}$
 \end_inset
 
@@ -339,8 +343,12 @@ note that the only way to induce an error is by feeding the functions more
 \begin_inset Formula $\star\neq\perp$
 \end_inset
 
+
+\begin_inset Quotes erd
+\end_inset
+
  without giving a value to C.
- this means that we can't observe tem level differences directly.
+ This means that we can't observe tem level differences directly.
 \end_layout
 
 \begin_layout Standard
@@ -376,10 +384,452 @@ and an elimination like
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $case\,D\,0\,1\,0\,::T\,0\,0\,0\,<-:T\,x\,y\,z.\,case\,x+y+z\,of\,0.\,\mathbb{N}\rightarrow\mathbb{N}\,|\,-.\star>\,of\,...$
+\begin_inset Formula 
+\begin{align*}
+case\,\left(D\,0\,1\,0\,:T\,0\,1\,0\right) & ::T\,0\,0\,0\,<-:T\,x\,y\,z.\,case\,x+y+z\,of\,0.\,\mathbb{N}\rightarrow\mathbb{N}\,|\,-.\star>\,of\\
+D\,x\,y\,z & .case\,x+y+z\,<...>\,of\,0.\,\lambda x.x\,|\,-.\star
+\end{align*}
+
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+this term should have the apparent type of 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\mathbb{N}\rightarrow\mathbb{N}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+the goal is to track the problem to the 2nd position of 
+\begin_inset Formula $T$
+\end_inset
+
+ when the expression in normalized, by computing the motive at runtime.
+\end_layout
+
+\begin_layout Standard
+While this problem seems easy we need to consider all possibilities for
+ the syntax.
+ For instance:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $T:\left(\mathbb{N}\rightarrow\mathbb{N}\right)\rightarrow\left(\mathbb{N}\rightarrow\mathbb{N}\right)\rightarrow\left(\mathbb{N}\rightarrow\mathbb{N}\right)\rightarrow\star$
+\end_inset
+
+, needs to support observing functions directly by application (rather then
+ inspecting 
+\begin_inset Formula $\varPi$
+\end_inset
+
+ under assumption)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $T:\left(\mathbb{N}*\left(\mathbb{N}*\mathbb{N}\right)\right)\rightarrow\star$
+\end_inset
+
+ , data constructors can be embedded in types, so they should also be inspected
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $T:\left(A:\star\right)\rightarrow A\rightarrow A\rightarrow\star$
+\end_inset
+
+ , full dependent typing
+\end_layout
+
+\begin_layout Standard
+Further we should expect that 
+\end_layout
+
+\begin_layout Itemize
+Normalization 
+\begin_inset Quotes eld
+\end_inset
+
+preserves
+\begin_inset Quotes erd
+\end_inset
+
+ the apparent type.
+\end_layout
+
+\begin_layout Itemize
+the direct scrutinee same as is compatible with the typing of the motive.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+for instance 
+\begin_inset Formula $case\,\left(D\,0\,1\,0\,:T\,0\,1\,0\right)::T\,0\,0\,0\,<\underline{a}:T\,\underline{x}\,\underline{y}\,\underline{z}.\,M>\,$
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Then the apparent type is 
+\begin_inset Formula $M\left[a\coloneqq\left(D\,0\,1\,0\,:T\,0\,1\,0\right)::T\,0\,0\,0,x\coloneqq0,y\coloneqq1,z\coloneqq0\right]$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+Finally remember that not all casts will be available until the entire expressio
+n can be eliminated:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+case\,\left(\left(\lambda x.\left(D\,0\,x\,0\,:T\,0\,x\,0\right)\right)1\right) & ::T\,0\,0\,0\,<x:T\,x\,y\,z.\,case\,x+y+z\,of\,0.\,\mathbb{N}\rightarrow\mathbb{N}\,|\,-.\star>\,of\\
+D\,x\,y\,z & .case\,x+y+z\,<...>\,of\,0.\,\lambda x.x\,|\,-.\star
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At this point a number of mediocre solutions have been considered
+\end_layout
+
+\begin_layout Subsection
+Big Stack
+\end_layout
+
+\begin_layout Standard
+on possibility is to expand the stack on elimination, interpolating between
+ different positions
+\end_layout
+
+\begin_layout Standard
+so for instance the if 
+\begin_inset Formula $\left(D\,1\,2\,3\,:T\,1\,2\,3::T\,4\,5\,6::T\,7\,8\,9\right)$
+\end_inset
+
+ could project into the motive 
+\begin_inset Formula $<\underline{a}:T\,\underline{x}\,\underline{y}\,\underline{z}.\,M>$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{array}{ccccccccc}
+M[a\coloneqq & D\,1\,2\,3\,:T\,1\,2\,3::T\,4\,5\,6::T\,7\,8\,9 & ,x\coloneqq & 7 & ,y\coloneqq & 8 & ,z\coloneqq & 9 & ]\\
+M[a\coloneqq & D\,1\,2\,3\,:T\,1\,2\,3::T\,4\,5\,6::T\,7\,8\,6 & ,x\coloneqq & 7 & ,y\coloneqq & 8 & ,z\coloneqq & 6 & ]\\
+M[a\coloneqq & D\,1\,2\,3\,:T\,1\,2\,3::T\,4\,5\,6::T\,7\,5\,6 & ,x\coloneqq & 7 & ,y\coloneqq & 5 & ,z\coloneqq & 6 & ]\\
+M[a\coloneqq & D\,1\,2\,3\,:T\,1\,2\,3::T\,4\,5\,6 & ,x\coloneqq & 4 & ,y\coloneqq & 5 & ,z\coloneqq & 6 & ]\\
+M[a\coloneqq & D\,1\,2\,3\,:T\,1\,2\,3::T\,4\,5\,3 & ,x\coloneqq & 4 & ,y\coloneqq & 5 & ,z\coloneqq & 3 & ]\\
+M[a\coloneqq & D\,1\,2\,3\,:T\,1\,2\,3::T\,4\,2\,3 & ,x\coloneqq & 4 & ,y\coloneqq & 2 & ,z\coloneqq & 3 & ]\\
+M[a\coloneqq & D\,1\,2\,3\,:T\,1\,2\,3 & ,x\coloneqq & 1 & ,y\coloneqq & 2 & ,z\coloneqq & 3 & ]
+\end{array}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This method has the advantage that 
+\end_layout
+
+\begin_layout Itemize
+the apparent type of the scrutinee matches the collected type annotations
+\end_layout
+
+\begin_layout Itemize
+the apparent type is stable under evaluation
+\end_layout
+
+\begin_layout Standard
+Unfortunately 
+\end_layout
+
+\begin_layout Itemize
+this doesn't seem to naturally handle cases of nested type type constructors
+ or data constructors (these could also be expanded)
+\end_layout
+
+\begin_layout Itemize
+this doesn't seem to handle cases of nested function type
+\end_layout
+
+\begin_layout Itemize
+though each step is only linear it is easy to imagine these compounded linear
+ expansions being far too slow
+\end_layout
+
+\begin_layout Subsection
+Remember and Peek
+\end_layout
+
+\begin_layout Standard
+As an alternative to preemptively expanding the stack each time, we can
+ thunk the information needed and then lazily expand the stack later, when
+ needed.
+\end_layout
+
+\begin_layout Standard
+It has all the downsides of the 
+\begin_inset Quotes eld
+\end_inset
+
+big stack approach
+\begin_inset Quotes erd
+\end_inset
+
+ except a little more efficient (but still very inefficient)
+\end_layout
+
+\begin_layout Itemize
+doesn't seem to naturally handle cases of nested type type constructors
+ or data constructors (these could also be expanded)
+\end_layout
+
+\begin_layout Itemize
+doesn't seem to handle cases of nested function type
+\end_layout
+
+\begin_layout Standard
+the theory becomes very messy
+\end_layout
+
+\begin_layout Standard
+An earlier version of the implementation used this, it was pretty buggy
+\end_layout
+
+\begin_layout Subsection
+\begin_inset Quotes eld
+\end_inset
+
+non-determinism
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+an alternative would to embed the possible non-determinism into the cast
+ syntax.
+ This seams closer to the intended meaning.
+ So for instance, 
+\begin_inset Formula $\left(D\,1\,2\,3\,:T\,1\,2\,3::T\,4\,5\,6::T\,7\,8\,9\right)$
+\end_inset
+
+ could project into the motive 
+\begin_inset Formula $<\underline{a}:T\,\underline{x}\,\underline{y}\,\underline{z}.\,M>$
+\end_inset
+
+ with 
+\begin_inset Formula $M\left[a\coloneqq\left(D\,1\,2\,3\,:T\,1\,2\,3::T\,4\,5\,6::T\,7\,8\,9\right),x\coloneqq\left\{ 7,4,1\right\} ,y\coloneqq\left\{ 8,5,2\right\} ,z\coloneqq\left\{ 9,6,3\right\} \right]$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+This approach has the advantage that terms are handled naturally, and 
+\end_layout
+
+\begin_layout Itemize
+it is easy to see how to project blame out of
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+functions 
+\begin_inset Formula $\left\{ \lambda x.x,\lambda-.0\right\} \,1$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+data 
+\begin_inset Formula $case\,\left\{ s\,\left(s\,0\right),0\right\} \,...$
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+it would be easy to increase the conservativity of runtime checking
+\end_layout
+
+\begin_layout Itemize
+it seems possible to see how non-determinism can be optimized out of terms
+ for some value syntax
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\left\{ 7,7,7\right\} $
+\end_inset
+
+ = 7 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left\{ \lambda x.x,\lambda-.0\right\} $
+\end_inset
+
+ =
+\begin_inset Formula $\lambda x.\left\{ x,0\right\} $
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+However there are issues with this formulation
+\end_layout
+
+\begin_layout Itemize
+Like casts, it seems best to fix the non-determinism against head terms,
+ to avoid superfluous syntax.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\left\{ 7,\left\{ \left\{ 7,\left\{ 7,7\right\} \right\} ,\left\{ 7,7\right\} \right\} \right\} $
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+the type must be consistent over formalization this leads to something like
+ a 2 dimensional terms
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+like
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\left\{ 7:\mathbb{N}::\mathbb{N},7:\mathbb{N}::\mathbb{B}::\mathbb{N},true:\mathbb{B}::\mathbb{N}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left\{ 7:\mathbb{N}::\mathbb{N},7:\mathbb{N}::\mathbb{B}::\mathbb{N}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+...
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+motives don't compute straightforwardly,
+\begin_inset Formula 
+\begin{align*}
+case\,\left(D\,0\,1\,0\,:T\,0\,1\,0\right) & ::T\,0\,0\,0\,<-:T\,x\,y\,z.\,case\,x+y+z\,of\,0.\,\mathbb{N}\rightarrow\mathbb{N}\,|\,-.\star>\,of\\
+D\,x\,y\,z & .case\,x+y+z\,<...>\,of\,0.\,\lambda x.x\,|\,-.\star
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+has apparent type of 
+\begin_inset Formula $\mathbb{N}\rightarrow\mathbb{N}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+but after evaluation has apparent type 
+\begin_inset Formula $case\,\{0,0\}+\{0,1\}+\{0,0\}\,of\,0.\,\mathbb{N}\rightarrow\mathbb{N}\,|\,-.\star$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+in this specific case the motive could produce a direct error but in the
+ more general that is not possible,
+\begin_inset Formula 
+\begin{align*}
+a:\mathbb{N}\vdash case\,\left(D\,0\,a\,0\,:T\,0\,a\,0\right) & ::T\,0\,0\,0\,<-:T\,x\,y\,z.\,case\,x+y+z\,of\,0.\,\mathbb{N}\rightarrow\mathbb{N}\,|\,-.\star>\,of\\
+D\,x\,y\,z & .case\,x+y+z\,of\,0.\,\lambda x.x\,|\,-.\star
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+but after evaluation has apparent type 
+\begin_inset Formula $case\,\{0,0\}+\{0,a\}+\{0,0\}\,of\,0.\,\mathbb{N}\rightarrow\mathbb{N}\,|\,-.\star$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+this suggests that the top of the casts need to have some 
+\begin_inset Quotes eld
+\end_inset
+
+special
+\begin_inset Quotes erd
+\end_inset
+
+ behavior that allows computation for the purposes of typing but retains
+ the uncertainty if a term of that type is eliminated for instance 
+\begin_inset Formula $case\,\{\underline{0},0\}+\{\underline{0},a\}+\{\underline{0},0\}\,of\,0.\,\mathbb{N}\rightarrow\mathbb{N}\,|\,-.\star$
+\end_inset
+
+ should in some way be equivalent to 
+\begin_inset Formula $\{\mathbb{N}\rightarrow\mathbb{N},case\,\{0,0\}+\{0,a\}+\{0,0\}\,of\,0.\,\mathbb{N}\rightarrow\mathbb{N}\,|\,-.\star\}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+also the motive scrutinee is not necessarily type compatible as it was in
+ the stack case
+\end_layout
+
+\begin_layout Subsection
+weaken equality
 \end_layout
 
 \begin_layout Section

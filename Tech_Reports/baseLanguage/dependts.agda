@@ -370,7 +370,7 @@ progress (Pi aTy bodTy) = inj₁ vPi
 progress (App fDer aDer)  with progress fDer | progress aDer
 progress (App {f} {a} fDer aDer) | inj₂ (f' , f~>f') | _ = inj₂ (pApp f' a , appf-struc f~>f' )
 progress (App {f} {a} fDer aDer) | inj₁ fval | inj₂ (a' , a~>a') = inj₂ (pApp f a' , appa-struc fval a~>a')
-progress (App {f} {a} fDer aDer) | inj₁ fval | inj₁ y with canonical-form-pi fDer fval (refl-== (reg fDer))
+progress (App {f} {a} fDer aDer) | inj₁ fval | inj₁ aval with canonical-form-pi fDer fval (refl-== (reg fDer))
 progress (App {_} {a} fDer aDer) | inj₁ fval | inj₁ aval | bod , refl = inj₂ ((bod [ o (pFun bod) ] [ a ]) , app-red aval)
 progress (Cast x) with progress x
 progress (Cast x) | inj₁ x₁ = inj₂ (_ , cast-red x₁)

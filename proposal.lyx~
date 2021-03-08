@@ -1561,7 +1561,7 @@ Both dynamic equalities and dynamic proof search vastly weaken the guarantees
 
 \begin_layout Standard
 The mainstream software industry has a similar need for evidence of correctness,
- and has made use of testing done in a separate execution phase.
+ and has standardized on testing done in a separate execution phase.
  Given the rich specifications that dependent types provide it is possible
  to improve on the hand crafted tests used by most of the industry.
  Instead we can use a type directed symbolic execution, to run questionable
@@ -1578,6 +1578,8 @@ nt in the common case of repeating tests at regular intervals of code that
 Interestingly dynamic equality is necessary for testing like this, since
  otherwise, definitional properties of functions would need to be accounted
  for.
+ Previous attempts to test dependent specifications were overwhelmed by
+ definitional considerations.
  Using dynamic equality it is possible only consider the extensional behavior
  of functions.
 \end_layout
@@ -1598,7 +1600,7 @@ Symbolic Execution
 \end_layout
 
 \begin_layout Standard
-Most research for Symbolic Execution targets popular imparative languages
+Most research for Symbolic Execution targets popular imperative languages
  (like C) and uses SMT solvers to efficiently explore conditional branches
  that depend on base types.
  Most work does not support higher order functions or makes simplifying
@@ -1724,27 +1726,27 @@ Plan
 \end_layout
 
 \begin_layout Itemize
-February: Write up proofs for dynamic equality 
+March: re-implement data types in prototype
 \end_layout
 
 \begin_layout Itemize
-March: Submit to ICFP 2021 
+April: extend proofs to data types
 \end_layout
 
 \begin_layout Itemize
-April: Finish re-writing the proptotype for dynamic equality
+May: Submit to TyDe 2020
 \end_layout
 
 \begin_layout Itemize
-May: Rewrite the proof search and testing prototype
+June: Rewrite the proof search and testing prototype
 \end_layout
 
 \begin_layout Itemize
-June: Draft thesis
+July: Draft thesis
 \end_layout
 
 \begin_layout Itemize
-July: Defend
+August: Defend
 \end_layout
 
 \begin_layout Standard

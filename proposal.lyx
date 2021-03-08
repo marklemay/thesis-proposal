@@ -1726,27 +1726,27 @@ Plan
 \end_layout
 
 \begin_layout Itemize
-February: Write up proofs for dynamic equality 
+March: re-implement data types in prototype
 \end_layout
 
 \begin_layout Itemize
-March: Submit to ICFP 2021 
+April: extend proofs to data types
 \end_layout
 
 \begin_layout Itemize
-April: Finish re-writing the proptotype for dynamic equality
+May: Submit to TyDe 2021
 \end_layout
 
 \begin_layout Itemize
-May: Rewrite the proof search and testing prototype
+June: Rewrite the proof search and testing prototype
 \end_layout
 
 \begin_layout Itemize
-June: Draft thesis
+July: Draft thesis
 \end_layout
 
 \begin_layout Itemize
-July: Defend
+August: Defend
 \end_layout
 
 \begin_layout Standard

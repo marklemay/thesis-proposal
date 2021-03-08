@@ -463,7 +463,7 @@ preserves
 \end_layout
 
 \begin_layout Itemize
-the direct scrutinee same as is compatible with the typing of the motive.
+the direct scrutinee is compatible with the typing of the motive.
  
 \end_layout
 
@@ -479,7 +479,11 @@ for instance
 \begin_deeper
 \begin_layout Itemize
 Then the apparent type is 
-\begin_inset Formula $M\left[a\coloneqq\left(D\,0\,1\,0\,:T\,0\,1\,0\right)::T\,0\,0\,0,x\coloneqq0,y\coloneqq1,z\coloneqq0\right]$
+\begin_inset Formula $M\left[a\coloneqq\left(D\,0\,1\,0\,:T\,0\,1\,0\right)::T\,0\,0\,0,x\coloneqq0,\underline{y\coloneqq0},z\coloneqq0\right]$
+\end_inset
+
+ not 
+\begin_inset Formula $M\left[a\coloneqq\left(D\,0\,1\,0\,:T\,0\,1\,0\right)::T\,0\,0\,0,x\coloneqq0,\underline{y\coloneqq1},z\coloneqq0\right]$
 \end_inset
 
 
@@ -488,8 +492,8 @@ Then the apparent type is
 \end_deeper
 \end_deeper
 \begin_layout Standard
-Finally remember that not all casts will be available until the entire expressio
-n can be eliminated:
+Finally not all casts will be available until the entire expression can
+ be eliminated:
 \end_layout
 
 \begin_layout Standard
@@ -513,12 +517,12 @@ Big Stack
 \end_layout
 
 \begin_layout Standard
-on possibility is to expand the stack on elimination, interpolating between
+One possibility is to expand the stack on elimination, interpolating between
  different positions
 \end_layout
 
 \begin_layout Standard
-so for instance the if 
+For instance, if 
 \begin_inset Formula $\left(D\,1\,2\,3\,:T\,1\,2\,3::T\,4\,5\,6::T\,7\,8\,9\right)$
 \end_inset
 
@@ -526,7 +530,7 @@ so for instance the if
 \begin_inset Formula $<\underline{a}:T\,\underline{x}\,\underline{y}\,\underline{z}.\,M>$
 \end_inset
 
-
+ that will result in a stack of casts:
 \end_layout
 
 \begin_layout Standard
@@ -561,7 +565,7 @@ Unfortunately
 \end_layout
 
 \begin_layout Itemize
-this doesn't seem to naturally handle cases of nested type type constructors
+this doesn't seem to naturally handle cases of nested type constructors
  or data constructors (these could also be expanded)
 \end_layout
 
@@ -570,8 +574,8 @@ this doesn't seem to handle cases of nested function type
 \end_layout
 
 \begin_layout Itemize
-though each step is only linear it is easy to imagine these compounded linear
- expansions being far too slow
+though each step is only linearly expands the stack of casts, it is easy
+ to imagine these compounded linear expansions being far too slow
 \end_layout
 
 \begin_layout Subsection
@@ -605,7 +609,7 @@ doesn't seem to naturally handle cases of nested type type constructors
 doesn't seem to handle cases of nested function type
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 the theory becomes very messy
 \end_layout
 
@@ -625,8 +629,8 @@ non-determinism
 \end_layout
 
 \begin_layout Standard
-an alternative would to embed the possible non-determinism into the cast
- syntax.
+Another alternative would to embed the possible non-determinism into the
+ cast syntax.
  This seams closer to the intended meaning.
  So for instance, 
 \begin_inset Formula $\left(D\,1\,2\,3\,:T\,1\,2\,3::T\,4\,5\,6::T\,7\,8\,9\right)$
@@ -698,6 +702,13 @@ it seems possible to see how non-determinism can be optimized out of terms
 
 \end_layout
 
+\begin_layout Itemize
+\begin_inset Formula $\left\{ f\,a,\,f'\,a'\right\} \neq\left\{ f\,f'\right\} \,\left\{ a\,a'\right\} $
+\end_inset
+
+ in general
+\end_layout
+
 \end_deeper
 \begin_layout Standard
 However there are issues with this formulation
@@ -711,6 +722,7 @@ Like casts, it seems best to fix the non-determinism against head terms,
 
 \begin_deeper
 \begin_layout Itemize
+such as 
 \begin_inset Formula $\left\{ 7,\left\{ \left\{ 7,\left\{ 7,7\right\} \right\} ,\left\{ 7,7\right\} \right\} \right\} $
 \end_inset
 
@@ -744,7 +756,11 @@ like
 \end_layout
 
 \begin_layout Itemize
-...
+but 
+\begin_inset Formula $\left\{ 7:\mathbb{N},true:\mathbb{B}\right\} $
+\end_inset
+
+ should be disallowed
 \end_layout
 
 \end_deeper
@@ -780,8 +796,8 @@ but after evaluation has apparent type
 \end_layout
 
 \begin_layout Itemize
-in this specific case the motive could produce a direct error but in the
- more general that is not possible,
+in this specific case the motive could produce a direct error but in general
+ that is not possible,
 \begin_inset Formula 
 \begin{align*}
 a:\mathbb{N}\vdash case\,\left(D\,0\,a\,0\,:T\,0\,a\,0\right) & ::T\,0\,0\,0\,<-:T\,x\,y\,z.\,case\,x+y+z\,of\,0.\,\mathbb{N}\rightarrow\mathbb{N}\,|\,-.\star>\,of\\
@@ -828,8 +844,8 @@ also the motive scrutinee is not necessarily type compatible as it was in
  the stack case
 \end_layout
 
-\begin_layout Subsection
-weaken equality
+\begin_layout Standard
+Currently this is the closest to the prototype implementation
 \end_layout
 
 \begin_layout Section

@@ -3651,7 +3651,7 @@ but this is technically incorrect since
 \begin_inset Formula $\vdash(\lambda x.x)7:\mathbb{N}$
 \end_inset
 
-, but the Elaboration process is bidirectional
+, but the Elaboration process is bidirectional.
 \end_layout
 
 \begin_layout Section

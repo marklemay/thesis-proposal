@@ -107,7 +107,7 @@ gives transitivity to equality
 \end_layout
 
 \begin_layout Itemize
-means that type constructors are unique, , 
+means that type constructors are unique, 
 \begin_inset Formula $\ast\bcancel{\equiv}\Pi$
 \end_inset
 
@@ -2406,7 +2406,7 @@ by induction on
 \end_layout
 
 \begin_layout Subsubsection
-Type constructors definitionaly unique
+Type constructors definitionally unique
 \end_layout
 
 \begin_layout Standard

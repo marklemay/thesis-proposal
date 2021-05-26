@@ -728,6 +728,22 @@ M\equiv\left\langle 7,\lambda y.\mathtt{loopForever}\right\rangle
 
 \end_layout
 
+\begin_layout Standard
+The surface language has been fully implemented.
+ I have proven type soundness for the full surface language (follows a similar
+ structure to 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sjoberg2012irrelevance"
+literal "false"
+
+\end_inset
+
+), Qiancheng Fu has mechanized my proof of type soundness for the function
+ fragment in Coq.
+ Details are in a paper currently under submission at TyDe workshop.
+\end_layout
+
 \begin_layout Subsection
 Prior work
 \end_layout
@@ -1494,13 +1510,13 @@ nt in the common case of repeating tests at regular intervals of code that
 \end_layout
 
 \begin_layout Standard
-Interestingly dynamic equality is necessary for testing like this to be
- managable, since otherwise, definitional properties of functions would
- need to be accounted for.
- my previous attempts to test dependent specifications were overwhelmed
- by definitional considerations.
- Using dynamic equality it is possible to only consider the extensional
- behavior of functions.
+Interestingly dynamic equality is necessary for testing like this, since
+ otherwise, definitional properties of functions would need to be accounted
+ for.
+ Previous attempts to test dependent specifications were overwhelmed by
+ definitional considerations.
+ Using dynamic equality it is possible only consider the extensional behavior
+ of functions.
 \end_layout
 
 \begin_layout Standard
@@ -1625,26 +1641,6 @@ Status and Plan
 
 \begin_layout Subsection
 Status
-\end_layout
-
-\begin_layout Standard
-The surface language has been fully implemented.
- I have proven type soundness for the full surface language (follows a similar
- structure to 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sjoberg2012irrelevance"
-literal "false"
-
-\end_inset
-
-), Qiancheng Fu has mechanized my proof of type soundness for the function
- fragment in Coq.
- Details are in a paper currently under submission at TyDe workshop.
-\end_layout
-
-\begin_layout Standard
-..
 \end_layout
 
 \begin_layout Standard

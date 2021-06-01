@@ -615,11 +615,16 @@ surface
 \begin_inset Quotes erd
 \end_inset
 
- language provides the syntax that the programmer interacts with and a theory
- that they can reason with.
- The surface language contains the key features that should be supported:
- user defined dependent functions and dependent datatypes.
- The surface language is in the 
+ language provides the syntax that the programmer interacts with and a type
+ theory that they can reason about.
+ 
+\end_layout
+
+\begin_layout Standard
+The surface language contains the key features that should be supported
+ for functional programming: user defined dependent functions and dependent
+ datatypes.
+ The surface language is built in a 
 \begin_inset Quotes eld
 \end_inset
 
@@ -637,7 +642,7 @@ cast
 \end_inset
 
  language from the next section can be elaborated from and compared to this
- concrete implementation.
+ language.
 \end_layout
 
 \begin_layout Standard
@@ -646,7 +651,7 @@ ation and unchecked errors as effects.
  Combining other effects with full-spectrum dependent types is substantially
  more difficult because effectful equality is hard to characterize for individua
 l effects and especially hard for effects in combination.
- Several attempts have been made to combine dependent types with more effects,
+ Several attempts have been made to combine dependent types with more effects
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -770,8 +775,8 @@ status open
 \end_layout
 
 \begin_layout Standard
-This programming language uses bidirectional type checking to minimize the
- number of annotations required (
+The surface language uses bidirectional type checking to minimize the number
+ of annotations required (
 \begin_inset CommandInset citation
 LatexCommand cite
 key "10.1145/3450952"
@@ -789,8 +794,8 @@ literal "false"
 status open
 
 \begin_layout Plain Layout
-Even in Haskell, with full Hindley-Milner type inference, top level annotations
- are encouraged.
+Even in Haskell, with full Hindley-Milner type inference, top level type
+ annotations are encouraged.
 \end_layout
 
 \end_inset
@@ -824,7 +829,7 @@ status open
 
 \begin_layout Plain Layout
 
-% TODO type soundness
+% TODO type soundness?
 \end_layout
 
 \end_inset
@@ -833,8 +838,8 @@ status open
 \end_layout
 
 \begin_layout Standard
-The surface language still supports a partial correctness property for first
- order data types when run with Call-by-Value.
+In spite of logical unsoundness, the surface language still supports a partial
+ correctness property for first order data types when run with Call-by-Value.
  For instance,
 \begin_inset ERT
 status open
@@ -1002,7 +1007,7 @@ end{spacing}
 \end_layout
 
 \begin_layout Subsection
-Prior work
+Prior Work
 \end_layout
 
 \begin_layout Standard
@@ -1061,9 +1066,20 @@ literal "false"
 
 \end_inset
 
- used modalities to separate the terminating and non terminating fragments
- of the language, though the annotation burden seems high in retrospect.
- In general, the base language has been deeply informed by the Trellys Project
+ used modalities to separate terminating and non-terminating fragments of
+ the language
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%, though the annotation burden seems high in retrospect
+\end_layout
+
+\end_inset
+
+ .
+ In general, the base language has been deeply informed by the Trellys project
 \begin_inset CommandInset citation
 LatexCommand cite
 key "kimmell2012equational"
@@ -1103,7 +1119,7 @@ literal "false"
 
 \end_inset
 
- and the Zombie Language
+ and the Zombie language
 \begin_inset Foot
 status open
 
@@ -1477,7 +1493,7 @@ Whenever an elaborated cast term evaluates, the corresponding surface term
 \end_layout
 
 \begin_layout Subsection
-Prior work
+Prior Work
 \end_layout
 
 \begin_layout Standard
@@ -1651,7 +1667,7 @@ Dynamic equality appears to be a prerequisite for other useful features.
 \end_layout
 
 \begin_layout Subsection
-Prototyping proofs and programs
+Prototyping Proofs and Programs
 \end_layout
 
 \begin_layout Standard
@@ -1957,7 +1973,7 @@ depends on the definitional properties of functions.
 \end_layout
 
 \begin_layout Subsubsection
-Prior work
+Prior Work
 \end_layout
 
 \begin_layout Standard
@@ -1992,7 +2008,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-Testing dependent programs
+Testing Dependent Programs
 \end_layout
 
 \begin_layout Standard
@@ -2037,7 +2053,7 @@ Finally, future work can add more advanced methods of testing and proof
 \end_layout
 
 \begin_layout Subsubsection
-Prior work 
+Prior Work 
 \end_layout
 
 \begin_layout Subsubsection
@@ -2092,7 +2108,7 @@ literal "false"
 \end_layout
 
 \begin_layout Subsubsection
-Testing dependent types
+Testing Dependent Types
 \end_layout
 
 \begin_layout Standard

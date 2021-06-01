@@ -1242,6 +1242,19 @@ The surface language can be extended to a cast language that supports the
  into the cast language.
  The cast language has a weaker notion of type soundness, called cast soundness,
  such that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{spacing}{0.9}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -1281,6 +1294,18 @@ can blame a source location with a specific witness of inequality
 
 \end_deeper
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{spacing}
+\end_layout
+
+\end_inset
+
 In short, type soundness holds, or a good error message can be given.
  In the example above 
 \begin_inset Formula $\lambda x.\mathtt{head}\,x\,\left(\mathtt{rep}\,\left(x+1\right)\right)\,:\,\mathbb{N}\rightarrow\mathbb{B}$
@@ -1293,6 +1318,19 @@ In short, type soundness holds, or a good error message can be given.
 
 \begin_layout Standard
 If the example is changed to
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{spacing}{0.9}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1307,6 +1345,18 @@ If the example is changed to
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{spacing}
+\end_layout
+
+\end_inset
+
 and the function is called at runtime, the blame tracking system will blame
  the source location that uses unequal types with a direct proof of inequality,
  allowing an error like 
@@ -1369,7 +1419,7 @@ status open
 
 \begin_layout Plain Layout
 
-% TODO elaboration
+% elaboration
 \end_layout
 
 \end_inset
@@ -1382,25 +1432,17 @@ status open
  well-cast terms of the cast language.
  To do this I have defined an elaboration procedure, that maintains the
  information required to preserve cast checking.
- The elaboration procedure is inspired by bidirectional typing to 
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-% TODO formalize statements
-\end_layout
-
+ The elaboration procedure is inspired by bidirectional typing to track
+ the locations that 
+\begin_inset Quotes eld
 \end_inset
 
+assert
+\begin_inset Quotes erd
+\end_inset
 
-\end_layout
-
-\begin_layout Standard
-There are several basic properties that should hold when terms of the surface
+ type level equalities.
+ There are several basic properties that hold when terms of the surface
  language elaborate into terms of the cast language.
 \end_layout
 
@@ -1641,6 +1683,19 @@ correct
 The solution proposed here is additional syntax that will search for a term
  of the type when resolved at runtime.
  Given the sorting function 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{spacing}{0.9}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1655,7 +1710,32 @@ The solution proposed here is additional syntax that will search for a term
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{spacing}
+\end_layout
+
+\end_inset
+
 and given the first order predicate that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{spacing}{0.9}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1670,11 +1750,36 @@ and given the first order predicate that
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{spacing}
+\end_layout
+
+\end_inset
+
 then it is possible to assert that 
 \begin_inset Formula $\mathtt{sort}$
 \end_inset
 
  behaves as expected with
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{spacing}{0.9}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1689,6 +1794,18 @@ then it is possible to assert that
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{spacing}
+\end_layout
+
+\end_inset
+
 This term will act like any other function at runtime, given a list input
  the function will verify that the 
 \begin_inset Formula $\mathtt{sort}$
@@ -1700,13 +1817,26 @@ This term will act like any other function at runtime, given a list input
 \begin_layout Standard
 Additionally, this would allow simple prototyping form first order specification.
  For instance,
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{spacing}{0.9}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{align*}
-data\,\mathtt{Mult} & :\mathbb{N}\rightarrow\mathbb{N}\rightarrow\mathbb{N}\rightarrow*\,where\\
-\mathtt{base} & :\left(x:\mathbb{N}\right)\rightarrow\mathtt{Mult}0\,x\,0\\
+data\ \mathtt{Mult} & :\mathbb{N}\rightarrow\mathbb{N}\rightarrow\mathbb{N}\rightarrow*\ where\\
+\mathtt{base} & :\left(x:\mathbb{N}\right)\rightarrow\mathtt{Mult}\ 0\ x\ 0\\
 \mathtt{suc} & :\left(x\,y\,z:\mathbb{N}\right)\rightarrow\mathtt{Mult}\,x\,y\,z\rightarrow\mathtt{Mult}\,\left(1+x\right)\,y\,(y+z)
 \end{align*}
 
@@ -1716,7 +1846,32 @@ data\,\mathtt{Mult} & :\mathbb{N}\rightarrow\mathbb{N}\rightarrow\mathbb{N}\righ
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{spacing}
+\end_layout
+
+\end_inset
+
 can be used to prototype
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{spacing}{0.9}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1731,8 +1886,33 @@ can be used to prototype
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{spacing}
+\end_layout
+
+\end_inset
+
 The term search can be surprisingly subtle.
  For instance,
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{spacing}{0.9}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1747,6 +1927,18 @@ The term search can be surprisingly subtle.
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{spacing}
+\end_layout
+
+\end_inset
+
 depends on the definitional properties of functions.
  To avoid this subtly I plan to only support term search over first order
  data.
@@ -1979,6 +2171,10 @@ A primitive proof search and a testing framework were implemented in an
  earlier prototype, but will need to be reimplemented to account for dynamic
  equality.
  Better search methods are planned.
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection

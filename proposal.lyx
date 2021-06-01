@@ -510,7 +510,7 @@ Strengthening the equality relation in dependently typed languages has been
  the goal for many research projects (to name a few 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "cockx2021taming,sjoberg2015programming"
+key "HoTTbook,cockx2021taming,sjoberg2015programming"
 literal "false"
 
 \end_inset
@@ -615,11 +615,11 @@ surface
 \begin_inset Quotes erd
 \end_inset
 
- language provides the syntax that the programmer interacts with and a theory
- that they can reason with.
+ language provides the syntax that the programmer interacts with and a type
+ theory that they can reason with.
  The surface language contains the key features that should be supported:
  user defined dependent functions and dependent datatypes.
- The surface language is in the 
+ The surface language is built in a 
 \begin_inset Quotes eld
 \end_inset
 
@@ -824,7 +824,7 @@ status open
 
 \begin_layout Plain Layout
 
-% TODO type soundness
+% TODO type soundness?
 \end_layout
 
 \end_inset
@@ -1002,7 +1002,7 @@ end{spacing}
 \end_layout
 
 \begin_layout Subsection
-Prior work
+Prior Work
 \end_layout
 
 \begin_layout Standard
@@ -1477,7 +1477,7 @@ Whenever an elaborated cast term evaluates, the corresponding surface term
 \end_layout
 
 \begin_layout Subsection
-Prior work
+Prior Work
 \end_layout
 
 \begin_layout Standard
@@ -1651,7 +1651,7 @@ Dynamic equality appears to be a prerequisite for other useful features.
 \end_layout
 
 \begin_layout Subsection
-Prototyping proofs and programs
+Prototyping Proofs and Programs
 \end_layout
 
 \begin_layout Standard
@@ -1957,7 +1957,7 @@ depends on the definitional properties of functions.
 \end_layout
 
 \begin_layout Subsubsection
-Prior work
+Prior Work
 \end_layout
 
 \begin_layout Standard
@@ -1992,7 +1992,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-Testing dependent programs
+Testing Dependent Programs
 \end_layout
 
 \begin_layout Standard
@@ -2037,7 +2037,7 @@ Finally, future work can add more advanced methods of testing and proof
 \end_layout
 
 \begin_layout Subsubsection
-Prior work 
+Prior Work 
 \end_layout
 
 \begin_layout Subsubsection
@@ -2092,7 +2092,7 @@ literal "false"
 \end_layout
 
 \begin_layout Subsubsection
-Testing dependent types
+Testing Dependent Types
 \end_layout
 
 \begin_layout Standard

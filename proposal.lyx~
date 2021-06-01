@@ -262,6 +262,18 @@ cast
  assert a property holds.
  Finally, a runtime proof search feature will allow programmers to take
  advantage of this machinery for prototyping.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% term search?
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Abstract
@@ -498,7 +510,7 @@ Strengthening the equality relation in dependently typed languages has been
  the goal for many research projects (to name a few 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "cockx2021taming,sjoberg2015programming"
+key "HoTTbook,cockx2021taming,sjoberg2015programming"
 literal "false"
 
 \end_inset

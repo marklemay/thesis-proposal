@@ -54,7 +54,7 @@
 %-------------------------------------------------------------------------
 
 %double spacing for document
-
+\iffalse
 \renewcommand{\textfraction}{0.1}
 \renewcommand{\topfraction}{0.95}
 \renewcommand{\bottomfraction}{0.95}
@@ -76,10 +76,11 @@
 \setlength{\textwidth}{6.875in}
 
 \renewcommand{\oddsidemargin}{0.5in}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end_preamble
-\options 11pt
+\options 12pt
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -104,7 +105,7 @@
 \bibtex_command default
 \index_command default
 \paperfontsize default
-\spacing single
+\spacing double
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -256,8 +257,9 @@ cast
  language provisionally accepting many more equalities.
  Programmers trade poor static errors for precise counterexamples that are
  made available at runtime.
- Additionally, automated testing will provide a way to transition properties
- form a way to document intent into a formal proof.
+ Additionally, automated testing can provide feedback about the correctness
+ of typing wether the programmer intends to create a formal proof, or merely
+ assert a property holds.
  Finally, a runtime proof search feature will allow programmers to take
  advantage of this machinery for rapid prototyping.
 \end_layout
@@ -361,8 +363,8 @@ by providing an appropriate term of that type.
 \begin_layout Standard
 The promise of dependent types in a practical programming language has inspired
  research projects for decades.
- There have been many formalization and prototypes that make different compromis
-es in the design space.
+ There have been many formalizations and prototypes that make different
+ compromises in the design space.
  One of the most popular styles is 
 \begin_inset Quotes eld
 \end_inset
@@ -382,9 +384,9 @@ n can appear anywhere in a term or type.
 \end_layout
 
 \begin_layout Standard
-Despite the potential, users often find these systems difficult to use.
- A common symptom of these issues can be seen in the confusing error messages
- these languages are known to produce.
+Despite the potential, programmers often find these systems difficult to
+ use.
+ Consider the confusing error messages these languages are known to produce.
  For instance, in Agda this reasonable looking program 
 \end_layout
 
@@ -420,7 +422,8 @@ x + 1 != suc x of type
 \end_inset
 
 .
- The error is confusing since it objects to an intended property of addition.
+ The error is confusing since it objects to an intended property of addition,
+ without telling why that property might not hold.
  If addition had a bug such that 
 \begin_inset Formula $x+1\neq1+x$
 \end_inset
@@ -462,9 +465,10 @@ status open
 \end_inset
 
 ).
- However, it is unlikely those impressive efforts are suitable for non-exerts,
- since programmers expect the data types and functions they define to have
- the properties they were intended to have.
+ However, it is unlikely those impressive efforts are suitable for non-exerts.
+ Programmers unfamiliar with dependent type theory will expect the data
+ types and functions they define to have the properties they were intended
+ to have.
  None of these projects makes the underling equality less complicated.
  No system will be able to verify every 
 \begin_inset Quotes eld
@@ -480,7 +484,7 @@ obvious
 
 \begin_layout Standard
 Alternatively we could assume the equalities hold and discover a concrete
- inequality as a runtime error.
+ witness of inequality as a runtime error.
  There is some evidence that specific examples like this can help clarify
  the error messages in OCaml
 \begin_inset CommandInset citation
@@ -541,7 +545,18 @@ A Dependently Typed Surface Language
 \begin_layout Standard
 The dynamic dependent equality of the later sections is hard to study without
  a more conventional dependently typed language to serve as a reference.
- This surface language contains the key features that should be supported:
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% TODO missing sentence? 
+\end_layout
+
+\end_inset
+
+This surface language contains the key features that should be supported:
  user defined dependent functions and dependent datatypes.
  The surface language is in the 
 \begin_inset Quotes eld
@@ -565,8 +580,8 @@ cast
 \end_layout
 
 \begin_layout Standard
-The language is pure in the sense of Haskell, supporting only non-termination
- and unchecked errors as effects.
+The surface language is pure in the sense of Haskell, supporting only non-termin
+ation and unchecked errors as effects.
  Combining other effects with full-spectrum dependent types is substantially
  more difficult because effectful equality is hard to characterize for individua
 l effects and especially hard for effects in combination.
@@ -629,7 +644,7 @@ Every type is inhabited by an infinite loop.
 
 \end_inset
 
-, but they seem essential for mainstream functional programming.
+, but they seem useful for mainstream functional programming.
  Additionally non-termination causes type-checking to be undecidable, though
  this has not caused any issues in practice, and even decidable type-checking
  in dependent type theory is computationally intractable.
@@ -685,7 +700,7 @@ status open
 
 \begin_layout Plain Layout
 
-% definition
+% TODO definition
 \end_layout
 
 \end_inset
@@ -708,12 +723,62 @@ status open
 \end_layout
 
 \begin_layout Standard
+This programming language uses bidirectional type checking to minimize the
+ number of annotations required (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.1145/3450952"
+literal "false"
+
+\end_inset
+
+ is a good survey of the technique).
+ Bidirectional type-checking is a popular technique for implementing dependently
+ typed programming languages because it not as complicated as more sophisticated
+ unification strategies, while still minimizing the annotations needed.
+ This style of type checking usually only needs top level functions to be
+ annotated
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Even in Haskell, with full Hindley-Milner type inference, this style of
+ annotations is encouraged.
+ 
+\end_layout
+
+\end_inset
+
+.
+ Bidirectional type-checking splits the typing judgment into 2 separate
+ judgments: the 
+\begin_inset Quotes eld
+\end_inset
+
+infer
+\begin_inset Quotes erd
+\end_inset
+
+ judgment if the type can be inferred from a term, and a 
+\begin_inset Quotes eld
+\end_inset
+
+check
+\begin_inset Quotes erd
+\end_inset
+
+ judgment for when term will be checked against a type.
+ Inferences can be turned into checked judgments with an explicit equality
+ check.
+\end_layout
+
+\begin_layout Standard
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-% type soundness
+% TODO type soundness
 \end_layout
 
 \end_inset
@@ -843,10 +908,11 @@ literal "false"
 \end_inset
 
 .
+ 
 \end_layout
 
 \begin_layout Standard
-The first proof of type soundness for a language with general recursive
+The first direct proof of type soundness for a language with general recursive
  dependent functions, Type-in-Type, and dependent data that I am aware of
  came form the Trellys Project 
 \begin_inset CommandInset citation
@@ -859,7 +925,7 @@ literal "false"
 .
  At the time their language had several additional features not included
  in my surface language.
- Additionally the surface language uses a simpler notion of equality and
+ Additionally my surface language uses a simpler notion of equality and
  dependent data resulting in an arguably simpler proof of type soundness.
  Later work in the Trellys Project
 \begin_inset CommandInset citation
@@ -927,6 +993,16 @@ https://github.com/sweirich/trellys
 \begin_layout Standard
 Several implementations support this combination of features without proofs
  of type soundness.
+ Coquand presented an early bidirectional algorithm to type-check a similar
+ language 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "COQUAND1996167"
+literal "false"
+
+\end_inset
+
+.
  Cayenne 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -935,9 +1011,9 @@ literal "false"
 
 \end_inset
 
- is a Haskell like language that combined dependent types with Type-in-type,
+ is a Haskell like language that combined dependent types with type-in-type,
  data and non-termination.
- Agda supports general recursion and Type-in-Type with compiler flags, and
+ Agda supports general recursion and type-in-type with compiler flags, and
  can simulate some non-positive data types using coinduction.
  Idris supports similar 
 \begin_inset Quotes eld
@@ -977,8 +1053,8 @@ A Language with Dynamic Type Equality
 A fundamental issue with dependent type theories is the characterization
  of definitional equality.
  Since computation can appear at the type level, and types must be checked
- for equality, dependent type theories must define what computational equalities
- they intend to equate for type checking.
+ for equality, dependent type theories must define what computations they
+ intend to equate for type checking.
  For instance, the surface language follows the common choice of 
 \begin_inset Formula $\alpha\beta$
 \end_inset
@@ -1030,10 +1106,26 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% TODO definition, Notably, both the assumed and underlying type must always
+ be known, so that casts can distribute over function application.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The surface language can be extended to a cast language that supports the
- expectation of the original typing.
- Many programs that do not type in the base language can be elaborated into
- the cast language.
+ expectation of the surface level typing.
+ Many programs that do not type in the surface language can be elaborated
+ into the cast language.
  The cast language has a weaker notion of type soundness, called cast soundness,
  such that 
 \end_layout
@@ -1075,7 +1167,7 @@ can blame a source location with a specific witness of inequality
 
 \end_deeper
 \begin_layout Standard
-In short, type soundness holds, or a a good error message can be given.
+In short, type soundness holds, or a good error message can be given.
  In the example above 
 \begin_inset Formula $\lambda x.\mathtt{head}\,x\,\left(\mathtt{rep}\,\left(x+1\right)\right)\,:\,\mathbb{N}\rightarrow\mathbb{B}$
 \end_inset
@@ -1102,8 +1194,8 @@ If the example is changed to
 
 \begin_layout Standard
 and the function is called at runtime, the blame tracking system will blame
- the exact static location that uses unequal types with a direct proof of
- inequality, allowing an error like 
+ the source location that uses unequal types with a direct proof of inequality,
+ allowing an error like 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1163,7 +1255,7 @@ status open
 
 \begin_layout Plain Layout
 
-% definition
+% TODO elaboration
 \end_layout
 
 \end_inset
@@ -1172,17 +1264,11 @@ status open
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-% elaboration
-\end_layout
-
-\end_inset
-
-
+(Possibly untyped) terms in the surface language need to be converted into
+ well-cast terms of the cast language.
+ To do this I have defined an elaboration procedure, that maintains the
+ information required to preserve cast checking.
+ The elaboration procedure is inspired by bidirectional typing to 
 \end_layout
 
 \begin_layout Standard
@@ -1191,7 +1277,7 @@ status open
 
 \begin_layout Plain Layout
 
-% formalize statements
+% TODO formalize statements
 \end_layout
 
 \end_inset
@@ -1675,8 +1761,8 @@ literal "false"
 \end_layout
 
 \begin_layout Itemize
-Symbolic execution for higher order functions for a untyped variant of PCF
- is described in 
+Symbolic execution for higher order functions for an untyped variant of
+ PCF is described in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "nguyen2017higher"
@@ -1785,6 +1871,20 @@ A primitive proof search and a testing framework were implemented in an
 Plan
 \end_layout
 
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% TODO better as table? or force onto the last page
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 June
 \end_layout
@@ -1880,11 +1980,27 @@ November: Defend
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{spacing}{0.9}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 btprint "btPrintCited"
 bibfiles "/Users/stephaniesavir/dtest/extended-abstract/dtest"
-options "plain"
+options "bibtotoc,plain"
 
 \end_inset
 
@@ -5987,6 +6103,22 @@ and
 \color none
  such that 
 \begin_inset Formula $m\rightsquigarrow^{*}(x:N_{\ell})\rightarrow M_{\ell'}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{spacing}
+\end_layout
+
 \end_inset
 
 

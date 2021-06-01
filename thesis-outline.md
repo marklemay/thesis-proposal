@@ -29,14 +29,17 @@
   * Why
     * dependently typed equality is subtle/akward
   * formal system
-  * elaboration
   * Properties
     * cast soundness to track blame
+  * History
+    * contracts/blame
+    * things that sound like this but arn't?
+* elaboration (should it be it's own chapter?)
+  * Properties
     * relation to the ideal system
   * History
     * contracts/blame
     * gradual typing (?)
-    * things that sound like this but arn't?
 * Runtime proof search
 * Symbolic testing
 * large worked example

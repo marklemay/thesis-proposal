@@ -1550,8 +1550,9 @@ literal "false"
 \end_inset
 
 .
- Blame tracking can help establish the reasonableness of monitoring systems
- by linking a dynamic failure directly to the broken invariant in source.
+ Blame tracking can help establish the reasonableness of contract monitoring
+ systems by linking a dynamic failure directly to the broken invariant in
+ source.
  Blame is also a key ingredient of clear runtime error messages.
  However, as many authors have noticed, proving blame correctness is tedious
  and error prone, it is often only conjectured.
@@ -1570,7 +1571,7 @@ status open
 \end_layout
 
 \begin_layout Standard
-The basic correctness conditions are inspired by the Gradual Guarantee 
+The elaboration conditions are inspired by the Gradual Guarantee 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "siek_et_al:LIPIcs:2015:5031"
@@ -1605,8 +1606,8 @@ literal "false"
 
 \end_inset
 
-, dynamic equality does not attempt to preserve any parametric properties
- of the base language.
+, the cast language does not attempt to preserve any parametric properties
+ of the surface language.
  It is unclear if such a restriction to parametric properties would be desirable
  for a dependently typed language.
 \end_layout
@@ -1625,7 +1626,7 @@ literal "false"
 .
  However that system retains the intentional style of equality and user
  defined data types are not supported.
- The paper is largely concerned with establishing decidable type checking
+ That paper is largely concerned with establishing decidable type checking
  via an approximate term normalization.
 \end_layout
 
@@ -1859,12 +1860,15 @@ end{spacing}
 
 \end_inset
 
-This term will act like any other function at runtime, given a list input
- the function will verify that the 
+This term will act like any other function at runtime, given a 
+\begin_inset Formula $\mathtt{List}$
+\end_inset
+
+ input the function will verify that the 
 \begin_inset Formula $\mathtt{sort}$
 \end_inset
 
- correctly handled that input, gives an error, or non-terminate.
+ correctly handled that input, give an error, or non-terminate.
 \end_layout
 
 \begin_layout Standard
@@ -2013,23 +2017,65 @@ literal "false"
 \end_inset
 
 .
+ However it is rare to make those features available at runtime.
+ 
 \end_layout
 
 \begin_layout Standard
-Twelf made use of runtime proof search but the underling theory cannot be
- considered full-spectrum.
- 
-\begin_inset ERT
+Logic programing languages such as Prolog
+\begin_inset Foot
 status open
 
 \begin_layout Plain Layout
-
-% mention prolog?
+https://www.swi-prolog.org/
 \end_layout
 
 \end_inset
 
+, Datalog
+\begin_inset Foot
+status open
 
+\begin_layout Plain Layout
+https://docs.racket-lang.org/datalog/
+\end_layout
+
+\end_inset
+
+, and miniKanren
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+http://minikanren.org/
+\end_layout
+
+\end_inset
+
+ use 
+\begin_inset Quotes eld
+\end_inset
+
+proof search
+\begin_inset Quotes erd
+\end_inset
+
+ as their primary method of computation.
+ However I am not aware of any system that combines logical programming
+ with full-spectrum dependent types.
+ The Twelf project
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+http://twelf.org/wiki/Main_Page
+\end_layout
+
+\end_inset
+
+ makes use of runtime proof search and has some support for dependent types,
+ but the underling theory cannot be considered full-spectrum.
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -2053,17 +2099,16 @@ The mainstream software industry has a similar need for evidence of correctness,
  Instead we can use a type directed symbolic execution, to test questionable
  equalities over concrete values and precompute the searches of proof terms.
  Precomputed proof terms can be cached, so that exploration is not too inefficie
-nt in the common case of repeating tests at regular intervals of code that
- is mostly the same.
+nt at runtime, at least in the common searched cases.
  Precomputed terms can be made available at runtime, excusing the inefficient
  search procedure.
  
 \end_layout
 
 \begin_layout Standard
-Interestingly dynamic equality is necessary for testing like this to be
- managable, since otherwise, definitional properties of functions would
- need to be accounted for.
+Interestingly dynamic equality check is necessary for testing like this
+ to be managable, since otherwise, definitional properties of functions
+ would need to be accounted for.
  My previous attempts to test dependent specifications were overwhelmed
  by definitional considerations.
  Using dynamic equality it is possible to only consider the extensional
@@ -2078,11 +2123,7 @@ Finally, future work can add more advanced methods of testing and proof
 \end_layout
 
 \begin_layout Subsubsection
-Prior Work 
-\end_layout
-
-\begin_layout Subsubsection
-Symbolic Execution
+Prior Work: Symbolic Execution
 \end_layout
 
 \begin_layout Standard
@@ -2133,7 +2174,7 @@ literal "false"
 \end_layout
 
 \begin_layout Subsubsection
-Testing Dependent Types
+Prior Work: Testing Dependent Types
 \end_layout
 
 \begin_layout Standard

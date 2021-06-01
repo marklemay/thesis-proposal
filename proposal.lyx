@@ -2252,19 +2252,18 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-A prototype implementation for the cast language and elaboration procedure
- is almost completed.
+An implementation for the cast language and elaboration procedure is almost
+ completed.
  All properties mentioned in section 2 have been proven for the functional
  fragment.
  Qiancheng Fu has mechanized my proof of cast soundness in Coq.
- We conjecture that they can be extended to the full language.
+ We conjecture that they can be extended to the full language with data.
 \end_layout
 
 \begin_layout Standard
 A primitive proof search and a testing framework were implemented in an
  earlier prototype, but will need to be reimplemented to account for dynamic
  equality.
- Better search methods are planned.
 \begin_inset Newpage pagebreak
 \end_inset
 
@@ -2295,7 +2294,7 @@ June
 
 \begin_deeper
 \begin_layout Itemize
-refine implementation
+clean up implementation
 \end_layout
 
 \begin_layout Itemize
@@ -2313,7 +2312,7 @@ finalize the implementation of symbolic execution
 \end_layout
 
 \begin_layout Itemize
-rework symbolic execution
+rework symbolic execution from
 \begin_inset CommandInset citation
 LatexCommand cite
 key "extendedabstract"
@@ -2365,7 +2364,7 @@ Write a medium sized example in the language
 \end_layout
 
 \begin_layout Itemize
-Write the chapter walking thought that example
+Write A chapter walking thought that example
 \end_layout
 
 \end_deeper

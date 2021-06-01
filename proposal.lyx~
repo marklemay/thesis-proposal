@@ -2099,17 +2099,16 @@ The mainstream software industry has a similar need for evidence of correctness,
  Instead we can use a type directed symbolic execution, to test questionable
  equalities over concrete values and precompute the searches of proof terms.
  Precomputed proof terms can be cached, so that exploration is not too inefficie
-nt in the common case of repeating tests at regular intervals of code that
- is mostly the same.
+nt at runtime, at least in the common searched cases.
  Precomputed terms can be made available at runtime, excusing the inefficient
  search procedure.
  
 \end_layout
 
 \begin_layout Standard
-Interestingly dynamic equality is necessary for testing like this to be
- managable, since otherwise, definitional properties of functions would
- need to be accounted for.
+Interestingly dynamic equality check is necessary for testing like this
+ to be managable, since otherwise, definitional properties of functions
+ would need to be accounted for.
  My previous attempts to test dependent specifications were overwhelmed
  by definitional considerations.
  Using dynamic equality it is possible to only consider the extensional
@@ -2124,7 +2123,7 @@ Finally, future work can add more advanced methods of testing and proof
 \end_layout
 
 \begin_layout Subsubsection
-Prior Work, Symbolic Execution
+Prior Work: Symbolic Execution
 \end_layout
 
 \begin_layout Standard
@@ -2175,7 +2174,7 @@ literal "false"
 \end_layout
 
 \begin_layout Subsubsection
-Prior Work, Testing Dependent Types
+Prior Work: Testing Dependent Types
 \end_layout
 
 \begin_layout Standard
@@ -2253,19 +2252,18 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-A prototype implementation for the cast language and elaboration procedure
- is almost completed.
+An implementation for the cast language and elaboration procedure is almost
+ completed.
  All properties mentioned in section 2 have been proven for the functional
  fragment.
  Qiancheng Fu has mechanized my proof of cast soundness in Coq.
- We conjecture that they can be extended to the full language.
+ We conjecture that they can be extended to the full language with data.
 \end_layout
 
 \begin_layout Standard
 A primitive proof search and a testing framework were implemented in an
  earlier prototype, but will need to be reimplemented to account for dynamic
  equality.
- Better search methods are planned.
 \begin_inset Newpage pagebreak
 \end_inset
 

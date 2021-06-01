@@ -1067,7 +1067,7 @@ literal "false"
 \end_inset
 
  used modalities to separate terminating and non-terminating fragments of
- the language
+ the language, to allow both general recursion and logically sound reasoning
 \begin_inset ERT
 status open
 
@@ -1169,14 +1169,7 @@ unsafe
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset citation
-LatexCommand cite
-key "jia2010dependent"
-literal "false"
-
-\end_inset
-
- introduces a similar 
+A similar 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1184,7 +1177,16 @@ partial correctness
 \begin_inset Quotes erd
 \end_inset
 
- criterion for dependent languages with non-termination run with Call-by-Value.
+ criterion for dependent languages with non-termination run with Call-by-Value
+ is presented in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jia2010dependent"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -1203,7 +1205,7 @@ A fundamental issue with dependent type theories is the characterization
 
  equivalence of terms.
  However, this causes many acceptable programs to not type-check.
- For instance 
+ For instance, 
 \begin_inset Formula $\lambda x.\mathtt{head}\,x\,\left(\mathtt{rep}\,\left(x+1\right)\right)\,:\,\mathbb{N}\rightarrow\mathbb{B}$
 \end_inset
 
@@ -1432,10 +1434,29 @@ Cast soundness improves on the naive solution of ignoring type annotations
 \begin_layout Standard
 Just as standard type theories allow many possible characterizations of
  equality that support logical soundness, there are many choices of runtime
- checking that support this weaker notion of type soundness.
+ checking that support this weaker notion of cast soundness.
  The minimal choice is likely too permissive in practice: in the example
- above, it would only flag an error when the function is applied to 0.
- Alternatively, I conjecture that runtime-checking that matches the partial
+ above, it would only flag an error when the function is applied to 
+\begin_inset Formula $0$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% actaully it's more sbtle then that
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ .
+ Alternatively, I believe that runtime-checking that matches the partial
  correctness criteria above would be reasonably intuitive.
  Extending checks into non-dependent function types also seems reasonable,
  and would allow simple types to be completely checked.

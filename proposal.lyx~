@@ -2294,7 +2294,7 @@ June
 
 \begin_deeper
 \begin_layout Itemize
-refine implementation
+clean up implementation
 \end_layout
 
 \begin_layout Itemize
@@ -2312,7 +2312,7 @@ finalize the implementation of symbolic execution
 \end_layout
 
 \begin_layout Itemize
-rework symbolic execution
+rework symbolic execution from
 \begin_inset CommandInset citation
 LatexCommand cite
 key "extendedabstract"
@@ -2364,7 +2364,7 @@ Write a medium sized example in the language
 \end_layout
 
 \begin_layout Itemize
-Write the chapter walking thought that example
+Write A chapter walking thought that example
 \end_layout
 
 \end_deeper

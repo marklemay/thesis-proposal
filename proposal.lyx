@@ -1019,7 +1019,7 @@ While many of these features have been explored in theory and implemented
 Unsound logical systems that are acceptable programming languages go back
  to at least Church's lambda calculus which was originally intended to be
  a logical foundation for mathematics.
- In the 1970s, Martin Lof proposed a system with Type-in-Type that was shown
+ In the 1970s, Martin-Löf proposed a system with Type-in-Type that was shown
  logically unsound by Girard (as described in the introduction in 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1157,7 +1157,7 @@ literal "false"
 
 \end_inset
 
- is a Haskell like language that combined dependent types with type-in-type,
+ is a Haskell like language that combined dependent types with Type-in-Type,
  data and non-termination.
  Agda supports general recursion and type-in-type with compiler flags, and
  can simulate some non-positive data types using coinduction.
@@ -1296,6 +1296,17 @@ begin{spacing}{0.9}
 \end_inset
 
  then
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% TODO: as float
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
@@ -1323,7 +1334,7 @@ or
 \begin_inset Formula $a$
 \end_inset
 
-can blame a source location with a specific witness of inequality
+ can blame a source location with a specific witness of inequality
 \end_layout
 
 \end_deeper
@@ -1868,7 +1879,7 @@ This term will act like any other function at runtime, given a
 \begin_inset Formula $\mathtt{sort}$
 \end_inset
 
- correctly handled that input, give an error, or non-terminate.
+ correctly handled that input, or the term will give an error, or non-terminate.
 \end_layout
 
 \begin_layout Standard
@@ -2061,7 +2072,7 @@ proof search
 \end_inset
 
  as their primary method of computation.
- However I am not aware of any system that combines logical programming
+ However, I am not aware of any system that combines logical programming
  with full-spectrum dependent types.
  The Twelf project
 \begin_inset Foot
@@ -2099,15 +2110,15 @@ The mainstream software industry has a similar need for evidence of correctness,
  Instead we can use a type directed symbolic execution, to test questionable
  equalities over concrete values and precompute the searches of proof terms.
  Precomputed proof terms can be cached, so that exploration is not too inefficie
-nt at runtime, at least in the common searched cases.
+nt at runtime, at least in the commonly searched cases.
  Precomputed terms can be made available at runtime, excusing the inefficient
  search procedure.
  
 \end_layout
 
 \begin_layout Standard
-Interestingly dynamic equality check is necessary for testing like this
- to be managable, since otherwise, definitional properties of functions
+Interestingly dynamic equality checking seems necessary for testing like
+ this to be manageable, since otherwise, definitional properties of functions
  would need to be accounted for.
  My previous attempts to test dependent specifications were overwhelmed
  by definitional considerations.
@@ -2237,8 +2248,8 @@ Status
 
 \begin_layout Standard
 The surface language has been fully implemented.
- I have proven type soundness for the full surface language (follows a similar
- structure to 
+ I have proven type soundness for the full surface language (the proof is
+ similar in structure to 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sjoberg2012irrelevance"

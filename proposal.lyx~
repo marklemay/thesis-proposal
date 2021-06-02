@@ -203,7 +203,7 @@ today
 Dependent type systems are a powerful tool to eliminate bugs from programs.
  Unlike other systems of formal methods, dependent types systems can re-use
  the syntax and methodology that functional programmers are already familiar
- with, for the construction of formal proofs.
+ with for the construction of formal proofs.
  This insight has lead to several full-spectrum dependently typed languages
  that try to present programmers with a consistent view of proofs and programs.
  However, these languages still have substantial usability issues: missing
@@ -258,7 +258,7 @@ cast
  Programmers in this system trade poor static errors for precise counterexamples
  that are made available at runtime.
  Additionally, automated testing can provide feedback about the correctness
- of typing wether the programmer intends to create a formal proof, or merely
+ of typing whether the programmer intends to create a formal proof, or merely
  assert a property holds.
  Finally, a runtime proof search feature will allow programmers to take
  advantage of this machinery for prototyping.
@@ -304,7 +304,7 @@ The Curry-Howard correspondence identifies functions with theorems, providing
  This connection is most pronounced in dependent typed systems that provide
  a common language to write programs about proofs and proofs about programs.
  Specifically, dependent type systems allow types to depend on terms, supporting
- an extremely powerful system of specification, computation and proof evidence.
+ an extremely powerful system of specification, computation, and proof evidence.
  
 \end_layout
 
@@ -353,7 +353,7 @@ end{spacing}
 by providing an appropriate term of that type.
  Unlike other systems of formal methods, the additional logical power does
  not require the programmer understand any additional syntax or semantics.
- From the programmer's perspective the function arrow and the implication
+ From the programmer's perspective, the function arrow and the implication
  arrow are the same.
  The proof 
 \begin_inset Formula $IsSorted$
@@ -520,7 +520,7 @@ literal "false"
  Programmers unfamiliar with dependent type theory will expect the data
  types and functions they define to have the properties they were intended
  to have.
- None of these projects make the underling equality less complicated.
+ None of these projects make the underlying equality less complicated.
  No system will be able to verify every 
 \begin_inset Quotes eld
 \end_inset
@@ -545,7 +545,7 @@ status open
 \end_layout
 
 \begin_layout Standard
-Alternatively we could assume the equalities hold and discover a concrete
+Alternatively, we could assume the equalities hold and discover a concrete
  witness of inequality as a runtime error.
  There is some evidence that specific examples like this can help clarify
  the error messages in OCaml
@@ -5007,17 +5007,17 @@ from the confluence and reflexivity of
 \uwave off
 \noun off
 \color none
- 
+ .
 \end_layout
 
 \begin_layout Subsubsection
-Typing rules
+Cast-Typing Rules
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{x:A\in H}{H\vdash x\,:\,A}var-ty
+\frac{x:A\in H}{H\vdash x\,:\,A}var-cast
 \]
 
 \end_inset
@@ -5028,7 +5028,7 @@ Typing rules
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash a:A\quad H\vdash A:\star\quad H\vdash B:\star}{H\vdash a::_{A,\ensuremath{\ell},o}B\::\:B}::-ty
+\frac{H\vdash a:A\quad H\vdash A:\star\quad H\vdash B:\star}{H\vdash a::_{A,\ensuremath{\ell},o}B\::\:B}::-cast
 \]
 
 \end_inset
@@ -5039,7 +5039,7 @@ Typing rules
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash}{H\vdash\star:\,\star}\star-ty
+\frac{\,}{H\vdash\star:\,\star}\star-cast
 \]
 
 \end_inset
@@ -5050,7 +5050,7 @@ Typing rules
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash A:\star\quad H,x:A\vdash B:\star}{H\vdash\left(x:A\right)\rightarrow B\,:\,\star}\Pi-ty
+\frac{H\vdash A:\star\quad H,x:A\vdash B:\star}{H\vdash\left(x:A\right)\rightarrow B\,:\,\star}\Pi-cast
 \]
 
 \end_inset
@@ -5061,7 +5061,7 @@ Typing rules
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H,f:\left(x:A\right)\rightarrow B,x:A\vdash b:B}{H\vdash\mathsf{fun}\,f\,x\Rightarrow b\,:\,\left(x:A\right)\rightarrow B}\Pi-\mathsf{fun}-ty
+\frac{H,f:\left(x:A\right)\rightarrow B,x:A\vdash b:B}{H\vdash\mathsf{fun}\,f\,x\Rightarrow b\,:\,\left(x:A\right)\rightarrow B}\Pi-\mathsf{fun}-cast
 \]
 
 \end_inset
@@ -5072,7 +5072,7 @@ Typing rules
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash b:\left(x:A\right)\rightarrow B\quad H\vdash a:A}{H\vdash b\,a\,:\,B\left[x\coloneqq a\right]}\Pi-app-ty
+\frac{H\vdash b:\left(x:A\right)\rightarrow B\quad H\vdash a:A}{H\vdash b\,a\,:\,B\left[x\coloneqq a\right]}\Pi-app-cast
 \]
 
 \end_inset
@@ -5083,7 +5083,7 @@ Typing rules
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\frac{H\vdash a:A\quad H\vdash A\equiv A':\star}{H\vdash a:A'}conv
+\frac{H\vdash a:A\quad H\vdash A\equiv A':\star}{H\vdash a:A'}conv-cast
 \]
 
 \end_inset

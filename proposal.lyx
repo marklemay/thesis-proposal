@@ -203,7 +203,7 @@ today
 Dependent type systems are a powerful tool to eliminate bugs from programs.
  Unlike other systems of formal methods, dependent types systems can re-use
  the syntax and methodology that functional programmers are already familiar
- with, for the construction of formal proofs.
+ with for the construction of formal proofs.
  This insight has lead to several full-spectrum dependently typed languages
  that try to present programmers with a consistent view of proofs and programs.
  However, these languages still have substantial usability issues: missing
@@ -258,7 +258,7 @@ cast
  Programmers in this system trade poor static errors for precise counterexamples
  that are made available at runtime.
  Additionally, automated testing can provide feedback about the correctness
- of typing wether the programmer intends to create a formal proof, or merely
+ of typing whether the programmer intends to create a formal proof, or merely
  assert a property holds.
  Finally, a runtime proof search feature will allow programmers to take
  advantage of this machinery for prototyping.
@@ -304,7 +304,7 @@ The Curry-Howard correspondence identifies functions with theorems, providing
  This connection is most pronounced in dependent typed systems that provide
  a common language to write programs about proofs and proofs about programs.
  Specifically, dependent type systems allow types to depend on terms, supporting
- an extremely powerful system of specification, computation and proof evidence.
+ an extremely powerful system of specification, computation, and proof evidence.
  
 \end_layout
 
@@ -353,7 +353,7 @@ end{spacing}
 by providing an appropriate term of that type.
  Unlike other systems of formal methods, the additional logical power does
  not require the programmer understand any additional syntax or semantics.
- From the programmer's perspective the function arrow and the implication
+ From the programmer's perspective, the function arrow and the implication
  arrow are the same.
  The proof 
 \begin_inset Formula $IsSorted$
@@ -520,7 +520,7 @@ literal "false"
  Programmers unfamiliar with dependent type theory will expect the data
  types and functions they define to have the properties they were intended
  to have.
- None of these projects make the underling equality less complicated.
+ None of these projects make the underlying equality less complicated.
  No system will be able to verify every 
 \begin_inset Quotes eld
 \end_inset
@@ -545,7 +545,7 @@ status open
 \end_layout
 
 \begin_layout Standard
-Alternatively we could assume the equalities hold and discover a concrete
+Alternatively, we could assume the equalities hold and discover a concrete
  witness of inequality as a runtime error.
  There is some evidence that specific examples like this can help clarify
  the error messages in OCaml
@@ -711,7 +711,7 @@ Every type is inhabited by an infinite loop.
 \end_inset
 
 , but they seem useful for mainstream functional programming.
- Additionally non-termination causes type-checking to be undecidable, though
+ Additionally, non-termination causes type-checking to be undecidable, though
  this has not caused any issues in practice, and even decidable type-checking
  in dependent type theory is computationally intractable.
  In spite of logical unsoundness, the resulting language still has type
@@ -1056,7 +1056,7 @@ literal "false"
 .
  At the time their language had several additional features not included
  in my surface language.
- Additionally my surface language uses a simpler notion of equality and
+ Additionally, my surface language uses a simpler notion of equality and
  dependent data resulting in an arguably simpler proof of type soundness.
  Later work in the Trellys Project
 \begin_inset CommandInset citation
@@ -1483,8 +1483,8 @@ status open
 \begin_layout Standard
 (Possibly untyped) terms in the surface language need to be converted into
  well-cast terms of the cast language.
- To do this I have defined an elaboration procedure, that maintains the
- information required to preserve cast checking.
+ To do this I have defined an elaboration procedure that maintains the informati
+on required to preserve cast checking.
  The elaboration procedure is inspired by bidirectional typing to track
  the locations that 
 \begin_inset Quotes eld

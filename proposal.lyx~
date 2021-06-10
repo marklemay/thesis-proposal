@@ -2072,7 +2072,7 @@ proof search
 \end_inset
 
  as their primary method of computation.
- However I am not aware of any system that combines logical programming
+ However, I am not aware of any system that combines logical programming
  with full-spectrum dependent types.
  The Twelf project
 \begin_inset Foot
@@ -2118,7 +2118,7 @@ nt at runtime, at least in the commonly searched cases.
 
 \begin_layout Standard
 Interestingly dynamic equality checking seems necessary for testing like
- this to be managable, since otherwise, definitional properties of functions
+ this to be manageable, since otherwise, definitional properties of functions
  would need to be accounted for.
  My previous attempts to test dependent specifications were overwhelmed
  by definitional considerations.
@@ -2248,8 +2248,8 @@ Status
 
 \begin_layout Standard
 The surface language has been fully implemented.
- I have proven type soundness for the full surface language (follows a similar
- structure to 
+ I have proven type soundness for the full surface language (the proof is
+ similar in structure to 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sjoberg2012irrelevance"

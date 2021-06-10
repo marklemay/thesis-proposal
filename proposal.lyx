@@ -6055,7 +6055,7 @@ This function that uniformly erases cast, location and type information
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $b\,a$
+\begin_inset Formula $|b\,a|$
 \end_inset
 
 

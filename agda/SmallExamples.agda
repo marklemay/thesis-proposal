@@ -1,5 +1,40 @@
-module SmallExamples where
+module SmallExamples where -- in Agda
 
+
+open import Data.Nat
+open import Data.Vec hiding (head)
+open import Data.Bool
+
+-- repeat true x times
+rep : (x : ℕ) -> Vec Bool x
+rep zero = []
+rep (suc x) = true ∷ rep x
+
+-- repeat true x times
+head : (x : ℕ) -> Vec Bool (1 + x) -> Bool
+head x (b ∷ y) = b
+
+exok : ℕ -> Bool
+exok x = head x (rep (x + 1))
+
+
+
+
+
+
+
+
+{-
+ex : ℕ -> Bool
+ex x = head x (rep (x + 1))
+-}
+
+
+
+
+
+
+{-
 open import Data.Nat using (ℕ; zero; suc; _+_; _*_; _^_; _∸_; _≤_; _≤?_)
 open import Data.Vec hiding (head)
 open import Data.Bool hiding (_≤_; _≤?_ )
@@ -8,18 +43,8 @@ open import Relation.Nullary.Decidable
 open import Relation.Nullary hiding (Irrelevant)
 
 
-rep : (x : ℕ) -> Vec Bool x
-rep zero = []
-rep (suc x) = true ∷ rep x
 
-head : (x : ℕ) -> Vec Bool (1 + x) -> Bool
-head x (b ∷ y) = b
 
-exok : ℕ -> Bool
-exok x = head x (rep (1 + x))
-
-ex : ℕ -> Bool
-ex x = head x (rep (x + 1))
 
 module F where
   private
@@ -98,3 +123,4 @@ assoc-++ : {A : Set} {x y z : ℕ} -> (vx : Vec A  x) -> (vy : Vec A y) -> (vz :
 assoc-++ [] vy vz = refl
 assoc-++ {_} {suc x} {y} {z} (xx ∷ vx) vy vz = mycong (λ bod → xx ∷ bod) (assoc-+ x y z) (assoc-++ vx vy vz)
 -- sould be noted that heterogenous equality is not particularly easy to use.  took me about an hour to come up with that proof
+-}

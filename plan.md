@@ -19,3 +19,7 @@
   * Produce some larger examples
   * Clean up thesis document
   * Defend
+
+# TODO
+* department paperwork
+* join one of the writing groups/workshops?
